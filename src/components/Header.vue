@@ -92,10 +92,7 @@ let lastScrollY = 0
 
 const openServiceForm = inject('openServiceForm')
 
-// Pages with dark hero backgrounds
-const isDarkPage = computed(() => {
-  return ['/about', '/contact', '/products'].includes(route.path) && !isScrolled.value
-})
+const isDarkPage = computed(() => false)
 
 const navLinks = [
   { name: 'Home', path: '/', route: true },
@@ -222,12 +219,14 @@ onUnmounted(() => {
 
 .header-inner {
   padding: 12px 0;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.05);
 }
 
 .header.scrolled .header-inner {
-  background: rgba(250, 249, 247, 0.98);
+  background: rgba(255, 255, 255, 0.99);
   backdrop-filter: blur(20px);
   padding: 8px 0;
   box-shadow: 0 2px 20px rgba(0,0,0,0.08);
