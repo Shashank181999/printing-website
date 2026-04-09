@@ -1,133 +1,212 @@
 <template>
   <div class="products-page">
-    <!-- Hero Banner -->
-    <section class="products-hero">
-      <div class="products-hero-bg"></div>
+    <!-- Breadcrumb Bar -->
+    <div class="breadcrumb-bar">
       <div class="container">
-        <div class="products-hero-content">
-          <span class="section-label">Our Products</span>
-          <h1 class="products-hero-title">
-            Premium Print<br><em>Products</em>
-          </h1>
-          <p class="products-hero-desc">
-            Explore our extensive range of 85+ printing and branding products. From business cards to outdoor signage, we deliver exceptional quality for every need.
-          </p>
-        </div>
+        <nav class="breadcrumb">
+          <router-link to="/" class="breadcrumb-link">Home</router-link>
+          <span class="breadcrumb-sep">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+          </span>
+          <span class="breadcrumb-current">Products</span>
+        </nav>
+        <p class="breadcrumb-results">{{ filteredProducts.length }} products available</p>
       </div>
-      <div class="products-hero-curve">
-        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
-          <path d="M0,60 C320,120 720,120 1440,60 L1440,120 L0,120 Z" fill="var(--bg-primary)"/>
-        </svg>
-      </div>
-    </section>
+    </div>
 
-    <!-- Filter Bar -->
-    <section class="filter-section">
-      <div class="container">
-        <div class="filter-bar">
-          <button
-            v-for="cat in categories"
-            :key="cat.id"
-            class="filter-btn"
-            :class="{ active: activeCategory === cat.id }"
-            @click="activeCategory = cat.id"
-          >
-            <span class="filter-icon">{{ cat.icon }}</span>
-            {{ cat.name }}
-            <span class="filter-count">{{ getCategoryCount(cat.id) }}</span>
-          </button>
-        </div>
-        <div class="search-bar">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="M21 21l-4.35-4.35"/>
-          </svg>
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Search products..."
-            class="search-input"
-          />
-        </div>
-      </div>
-    </section>
+    <!-- Main Layout -->
+    <div class="container">
+      <div class="products-layout">
 
-    <!-- Products Grid -->
-    <section class="products-grid-section">
-      <div class="container">
-        <div class="products-count">
-          Showing <strong>{{ visibleProducts.length }}</strong> of <strong>{{ filteredProducts.length }}</strong> products
-        </div>
-        <div class="products-grid">
-          <div
-            v-for="(product, index) in visibleProducts"
-            :key="product.slug"
-            class="product-card"
-            :style="{ '--delay': (index % 12) * 0.05 + 's' }"
-          >
-            <div class="product-image-wrapper">
-              <img
-                :src="'/products/' + product.slug + '.webp'"
-                :alt="product.name"
-                class="product-image"
-                loading="lazy"
-                decoding="async"
-                width="600"
-                height="600"
-              />
-              <div class="product-overlay">
-                <button class="btn-quote-product" @click="openServiceForm">
-                  Get Quote
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                  </svg>
-                </button>
-              </div>
-              <span class="product-badge">{{ product.category }}</span>
-            </div>
-            <div class="product-info">
-              <h3 class="product-name">{{ product.name }}</h3>
-              <p class="product-desc">{{ product.description }}</p>
-            </div>
+        <!-- Mobile Search -->
+        <div class="mobile-search">
+          <div class="search-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"/>
+              <path d="M21 21l-4.35-4.35"/>
+            </svg>
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search products..."
+              class="search-input"
+            />
+            <button v-if="searchQuery" class="search-clear" @click="searchQuery = ''">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
           </div>
         </div>
 
-        <!-- Load More -->
-        <div v-if="hasMore" class="load-more-wrap">
-          <button class="btn-load-more" @click="loadMore">
-            Load More Products
-            <span class="load-more-count">{{ filteredProducts.length - visibleCount }} remaining</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 5v14M5 12l7 7 7-7"/>
-            </svg>
+        <!-- Mobile Horizontal Filter Bar -->
+        <div class="mobile-filter-bar">
+          <button
+            v-for="cat in categories"
+            :key="'m-' + cat.id"
+            class="mobile-filter-chip"
+            :class="{ active: activeCategory === cat.id }"
+            @click="activeCategory = cat.id"
+          >
+            {{ cat.name }}
+            <span class="chip-count">{{ getCategoryCount(cat.id) }}</span>
           </button>
         </div>
 
-        <div v-if="filteredProducts.length === 0" class="no-results">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="11" cy="11" r="8"/>
-            <path d="M21 21l-4.35-4.35"/>
-          </svg>
-          <h3>No products found</h3>
-          <p>Try adjusting your search or filter criteria</p>
-        </div>
-      </div>
-    </section>
+        <!-- Desktop Sidebar -->
+        <aside class="sidebar">
+          <div class="sidebar-inner">
+            <!-- Search -->
+            <div class="sidebar-search">
+              <div class="search-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/>
+                  <path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input
+                  v-model="searchQuery"
+                  type="text"
+                  placeholder="Search products..."
+                  class="search-input"
+                />
+                <button v-if="searchQuery" class="search-clear" @click="searchQuery = ''">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+              </div>
+            </div>
 
-    <!-- CTA Section -->
-    <section class="products-cta">
-      <div class="container">
-        <div class="products-cta-content">
-          <h2>Can't Find What You're Looking For?</h2>
-          <p>We offer custom printing solutions tailored to your specific requirements. Get in touch with our team for a personalized quote.</p>
-          <div class="products-cta-actions">
-            <button class="btn-primary" @click="openServiceForm">
-              Request Custom Quote
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
-              </svg>
+            <!-- Categories -->
+            <div class="sidebar-section">
+              <div class="sidebar-section-header">
+                <h3 class="sidebar-title">Categories</h3>
+                <button
+                  v-if="activeCategory !== 'all' || searchQuery"
+                  class="clear-filters"
+                  @click="clearFilters"
+                >
+                  Clear Filters
+                </button>
+              </div>
+              <ul class="category-list">
+                <li
+                  v-for="cat in categories"
+                  :key="cat.id"
+                  class="category-item"
+                  :class="{ active: activeCategory === cat.id }"
+                  @click="activeCategory = cat.id"
+                >
+                  <span class="category-icon">{{ cat.icon }}</span>
+                  <span class="category-name">{{ cat.name }}</span>
+                  <span class="category-count">{{ getCategoryCount(cat.id) }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Product Grid Area -->
+        <main class="products-main">
+          <!-- Top Toolbar -->
+          <div class="grid-toolbar">
+            <div class="toolbar-left">
+              <span class="showing-count">
+                Showing <strong>{{ visibleProducts.length }}</strong> of <strong>{{ filteredProducts.length }}</strong> products
+              </span>
+            </div>
+            <div class="toolbar-right">
+              <div class="view-toggle">
+                <button class="view-btn active" title="Grid View">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+                  </svg>
+                </button>
+                <button class="view-btn" title="List View">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>
+                  </svg>
+                </button>
+              </div>
+              <div class="sort-dropdown">
+                <select class="sort-select">
+                  <option>Default</option>
+                  <option>Name: A-Z</option>
+                  <option>Name: Z-A</option>
+                  <option>Category</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Products Grid -->
+          <div v-if="filteredProducts.length > 0" class="products-grid">
+            <div
+              v-for="(product, index) in visibleProducts"
+              :key="product.slug"
+              class="product-card"
+              :style="{ '--delay': (index % 12) * 0.04 + 's' }"
+            >
+              <div class="product-image-area">
+                <img
+                  :src="'/products/' + product.slug + '.webp'"
+                  :alt="product.name"
+                  class="product-image"
+                  loading="lazy"
+                  decoding="async"
+                  width="600"
+                  height="600"
+                />
+              </div>
+              <div class="product-body">
+                <span class="product-category-tag">{{ product.category }}</span>
+                <h3 class="product-name">{{ product.name }}</h3>
+                <p class="product-desc">{{ product.description }}</p>
+                <button class="btn-get-quote" @click="openServiceForm">
+                  Get Quote
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Load More -->
+          <div v-if="hasMore" class="load-more-wrap">
+            <button class="btn-load-more" @click="loadMore">
+              Load More Products
+              <span class="load-more-remaining">{{ filteredProducts.length - visibleCount }} remaining</span>
             </button>
-            <a href="https://wa.me/971567268735" target="_blank" class="btn-secondary">
+          </div>
+
+          <!-- Empty State -->
+          <div v-if="filteredProducts.length === 0" class="empty-state">
+            <div class="empty-icon">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="M21 21l-4.35-4.35"/>
+                <path d="M8 11h6"/>
+              </svg>
+            </div>
+            <h3 class="empty-title">No products found</h3>
+            <p class="empty-desc">We couldn't find any products matching your criteria. Try adjusting your search or filters.</p>
+            <button class="btn-clear-empty" @click="clearFilters">Clear All Filters</button>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta">
+      <div class="container">
+        <div class="cta-inner">
+          <div class="cta-text">
+            <h2>Can't find what you need?</h2>
+            <p>Al Falah Middle East offers custom printing solutions tailored to your exact requirements.</p>
+          </div>
+          <div class="cta-actions">
+            <button class="btn-cta-primary" @click="openServiceForm">
+              Request Custom Quote
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <a href="https://wa.me/971567268735" target="_blank" class="btn-cta-whatsapp">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
               </svg>
@@ -149,10 +228,14 @@ const searchQuery = ref('')
 const ITEMS_PER_PAGE = 12
 const visibleCount = ref(ITEMS_PER_PAGE)
 
-// Reset visible count when filter or search changes
 watch([activeCategory, searchQuery], () => {
   visibleCount.value = ITEMS_PER_PAGE
 })
+
+const clearFilters = () => {
+  activeCategory.value = 'all'
+  searchQuery.value = ''
+}
 
 const categories = [
   { id: 'all', name: 'All Products', icon: '📦' },
@@ -308,178 +391,133 @@ const loadMore = () => {
 </script>
 
 <style scoped>
-/* Hero */
-.products-hero {
-  position: relative;
-  padding: 200px 0 140px;
-  overflow: hidden;
-  min-height: 420px;
-}
-
-.products-hero-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #0d7377 0%, #0a5c5f 50%, #073e40 100%);
-}
-
-.products-hero-bg::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  right: -20%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
-  border-radius: 50%;
-}
-
-.products-hero-bg::after {
-  content: '';
-  position: absolute;
-  bottom: -30%;
-  left: -10%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
-  border-radius: 50%;
-}
-
-.products-hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 700px;
-}
-
-.products-hero .section-label {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.products-hero-title {
-  font-family: var(--font-serif);
-  font-size: clamp(42px, 7vw, 72px);
-  font-weight: 300;
-  color: white;
-  line-height: 1.1;
-  margin-bottom: 24px;
-  text-shadow: 0 2px 20px rgba(0,0,0,0.15);
-}
-
-.products-hero-title em {
-  font-style: normal;
-  font-weight: 200;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.products-hero-desc {
-  font-size: 18px;
-  color: rgba(255, 255, 255, 0.8);
-  line-height: 1.7;
-  max-width: 520px;
-}
-
-.products-hero-curve {
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 100%;
-}
-
-.products-hero-curve svg {
-  display: block;
-  width: 100%;
-  height: 80px;
-}
-
-/* Filter Section */
-.filter-section {
-  padding: 40px 0 0;
-  position: sticky;
-  top: 70px;
-  z-index: 50;
+/* ===== Page Layout ===== */
+.products-page {
   background: var(--bg-primary);
-  border-bottom: 1px solid var(--border-light);
+  min-height: 100vh;
 }
 
-.filter-bar {
-  display: flex;
-  gap: 8px;
-  overflow-x: auto;
-  padding-bottom: 16px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+.container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.filter-bar::-webkit-scrollbar {
-  display: none;
-}
-
-.filter-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+/* ===== Breadcrumb Bar ===== */
+.breadcrumb-bar {
   background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
-  border-radius: 100px;
-  font-family: var(--font-sans);
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.25s ease;
+  border-bottom: 1px solid #e8e7e3;
+  padding: 16px 0;
 }
 
-.filter-btn:hover {
-  border-color: var(--accent-teal);
+.breadcrumb-bar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.breadcrumb-link {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.breadcrumb-link:hover {
   color: var(--accent-teal);
 }
 
-.filter-btn.active {
-  background: var(--accent-teal);
-  border-color: var(--accent-teal);
-  color: white;
-}
-
-.filter-icon {
-  font-size: 14px;
-}
-
-.filter-count {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 10px;
-  background: rgba(0,0,0,0.06);
-}
-
-.filter-btn.active .filter-count {
-  background: rgba(255,255,255,0.25);
-}
-
-.search-bar {
+.breadcrumb-sep {
+  color: #ccc;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  margin-top: 8px;
-  margin-bottom: 16px;
+}
+
+.breadcrumb-current {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.breadcrumb-results {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* ===== Main Layout (sidebar + grid) ===== */
+.products-layout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 32px;
+  padding: 32px 0 0;
+  align-items: start;
+}
+
+/* ===== Mobile Search (hidden on desktop) ===== */
+.mobile-search {
+  display: none;
+}
+
+/* ===== Mobile Filter Bar (hidden on desktop) ===== */
+.mobile-filter-bar {
+  display: none;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  grid-column: 1;
+  grid-row: 1 / 3;
+}
+
+.sidebar-inner {
+  position: sticky;
+  top: 90px;
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+}
+
+.sidebar-inner::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-inner::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 4px;
+}
+
+.sidebar-search {
+  margin-bottom: 24px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
   background: var(--bg-secondary);
-  border: 1px solid var(--border-light);
-  border-radius: 10px;
-  max-width: 360px;
-  transition: border-color 0.25s ease;
+  border: 1px solid #e8e7e3;
+  border-radius: 8px;
+  transition: border-color 0.2s;
 }
 
-.search-bar:focus-within {
+.search-box:focus-within {
   border-color: var(--accent-teal);
+  background: white;
 }
 
-.search-bar svg {
-  color: var(--text-light);
+.search-box svg {
+  color: var(--text-secondary);
   flex-shrink: 0;
 }
 
@@ -488,51 +526,234 @@ const loadMore = () => {
   border: none;
   background: none;
   font-size: 14px;
+  font-family: var(--font-sans);
   color: var(--text-primary);
   outline: none;
 }
 
 .search-input::placeholder {
-  color: var(--text-light);
+  color: #aaa;
 }
 
-/* Products Grid */
-.products-grid-section {
-  padding: 40px 0 80px;
+.search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 
-.products-count {
+.search-clear:hover {
+  color: var(--text-primary);
+}
+
+/* Sidebar Categories */
+.sidebar-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sidebar-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.clear-filters {
+  background: none;
+  border: none;
+  font-size: 12px;
+  font-family: var(--font-sans);
+  color: var(--accent-teal);
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0;
+}
+
+.clear-filters:hover {
+  text-decoration: underline;
+}
+
+.category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
   font-size: 14px;
-  color: var(--text-light);
-  margin-bottom: 24px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
 }
 
-.products-count strong {
+.category-item:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.category-item.active {
+  background: rgba(74, 140, 63, 0.08);
+  color: var(--accent-teal);
+  font-weight: 600;
+}
+
+.category-icon {
+  font-size: 16px;
+  width: 22px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.category-name {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.category-count {
+  font-size: 11px;
+  font-weight: 600;
+  color: #aaa;
+  background: var(--bg-secondary);
+  padding: 2px 8px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.category-item.active .category-count {
+  background: rgba(74, 140, 63, 0.15);
+  color: var(--accent-teal);
+}
+
+/* ===== Product Grid Area ===== */
+.products-main {
+  grid-column: 2;
+  min-width: 0;
+  padding-bottom: 60px;
+}
+
+/* Grid Toolbar */
+.grid-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  margin-bottom: 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.toolbar-left {
+  flex-shrink: 0;
+}
+
+.showing-count {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.showing-count strong {
   color: var(--text-primary);
   font-weight: 600;
 }
 
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.view-toggle {
+  display: flex;
+  border: 1px solid #e8e7e3;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.view-btn {
+  background: white;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  transition: all 0.15s;
+}
+
+.view-btn + .view-btn {
+  border-left: 1px solid #e8e7e3;
+}
+
+.view-btn.active {
+  background: var(--accent-teal);
+  color: white;
+}
+
+.view-btn:hover:not(.active) {
+  background: var(--bg-secondary);
+}
+
+.sort-select {
+  padding: 6px 28px 6px 12px;
+  border: 1px solid #e8e7e3;
+  border-radius: 6px;
+  font-size: 13px;
+  font-family: var(--font-sans);
+  color: var(--text-secondary);
+  background: white;
+  cursor: pointer;
+  appearance: auto;
+  outline: none;
+}
+
+.sort-select:focus {
+  border-color: var(--accent-teal);
+}
+
+/* ===== Products Grid ===== */
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 .product-card {
   background: white;
-  border-radius: 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
   overflow: hidden;
-  border: 1px solid var(--border-light);
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-  animation: cardFadeIn 0.5s ease forwards;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+  animation: cardAppear 0.4s ease forwards;
   animation-delay: var(--delay);
   opacity: 0;
+  display: flex;
+  flex-direction: column;
 }
 
-@keyframes cardFadeIn {
+@keyframes cardAppear {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -542,51 +763,78 @@ const loadMore = () => {
 
 .product-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
-  border-color: rgba(13, 115, 119, 0.15);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
+  border-color: rgba(74, 140, 63, 0.2);
 }
 
-.product-image-wrapper {
-  position: relative;
+/* Product Image */
+.product-image-area {
   aspect-ratio: 1;
+  background: #f2f2f2;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
-  background: #f8f7f5;
 }
 
 .product-image {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 16px;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.4s ease;
 }
 
 .product-card:hover .product-image {
-  transform: scale(1.05);
+  transform: scale(1.06);
 }
 
-.product-overlay {
-  position: absolute;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
+/* Product Body */
+.product-body {
+  padding: 16px 18px 18px;
   display: flex;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(8px);
-  transition: all 0.3s ease;
+  flex-direction: column;
+  flex: 1;
 }
 
-.product-card:hover .product-overlay {
-  opacity: 1;
-  transform: translateY(0);
+.product-category-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-teal);
+  margin-bottom: 8px;
 }
 
-.btn-quote-product {
-  display: inline-flex;
+.product-name {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin: 0 0 6px;
+}
+
+.product-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin: 0 0 16px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.btn-get-quote {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 9px 20px;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 11px 16px;
   background: var(--accent-teal);
   color: white;
   border: none;
@@ -595,178 +843,326 @@ const loadMore = () => {
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(13, 115, 119, 0.35);
+  transition: background 0.2s, transform 0.15s;
+  margin-top: auto;
 }
 
-.btn-quote-product:hover {
-  background: var(--bg-teal-dark);
-  box-shadow: 0 6px 18px rgba(13, 115, 119, 0.45);
+.btn-get-quote:hover {
+  background: #0b6265;
+  transform: translateY(-1px);
 }
 
-.product-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 4px 10px;
-  background: rgba(255,255,255,0.95);
-  border-radius: 6px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--accent-teal);
-  backdrop-filter: blur(8px);
+.btn-get-quote:active {
+  transform: translateY(0);
 }
 
-.product-info {
-  padding: 16px 18px 20px;
-}
-
-.product-name {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-  line-height: 1.3;
-}
-
-.product-desc {
-  font-size: 13px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* Load More */
+/* ===== Load More ===== */
 .load-more-wrap {
   display: flex;
   justify-content: center;
-  margin-top: 48px;
+  margin-top: 40px;
 }
 
 .btn-load-more {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 36px;
+  gap: 12px;
+  padding: 14px 36px;
   background: white;
   color: var(--text-primary);
-  border: 2px solid var(--border-medium);
+  border: 2px solid #ddd;
   border-radius: 50px;
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.25s ease;
 }
 
 .btn-load-more:hover {
   border-color: var(--accent-teal);
   color: var(--accent-teal);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(13, 115, 119, 0.15);
+  box-shadow: 0 6px 20px rgba(74, 140, 63, 0.12);
 }
 
-.load-more-count {
+.load-more-remaining {
   font-size: 12px;
   font-weight: 500;
-  color: var(--text-light);
-  padding: 2px 10px;
+  color: #999;
+  padding: 3px 12px;
   background: var(--bg-secondary);
   border-radius: 20px;
 }
 
-/* No Results */
-.no-results {
+/* ===== Empty State ===== */
+.empty-state {
   text-align: center;
-  padding: 80px 0;
-  color: var(--text-light);
+  padding: 80px 24px;
 }
 
-.no-results svg {
-  margin-bottom: 16px;
-  opacity: 0.4;
+.empty-icon {
+  color: #ccc;
+  margin-bottom: 20px;
 }
 
-.no-results h3 {
+.empty-title {
   font-size: 20px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 8px;
 }
 
-.no-results p {
+.empty-desc {
   font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0 0 24px;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
-/* CTA Section */
-.products-cta {
-  padding: 80px 0;
+.btn-clear-empty {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 24px;
+  background: var(--accent-teal);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-clear-empty:hover {
+  background: #0b6265;
+}
+
+/* ===== Bottom CTA ===== */
+.bottom-cta {
   background: var(--bg-secondary);
+  padding: 64px 0;
+  border-top: 1px solid #e8e7e3;
 }
 
-.products-cta-content {
-  text-align: center;
-  max-width: 600px;
+.cta-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
-.products-cta-content h2 {
-  font-family: var(--font-serif);
-  font-size: clamp(24px, 4vw, 36px);
-  font-weight: 300;
+.cta-text h2 {
+  font-family: var(--font-sans);
+  font-size: 24px;
+  font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 16px;
+  margin: 0 0 8px;
 }
 
-.products-cta-content p {
-  font-size: 16px;
+.cta-text p {
+  font-size: 15px;
   color: var(--text-secondary);
-  line-height: 1.7;
-  margin-bottom: 32px;
+  margin: 0;
+  line-height: 1.6;
 }
 
-.products-cta-actions {
+.cta-actions {
   display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
+  gap: 12px;
+  flex-shrink: 0;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
+.btn-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--accent-teal);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.btn-cta-primary:hover {
+  background: #0b6265;
+}
+
+.btn-cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: white;
+  color: var(--text-primary);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.btn-cta-whatsapp:hover {
+  border-color: #25d366;
+  color: #25d366;
+}
+
+/* ===== Responsive: Tablet (1024px and below) ===== */
+@media (max-width: 1024px) {
+  .products-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  /* Show mobile search and filters */
+  .mobile-search {
+    display: block;
+    padding: 16px 0 0;
+  }
+
+  .mobile-search .search-box {
+    width: 100%;
+  }
+
+  .mobile-filter-bar {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 16px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    position: sticky;
+    top: 70px;
+    z-index: 40;
+    background: var(--bg-primary);
+    border-bottom: 1px solid #eee;
+    margin: 0 -24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .mobile-filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: white;
+    border: 1px solid #e8e7e3;
+    border-radius: 100px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .mobile-filter-chip:hover {
+    border-color: var(--accent-teal);
+    color: var(--accent-teal);
+  }
+
+  .mobile-filter-chip.active {
+    background: var(--accent-teal);
+    border-color: var(--accent-teal);
+    color: white;
+  }
+
+  .chip-count {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .mobile-filter-chip.active .chip-count {
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .products-main {
+    padding-top: 8px;
+  }
+
   .products-grid {
     grid-template-columns: repeat(3, 1fr);
   }
-}
 
-@media (max-width: 1024px) {
-  .products-hero {
-    padding: 150px 0 100px;
+  .cta-inner {
+    flex-direction: column;
+    text-align: center;
   }
 
-  .filter-section {
-    top: 60px;
+  .cta-actions {
+    justify-content: center;
   }
 }
 
+/* ===== Responsive: Mobile (768px and below) ===== */
 @media (max-width: 768px) {
-  .products-hero {
-    padding: 130px 0 80px;
+  .container {
+    padding: 0 16px;
+  }
+
+  .breadcrumb-bar .container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .breadcrumb-results {
+    font-size: 12px;
+  }
+
+  .mobile-filter-bar {
+    top: 60px;
+    margin: 0 -16px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    gap: 14px;
   }
 
-  .product-info {
-    padding: 12px 14px 16px;
+  .grid-toolbar {
+    padding: 10px 12px;
+  }
+
+  .toolbar-right {
+    display: none;
+  }
+
+  .product-body {
+    padding: 12px 14px 14px;
   }
 
   .product-name {
@@ -775,42 +1171,64 @@ const loadMore = () => {
 
   .product-desc {
     font-size: 12px;
-    -webkit-line-clamp: 2;
+    margin-bottom: 12px;
   }
 
-  .filter-section {
-    top: 56px;
+  .btn-get-quote {
+    padding: 9px 12px;
+    font-size: 12px;
   }
 
-  .search-bar {
-    max-width: 100%;
-  }
-
-  .products-cta-actions {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-@media (max-width: 480px) {
-  .products-hero {
-    padding: 120px 0 60px;
-  }
-
-  .products-hero-desc {
-    font-size: 15px;
-  }
-
-  .product-image {
+  .product-image-area {
     padding: 12px;
   }
 
-  .product-badge {
-    font-size: 9px;
-    padding: 3px 8px;
+  .cta-actions {
+    flex-direction: column;
+    width: 100%;
   }
 
-  .filter-btn {
+  .btn-cta-primary,
+  .btn-cta-whatsapp {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* ===== Responsive: Small Mobile (480px and below) ===== */
+@media (max-width: 480px) {
+  .products-grid {
+    gap: 10px;
+  }
+
+  .product-image-area {
+    padding: 10px;
+  }
+
+  .product-body {
+    padding: 10px 12px 12px;
+  }
+
+  .product-name {
+    font-size: 13px;
+  }
+
+  .product-desc {
+    font-size: 11px;
+    -webkit-line-clamp: 2;
+  }
+
+  .product-category-tag {
+    font-size: 9px;
+  }
+
+  .btn-get-quote {
+    padding: 8px 10px;
+    font-size: 11px;
+    border-radius: 6px;
+  }
+
+  .mobile-filter-chip {
     font-size: 12px;
     padding: 6px 12px;
   }

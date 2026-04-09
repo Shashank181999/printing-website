@@ -295,7 +295,7 @@ onUnmounted(() => {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--accent-teal);
-  box-shadow: 0 0 0 3px rgba(13, 115, 119, 0.08);
+  box-shadow: 0 0 0 3px rgba(74, 140, 63, 0.08);
 }
 
 .form-group input::placeholder,

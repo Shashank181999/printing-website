@@ -210,13 +210,13 @@ const sendQuickReply = (reply) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 20px rgba(13, 115, 119, 0.35);
+  box-shadow: 0 4px 20px rgba(74, 140, 63, 0.35);
   transition: all 0.3s ease;
 }
 
 .chat-toggle:hover {
   transform: scale(1.08);
-  box-shadow: 0 6px 28px rgba(13, 115, 119, 0.45);
+  box-shadow: 0 6px 28px rgba(74, 140, 63, 0.45);
 }
 
 .chat-toggle.active {

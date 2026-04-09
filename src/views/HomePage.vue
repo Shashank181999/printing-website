@@ -498,7 +498,7 @@ onUnmounted(() => {
 }
 
 .search-btn:hover {
-  background: var(--bg-teal-dark, #0a5c5f);
+  background: var(--bg-teal-dark);
 }
 
 /* Hero Actions */
@@ -526,7 +526,7 @@ onUnmounted(() => {
 }
 
 .btn-primary:hover {
-  background: var(--bg-teal-dark, #0a5c5f);
+  background: var(--bg-teal-dark);
   transform: translateY(-1px);
 }
 
@@ -597,7 +597,7 @@ onUnmounted(() => {
 
 .category-chip:hover .category-chip-img {
   border-color: var(--accent-teal);
-  box-shadow: 0 4px 16px rgba(13, 115, 119, 0.15);
+  box-shadow: 0 4px 16px rgba(74, 140, 63, 0.15);
 }
 
 .category-chip-img img {
@@ -731,7 +731,7 @@ onUnmounted(() => {
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--accent-teal);
-  background: rgba(13, 115, 119, 0.08);
+  background: rgba(74, 140, 63, 0.08);
   padding: 3px 10px;
   border-radius: 20px;
   margin-bottom: 8px;
@@ -765,7 +765,7 @@ onUnmounted(() => {
 }
 
 .btn-quote:hover {
-  background: var(--bg-teal-dark, #0a5c5f);
+  background: var(--bg-teal-dark);
 }
 
 /* ========== 4. Category Banners ========== */
@@ -875,7 +875,7 @@ onUnmounted(() => {
   width: 64px;
   height: 64px;
   border-radius: 16px;
-  background: rgba(13, 115, 119, 0.08);
+  background: rgba(74, 140, 63, 0.08);
   color: var(--accent-teal);
   margin-bottom: 16px;
 }

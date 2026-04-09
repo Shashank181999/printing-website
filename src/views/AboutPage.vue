@@ -1,215 +1,120 @@
 <template>
   <div class="about-page">
-    <!-- Hero Section - Dark with Image -->
-    <section class="about-hero">
-      <div class="hero-bg">
-        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80" alt="Printing Press" class="hero-bg-img" />
-        <div class="hero-overlay"></div>
-      </div>
-      <div class="hero-content">
-        <span class="hero-label">— Established 1974 —</span>
-        <h1 class="hero-title">
-          The Soul of the<br>
-          <em>Printed Word.</em>
-        </h1>
-        <div class="hero-scroll">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 5v14M19 12l-7 7-7-7"/>
-          </svg>
-        </div>
-      </div>
-    </section>
 
-    <!-- Chronicle of Craft Section -->
-    <section class="chronicle-section">
-      <div class="container">
-        <div class="chronicle-header">
-          <span class="section-label">Our Journey</span>
-          <h2 class="chronicle-title">Chronicle of Craft</h2>
-        </div>
-
-        <!-- Timeline Items -->
-        <div class="timeline">
-          <!-- Item 1 - Text Left, Image Right -->
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <h3 class="timeline-heading">The Foundation</h3>
-              <p class="timeline-text">
-                Al Falah opens its first atelier in Dubai, dedicated to the art of traditional letterpress printing. A single Heidelberg Windmill and a commitment to perfection.
-              </p>
-              <span class="timeline-year">1974</span>
-            </div>
-            <div class="timeline-image">
-              <img src="https://images.unsplash.com/photo-1455894127589-22f75500213a?w=600&q=85" alt="The Foundation" />
-            </div>
-          </div>
-
-          <!-- Item 2 - Image Left, Text Right -->
-          <div class="timeline-item timeline-item-reverse">
-            <div class="timeline-content">
-              <h3 class="timeline-heading">The Digital Era</h3>
-              <p class="timeline-text">
-                Embracing the proprietary "Perfect Print" digital process, revolutionizing luxury stationery while preserving our heritage craftsmanship.
-              </p>
-              <span class="timeline-year">1998</span>
-            </div>
-            <div class="timeline-image">
-              <img src="https://images.unsplash.com/photo-1562408590-e32931084e23?w=600&q=80" alt="Digital Era" />
-            </div>
-          </div>
-
-          <!-- Item 3 - Text Left, Image Right -->
-          <div class="timeline-item">
-            <div class="timeline-content">
-              <h3 class="timeline-heading">Digital Integration</h3>
-              <p class="timeline-text">
-                Merging centuries-old techniques with cutting-edge precision, creating laser etching for an iconic finish that defines modern excellence.
-              </p>
-              <span class="timeline-year">2015</span>
-            </div>
-            <div class="timeline-image">
-              <img src="https://images.unsplash.com/photo-1581078426770-6d336e5de7bf?w=600&q=80" alt="Digital Integration" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- The Master's Workshop Section -->
-    <section class="workshop-section">
-      <div class="workshop-curve">
-        <svg viewBox="0 0 1440 100" preserveAspectRatio="none">
-          <path d="M0,100 C480,0 960,0 1440,100 L1440,0 L0,0 Z" fill="var(--bg-primary)"/>
-        </svg>
-      </div>
-      <div class="container">
-        <div class="workshop-content">
-          <span class="workshop-label">◆ The Pressroom ◆</span>
-          <h2 class="workshop-title">The Master's Workshop</h2>
-          <p class="workshop-desc">
-            Every pull of the lever is a conversation between history and the present. We don't just print; we impress.
+    <!-- Section 1: Hero - Split Layout -->
+    <section class="hero-split">
+      <div class="hero-container">
+        <div class="hero-text">
+          <span class="hero-label">About Al Falah</span>
+          <h1 class="hero-heading">50 Years of<br>Printing Excellence</h1>
+          <p class="hero-description">
+            Since 1974, Al Falah Middle East has been at the forefront of premium printing
+            and branding solutions in Dubai. From humble beginnings with a single press to
+            becoming the region's most trusted name in print, our journey has been defined
+            by an unwavering commitment to quality and innovation.
           </p>
         </div>
-        <div class="workshop-image">
-          <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1200&q=80" alt="Workshop" />
+        <div class="hero-image-wrapper">
+          <img
+            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=85"
+            alt="Al Falah printing press workshop"
+            class="hero-image"
+          />
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div v-for="stat in stats" :key="stat.label" class="stat-item">
+          <span class="stat-number">{{ stat.number }}</span>
+          <span class="stat-label">{{ stat.label }}</span>
         </div>
       </div>
     </section>
 
-    <!-- Materials Section - Ink & Paper -->
-    <section class="materials-section">
-      <div class="container">
-        <div class="materials-grid">
-          <!-- Ink Card -->
-          <div class="material-card">
-            <div class="material-image">
-              <img src="https://images.unsplash.com/photo-1598301257982-0cf014dabbcd?w=600&q=85" alt="Printing Ink" />
-            </div>
-            <div class="material-content">
-              <h3 class="material-title">Ink</h3>
-              <p class="material-desc">
-                Our signature pigments are custom-blended for intensity, longevity and an archaic tactile beauty that's felt in every impression.
-              </p>
-              <ul class="material-features">
-                <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                  Archival-Quality Pigment
-                </li>
-                <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                  100-Year UV Stability
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Paper Card -->
-          <div class="material-card">
-            <div class="material-image">
-              <img src="https://images.unsplash.com/photo-1533628635777-112b2239b1c7?w=600&q=85" alt="Premium Paper" />
-            </div>
-            <div class="material-content">
-              <h3 class="material-title">Paper</h3>
-              <p class="material-desc">
-                Sourced from the best mills scattered across Europe, our 400gsm stock offers a tactile luxury that is rare in this digital age.
-              </p>
-              <ul class="material-features">
-                <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                  400GSM Cotton Rag
-                </li>
-                <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <polyline points="20 6 9 17 4 12"/>
-                  </svg>
-                  Premium Matte Vellum
-                </li>
-              </ul>
+    <!-- Section 2: Our Story - Horizontal Timeline -->
+    <section class="timeline-section">
+      <div class="section-container">
+        <span class="section-label">Our Story</span>
+        <h2 class="section-heading">Milestones That Shaped Us</h2>
+        <div class="timeline">
+          <div class="timeline-line"></div>
+          <div class="timeline-items">
+            <div v-for="(milestone, index) in milestones" :key="index" class="milestone">
+              <div class="milestone-dot"></div>
+              <div class="milestone-content">
+                <span class="milestone-year">{{ milestone.year }}</span>
+                <h3 class="milestone-title">{{ milestone.title }}</h3>
+                <p class="milestone-desc">{{ milestone.description }}</p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Quote Section -->
-    <section class="quote-section">
-      <div class="container">
-        <div class="quote-content">
-          <div class="quote-icon">"</div>
-          <blockquote class="quote-text">
-            In an age of ephemeral digital scrolls, we craft objects that command a physical presence. We don't just print messages, we give them weight and permanence.
-          </blockquote>
-          <div class="quote-author">
-            <span class="author-name">Mohammed Al Falah</span>
-            <span class="author-title">Founder & Master Printer</span>
+    <!-- Section 3: What Sets Us Apart - Icon Grid -->
+    <section class="features-section">
+      <div class="section-container">
+        <span class="section-label">What Sets Us Apart</span>
+        <h2 class="section-heading">Why Clients Choose Al Falah</h2>
+        <div class="features-grid">
+          <div v-for="(feature, index) in features" :key="index" class="feature-card">
+            <div class="feature-icon" v-html="feature.icon"></div>
+            <h3 class="feature-title">{{ feature.title }}</h3>
+            <p class="feature-desc">{{ feature.description }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Values Section -->
-    <section class="values-section">
-      <div class="container">
-        <div class="values-header">
-          <span class="section-label">Our Philosophy</span>
-          <h2 class="section-title">What <em>Drives</em> Us</h2>
-        </div>
-        <div class="values-grid">
-          <div v-for="(value, index) in values" :key="index" class="value-card">
-            <span class="value-number">{{ String(index + 1).padStart(2, '0') }}</span>
-            <h3>{{ value.title }}</h3>
-            <p>{{ value.description }}</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-      <div class="container">
-        <div class="cta-content">
-          <span class="cta-label">Ready to create something</span>
-          <h2 class="cta-title"><em>extraordinary?</em></h2>
-          <div class="cta-actions">
-            <button class="btn-cta-primary" @click="openServiceForm">
-              Start Your Project
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M5 12h14M12 5l7 7-7 7"/>
+    <!-- Section 4: Our Process - 4 Steps -->
+    <section class="process-section">
+      <div class="section-container">
+        <span class="section-label">Our Process</span>
+        <h2 class="section-heading">From Concept to Completion</h2>
+        <div class="process-steps">
+          <div v-for="(step, index) in processSteps" :key="index" class="process-step">
+            <span class="step-number">{{ step.number }}</span>
+            <h3 class="step-title">{{ step.title }}</h3>
+            <p class="step-desc">{{ step.description }}</p>
+            <div v-if="index < processSteps.length - 1" class="step-connector">
+              <svg width="40" height="12" viewBox="0 0 40 12" fill="none">
+                <path d="M0 6h32M28 1l6 5-6 5" stroke="var(--accent-teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
-            </button>
-            <router-link to="/contact" class="btn-cta-secondary">
-              Contact Us
-            </router-link>
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Section 5: Company Values -->
+    <section class="values-section">
+      <div class="section-container">
+        <span class="section-label">Our Values</span>
+        <h2 class="section-heading">The Principles We Stand By</h2>
+        <div class="values-grid">
+          <div v-for="(value, index) in companyValues" :key="index" class="value-card">
+            <div class="value-icon" v-html="value.icon"></div>
+            <h3 class="value-title">{{ value.title }}</h3>
+            <p class="value-desc">{{ value.description }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: CTA -->
+    <section class="cta-section">
+      <div class="section-container">
+        <h2 class="cta-heading">Ready to Start Your Project?</h2>
+        <p class="cta-subtext">
+          Let us bring your vision to life with five decades of printing expertise.
+        </p>
+        <div class="cta-buttons">
+          <button class="btn-cta-primary" @click="openServiceForm">Get Quote</button>
+          <router-link to="/products" class="btn-cta-outline">Browse Products</router-link>
+        </div>
+      </div>
+    </section>
+
   </div>
 </template>
 
@@ -222,938 +127,815 @@ gsap.registerPlugin(ScrollTrigger)
 
 const openServiceForm = inject('openServiceForm')
 
-const values = [
+const stats = [
+  { number: '50+', label: 'Years of Experience' },
+  { number: '1000+', label: 'Projects Delivered' },
+  { number: '15+', label: 'Countries Served' }
+]
+
+const milestones = [
   {
-    title: 'Heritage',
-    description: 'Five decades of mastery, passed down through generations of master printers who understand the soul of ink on paper.'
+    year: '1974',
+    title: 'The Beginning',
+    description: 'Al Falah opens its first printing press in Dubai, laying the foundation for what would become a regional leader in the printing industry.'
   },
   {
-    title: 'Precision',
-    description: 'Every project is calibrated to perfection. We measure in microns because excellence lies in the details.'
+    year: '1998',
+    title: 'Digital Transformation',
+    description: 'Embracing digital printing technology while preserving our commitment to craftsmanship, expanding our capacity and capabilities tenfold.'
   },
   {
+    year: '2015',
+    title: 'Regional Expansion',
+    description: 'Establishing partnerships across 15 countries and launching our state-of-the-art production facility with the latest in sustainable printing technology.'
+  }
+]
+
+const features = [
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
+    title: 'Premium Quality',
+    description: 'Industry-leading print resolution with meticulous quality control at every stage of production.'
+  },
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    title: 'Fast Turnaround',
+    description: 'Streamlined workflows and dedicated teams ensure your projects are delivered on time, every time.'
+  },
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
+    title: 'Custom Design',
+    description: 'Our in-house design team works closely with you to create bespoke solutions tailored to your brand.'
+  },
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
+    title: '50+ Years Experience',
+    description: 'Half a century of expertise means we have seen it all and can handle projects of any scale or complexity.'
+  },
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
+    title: 'Eco-Friendly Options',
+    description: 'Sustainable inks, recycled stocks, and energy-efficient processes that reduce environmental impact.'
+  },
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>',
+    title: 'Global Shipping',
+    description: 'Reliable worldwide delivery with secure packaging to ensure your prints arrive in perfect condition.'
+  }
+]
+
+const processSteps = [
+  {
+    number: '01',
+    title: 'Consultation',
+    description: 'We discuss your vision, requirements, and objectives to understand exactly what you need.'
+  },
+  {
+    number: '02',
+    title: 'Design',
+    description: 'Our creative team develops concepts and mock-ups for your review and approval.'
+  },
+  {
+    number: '03',
+    title: 'Production',
+    description: 'Using premium materials and state-of-the-art equipment, we bring your project to life.'
+  },
+  {
+    number: '04',
+    title: 'Delivery',
+    description: 'Quality-checked and carefully packaged, your order is delivered on time, wherever you are.'
+  }
+]
+
+const companyValues = [
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
     title: 'Innovation',
-    description: 'Bridging centuries-old techniques with cutting-edge technology to create prints that transcend time.'
+    description: 'We continuously invest in the latest technologies and techniques to push the boundaries of what print can achieve, keeping our clients ahead of the curve.'
   },
   {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
     title: 'Integrity',
-    description: 'We stand behind every impression. Our reputation is built on trust and unwavering quality standards.'
+    description: 'Transparency, honesty, and accountability guide every interaction. We build lasting relationships founded on trust and mutual respect with every client we serve.'
+  },
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+    title: 'Excellence',
+    description: 'We hold ourselves to the highest standards in everything we do. From material selection to final delivery, excellence is not a goal but a habit embedded in our culture.'
   }
 ]
 
 let scrollTriggers = []
 
 onMounted(() => {
-  // Hero animations - More dramatic entrance
-  const heroTl = gsap.timeline({ defaults: { ease: 'power4.out' } })
-
-  // Set initial states
-  gsap.set('.hero-bg-img', { scale: 1.2 })
+  // Hero animations
+  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
   heroTl
-    .to('.hero-bg-img', { scale: 1, duration: 2, ease: 'power2.out' })
-    .from('.hero-label', {
-      y: 40,
+    .from('.hero-label', { y: 20, opacity: 0, duration: 0.6 })
+    .from('.hero-heading', { y: 40, opacity: 0, duration: 0.8 }, '-=0.3')
+    .from('.hero-description', { y: 30, opacity: 0, duration: 0.7 }, '-=0.4')
+    .from('.hero-image-wrapper', { x: 60, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.6')
+    .from('.stat-item', {
+      y: 30,
       opacity: 0,
-      duration: 1,
-      letterSpacing: '0.5em'
-    }, '-=1')
-    .from('.hero-title', {
-      y: 80,
-      opacity: 0,
-      duration: 1.2,
-      rotationX: 15,
-      transformOrigin: 'bottom center'
-    }, '-=0.7')
-    .from('.hero-title em', {
-      opacity: 0,
-      x: -30,
-      duration: 0.8
-    }, '-=0.5')
-    .from('.hero-scroll', {
-      y: -30,
-      opacity: 0,
-      duration: 0.8
-    }, '-=0.3')
+      duration: 0.5,
+      stagger: 0.15
+    }, '-=0.4')
 
-  // Hero parallax with zoom
+  // Timeline section
   scrollTriggers.push(
-    gsap.to('.hero-bg-img', {
-      scrollTrigger: {
-        trigger: '.about-hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1
-      },
-      y: 200,
-      scale: 1.15
+    gsap.from('.timeline-section .section-label', {
+      scrollTrigger: { trigger: '.timeline-section', start: 'top 80%' },
+      y: 20, opacity: 0, duration: 0.6
     })
   )
-
-
-  // Chronicle header with scale
   scrollTriggers.push(
-    gsap.fromTo('.chronicle-header .section-label',
-      { y: 30, opacity: 0 },
-      {
-        scrollTrigger: { trigger: '.chronicle-section', start: 'top 85%' },
-        y: 0, opacity: 1, duration: 0.8, ease: 'power3.out'
-      }
-    )
+    gsap.from('.timeline-section .section-heading', {
+      scrollTrigger: { trigger: '.timeline-section', start: 'top 80%' },
+      y: 30, opacity: 0, duration: 0.7, delay: 0.1
+    })
   )
-
   scrollTriggers.push(
-    gsap.fromTo('.chronicle-title',
-      { y: 60, opacity: 0, scale: 0.95 },
-      {
-        scrollTrigger: { trigger: '.chronicle-section', start: 'top 80%' },
-        y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out'
-      }
-    )
+    gsap.from('.timeline-line', {
+      scrollTrigger: { trigger: '.timeline', start: 'top 80%' },
+      scaleX: 0, duration: 1, ease: 'power2.inOut', transformOrigin: 'left center'
+    })
   )
-
-  // Timeline items with enhanced animations
-  document.querySelectorAll('.timeline-item').forEach((item, index) => {
-    const isReverse = item.classList.contains('timeline-item-reverse')
-    const content = item.querySelector('.timeline-content')
-    const image = item.querySelector('.timeline-image')
-    const heading = item.querySelector('.timeline-heading')
-    const text = item.querySelector('.timeline-text')
-    const year = item.querySelector('.timeline-year')
-
-    // Image with clip-path reveal
+  document.querySelectorAll('.milestone').forEach((el, i) => {
     scrollTriggers.push(
-      gsap.fromTo(image,
-        {
-          clipPath: isReverse ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)',
-          opacity: 0
-        },
-        {
-          scrollTrigger: { trigger: item, start: 'top 80%' },
-          clipPath: 'inset(0 0% 0 0%)',
-          opacity: 1,
-          duration: 1.2,
-          ease: 'power4.inOut'
-        }
-      )
-    )
-
-    // Content elements stagger
-    scrollTriggers.push(
-      gsap.fromTo(heading,
-        { x: isReverse ? 60 : -60, opacity: 0 },
-        {
-          scrollTrigger: { trigger: item, start: 'top 80%' },
-          x: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.3
-        }
-      )
-    )
-
-    scrollTriggers.push(
-      gsap.fromTo(text,
-        { x: isReverse ? 40 : -40, opacity: 0 },
-        {
-          scrollTrigger: { trigger: item, start: 'top 80%' },
-          x: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.5
-        }
-      )
-    )
-
-    scrollTriggers.push(
-      gsap.fromTo(year,
-        { scale: 0.8, opacity: 0 },
-        {
-          scrollTrigger: { trigger: item, start: 'top 80%' },
-          scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(2)', delay: 0.7
-        }
-      )
+      gsap.from(el, {
+        scrollTrigger: { trigger: '.timeline', start: 'top 75%' },
+        y: 40, opacity: 0, duration: 0.7, delay: 0.3 + i * 0.2, ease: 'power3.out'
+      })
     )
   })
 
-  // Workshop section - Enhanced
+  // Features section
   scrollTriggers.push(
-    gsap.fromTo('.workshop-label',
-      { y: 20, opacity: 0, letterSpacing: '0.5em' },
-      {
-        scrollTrigger: { trigger: '.workshop-section', start: 'top 75%' },
-        y: 0, opacity: 1, letterSpacing: '0.3em', duration: 0.8, ease: 'power3.out'
-      }
-    )
+    gsap.from('.features-section .section-label', {
+      scrollTrigger: { trigger: '.features-section', start: 'top 80%' },
+      y: 20, opacity: 0, duration: 0.6
+    })
   )
-
   scrollTriggers.push(
-    gsap.fromTo('.workshop-title',
-      { y: 60, opacity: 0, scale: 0.95 },
-      {
-        scrollTrigger: { trigger: '.workshop-section', start: 'top 70%' },
-        y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out'
-      }
-    )
+    gsap.from('.features-section .section-heading', {
+      scrollTrigger: { trigger: '.features-section', start: 'top 80%' },
+      y: 30, opacity: 0, duration: 0.7, delay: 0.1
+    })
   )
-
-  scrollTriggers.push(
-    gsap.fromTo('.workshop-desc',
-      { y: 40, opacity: 0 },
-      {
-        scrollTrigger: { trigger: '.workshop-section', start: 'top 65%' },
-        y: 0, opacity: 1, duration: 0.8, ease: 'power3.out'
-      }
-    )
-  )
-
-  // Workshop image with reveal
-  scrollTriggers.push(
-    gsap.fromTo('.workshop-image',
-      { clipPath: 'inset(100% 0 0 0)', opacity: 0 },
-      {
-        scrollTrigger: { trigger: '.workshop-image', start: 'top 85%' },
-        clipPath: 'inset(0% 0 0 0)', opacity: 1, duration: 1.5, ease: 'power4.out'
-      }
-    )
-  )
-
-  scrollTriggers.push(
-    gsap.fromTo('.workshop-image img',
-      { scale: 1.3 },
-      {
-        scrollTrigger: { trigger: '.workshop-image', start: 'top 85%' },
-        scale: 1, duration: 1.8, ease: 'power3.out'
-      }
-    )
-  )
-
-  // Materials cards with stagger and rotation
-  document.querySelectorAll('.material-card').forEach((card, index) => {
+  document.querySelectorAll('.feature-card').forEach((el, i) => {
     scrollTriggers.push(
-      gsap.fromTo(card,
-        { y: 80, opacity: 0, rotationY: index === 0 ? -10 : 10 },
-        {
-          scrollTrigger: { trigger: '.materials-section', start: 'top 80%' },
-          y: 0, opacity: 1, rotationY: 0, duration: 1, ease: 'power3.out', delay: index * 0.2
-        }
-      )
-    )
-
-    // Image scale effect
-    const img = card.querySelector('.material-image img')
-    scrollTriggers.push(
-      gsap.fromTo(img,
-        { scale: 1.2 },
-        {
-          scrollTrigger: { trigger: card, start: 'top 85%' },
-          scale: 1, duration: 1.2, ease: 'power3.out'
-        }
-      )
+      gsap.from(el, {
+        scrollTrigger: { trigger: '.features-grid', start: 'top 80%' },
+        y: 50, opacity: 0, duration: 0.6, delay: i * 0.1, ease: 'power3.out'
+      })
     )
   })
 
-  // Quote section - Enhanced dramatic entrance
+  // Process section
   scrollTriggers.push(
-    gsap.fromTo('.quote-icon',
-      { scale: 0, rotation: -45, opacity: 0 },
-      {
-        scrollTrigger: { trigger: '.quote-section', start: 'top 80%' },
-        scale: 1, rotation: 0, opacity: 0.4, duration: 1, ease: 'elastic.out(1, 0.5)'
-      }
-    )
+    gsap.from('.process-section .section-label', {
+      scrollTrigger: { trigger: '.process-section', start: 'top 80%' },
+      y: 20, opacity: 0, duration: 0.6
+    })
   )
-
   scrollTriggers.push(
-    gsap.fromTo('.quote-text',
-      { y: 60, opacity: 0, scale: 0.98 },
-      {
-        scrollTrigger: { trigger: '.quote-section', start: 'top 75%' },
-        y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out'
-      }
-    )
+    gsap.from('.process-section .section-heading', {
+      scrollTrigger: { trigger: '.process-section', start: 'top 80%' },
+      y: 30, opacity: 0, duration: 0.7, delay: 0.1
+    })
   )
-
-  scrollTriggers.push(
-    gsap.fromTo('.quote-author',
-      { y: 30, opacity: 0 },
-      {
-        scrollTrigger: { trigger: '.quote-section', start: 'top 70%' },
-        y: 0, opacity: 1, duration: 0.8, ease: 'power3.out'
-      }
-    )
-  )
-
-  // Values section - Staggered cards with pop effect
-  scrollTriggers.push(
-    gsap.fromTo('.values-header .section-label',
-      { y: 30, opacity: 0 },
-      {
-        scrollTrigger: { trigger: '.values-section', start: 'top 85%' },
-        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out'
-      }
-    )
-  )
-
-  scrollTriggers.push(
-    gsap.fromTo('.values-header .section-title',
-      { y: 50, opacity: 0, scale: 0.95 },
-      {
-        scrollTrigger: { trigger: '.values-section', start: 'top 85%' },
-        y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out', delay: 0.1
-      }
-    )
-  )
-
-  // Value cards with staggered pop animation
-  document.querySelectorAll('.value-card').forEach((card, index) => {
-    const number = card.querySelector('.value-number')
-
+  document.querySelectorAll('.process-step').forEach((el, i) => {
     scrollTriggers.push(
-      gsap.fromTo(card,
-        { y: 60, opacity: 0, scale: 0.9 },
-        {
-          scrollTrigger: { trigger: '.values-grid', start: 'top 85%' },
-          y: 0, opacity: 1, scale: 1, duration: 0.8, ease: 'back.out(1.5)', delay: index * 0.1
-        }
-      )
+      gsap.from(el, {
+        scrollTrigger: { trigger: '.process-steps', start: 'top 80%' },
+        y: 40, opacity: 0, duration: 0.6, delay: i * 0.15, ease: 'power3.out'
+      })
     )
+  })
 
-    // Number counter effect
+  // Values section
+  scrollTriggers.push(
+    gsap.from('.values-section .section-label', {
+      scrollTrigger: { trigger: '.values-section', start: 'top 80%' },
+      y: 20, opacity: 0, duration: 0.6
+    })
+  )
+  scrollTriggers.push(
+    gsap.from('.values-section .section-heading', {
+      scrollTrigger: { trigger: '.values-section', start: 'top 80%' },
+      y: 30, opacity: 0, duration: 0.7, delay: 0.1
+    })
+  )
+  document.querySelectorAll('.value-card').forEach((el, i) => {
     scrollTriggers.push(
-      gsap.fromTo(number,
-        { scale: 0, rotation: -10 },
-        {
-          scrollTrigger: { trigger: '.values-grid', start: 'top 85%' },
-          scale: 1, rotation: 0, duration: 0.6, ease: 'back.out(2)', delay: index * 0.1 + 0.2
-        }
-      )
+      gsap.from(el, {
+        scrollTrigger: { trigger: '.values-grid', start: 'top 80%' },
+        y: 50, opacity: 0, duration: 0.7, delay: i * 0.15, ease: 'power3.out'
+      })
     )
   })
 
-  // CTA section - Split animation
+  // CTA section
   scrollTriggers.push(
-    gsap.fromTo('.cta-label',
-      { y: 30, opacity: 0 },
-      {
-        scrollTrigger: { trigger: '.cta-section', start: 'top 80%' },
-        y: 0, opacity: 1, duration: 0.7, ease: 'power3.out'
-      }
-    )
+    gsap.from('.cta-heading', {
+      scrollTrigger: { trigger: '.cta-section', start: 'top 80%' },
+      y: 30, opacity: 0, duration: 0.7
+    })
   )
-
   scrollTriggers.push(
-    gsap.fromTo('.cta-title',
-      { y: 50, opacity: 0, scale: 0.95 },
-      {
-        scrollTrigger: { trigger: '.cta-section', start: 'top 80%' },
-        y: 0, opacity: 1, scale: 1, duration: 1, ease: 'power3.out', delay: 0.15
-      }
-    )
+    gsap.from('.cta-subtext', {
+      scrollTrigger: { trigger: '.cta-section', start: 'top 80%' },
+      y: 20, opacity: 0, duration: 0.6, delay: 0.15
+    })
   )
-
   scrollTriggers.push(
-    gsap.fromTo('.cta-actions',
-      { y: 40, opacity: 0 },
-      {
-        scrollTrigger: { trigger: '.cta-section', start: 'top 75%' },
-        y: 0, opacity: 1, duration: 0.8, ease: 'power3.out', delay: 0.3
-      }
-    )
+    gsap.from('.cta-buttons', {
+      scrollTrigger: { trigger: '.cta-section', start: 'top 80%' },
+      y: 20, opacity: 0, duration: 0.6, delay: 0.3
+    })
   )
-
-  scrollTriggers.push(
-    gsap.fromTo('.cta-actions > *',
-      { y: 20, opacity: 0, scale: 0.95 },
-      {
-        scrollTrigger: { trigger: '.cta-section', start: 'top 75%' },
-        y: 0, opacity: 1, scale: 1, duration: 0.6, stagger: 0.1, ease: 'back.out(1.5)', delay: 0.4
-      }
-    )
-  )
-
-  // Hover effects for material cards
-  document.querySelectorAll('.material-card').forEach(card => {
-    const img = card.querySelector('img')
-    card.addEventListener('mouseenter', () => {
-      gsap.to(card, { y: -8, duration: 0.4, ease: 'power2.out' })
-      gsap.to(img, { scale: 1.05, duration: 0.5, ease: 'power2.out' })
-    })
-    card.addEventListener('mouseleave', () => {
-      gsap.to(card, { y: 0, duration: 0.4, ease: 'power2.out' })
-      gsap.to(img, { scale: 1, duration: 0.5, ease: 'power2.out' })
-    })
-  })
-
-  // Hover effects for value cards
-  document.querySelectorAll('.value-card').forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      gsap.to(card, { y: -6, boxShadow: '0 20px 40px rgba(0,0,0,0.12)', duration: 0.3, ease: 'power2.out' })
-    })
-    card.addEventListener('mouseleave', () => {
-      gsap.to(card, { y: 0, boxShadow: '0 4px 20px rgba(0,0,0,0.08)', duration: 0.3, ease: 'power2.out' })
-    })
-  })
 })
 
 onUnmounted(() => {
   scrollTriggers.forEach(trigger => {
-    if (trigger && trigger.kill) trigger.kill()
+    if (trigger && trigger.scrollTrigger) {
+      trigger.scrollTrigger.kill()
+    }
   })
-  ScrollTrigger.getAll().forEach(t => t.kill())
+  ScrollTrigger.getAll().forEach(st => st.kill())
+  scrollTriggers = []
 })
 </script>
 
 <style scoped>
-/* Hero Section */
-.about-hero {
-  position: relative;
-  height: 100vh;
-  min-height: 600px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+/* ============================================
+   ABOUT PAGE - Modern Corporate Design
+   ============================================ */
+
+.about-page {
+  background: var(--bg-primary);
+  font-family: var(--font-sans);
+  color: var(--text-primary);
 }
 
-.hero-bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
+/* ---------- Shared ---------- */
 
-.hero-bg-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(13, 115, 119, 0.85) 0%,
-    rgba(10, 92, 95, 0.8) 30%,
-    rgba(26, 26, 26, 0.9) 100%
-  );
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  color: white;
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
   padding: 0 24px;
 }
 
-.hero-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 400;
-  letter-spacing: 0.3em;
+.section-label {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin-bottom: 24px;
-  opacity: 0.8;
+  color: var(--accent-teal);
+  margin-bottom: 12px;
 }
 
-.hero-title {
+.section-heading {
   font-family: var(--font-serif);
-  font-size: clamp(42px, 8vw, 80px);
-  font-weight: 300;
-  line-height: 1.1;
-  margin-bottom: 60px;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 56px;
+  line-height: 1.2;
 }
 
-.hero-title em {
-  font-style: normal;
-  font-weight: 200;
-}
+/* ============================================
+   1. HERO - Split Layout
+   ============================================ */
 
-.hero-scroll {
-  position: absolute;
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  opacity: 0.6;
-  animation: bounce 2s infinite;
-}
-
-@keyframes bounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
-}
-
-/* Chronicle Section */
-.chronicle-section {
-  padding: 140px 0;
+.hero-split {
+  padding: 100px 24px 80px;
   background: var(--bg-primary);
 }
 
-.chronicle-header {
-  text-align: center;
-  margin-bottom: 100px;
-}
-
-.chronicle-title {
-  font-family: var(--font-serif);
-  font-size: clamp(36px, 5vw, 56px);
-  font-weight: 300;
-  color: var(--text-primary);
-  margin-top: 16px;
-}
-
-/* Timeline */
-.timeline {
-  display: flex;
-  flex-direction: column;
-  gap: 120px;
-}
-
-.timeline-item {
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  gap: 64px;
   align-items: center;
 }
 
-.timeline-item-reverse {
-  direction: rtl;
-}
-
-.timeline-item-reverse > * {
-  direction: ltr;
-}
-
-.timeline-content {
-  padding: 40px 0;
-}
-
-.timeline-heading {
-  font-family: var(--font-serif);
-  font-size: 28px;
-  font-weight: 400;
-  color: var(--text-primary);
-  margin-bottom: 20px;
-}
-
-.timeline-text {
-  font-size: 16px;
-  line-height: 1.8;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
-
-.timeline-year {
+.hero-label {
   display: inline-block;
-  font-size: 13px;
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
-  color: var(--accent-teal);
-  padding: 8px 16px;
-  border: 1px solid var(--accent-teal);
-  border-radius: 4px;
-}
-
-.timeline-image {
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-  will-change: clip-path;
-}
-
-.timeline-image img {
-  width: 100%;
-  height: 350px;
-  object-fit: cover;
-}
-
-/* Workshop Section */
-.workshop-section {
-  position: relative;
-  padding: 160px 0 120px;
-  background: var(--bg-dark);
-  color: white;
-}
-
-.workshop-curve {
-  position: absolute;
-  top: -1px;
-  left: 0;
-  width: 100%;
-}
-
-.workshop-curve svg {
-  width: 100%;
-  height: 80px;
-  display: block;
-}
-
-.workshop-content {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 80px;
-}
-
-.workshop-label {
-  display: block;
-  font-size: 12px;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--accent-teal);
   margin-bottom: 20px;
 }
 
-.workshop-title {
+.hero-heading {
   font-family: var(--font-serif);
-  font-size: clamp(36px, 5vw, 52px);
-  font-weight: 300;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--text-primary);
   margin-bottom: 24px;
 }
 
-.workshop-desc {
-  font-size: 18px;
-  line-height: 1.8;
-  color: rgba(255, 255, 255, 0.75);
+.hero-description {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  max-width: 520px;
 }
 
-.workshop-image {
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-  will-change: clip-path;
+.hero-image-wrapper {
+  position: relative;
 }
 
-.workshop-image img {
+.hero-image {
   width: 100%;
-  height: 500px;
+  height: 480px;
   object-fit: cover;
+  border-radius: 16px;
+  display: block;
 }
 
-/* Materials Section */
-.materials-section {
-  padding: 140px 0;
+.hero-stats {
+  max-width: 1200px;
+  margin: 64px auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 32px 16px;
+  border-radius: 12px;
   background: var(--bg-secondary);
 }
 
-.materials-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+.stat-number {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: var(--accent-teal);
+  margin-bottom: 4px;
 }
 
-.material-card {
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+
+/* ============================================
+   2. TIMELINE - Horizontal
+   ============================================ */
+
+.timeline-section {
+  padding: 100px 24px;
   background: var(--bg-primary);
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.timeline {
+  position: relative;
+  padding-top: 32px;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 46px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-teal);
+  opacity: 0.25;
+}
+
+.timeline-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  position: relative;
+}
+
+.milestone {
+  position: relative;
+  padding-top: 32px;
+}
+
+.milestone-dot {
+  position: absolute;
+  top: 0;
+  left: 24px;
+  width: 14px;
+  height: 14px;
+  background: var(--accent-teal);
+  border-radius: 50%;
+  border: 3px solid var(--bg-primary);
+  box-shadow: 0 0 0 2px var(--accent-teal);
+}
+
+.milestone-content {
+  padding-top: 16px;
+}
+
+.milestone-year {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--accent-teal);
+  margin-bottom: 8px;
+}
+
+.milestone-title {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.milestone-desc {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   3. FEATURES - Icon Grid
+   ============================================ */
+
+.features-section {
+  padding: 100px 24px;
+  background: var(--bg-secondary);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.feature-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: 12px;
+  padding: 36px 28px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.material-image {
-  height: 220px;
-  overflow: hidden;
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
 }
 
-.material-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.material-content {
-  padding: 36px;
-}
-
-.material-title {
-  font-family: var(--font-serif);
-  font-size: 28px;
-  font-weight: 400;
-  color: var(--text-primary);
-  margin-bottom: 16px;
-}
-
-.material-desc {
-  font-size: 15px;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  margin-bottom: 24px;
-}
-
-.material-features {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.material-features li {
+.feature-icon {
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-primary);
-}
-
-.material-features svg {
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(74, 140, 63, 0.08);
   color: var(--accent-teal);
-  flex-shrink: 0;
-}
-
-/* Quote Section */
-.quote-section {
-  padding: 140px 0;
-  background: var(--bg-dark);
-  color: white;
-}
-
-.quote-content {
-  max-width: 900px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.quote-icon {
-  font-family: var(--font-serif);
-  font-size: 120px;
-  line-height: 0.6;
-  color: var(--accent-teal);
-  opacity: 0.4;
   margin-bottom: 20px;
 }
 
-.quote-text {
-  font-family: var(--font-serif);
-  font-size: clamp(22px, 3vw, 32px);
-  font-weight: 200;
-  font-style: normal;
-  line-height: 1.6;
-  margin-bottom: 48px;
-}
-
-.quote-author {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.author-name {
-  font-size: 16px;
+.feature-title {
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+  color: var(--text-primary);
 }
 
-.author-title {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+.feature-desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
 }
 
-/* Values Section */
-.values-section {
-  padding: 140px 0;
+/* ============================================
+   4. PROCESS - 4 Steps
+   ============================================ */
+
+.process-section {
+  padding: 100px 24px;
   background: var(--bg-primary);
 }
 
-.values-header {
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  position: relative;
+}
+
+.process-step {
   text-align: center;
-  margin-bottom: 60px;
+  position: relative;
+  padding: 0 12px;
+}
+
+.step-number {
+  display: inline-block;
+  font-family: var(--font-serif);
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--accent-teal);
+  opacity: 0.2;
+  margin-bottom: 12px;
+  line-height: 1;
+}
+
+.step-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+}
+
+.step-desc {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+.step-connector {
+  position: absolute;
+  right: -28px;
+  top: 20px;
+  display: flex;
+  align-items: center;
+  opacity: 0.4;
+}
+
+/* ============================================
+   5. VALUES - 3 Column Grid
+   ============================================ */
+
+.values-section {
+  padding: 100px 24px;
+  background: var(--bg-secondary);
 }
 
 .values-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
 }
 
 .value-card {
-  background: var(--bg-primary);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 40px 32px;
   border: 1px solid var(--border-light);
-  border-radius: 16px;
-  padding: 36px 28px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.value-number {
-  display: block;
-  font-family: var(--font-serif);
-  font-size: 36px;
-  font-weight: 300;
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.value-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--accent-teal);
-  opacity: 0.5;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
-.value-card h3 {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: 400;
+.value-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
   color: var(--text-primary);
-  margin-bottom: 12px;
 }
 
-.value-card p {
-  font-size: 14px;
-  line-height: 1.7;
+.value-desc {
+  font-size: 0.9rem;
+  line-height: 1.75;
   color: var(--text-secondary);
 }
 
-/* CTA Section */
+/* ============================================
+   6. CTA Section
+   ============================================ */
+
 .cta-section {
-  padding: 120px 0;
+  padding: 100px 24px;
   background: var(--accent-teal);
-}
-
-.cta-content {
   text-align: center;
-  max-width: 500px;
-  margin: 0 auto;
 }
 
-.cta-label {
-  font-size: 14px;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 8px;
-  display: block;
-}
-
-.cta-title {
+.cta-heading {
   font-family: var(--font-serif);
-  font-size: clamp(36px, 5vw, 52px);
-  font-weight: 300;
-  color: white;
-  margin-bottom: 36px;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 16px;
 }
 
-.cta-title em {
-  font-style: normal;
-  font-weight: 200;
+.cta-subtext {
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 40px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
-.cta-actions {
+.cta-buttons {
   display: flex;
   gap: 16px;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .btn-cta-primary {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 16px 28px;
-  background: white;
+  padding: 14px 36px;
+  background: #ffffff;
   color: var(--accent-teal);
-  border: none;
+  border: 2px solid #ffffff;
   border-radius: 8px;
-  font-size: 15px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .btn-cta-primary:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  background: transparent;
+  color: #ffffff;
 }
 
-.btn-cta-secondary {
+.btn-cta-outline {
   display: inline-flex;
   align-items: center;
-  padding: 16px 28px;
+  padding: 14px 36px;
   background: transparent;
-  color: white;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 8px;
-  font-size: 15px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
   font-weight: 600;
-  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
-.btn-cta-secondary:hover {
+.btn-cta-outline:hover {
   background: rgba(255, 255, 255, 0.1);
-  border-color: white;
+  border-color: #ffffff;
 }
 
-/* Common */
-.section-label {
-  display: block;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--accent-teal);
-}
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 
-.section-title {
-  font-family: var(--font-serif);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 300;
-  color: var(--text-primary);
-  margin-top: 12px;
-}
-
-.section-title em {
-  font-style: normal;
-  font-weight: 200;
-  color: var(--accent-teal);
-}
-
-/* Responsive */
 @media (max-width: 1024px) {
-  .timeline-item {
-    grid-template-columns: 1fr;
+  .hero-container {
     gap: 40px;
   }
 
-  .timeline-item-reverse {
-    direction: ltr;
+  .hero-image {
+    height: 400px;
   }
 
-  .timeline-image {
-    order: -1;
-  }
-
-  .materials-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .values-grid {
+  .features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .workshop-curve {
+  .process-steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+
+  .step-connector {
     display: none;
   }
 }
 
 @media (max-width: 768px) {
-  .about-hero {
-    min-height: 500px;
+  .hero-split {
+    padding: 80px 20px 60px;
   }
 
-  .chronicle-section,
-  .materials-section,
-  .quote-section,
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-text {
+    text-align: center;
+  }
+
+  .hero-description {
+    margin: 0 auto;
+  }
+
+  .hero-image {
+    height: 320px;
+    border-radius: 12px;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 48px;
+  }
+
+  .stat-item {
+    padding: 24px 16px;
+  }
+
+  .timeline-section,
+  .features-section,
+  .process-section,
   .values-section {
-    padding: 100px 0;
+    padding: 72px 20px;
   }
 
-  .timeline {
-    gap: 80px;
+  .section-heading {
+    margin-bottom: 40px;
   }
 
-  .timeline-image img {
-    height: 280px;
+  .timeline-items {
+    grid-template-columns: 1fr;
+    gap: 40px;
   }
 
-  .workshop-image img {
-    height: 350px;
+  .timeline-line {
+    display: none;
+  }
+
+  .milestone-dot {
+    left: 0;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-steps {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 
   .values-grid {
     grid-template-columns: 1fr;
   }
 
-  .cta-actions {
+  .cta-section {
+    padding: 72px 20px;
+  }
+
+  .cta-buttons {
     flex-direction: column;
+    align-items: center;
+  }
+
+  .btn-cta-primary,
+  .btn-cta-outline {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-heading {
+    font-size: 1.8rem;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+  }
+
+  .hero-image {
+    height: 260px;
+  }
+
+  .stat-number {
+    font-size: 1.8rem;
+  }
+
+  .feature-card,
+  .value-card {
+    padding: 28px 20px;
   }
 }
 </style>

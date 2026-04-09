@@ -39,21 +39,26 @@ provide('openServiceForm', openServiceForm)
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap');
 
 :root {
-  /* Colors */
+  /* Colors - from logo */
   --bg-primary: #faf9f7;
   --bg-secondary: #f5f4f0;
   --bg-cream: #f0ebe3;
-  --bg-dark: #1a1a1a;
-  --bg-teal: #0d7377;
-  --bg-teal-dark: #0a5c5f;
+  --bg-dark: #2d2d2d;
+  --bg-teal: #4a8c3f;
+  --bg-teal-dark: #3d7534;
 
-  --text-primary: #1a1a1a;
+  --text-primary: #2d2d2d;
   --text-secondary: #666666;
   --text-light: #999999;
   --text-white: #ffffff;
 
-  --accent-teal: #0d7377;
-  --accent-teal-light: #0f8a8e;
+  /* Logo colors */
+  --accent-teal: #4a8c3f;
+  --accent-teal-light: #5a9e4d;
+  --color-green: #7CB342;
+  --color-blue: #4AABDE;
+  --color-yellow: #FDD835;
+  --color-red: #D32F2F;
 
   --border-light: rgba(0, 0, 0, 0.08);
   --border-medium: rgba(0, 0, 0, 0.12);
@@ -222,7 +227,7 @@ h1, h2, h3, h4 {
 .btn-primary:hover {
   background: var(--accent-teal-light);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(13, 115, 119, 0.25);
+  box-shadow: 0 8px 24px rgba(74, 140, 63, 0.25);
 }
 
 /* Secondary Button */

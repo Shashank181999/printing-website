@@ -1253,7 +1253,7 @@ onMounted(() => {
 .curtain-right {
   width: 50%;
   height: 100%;
-  background: linear-gradient(135deg, #0a0a0a 0%, #0d7377 40%, #0a5c5f 70%, #0a0a0a 100%);
+  background: linear-gradient(135deg, #0a0a0a 0%, var(--accent-teal) 40%, var(--bg-teal-dark) 70%, #0a0a0a 100%);
   position: relative;
 }
 
