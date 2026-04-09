@@ -408,6 +408,7 @@ const loadMore = () => {
   background: var(--bg-secondary);
   border-bottom: 1px solid #e8e7e3;
   padding: 16px 0;
+  padding-top: 100px;
 }
 
 .breadcrumb-bar .container {
