@@ -428,7 +428,7 @@ onMounted(() => {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(74, 140, 63, 0.85) 0%, rgba(10, 92, 95, 0.8) 30%, rgba(26, 26, 26, 0.92) 100%);
+  background: linear-gradient(135deg, rgba(46, 139, 192, 0.85) 0%, rgba(10, 92, 95, 0.8) 30%, rgba(26, 26, 26, 0.92) 100%);
   z-index: 1;
 }
 
@@ -752,7 +752,7 @@ onMounted(() => {
 .form-group textarea:focus {
   outline: none;
   border-color: var(--accent-teal);
-  box-shadow: 0 0 0 4px rgba(74, 140, 63, 0.08);
+  box-shadow: 0 0 0 4px rgba(46, 139, 192, 0.08);
 }
 
 .form-group input::placeholder,
@@ -816,7 +816,7 @@ onMounted(() => {
 .submit-btn:hover:not(:disabled) {
   background: var(--accent-teal-light);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(74, 140, 63, 0.3);
+  box-shadow: 0 10px 30px rgba(46, 139, 192, 0.3);
 }
 
 .submit-btn:disabled {
@@ -847,7 +847,7 @@ onMounted(() => {
   justify-content: center;
   width: 100px;
   height: 100px;
-  background: rgba(74, 140, 63, 0.1);
+  background: rgba(46, 139, 192, 0.1);
   border-radius: 50%;
   color: var(--accent-teal);
   margin-bottom: 28px;
@@ -950,7 +950,7 @@ onMounted(() => {
 .cta-phone:hover {
   background: var(--accent-teal-light);
   transform: scale(1.05);
-  box-shadow: 0 15px 40px rgba(74, 140, 63, 0.3);
+  box-shadow: 0 15px 40px rgba(46, 139, 192, 0.3);
 }
 
 .phone-icon {

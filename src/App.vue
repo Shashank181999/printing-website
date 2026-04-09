@@ -44,8 +44,8 @@ provide('openServiceForm', openServiceForm)
   --bg-secondary: #f5f4f0;
   --bg-cream: #f0ebe3;
   --bg-dark: #2d2d2d;
-  --bg-teal: #4a8c3f;
-  --bg-teal-dark: #3d7534;
+  --bg-teal: #2E8BC0;
+  --bg-teal-dark: #1a6fa0;
 
   --text-primary: #2d2d2d;
   --text-secondary: #666666;
@@ -53,8 +53,8 @@ provide('openServiceForm', openServiceForm)
   --text-white: #ffffff;
 
   /* Logo colors */
-  --accent-teal: #4a8c3f;
-  --accent-teal-light: #5a9e4d;
+  --accent-teal: #2E8BC0;
+  --accent-teal-light: #4AABDE;
   --color-green: #7CB342;
   --color-blue: #4AABDE;
   --color-yellow: #FDD835;
@@ -227,7 +227,7 @@ h1, h2, h3, h4 {
 .btn-primary:hover {
   background: var(--accent-teal-light);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(74, 140, 63, 0.25);
+  box-shadow: 0 8px 24px rgba(46, 139, 192, 0.25);
 }
 
 /* Secondary Button */

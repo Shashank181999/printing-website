@@ -10,20 +10,24 @@
         />
         <div class="hero-overlay"></div>
       </div>
+      <div class="hero-float hero-float-1"><img src="/products/gold-foil-business-cards.webp" alt="" /></div>
+      <div class="hero-float hero-float-2"><img src="/products/neon-signage.webp" alt="" /></div>
+      <div class="hero-float hero-float-3"><img src="/products/rigid-box-packaging.webp" alt="" /></div>
       <div class="hero-content">
-        <h1 class="hero-title">Your One-Stop Print &amp; Brand Shop</h1>
+        <span class="hero-badge">85+ Premium Products</span>
+        <h1 class="hero-title">Your One-Stop<br>Print &amp; <span class="title-accent">Brand</span> Shop</h1>
         <p class="hero-subtitle">
-          Explore 85+ premium printing, packaging, signage, and branding products — all in one place.
+          Explore premium printing, packaging, signage, and branding products — all in one place.
         </p>
         <div class="hero-search">
-          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="11" cy="11" r="8" />
             <line x1="21" y1="21" x2="16.65" y2="16.65" />
           </svg>
           <input
             v-model="searchQuery"
             type="text"
-            placeholder="Search products... e.g. business cards, banners, packaging"
+            placeholder="Search business cards, banners, packaging..."
             class="search-input"
             @keyup.enter="goToProducts"
           />
@@ -32,6 +36,22 @@
         <div class="hero-actions">
           <router-link to="/products" class="btn-primary">Shop Products</router-link>
           <button class="btn-secondary" @click="openServiceForm">Get Custom Quote</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee Strip -->
+    <section class="marquee-section">
+      <div class="marquee-track">
+        <div class="marquee-content" v-for="n in 2" :key="n">
+          <span>Business Cards</span><span class="marquee-dot"></span>
+          <span>Banners &amp; Signage</span><span class="marquee-dot"></span>
+          <span>Packaging</span><span class="marquee-dot"></span>
+          <span>T-Shirts &amp; Apparel</span><span class="marquee-dot"></span>
+          <span>Stickers &amp; Labels</span><span class="marquee-dot"></span>
+          <span>Corporate Gifts</span><span class="marquee-dot"></span>
+          <span>Vehicle Branding</span><span class="marquee-dot"></span>
+          <span>Neon Signs</span><span class="marquee-dot"></span>
         </div>
       </div>
     </section>
@@ -313,15 +333,24 @@ const trustFeatures = [
 let scrollTriggers = []
 
 onMounted(() => {
-  // Animate hero content
-  gsap.from('.hero-content > *', {
-    y: 40,
-    opacity: 0,
-    duration: 0.8,
-    stagger: 0.15,
-    ease: 'power3.out',
-    delay: 0.2,
-  })
+  // Hero entrance animation
+  const heroTl = gsap.timeline({ delay: 0.3 })
+  heroTl
+    .from('.hero-badge', { y: -20, opacity: 0, duration: 0.6 })
+    .from('.hero-title', { y: 60, opacity: 0, duration: 0.9, ease: 'power4.out' }, '-=0.3')
+    .from('.title-accent', { color: '#fff', duration: 0.6 }, '-=0.4')
+    .from('.hero-subtitle', { y: 30, opacity: 0, duration: 0.7 }, '-=0.5')
+    .from('.hero-search', { y: 30, opacity: 0, scale: 0.95, duration: 0.7 }, '-=0.4')
+    .from('.hero-actions > *', { y: 20, opacity: 0, stagger: 0.12, duration: 0.6 }, '-=0.3')
+    .from('.hero-float', { scale: 0, opacity: 0, stagger: 0.2, duration: 0.8, ease: 'back.out(1.7)' }, '-=0.6')
+
+  // Hero parallax on scroll
+  scrollTriggers.push(
+    gsap.to('.hero-bg-img', {
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
+      y: 150, ease: 'none'
+    })
+  )
 
   // Animate category strip
   gsap.from('.category-chip', {
@@ -400,7 +429,7 @@ onUnmounted(() => {
 /* ========== 1. Hero Banner ========== */
 .hero {
   position: relative;
-  min-height: 560px;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,38 +446,148 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 8s ease;
+}
+
+.hero:hover .hero-bg-img {
+  transform: scale(1.05);
 }
 
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: linear-gradient(135deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.5) 50%, rgba(46,139,192,0.3) 100%);
+}
+
+/* Floating product badges */
+.hero-float {
+  position: absolute;
+  z-index: 2;
+  width: 100px;
+  height: 100px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,0.15);
+  pointer-events: none;
+}
+
+.hero-float img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.hero-float-1 {
+  top: 20%;
+  right: 8%;
+  animation: floatUp 4s ease-in-out infinite;
+}
+
+.hero-float-2 {
+  bottom: 25%;
+  right: 12%;
+  animation: floatUp 5s ease-in-out 1s infinite;
+}
+
+.hero-float-3 {
+  top: 35%;
+  left: 6%;
+  animation: floatUp 4.5s ease-in-out 0.5s infinite;
+}
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-18px); }
 }
 
 .hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 3;
   text-align: center;
-  max-width: 740px;
-  padding: 80px 24px 72px;
+  max-width: 780px;
+  padding: 120px 24px 80px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.5px;
+  margin-bottom: 24px;
 }
 
 .hero-title {
   font-family: var(--font-sans);
-  font-size: 3rem;
-  font-weight: 600;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
   color: #fff;
-  line-height: 1.15;
-  margin-bottom: 16px;
-  letter-spacing: -0.5px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.title-accent {
+  color: var(--color-blue);
+  position: relative;
 }
 
 .hero-subtitle {
-  font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.85);
-  line-height: 1.6;
-  margin-bottom: 32px;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.7;
+  margin-bottom: 36px;
   font-weight: 300;
+}
+
+/* Marquee */
+.marquee-section {
+  background: var(--accent-teal);
+  padding: 14px 0;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 25s linear infinite;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.marquee-content span {
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  white-space: nowrap;
+  padding: 0 16px;
+  letter-spacing: 0.3px;
+}
+
+.marquee-dot {
+  width: 5px;
+  height: 5px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* Hero Search */
@@ -597,7 +736,7 @@ onUnmounted(() => {
 
 .category-chip:hover .category-chip-img {
   border-color: var(--accent-teal);
-  box-shadow: 0 4px 16px rgba(74, 140, 63, 0.15);
+  box-shadow: 0 4px 16px rgba(46, 139, 192, 0.15);
 }
 
 .category-chip-img img {
@@ -731,7 +870,7 @@ onUnmounted(() => {
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--accent-teal);
-  background: rgba(74, 140, 63, 0.08);
+  background: rgba(46, 139, 192, 0.08);
   padding: 3px 10px;
   border-radius: 20px;
   margin-bottom: 8px;
@@ -875,7 +1014,7 @@ onUnmounted(() => {
   width: 64px;
   height: 64px;
   border-radius: 16px;
-  background: rgba(74, 140, 63, 0.08);
+  background: rgba(46, 139, 192, 0.08);
   color: var(--accent-teal);
   margin-bottom: 16px;
 }
@@ -1048,8 +1187,12 @@ onUnmounted(() => {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .hero-title {
-    font-size: 2.4rem;
+  .hero {
+    min-height: 85vh;
+  }
+
+  .hero-float {
+    display: none;
   }
 }
 

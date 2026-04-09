@@ -368,13 +368,13 @@ onUnmounted(() => {
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(74, 140, 63, 0.3);
+  box-shadow: 0 4px 15px rgba(46, 139, 192, 0.3);
 }
 
 .header-search:hover {
   background: var(--bg-teal-dark);
   transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(74, 140, 63, 0.4);
+  box-shadow: 0 6px 20px rgba(46, 139, 192, 0.4);
 }
 
 .header-phone {
@@ -410,7 +410,7 @@ onUnmounted(() => {
 .btn-quote:hover {
   background: var(--bg-teal-dark);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(74, 140, 63, 0.3);
+  box-shadow: 0 6px 20px rgba(46, 139, 192, 0.3);
 }
 
 /* Menu Toggle */

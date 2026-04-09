@@ -602,7 +602,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: rgba(74, 140, 63, 0.08);
+  background: rgba(46, 139, 192, 0.08);
   color: var(--accent-teal);
   margin-bottom: 20px;
 }
