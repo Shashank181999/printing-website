@@ -96,6 +96,7 @@ const isDarkPage = computed(() => false)
 
 const navLinks = [
   { name: 'Home', path: '/', route: true },
+  { name: 'Services', path: '/services', route: true },
   { name: 'Products', path: '/products', route: true },
   { name: 'About', path: '/about', route: true },
   { name: 'Contact', path: '/contact', route: true }

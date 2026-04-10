@@ -5,13 +5,13 @@
     <section class="hero-split">
       <div class="hero-container">
         <div class="hero-text">
-          <span class="hero-label">About Al Falah</span>
-          <h1 class="hero-heading">50 Years of<br>Printing Excellence</h1>
+          <span class="hero-label">welcome to AFME</span>
+          <h1 class="hero-heading">More Than a Company —<br><em>Your Partners</em> in Print</h1>
           <p class="hero-description">
-            Since 1974, Al Falah Middle East has been at the forefront of premium printing
-            and branding solutions in Dubai. From humble beginnings with a single press to
-            becoming the region's most trusted name in print, our journey has been defined
-            by an unwavering commitment to quality and innovation.
+            At AFME, we are more than just a printing company — we are your partners in
+            transforming ideas into tangible realities. With 50 years of expertise across
+            printing, branding, and advertising, we help businesses communicate effectively,
+            stand out in the market, and build meaningful connections with their audiences.
           </p>
         </div>
         <div class="hero-image-wrapper">
@@ -51,11 +51,17 @@
       </div>
     </section>
 
-    <!-- Section 3: What Sets Us Apart - Icon Grid -->
+    <!-- Section 3: Why Choose Us -->
     <section class="features-section">
       <div class="section-container">
-        <span class="section-label">What Sets Us Apart</span>
-        <h2 class="section-heading">Why Clients Choose Al Falah</h2>
+        <span class="section-label">About Company</span>
+        <h2 class="section-heading">Why Choose Us</h2>
+        <p class="section-intro">
+          With a blend of expertise, dedication, and a client-centric approach, AFME is the
+          partner of choice for businesses seeking to amplify their presence in the market.
+          Our holistic approach — rooted in the fusion of printing, branding, and advertising —
+          positions us as trailblazers in the industry, ready to propel your business toward success.
+        </p>
         <div class="features-grid">
           <div v-for="(feature, index) in features" :key="index" class="feature-card">
             <div class="feature-icon" v-html="feature.icon"></div>
@@ -128,100 +134,111 @@ gsap.registerPlugin(ScrollTrigger)
 const openServiceForm = inject('openServiceForm')
 
 const stats = [
-  { number: '50+', label: 'Years of Experience' },
+  { number: '50', label: 'Years of Experience' },
+  { number: '8', label: 'Service Verticals' },
   { number: '1000+', label: 'Projects Delivered' },
-  { number: '15+', label: 'Countries Served' }
+  { number: '24/7', label: 'Production Support' }
 ]
 
 const milestones = [
   {
     year: '1974',
-    title: 'The Beginning',
-    description: 'Al Falah opens its first printing press in Dubai, laying the foundation for what would become a regional leader in the printing industry.'
+    title: 'Printing & Press',
+    description: 'AFME begins as the best printing solutions provider in the Middle East, laying the foundation for decades of industry leadership.'
   },
   {
     year: '1998',
-    title: 'Digital Transformation',
-    description: 'Embracing digital printing technology while preserving our commitment to craftsmanship, expanding our capacity and capabilities tenfold.'
+    title: 'Digital Printing',
+    description: 'We embrace cutting-edge digital printing, becoming the best digital printing solutions provider across the region while preserving traditional craft.'
   },
   {
     year: '2015',
-    title: 'Regional Expansion',
-    description: 'Establishing partnerships across 15 countries and launching our state-of-the-art production facility with the latest in sustainable printing technology.'
+    title: '3D Printing',
+    description: 'Expanding into 3D printing, AFME positions itself as the best 3D printing solutions provider in the Middle East — pushing every dimension of print.'
+  },
+  {
+    year: 'Today',
+    title: 'Integrated Solutions',
+    description: 'A full-service partner spanning printing, branding, signage, events and corporate gifting — helping brands amplify their presence across the UAE.'
   }
 ]
 
 const features = [
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
-    title: 'Premium Quality',
-    description: 'Industry-leading print resolution with meticulous quality control at every stage of production.'
+    title: 'Printing Excellence',
+    description: 'Cutting-edge offset and digital printing solutions that combine innovation and craftsmanship to bring your ideas to life — from collateral and banners to intricate packaging.'
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-    title: 'Fast Turnaround',
-    description: 'Streamlined workflows and dedicated teams ensure your projects are delivered on time, every time.'
+    title: 'Trusted Since 1974',
+    description: '50 years of expertise across printing, branding and advertising — making us one of the most established names in the Middle East print industry.'
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
-    title: 'Custom Design',
-    description: 'Our in-house design team works closely with you to create bespoke solutions tailored to your brand.'
+    title: 'Holistic Approach',
+    description: 'A unique fusion of printing, branding and advertising under one roof — so your brand story stays consistent from concept to execution.'
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>',
-    title: '50+ Years Experience',
-    description: 'Half a century of expertise means we have seen it all and can handle projects of any scale or complexity.'
+    title: 'Client-Centric Team',
+    description: 'Creative professionals, strategists, and technical experts working closely with you to deliver solutions that align seamlessly with your vision.'
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>',
-    title: 'Eco-Friendly Options',
-    description: 'Sustainable inks, recycled stocks, and energy-efficient processes that reduce environmental impact.'
+    title: 'End-to-End Service',
+    description: 'From design and pre-press to production, finishing and delivery — we handle every step so you can focus on growing your business.'
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>',
-    title: 'Global Shipping',
-    description: 'Reliable worldwide delivery with secure packaging to ensure your prints arrive in perfect condition.'
+    title: 'UAE-Wide Reach',
+    description: 'Headquartered in Dubai with reliable delivery and on-site project execution across the UAE for printing, signage and event activations.'
   }
 ]
 
 const processSteps = [
   {
     number: '01',
-    title: 'Consultation',
-    description: 'We discuss your vision, requirements, and objectives to understand exactly what you need.'
+    title: 'Discover',
+    description: 'We sit down with you to understand your goals, challenges and unique offerings before we put pen to paper.'
   },
   {
     number: '02',
     title: 'Design',
-    description: 'Our creative team develops concepts and mock-ups for your review and approval.'
+    description: 'Our creative team develops concepts, mock-ups and prototypes — infusing innovation into every detail.'
   },
   {
     number: '03',
-    title: 'Production',
-    description: 'Using premium materials and state-of-the-art equipment, we bring your project to life.'
+    title: 'Produce',
+    description: 'State-of-the-art presses and finishing equipment bring your project to life with precision and quality.'
   },
   {
     number: '04',
-    title: 'Delivery',
-    description: 'Quality-checked and carefully packaged, your order is delivered on time, wherever you are.'
+    title: 'Deliver',
+    description: 'Quality-checked and carefully packed, your order is delivered on time across the UAE — ready to make an impact.'
   }
 ]
 
 const companyValues = [
   {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/></svg>',
+    title: 'Collaboration',
+    description: 'We believe the best results are born from collaboration. We work closely with you to understand your goals, challenges and unique offerings, ensuring our solutions align seamlessly with your vision.'
+  },
+  {
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>',
+    title: 'Creativity',
+    description: 'Creativity is at the core of everything we do. Our team thinks outside the box to bring fresh ideas to the table, infusing innovation into every project to set you apart from the competition.'
+  },
+  {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',
-    title: 'Innovation',
-    description: 'We continuously invest in the latest technologies and techniques to push the boundaries of what print can achieve, keeping our clients ahead of the curve.'
+    title: 'Quality',
+    description: 'Our commitment to excellence is unwavering. We take pride in delivering materials, branding assets, and advertising campaigns that reflect the highest standards of quality and professionalism.'
   },
   {
-    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>',
-    title: 'Integrity',
-    description: 'Transparency, honesty, and accountability guide every interaction. We build lasting relationships founded on trust and mutual respect with every client we serve.'
-  },
-  {
-    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
-    title: 'Excellence',
-    description: 'We hold ourselves to the highest standards in everything we do. From material selection to final delivery, excellence is not a goal but a habit embedded in our culture.'
+    icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+    title: 'Results-Driven',
+    description: 'We measure our success by the impact we make on your business. From increased brand recognition to enhanced engagement, we focus on achieving tangible results that drive growth.'
   }
 ]
 
@@ -403,8 +420,21 @@ onUnmounted(() => {
   font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 600;
   color: var(--text-primary);
-  margin-bottom: 56px;
+  margin-bottom: 24px;
   line-height: 1.2;
+}
+
+.section-heading + .section-intro {
+  margin-top: -8px;
+  margin-bottom: 56px;
+}
+
+.section-intro {
+  max-width: 760px;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 56px;
 }
 
 /* ============================================
@@ -467,8 +497,8 @@ onUnmounted(() => {
   max-width: 1200px;
   margin: 64px auto 0;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 .stat-item {
@@ -686,8 +716,8 @@ onUnmounted(() => {
 
 .values-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
 }
 
 .value-card {
@@ -822,6 +852,14 @@ onUnmounted(() => {
   .process-steps {
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
+  }
+
+  .values-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .step-connector {

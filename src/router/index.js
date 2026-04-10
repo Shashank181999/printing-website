@@ -3,12 +3,18 @@ import HomePage from '../views/HomePage.vue'
 import AboutPage from '../views/AboutPage.vue'
 import ContactPage from '../views/ContactPage.vue'
 import ProductsPage from '../views/ProductsPage.vue'
+import ServicesPage from '../views/ServicesPage.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomePage
+  },
+  {
+    path: '/services',
+    name: 'Services',
+    component: ServicesPage
   },
   {
     path: '/products',

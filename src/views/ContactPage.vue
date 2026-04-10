@@ -8,16 +8,16 @@
       <div class="hero-overlay"></div>
       <div class="container">
         <div class="hero-content">
-          <span class="hero-label">Get In Touch</span>
+          <span class="hero-label">Contact AFME</span>
           <h1 class="hero-title">
-            Let's Create<br>
-            <span class="highlight">Something</span><br>
-            <em>Extraordinary</em>
+            Let's Transform<br>
+            <span class="highlight">Your Ideas</span><br>
+            Into <em>Reality</em>
           </h1>
           <p class="hero-desc">
-            Every great project begins with a conversation. Whether you're envisioning
-            premium business stationery or a comprehensive brand identity, we're here to
-            bring your vision to life with uncompromising quality.
+            At AFME, we are more than just a printing company — we are your partners
+            in transforming ideas into tangible realities. Reach out to discuss your next
+            print, branding or activation project with our team.
           </p>
         </div>
       </div>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="card-content">
                   <h3>Our Location</h3>
-                  <p>Al Quoz Industrial Area<br>Dubai, United Arab Emirates<br>P.O. Box 12345</p>
+                  <p>Dubai, United Arab Emirates</p>
                 </div>
               </div>
 
@@ -61,7 +61,7 @@
                 </div>
                 <div class="card-content">
                   <h3>Call Us</h3>
-                  <p>+971 4 XXX XXXX<br>+971 50 XXX XXXX</p>
+                  <p>+971 56 726 8735</p>
                 </div>
               </div>
 
@@ -75,7 +75,7 @@
                 </div>
                 <div class="card-content">
                   <h3>Email Us</h3>
-                  <p>info@alfalah-me.com<br>press@alfalah-me.com</p>
+                  <p>info@alfalah-me.com</p>
                 </div>
               </div>
             </div>
@@ -85,12 +85,8 @@
               <h3 class="hours-title">Working Hours</h3>
               <div class="hours-grid">
                 <div class="hours-item">
-                  <span class="day">Monday — Thursday</span>
-                  <span class="time">09:00 — 18:00</span>
-                </div>
-                <div class="hours-item">
-                  <span class="day">Friday</span>
-                  <span class="time">09:00 — 12:00</span>
+                  <span class="day">Monday — Friday</span>
+                  <span class="time">09:00 — 18:30</span>
                 </div>
                 <div class="hours-item">
                   <span class="day">Saturday</span>

@@ -1,5 +1,8 @@
 <template>
   <footer ref="footerRef" class="footer">
+    <!-- Raindrop Canvas Layer -->
+    <canvas ref="rainCanvas" class="rain-canvas" aria-hidden="true"></canvas>
+
     <!-- Main Footer -->
     <div class="footer-main">
       <div class="container">
@@ -130,7 +133,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import logoImage from '@/assets/logo.png'
@@ -138,8 +141,15 @@ import logoImage from '@/assets/logo.png'
 gsap.registerPlugin(ScrollTrigger)
 
 const footerRef = ref(null)
+const rainCanvas = ref(null)
 
 const currentYear = computed(() => new Date().getFullYear())
+
+// Raindrop animation state
+let rainAnimationId = null
+let rainResizeObserver = null
+let raindrops = []
+let splashes = []
 
 const scrollToTop = () => {
   gsap.to(window, {
@@ -149,7 +159,102 @@ const scrollToTop = () => {
   })
 }
 
+// ---------- Raindrop Animation ----------
+function initRain() {
+  const canvas = rainCanvas.value
+  const footer = footerRef.value
+  if (!canvas || !footer) return
+
+  const ctx = canvas.getContext('2d')
+  const dpr = Math.min(window.devicePixelRatio || 1, 2)
+
+  const resize = () => {
+    const rect = footer.getBoundingClientRect()
+    canvas.width = rect.width * dpr
+    canvas.height = rect.height * dpr
+    canvas.style.width = rect.width + 'px'
+    canvas.style.height = rect.height + 'px'
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+
+    const targetCount = Math.min(180, Math.floor(rect.width / 8))
+    raindrops = Array.from({ length: targetCount }, () => createDrop(rect.width, rect.height, true))
+  }
+
+  const createDrop = (w, h, randomY = false) => ({
+    x: Math.random() * w,
+    y: randomY ? Math.random() * h : -20 - Math.random() * 40,
+    length: 10 + Math.random() * 18,
+    speed: 4 + Math.random() * 6,
+    opacity: 0.25 + Math.random() * 0.55,
+    thickness: 0.8 + Math.random() * 1.2,
+    drift: -0.4 + Math.random() * 0.2, // slight angled fall
+  })
+
+  const draw = () => {
+    const w = canvas.width / dpr
+    const h = canvas.height / dpr
+    ctx.clearRect(0, 0, w, h)
+
+    // Draw raindrops as gradient lines
+    for (const d of raindrops) {
+      const grad = ctx.createLinearGradient(d.x, d.y, d.x + d.drift * d.length, d.y + d.length)
+      grad.addColorStop(0, `rgba(174, 214, 241, 0)`)
+      grad.addColorStop(0.4, `rgba(174, 214, 241, ${d.opacity * 0.6})`)
+      grad.addColorStop(1, `rgba(220, 240, 255, ${d.opacity})`)
+      ctx.strokeStyle = grad
+      ctx.lineWidth = d.thickness
+      ctx.lineCap = 'round'
+      ctx.beginPath()
+      ctx.moveTo(d.x, d.y)
+      ctx.lineTo(d.x + d.drift * d.length, d.y + d.length)
+      ctx.stroke()
+
+      d.y += d.speed
+      d.x += d.drift
+
+      if (d.y > h - 4) {
+        // create a splash and recycle the drop to the top
+        if (splashes.length < 60 && Math.random() > 0.4) {
+          splashes.push({
+            x: d.x + d.drift * d.length,
+            y: h - 2 - Math.random() * 2,
+            radius: 0,
+            maxRadius: 4 + Math.random() * 4,
+            opacity: 0.5 + Math.random() * 0.3,
+          })
+        }
+        Object.assign(d, createDrop(w, h, false))
+      }
+    }
+
+    // Draw splashes (expanding rings)
+    for (let i = splashes.length - 1; i >= 0; i--) {
+      const s = splashes[i]
+      ctx.strokeStyle = `rgba(174, 214, 241, ${s.opacity})`
+      ctx.lineWidth = 1
+      ctx.beginPath()
+      ctx.arc(s.x, s.y, s.radius, Math.PI, Math.PI * 2)
+      ctx.stroke()
+      s.radius += 0.4
+      s.opacity -= 0.025
+      if (s.opacity <= 0 || s.radius >= s.maxRadius) splashes.splice(i, 1)
+    }
+
+    rainAnimationId = requestAnimationFrame(draw)
+  }
+
+  resize()
+  draw()
+
+  rainResizeObserver = new ResizeObserver(resize)
+  rainResizeObserver.observe(footer)
+}
+
 onMounted(() => {
+  // Skip animation if user prefers reduced motion
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  if (!reduceMotion) initRain()
+
   gsap.from('.footer-brand > *', {
     scrollTrigger: {
       trigger: '.footer-main',
@@ -186,12 +291,40 @@ onMounted(() => {
     ease: 'power3.out'
   })
 })
+
+onUnmounted(() => {
+  if (rainAnimationId) cancelAnimationFrame(rainAnimationId)
+  if (rainResizeObserver) rainResizeObserver.disconnect()
+  raindrops = []
+  splashes = []
+})
 </script>
 
 <style scoped>
 .footer {
+  position: relative;
   background: var(--bg-dark);
   color: white;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Raindrop canvas overlay */
+.rain-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.85;
+  mix-blend-mode: screen;
+}
+
+.footer-main,
+.footer-bottom {
+  position: relative;
+  z-index: 1;
 }
 
 /* Main Footer */
