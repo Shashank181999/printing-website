@@ -144,7 +144,7 @@
         <div class="container cube-container">
           <!-- LEFT: Rotating Cube -->
           <div class="cube-stage">
-            <div class="cube" ref="cubeEl">
+            <div class="cube" ref="cubeEl" :data-face="cubeActiveFace">
               <div class="cube-face cube-face--front">
                 <img src="/products/gold-foil-business-cards.webp" alt="Business Cards" />
                 <div class="cube-face-label">01 / Business Cards</div>
@@ -943,27 +943,25 @@ onMounted(() => {
     scrollTriggers.push(st)
   }
 
-  // Scroll-pinned 3D cube — ScrollTrigger pin + scrub
+  // Scroll-pinned 3D cube — pin the section and step through faces discretely.
+  // CSS rotates the cube via [data-face] so the cube + text always land in sync.
   if (cubeSection.value && cubeEl.value) {
     const totalFaces = cubeSlides.length
-    const cubeTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: cubeSection.value,
-        start: 'top top',
-        end: () => '+=' + (window.innerHeight * (totalFaces - 1) * 1.2),
-        pin: true,
-        scrub: 1,
-        anticipatePin: 1,
-        onUpdate: (self) => {
-          // Update the active text slide based on scroll progress
-          const idx = Math.min(totalFaces - 1, Math.round(self.progress * (totalFaces - 1)))
-          if (cubeActiveFace.value !== idx) cubeActiveFace.value = idx
-        },
+    const st = ScrollTrigger.create({
+      trigger: cubeSection.value,
+      start: 'top top',
+      end: () => '+=' + (window.innerHeight * totalFaces),
+      pin: true,
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        const idx = Math.min(
+          totalFaces - 1,
+          Math.floor(self.progress * totalFaces)
+        )
+        if (cubeActiveFace.value !== idx) cubeActiveFace.value = idx
       },
     })
-    // Rotate cube smoothly across 360deg (4 faces = 0, 90, 180, 270)
-    cubeTl.to(cubeEl.value, { rotationY: -270, ease: 'none' })
-    scrollTriggers.push(cubeTl.scrollTrigger)
+    scrollTriggers.push(st)
   }
 
   if (ctaSection.value) {
@@ -1701,8 +1699,13 @@ onUnmounted(() => {
   height: 340px;
   transform-style: preserve-3d;
   transform: rotateY(0deg);
+  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
   will-change: transform;
 }
+.cube[data-face="0"] { transform: rotateY(0deg); }
+.cube[data-face="1"] { transform: rotateY(-90deg); }
+.cube[data-face="2"] { transform: rotateY(-180deg); }
+.cube[data-face="3"] { transform: rotateY(-270deg); }
 
 .cube-face {
   position: absolute;

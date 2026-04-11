@@ -491,7 +491,14 @@ function loadImage(src) {
 // openX (book centred, text lives as a bottom card).
 // Called on init and on every resize.
 // =============================================================
-const layout = { closedX: 1.6, openX: 0, closedY: 0, openY: 0.6 }
+const layout = {
+  closedX: 1.6,
+  openX: 0,
+  closedY: 0,
+  openY: 0.6,
+  closedScale: 1,
+  openScale: 0.65,
+}
 
 function applyResponsiveLayout() {
   if (!book || !camera) return
@@ -501,25 +508,37 @@ function applyResponsiveLayout() {
   const isMobile = w < 900
   const isNarrow = w < 1300
 
+  // NOTE: The book's spine (hinge) sits at local x = -W/2, so when we want
+  // the OPEN spread to be visually centered on the camera's lookAt.x, we
+  // must set book.x = lookAt.x + W/2 * scale. (If we set openX = lookAt.x
+  // the flipped cover extends leftward and the spread lands left-of-center.)
+  // W (cover width) in buildBook = 2.6, so half-width = 1.3.
+  const HALF_W = 1.3
   if (isMobile) {
+    layout.openScale = 0.6
+    layout.closedScale = 0.95
     layout.closedX = 0
-    layout.openX = 0
-    layout.closedY = 0.25
-    layout.openY = 0.9
+    layout.openX = 0 + HALF_W * layout.openScale
+    layout.closedY = 0.2
+    layout.openY = 0.25
     camera.position.set(0, 0.4, 7.8)
     camera.lookAt(0, 0.1, 0)
   } else if (isNarrow) {
+    layout.openScale = 0.78
+    layout.closedScale = 1
     layout.closedX = 1.2
-    layout.openX = -0.2
+    layout.openX = 0.5 + HALF_W * layout.openScale
     layout.closedY = 0
-    layout.openY = 0.6
+    layout.openY = 0.2
     camera.position.set(0.3, 0.8, 6.4)
     camera.lookAt(0.5, 0.2, 0)
   } else {
+    layout.openScale = 0.82
+    layout.closedScale = 1
     layout.closedX = 1.5
-    layout.openX = -0.25
+    layout.openX = 0.6 + HALF_W * layout.openScale
     layout.closedY = 0
-    layout.openY = 0.55
+    layout.openY = 0.2
     camera.position.set(0.4, 0.8, 6.2)
     camera.lookAt(0.6, 0.2, 0)
   }
@@ -531,6 +550,8 @@ function applyResponsiveLayout() {
     isOpen ? layout.openY : layout.closedY,
     0
   )
+  const s = isOpen ? layout.openScale : layout.closedScale
+  book.scale.set(s, s, s)
   camera.aspect = aspect
   camera.updateProjectionMatrix()
 }
@@ -693,6 +714,7 @@ function setupScrollAnimations() {
   // ---------- Ch 0: Intro — book closed, slow tilt ----------
   tl.to(book.rotation, { y: 0.1, x: -0.08, duration: seg, ease: 'sine.inOut' }, 0)
   tl.set(book.position, { x: () => layout.closedX, y: () => layout.closedY }, 0)
+  tl.set(book.scale, { x: () => layout.closedScale, y: () => layout.closedScale, z: () => layout.closedScale }, 0)
 
   // ---------- Ch 1: Brochure — front cover opens, book slides to centre ----------
   const c1 = seg * 1
@@ -703,6 +725,17 @@ function setupScrollAnimations() {
     {
       x: () => layout.openX,
       y: () => layout.openY,
+      duration: seg * 0.7,
+      ease: 'power2.inOut',
+    },
+    c1
+  )
+  tl.to(
+    book.scale,
+    {
+      x: () => layout.openScale,
+      y: () => layout.openScale,
+      z: () => layout.openScale,
       duration: seg * 0.7,
       ease: 'power2.inOut',
     },
@@ -872,52 +905,69 @@ onBeforeUnmount(() => {
   pointer-events: auto;
 }
 
-/* When the book opens (chapter 1+), drop the text to a bottom card so
-   the book can center itself without fighting the hero text. */
+/* When the book opens (chapter 1+), the text sits on the LEFT page of the
+   open spread. The spine is at viewport center (50%), so the card is
+   right-anchored just left of center and extends leftward into the left
+   page area. It reads like magazine copy printed on the page. */
 .story-stage.is-open .story-text {
-  top: auto;
-  bottom: 5vh;
+  top: 50%;
   left: 50%;
   right: auto;
-  transform: translate(-50%, 0);
-  text-align: center;
-  width: min(760px, 88vw);
+  transform: translate(calc(-100% - 24px), -50%);
+  width: min(360px, 26vw);
 }
 .story-stage.is-open .story-text-inner {
   max-width: 100%;
+  padding: 26px 28px 28px;
+  background: linear-gradient(
+    160deg,
+    rgba(4, 8, 15, 0.78) 0%,
+    rgba(4, 8, 15, 0.58) 100%
+  );
+  border: 1px solid rgba(201, 162, 39, 0.22);
+  border-radius: 16px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
 }
 .story-stage.is-open .story-kicker {
-  margin-bottom: 16px;
+  font-size: 11px;
+  padding: 7px 14px;
+  margin-bottom: 18px;
 }
 .story-stage.is-open .story-title {
-  font-size: clamp(42px, 5.6vw, 82px);
-  margin-bottom: 14px;
+  font-size: clamp(32px, 3.6vw, 52px);
+  margin-bottom: 16px;
 }
 .story-stage.is-open .story-desc {
-  max-width: 620px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 15px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  margin-bottom: 22px;
 }
 .story-stage.is-open .story-cta {
-  justify-content: center;
+  gap: 10px;
+}
+.story-stage.is-open .btn-gold,
+.story-stage.is-open .btn-ghost {
+  padding: 13px 22px;
+  font-size: 11px;
 }
 
-/* Dark gradient scrim across the bottom so the text is clearly separated
-   from the book above. Only shown when the book is open. */
+/* Subtle vertical scrim on the left so the text card sits cleanly against
+   the book, no matter which page is currently showing. */
 .story-stage.is-open::after {
   content: '';
   position: absolute;
   left: 0;
-  right: 0;
+  top: 0;
   bottom: 0;
-  height: 40vh;
+  width: 50vw;
   z-index: 4;
   background: linear-gradient(
-    180deg,
-    rgba(4, 8, 15, 0) 0%,
-    rgba(4, 8, 15, 0.55) 40%,
-    rgba(4, 8, 15, 0.92) 100%
+    90deg,
+    rgba(4, 8, 15, 0.5) 0%,
+    rgba(4, 8, 15, 0.12) 55%,
+    rgba(4, 8, 15, 0) 100%
   );
   pointer-events: none;
 }
