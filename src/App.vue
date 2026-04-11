@@ -1,10 +1,21 @@
 <template>
   <div id="app">
+    <!-- Gold page-transition curtain (Barba-style wipe, driven by GSAP) -->
+    <div class="page-curtain" ref="curtainEl" aria-hidden="true">
+      <span class="page-curtain-label">Al Falah</span>
+    </div>
+
     <Header />
     <main>
-      <router-view v-slot="{ Component }">
-        <transition name="page" mode="out-in">
-          <component :is="Component" />
+      <router-view v-slot="{ Component, route }">
+        <transition
+          :css="false"
+          mode="out-in"
+          @before-enter="onBeforeEnter"
+          @enter="onEnter"
+          @leave="onLeave"
+        >
+          <component :is="Component" :key="route.fullPath" />
         </transition>
       </router-view>
     </main>
@@ -19,20 +30,96 @@
 </template>
 
 <script setup>
-import { ref, provide } from 'vue'
+import { ref, provide, onMounted, onBeforeUnmount } from 'vue'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import Lenis from '@studio-freight/lenis'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import WhatsAppButton from './components/WhatsAppButton.vue'
 import ChatBot from './components/ChatBot.vue'
 import ServiceRequestForm from './components/ServiceRequestForm.vue'
 
+gsap.registerPlugin(ScrollTrigger)
+
 const showServiceForm = ref(false)
+const curtainEl = ref(null)
 
 const openServiceForm = () => {
   showServiceForm.value = true
 }
 
 provide('openServiceForm', openServiceForm)
+
+// ---------- Global Lenis smooth scroll ----------
+let lenis = null
+let rafTicker = null
+
+onMounted(() => {
+  lenis = new Lenis({
+    duration: 1.05,
+    smoothWheel: true,
+    smoothTouch: false,
+    wheelMultiplier: 1.1,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  })
+  lenis.on('scroll', ScrollTrigger.update)
+  rafTicker = (time) => lenis && lenis.raf(time * 1000)
+  gsap.ticker.add(rafTicker)
+  gsap.ticker.lagSmoothing(0)
+  // Expose globally so routing / nav clicks can scrollTo
+  window.__lenis = lenis
+})
+
+onBeforeUnmount(() => {
+  if (rafTicker) gsap.ticker.remove(rafTicker)
+  if (lenis) {
+    lenis.destroy()
+    lenis = null
+  }
+  window.__lenis = null
+})
+
+// ---------- GSAP-driven page transitions (Barba-style) ----------
+const onBeforeEnter = (el) => {
+  gsap.set(el, { opacity: 0, y: 40 })
+}
+
+const onEnter = (el, done) => {
+  // Wipe the gold curtain away, reveal the new page
+  const tl = gsap.timeline({ onComplete: done })
+  tl.to(curtainEl.value, {
+    scaleY: 0,
+    duration: 0.75,
+    ease: 'power4.inOut',
+    transformOrigin: 'top center',
+  })
+    .fromTo(
+      el,
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
+      '-=0.35'
+    )
+    .call(() => {
+      if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
+      ScrollTrigger.refresh()
+    })
+}
+
+const onLeave = (el, done) => {
+  const tl = gsap.timeline({ onComplete: done })
+  tl.set(curtainEl.value, { scaleY: 0, transformOrigin: 'bottom center' })
+    .to(curtainEl.value, {
+      scaleY: 1,
+      duration: 0.7,
+      ease: 'power4.inOut',
+    })
+    .to(
+      el,
+      { opacity: 0, y: -20, duration: 0.45, ease: 'power2.in' },
+      '-=0.55'
+    )
+}
 </script>
 
 <style>
@@ -154,20 +241,39 @@ h1, h2, h3, h4 {
   line-height: 1.2;
 }
 
-/* Page transitions */
-.page-enter-active,
-.page-leave-active {
-  transition: opacity 0.4s ease, transform 0.4s ease;
+/* Page transition curtain (GSAP-driven, Barba-style wipe) */
+.page-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background:
+    radial-gradient(ellipse at 50% 40%, rgba(255, 255, 255, 0.08), transparent 60%),
+    linear-gradient(135deg, #0a1230 0%, #0052cc 50%, #c9a227 100%);
+  transform: scaleY(0);
+  transform-origin: bottom center;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  will-change: transform;
+}
+.page-curtain-label {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 200;
+  font-size: clamp(36px, 6vw, 80px);
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  mix-blend-mode: overlay;
 }
 
-.page-enter-from {
-  opacity: 0;
-  transform: translateY(20px);
+/* When Lenis is active, it manages scroll — keep html/body friendly */
+html.lenis,
+html.lenis body {
+  height: auto;
 }
-
-.page-leave-to {
-  opacity: 0;
-  transform: translateY(-10px);
+html.lenis-smooth {
+  scroll-behavior: auto !important;
 }
 
 /* Section Label */

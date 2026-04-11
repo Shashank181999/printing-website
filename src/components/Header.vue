@@ -88,11 +88,19 @@ const isScrolled = ref(false)
 const isHidden = ref(false)
 const isMobileMenuOpen = ref(false)
 const scrollProgress = ref(0)
+const scrollY = ref(0)
 let lastScrollY = 0
 
 const openServiceForm = inject('openServiceForm')
 
-const isDarkPage = computed(() => false)
+// On the home page, a cinematic dark scene covers the first ~700vh.
+// Keep the header in dark-page (light text) mode while it's over the cinematic.
+const isDarkPage = computed(() => {
+  if (route.path !== '/') return false
+  if (typeof window === 'undefined') return true
+  // Switch to light-mode header once user has scrolled past the cinematic zone.
+  return scrollY.value < window.innerHeight * 6.2
+})
 
 const navLinks = [
   { name: 'Home', path: '/', route: true },
@@ -152,6 +160,7 @@ const toggleSearch = () => {
 
 const handleScroll = () => {
   const currentScrollY = window.scrollY
+  scrollY.value = currentScrollY
   const documentHeight = document.documentElement.scrollHeight - window.innerHeight
 
   scrollProgress.value = (currentScrollY / documentHeight) * 100
@@ -231,6 +240,18 @@ onUnmounted(() => {
   backdrop-filter: blur(20px);
   padding: 8px 0;
   box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+}
+
+/* On dark cinematic pages, let the canvas show through */
+.header.dark-page .header-inner {
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.header.dark-page.scrolled .header-inner {
+  background: rgba(4, 8, 15, 0.55);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(201, 162, 39, 0.15);
 }
 
 .header-container {

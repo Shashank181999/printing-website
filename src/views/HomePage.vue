@@ -1,41 +1,7 @@
 <template>
   <div class="home">
-    <!-- 1. Hero Banner -->
-    <section class="hero">
-      <div class="hero-bg">
-        <img
-          src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=1600&q=80"
-          alt="Printing and Branding"
-          class="hero-bg-img"
-        />
-        <div class="hero-overlay"></div>
-      </div>
-      <div class="hero-content">
-        <span class="hero-badge">85+ Premium Products</span>
-        <h1 class="hero-title">Your One-Stop<br>Print &amp; <span class="title-accent">Brand</span> Shop</h1>
-        <p class="hero-subtitle">
-          Explore premium printing, packaging, signage, and branding products — all in one place.
-        </p>
-        <div class="hero-search">
-          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Search business cards, banners, packaging..."
-            class="search-input"
-            @keyup.enter="goToProducts"
-          />
-          <button class="search-btn" @click="goToProducts">Search</button>
-        </div>
-        <div class="hero-actions">
-          <router-link to="/products" class="btn-primary">Shop Products</router-link>
-          <button class="btn-secondary" @click="openServiceForm">Get Custom Quote</button>
-        </div>
-      </div>
-    </section>
+    <!-- 1. Cinematic 3D Hero -->
+    <CinematicScene />
 
     <!-- Marquee Strip -->
     <section class="marquee-section">
@@ -513,6 +479,7 @@ import { ref, inject, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import CinematicScene from '../components/CinematicScene.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -792,23 +759,7 @@ const trustFeatures = [
 let scrollTriggers = []
 
 onMounted(() => {
-  // Hero entrance animation
-  const heroTl = gsap.timeline({ delay: 0.3 })
-  heroTl
-    .from('.hero-badge', { y: -20, opacity: 0, duration: 0.6 })
-    .from('.hero-title', { y: 60, opacity: 0, duration: 0.9, ease: 'power4.out' }, '-=0.3')
-    .from('.title-accent', { color: '#fff', duration: 0.6 }, '-=0.4')
-    .from('.hero-subtitle', { y: 30, opacity: 0, duration: 0.7 }, '-=0.5')
-    .from('.hero-search', { y: 30, opacity: 0, scale: 0.95, duration: 0.7 }, '-=0.4')
-    .from('.hero-actions > *', { y: 20, opacity: 0, stagger: 0.12, duration: 0.6 }, '-=0.3')
-
-  // Hero parallax on scroll
-  scrollTriggers.push(
-    gsap.to('.hero-bg-img', {
-      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
-      y: 150, ease: 'none'
-    })
-  )
+  // Old hero animations removed — cinematic 3D scene now handles the hero.
 
   // Animate category strip
   gsap.from('.category-chip', {
