@@ -143,8 +143,21 @@ const scrollCueEl  = ref(null)
 const activeChapter = ref(0)
 
 let ctx // GSAP context for clean teardown
+const isMobile = () => window.innerWidth <= 768
 
 onMounted(() => {
+  // On mobile: static hero, no scroll animation
+  if (isMobile()) {
+    gsap.set(panel1El.value, { opacity: 1, y: 0 })
+    gsap.set(panel2El.value, { opacity: 0 })
+    gsap.set(panel3El.value, { opacity: 0 })
+    gsap.set(bg1El.value, { opacity: 1 })
+    gsap.set(bg2El.value, { opacity: 0 })
+    gsap.set(bg3El.value, { opacity: 0 })
+    if (scrollCueEl.value) gsap.set(scrollCueEl.value, { opacity: 0 })
+    return
+  }
+
   ctx = gsap.context(() => {
 
     /* ── Initial states ── */
@@ -725,30 +738,28 @@ onBeforeUnmount(() => {
 /* ════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════ */
-@media (max-width: 1100px) {
-  .ss-panel--left,
-  .ss-panel--right {
-    left: 6%;
-    right: auto;
-    max-width: 420px;
-  }
-  .ss-hero {
-    width: clamp(220px, 38vw, 340px);
-  }
-}
-
 @media (max-width: 768px) {
   .scroll-story {
-    height: 250vh;
+    height: auto;
   }
 
-  /* Hide printer on mobile — text only */
-  .ss-hero-perspective { display: none !important; }
-  .ss-progress { display: none; }
-  .ss-scroll-cue { bottom: 20px; }
+  .scroll-story__stage {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+  }
 
-  .ss-panel--left,
-  .ss-panel--right {
+  /* Hide scroll-only elements */
+  .ss-hero-perspective,
+  .ss-progress,
+  .ss-scroll-cue,
+  .ss-panel--right,
+  .ss-panel--final {
+    display: none !important;
+  }
+
+  /* Show only chapter 1 — centered */
+  .ss-panel--left {
     left: 24px;
     right: 24px;
     top: 50%;
@@ -758,18 +769,10 @@ onBeforeUnmount(() => {
     text-align: left;
   }
 
-  .ss-panel--final {
-    padding: 0 24px;
-  }
-
   .ss-heading {
-    font-size: clamp(32px, 9vw, 52px);
-    line-height: 1;
+    font-size: clamp(36px, 10vw, 56px);
+    line-height: 0.95;
     margin-bottom: 16px;
-  }
-
-  .ss-heading--large {
-    font-size: clamp(36px, 10vw, 60px);
   }
 
   .ss-kicker {
@@ -795,46 +798,20 @@ onBeforeUnmount(() => {
   .ss-stat span {
     font-size: 10px;
   }
-
-  .ss-features {
-    grid-template-columns: 1fr;
-  }
-
-  .ss-feature {
-    font-size: 14px;
-  }
-
-  .ss-cta {
-    justify-content: flex-start;
-  }
-
-  .ss-final-tags {
-    justify-content: flex-start;
-  }
-
-  .ss-btn {
-    padding: 14px 26px;
-    font-size: 11px;
-  }
 }
 
 @media (max-width: 480px) {
-  .scroll-story {
-    height: 230vh;
+  .scroll-story__stage {
+    min-height: 520px;
   }
 
-  .ss-panel--left,
-  .ss-panel--right {
+  .ss-panel--left {
     left: 20px;
     right: 20px;
   }
 
   .ss-heading {
-    font-size: clamp(28px, 8.5vw, 40px);
-  }
-
-  .ss-heading--large {
-    font-size: clamp(32px, 9vw, 48px);
+    font-size: clamp(30px, 9vw, 44px);
   }
 
   .ss-body {
@@ -852,17 +829,6 @@ onBeforeUnmount(() => {
   .ss-kicker {
     font-size: 9px;
     padding: 6px 12px;
-    margin-bottom: 12px;
-  }
-
-  .ss-btn {
-    padding: 12px 22px;
-    font-size: 10px;
-  }
-
-  .ss-final-tags span {
-    font-size: 9px;
-    padding: 6px 14px;
   }
 }
 </style>
