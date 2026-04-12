@@ -80,12 +80,11 @@ let isFirstLoad = true
 
 const onBeforeEnter = (el) => {
   if (isFirstLoad) {
-    // First load / reload — don't animate, just show instantly
     gsap.set(el, { opacity: 1, y: 0 })
     isFirstLoad = false
     return
   }
-  gsap.set(el, { opacity: 0, y: 16 })
+  gsap.set(el, { opacity: 0 })
 }
 
 const router = useRouter()
@@ -96,14 +95,12 @@ const onEnter = (el, done) => {
     done()
     return
   }
-  // Scroll to top first
   window.scrollTo(0, 0)
   if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
   gsap.to(el, {
-    opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
+    opacity: 1, duration: 0.4, ease: 'power2.out',
     onComplete: () => {
       ScrollTrigger.refresh()
-      // After page renders, scroll to hash if present
       const hash = router.currentRoute.value.hash
       if (hash) {
         nextTick(() => {
@@ -127,7 +124,7 @@ const onEnter = (el, done) => {
 
 const onLeave = (el, done) => {
   gsap.to(el, {
-    opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: done,
+    opacity: 0, duration: 0.3, ease: 'power2.inOut', onComplete: done,
   })
 }
 </script>

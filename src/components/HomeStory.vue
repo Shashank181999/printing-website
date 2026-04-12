@@ -18,7 +18,7 @@
         <div class="ss-hero" ref="heroEl">
           <div class="ss-hero-glow" ref="glowEl"></div>
           <img
-            src="/hero/large-format-printer.png"
+            src="/hero/large-format-printer.jpg"
             alt="Large format printer"
             class="ss-hero-img"
           />
