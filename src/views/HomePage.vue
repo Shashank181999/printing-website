@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <!-- 1. Cinematic 3D Hero -->
-    <CinematicScene />
+    <!-- 1. 3D Scroll-Story Hero (Three.js + GSAP) -->
+    <HomeStory />
 
     <!-- Marquee Strip -->
     <section class="marquee-section">
@@ -21,11 +21,23 @@
 
     <!-- 2. Category Strip -->
     <section class="category-strip">
-      <div class="container">
+      <div class="category-scroll-wrap">
         <div class="category-scroll">
           <router-link
             v-for="cat in categoryStrip"
             :key="cat.name"
+            to="/products"
+            class="category-chip"
+          >
+            <div class="category-chip-img">
+              <img :src="`/products/${cat.slug}.webp`" :alt="cat.name" />
+            </div>
+            <span class="category-chip-name">{{ cat.name }}</span>
+          </router-link>
+          <!-- Duplicate for seamless loop -->
+          <router-link
+            v-for="cat in categoryStrip"
+            :key="cat.name + '-dup'"
             to="/products"
             class="category-chip"
           >
@@ -55,18 +67,27 @@
             <router-link to="/services" class="btn-welcome-outline">Our Services</router-link>
           </div>
           <div class="welcome-stats">
-            <div class="welcome-stat"><strong>50</strong><span>Years of<br>Experience</span></div>
-            <div class="welcome-stat"><strong>8</strong><span>Service<br>Verticals</span></div>
-            <div class="welcome-stat"><strong>1000+</strong><span>Projects<br>Delivered</span></div>
+            <div class="welcome-stat">
+              <strong>50</strong><span>Years of<br>Experience</span>
+              <div class="stat-bar"><div class="stat-bar-fill" style="--fill: 100%"></div></div>
+            </div>
+            <div class="welcome-stat">
+              <strong>8</strong><span>Service<br>Verticals</span>
+              <div class="stat-bar"><div class="stat-bar-fill" style="--fill: 80%"></div></div>
+            </div>
+            <div class="welcome-stat">
+              <strong>1000+</strong><span>Projects<br>Delivered</span>
+              <div class="stat-bar"><div class="stat-bar-fill" style="--fill: 95%"></div></div>
+            </div>
           </div>
         </div>
         <div class="welcome-visual">
           <div class="welcome-image-stack">
             <div class="welcome-img welcome-img--back">
-              <img src="/products/annual-report.webp" alt="Annual Report" />
+              <img src="/hero/pomelli_photoshoot-2.png" alt="Printing press with operator" />
             </div>
             <div class="welcome-img welcome-img--front">
-              <img src="/products/gold-foil-business-cards.webp" alt="Premium printing" />
+              <img src="/hero/pomelli_photoshoot-4.png" alt="3D label printing press" />
             </div>
             <div class="welcome-floating-card">
               <div class="welcome-floating-num">50+</div>
@@ -105,7 +126,7 @@
               class="coverflow-card"
               :class="{ 'is-active': idx === activeIndex }"
               :style="getCoverflowStyle(idx)"
-              @click="setActive(idx)"
+              @click="idx === activeIndex ? openCoverflowProduct(item) : setActive(idx)"
             >
               <img :src="`/products/${item.slug}.webp`" :alt="item.name" />
               <div class="coverflow-shine"></div>
@@ -138,70 +159,6 @@
       </div>
     </section>
 
-    <!-- Scroll-pinned 3D Cube Section -->
-    <section class="cube-section" ref="cubeSection">
-      <div class="cube-pin">
-        <div class="container cube-container">
-          <!-- LEFT: Rotating Cube -->
-          <div class="cube-stage">
-            <div class="cube" ref="cubeEl" :data-face="cubeActiveFace">
-              <div class="cube-face cube-face--front">
-                <img src="/products/gold-foil-business-cards.webp" alt="Business Cards" />
-                <div class="cube-face-label">01 / Business Cards</div>
-              </div>
-              <div class="cube-face cube-face--right">
-                <img src="/products/rigid-box-packaging.webp" alt="Packaging" />
-                <div class="cube-face-label">02 / Packaging</div>
-              </div>
-              <div class="cube-face cube-face--back">
-                <img src="/products/neon-signage.webp" alt="Signage" />
-                <div class="cube-face-label">03 / Signage</div>
-              </div>
-              <div class="cube-face cube-face--left">
-                <img src="/products/custom-t-shirts.webp" alt="Apparel" />
-                <div class="cube-face-label">04 / Apparel</div>
-              </div>
-            </div>
-            <div class="cube-shadow"></div>
-          </div>
-
-          <!-- RIGHT: Text content that changes per face -->
-          <div class="cube-content">
-            <span class="cube-eyebrow">SCROLL TO EXPLORE</span>
-            <div class="cube-slides">
-              <div
-                class="cube-slide"
-                v-for="(slide, i) in cubeSlides"
-                :key="i"
-                :class="{
-                  active: cubeActiveFace === i,
-                  past: i < cubeActiveFace,
-                  future: i > cubeActiveFace,
-                }"
-              >
-                <div class="cube-slide-num">0{{ i + 1 }}</div>
-                <h2 class="cube-slide-title">{{ slide.title }}</h2>
-                <p class="cube-slide-desc">{{ slide.desc }}</p>
-                <ul class="cube-slide-features">
-                  <li v-for="f in slide.features" :key="f">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                    {{ f }}
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div class="cube-progress">
-              <div
-                v-for="(_, i) in cubeSlides"
-                :key="'p-' + i"
-                class="cube-progress-dot"
-                :class="{ active: cubeActiveFace === i }"
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- CMYK Color Magic Section -->
     <section class="cmyk-section" ref="cmykSection">
@@ -221,19 +178,42 @@
         </div>
 
         <div class="cmyk-stage">
-          <div class="cmyk-orbit">
-            <div class="cmyk-blob cmyk-blob--c"></div>
-            <div class="cmyk-blob cmyk-blob--m"></div>
-            <div class="cmyk-blob cmyk-blob--y"></div>
-            <div class="cmyk-blob cmyk-blob--k"></div>
+          <div class="cmyk-circles">
+            <div class="cmyk-circle cmyk-c"></div>
+            <div class="cmyk-circle cmyk-m"></div>
+            <div class="cmyk-circle cmyk-y"></div>
+            <div class="cmyk-circle cmyk-k"></div>
           </div>
-          <div class="cmyk-paper">
-            <div class="cmyk-paper-content">
-              <div class="cmyk-paper-line cmyk-paper-line--1"></div>
-              <div class="cmyk-paper-line cmyk-paper-line--2"></div>
-              <div class="cmyk-paper-line cmyk-paper-line--3"></div>
-              <div class="cmyk-paper-image"></div>
-              <div class="cmyk-paper-line cmyk-paper-line--4"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Products -->
+    <section class="products-showcase" ref="productsShowcase">
+      <div class="container">
+        <div class="showcase-header">
+          <div>
+            <span class="showcase-eyebrow">OUR PRODUCTS</span>
+            <h2 class="section-title">Popular <em>Products</em></h2>
+          </div>
+          <router-link to="/products" class="showcase-view-all">
+            View All Products
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </router-link>
+        </div>
+        <div class="showcase-grid">
+          <div
+            v-for="prod in popularProducts"
+            :key="prod.slug"
+            class="showcase-item"
+            @click="openCoverflowProduct(prod)"
+          >
+            <div class="showcase-item-img">
+              <img :src="`/products/${prod.slug}.webp`" :alt="prod.name" />
+            </div>
+            <div class="showcase-item-info">
+              <span class="showcase-item-cat">{{ prod.category }}</span>
+              <h3 class="showcase-item-name">{{ prod.name }}</h3>
             </div>
           </div>
         </div>
@@ -290,13 +270,18 @@
     <section class="press-section" ref="pressSection">
       <!-- Floating ink drops background -->
       <div class="ink-drops" aria-hidden="true">
-        <span class="ink-drop ink-drop--c" style="--delay:0s;  --left:8%;  --size:18px"></span>
-        <span class="ink-drop ink-drop--m" style="--delay:1.2s;--left:22%; --size:14px"></span>
-        <span class="ink-drop ink-drop--y" style="--delay:2.4s;--left:38%; --size:22px"></span>
-        <span class="ink-drop ink-drop--k" style="--delay:0.6s;--left:54%; --size:12px"></span>
-        <span class="ink-drop ink-drop--c" style="--delay:1.8s;--left:68%; --size:20px"></span>
-        <span class="ink-drop ink-drop--m" style="--delay:3s;  --left:82%; --size:16px"></span>
-        <span class="ink-drop ink-drop--y" style="--delay:0.4s;--left:92%; --size:14px"></span>
+        <span class="ink-drop ink-drop--c" style="--delay:0s;  --left:5%"></span>
+        <span class="ink-drop ink-drop--m" style="--delay:1.4s;--left:12%"></span>
+        <span class="ink-drop ink-drop--y" style="--delay:0.6s;--left:20%"></span>
+        <span class="ink-drop ink-drop--k" style="--delay:2.2s;--left:28%"></span>
+        <span class="ink-drop ink-drop--c" style="--delay:0.8s;--left:36%"></span>
+        <span class="ink-drop ink-drop--m" style="--delay:1.8s;--left:44%"></span>
+        <span class="ink-drop ink-drop--y" style="--delay:3.1s;--left:52%"></span>
+        <span class="ink-drop ink-drop--k" style="--delay:0.3s;--left:60%"></span>
+        <span class="ink-drop ink-drop--c" style="--delay:2.6s;--left:68%"></span>
+        <span class="ink-drop ink-drop--m" style="--delay:1.0s;--left:76%"></span>
+        <span class="ink-drop ink-drop--y" style="--delay:2.0s;--left:84%"></span>
+        <span class="ink-drop ink-drop--k" style="--delay:0.5s;--left:92%"></span>
       </div>
 
       <div class="container press-container">
@@ -315,39 +300,28 @@
           </ul>
         </div>
 
-        <!-- 3D animated press machine -->
+        <!-- Real press machine photo with floating frame -->
         <div class="press-machine">
-          <div class="press-frame">
-            <!-- Paper feed in -->
-            <div class="press-paper press-paper--feed"></div>
-            <!-- 4 CMYK rollers rotating -->
-            <div class="press-rollers">
-              <div class="press-roller press-roller--c"><div class="press-roller-stripe"></div></div>
-              <div class="press-roller press-roller--m"><div class="press-roller-stripe"></div></div>
-              <div class="press-roller press-roller--y"><div class="press-roller-stripe"></div></div>
-              <div class="press-roller press-roller--k"><div class="press-roller-stripe"></div></div>
+          <div class="press-photo-frame">
+            <img
+              src="/hero/pomelli_photoshoot-3.png"
+              alt="3D render of high-speed printing press"
+              class="press-photo"
+            />
+            <div class="press-photo-overlay"></div>
+            <div class="press-photo-corners">
+              <span></span><span></span><span></span><span></span>
             </div>
-            <!-- Paper moving through -->
-            <div class="press-paper-track">
-              <div class="press-paper press-paper--moving"></div>
-              <div class="press-paper press-paper--moving" style="animation-delay: -1.6s"></div>
-              <div class="press-paper press-paper--moving" style="animation-delay: -3.2s"></div>
-            </div>
-            <!-- Output tray -->
-            <div class="press-output">
-              <div class="press-output-stack">
-                <div></div><div></div><div></div><div></div><div></div>
-              </div>
-            </div>
-            <!-- Status LEDs -->
-            <div class="press-leds">
+            <div class="press-photo-leds">
               <span class="press-led press-led--green"></span>
               <span class="press-led press-led--yellow"></span>
               <span class="press-led press-led--red"></span>
             </div>
-            <div class="press-label">AL FALAH PRINT 4.0</div>
+            <div class="press-photo-label">AL FALAH PRINT 4.0</div>
           </div>
-          <div class="press-base"></div>
+          <div class="press-photo-thumb">
+            <img src="/hero/pomelli_photoshoot-4.png" alt="3D label printing press" />
+          </div>
         </div>
       </div>
     </section>
@@ -356,20 +330,16 @@
     <section class="paper-roll-section" ref="rollSection">
       <div class="container roll-container">
         <div class="roll-stage">
-          <div class="paper-roll">
-            <div class="paper-roll-cylinder"></div>
-            <div class="paper-roll-end paper-roll-end--front"></div>
-            <div class="paper-roll-end paper-roll-end--back"></div>
-            <div class="paper-roll-stripes"></div>
-          </div>
-          <div class="paper-unfurl">
-            <div class="paper-unfurl-sheet">
-              <div class="unfurl-bar unfurl-bar--c"></div>
-              <div class="unfurl-bar unfurl-bar--m"></div>
-              <div class="unfurl-bar unfurl-bar--y"></div>
-              <div class="unfurl-bar unfurl-bar--k"></div>
-              <div class="unfurl-image"></div>
-            </div>
+          <div class="roll-photo-wrap">
+            <div class="roll-photo-glow"></div>
+            <img
+              src="/hero/pomelli_photoshoot-1.png"
+              alt="Large format wide printer"
+              class="roll-photo"
+            />
+            <div class="roll-photo-shadow"></div>
+            <span class="roll-tag roll-tag--top">5m WIDE</span>
+            <span class="roll-tag roll-tag--bottom">2400 DPI</span>
           </div>
         </div>
 
@@ -389,8 +359,8 @@
       </div>
     </section>
 
-    <!-- 3D Tilt Print Process Section -->
-    <section class="process-3d-section" ref="processSection">
+    <!-- Process Timeline Section -->
+    <section class="process-section" ref="processSection">
       <div class="container">
         <div class="section-header section-header--center">
           <span class="process-eyebrow">HOW WE WORK</span>
@@ -398,20 +368,20 @@
           <p class="section-subtitle">Five expert steps that turn your vision into a perfectly printed reality.</p>
         </div>
 
-        <div class="process-grid">
+        <!-- Timeline -->
+        <div class="process-timeline">
+          <div class="process-line"></div>
           <div
             v-for="(step, idx) in processSteps"
             :key="step.title"
-            class="process-card"
-            @mousemove="onTiltMove($event)"
-            @mouseleave="onTiltLeave($event)"
+            class="process-step"
           >
-            <div class="process-card-inner">
-              <div class="process-card-num">{{ String(idx + 1).padStart(2, '0') }}</div>
-              <div class="process-card-icon" v-html="step.icon"></div>
-              <h3 class="process-card-title">{{ step.title }}</h3>
-              <p class="process-card-desc">{{ step.desc }}</p>
-              <div class="process-card-glow"></div>
+            <div class="process-dot">
+              <div class="process-dot-icon" v-html="step.icon"></div>
+            </div>
+            <div class="process-step-content">
+              <h3 class="process-step-title">{{ step.title }}</h3>
+              <p class="process-step-desc">{{ step.desc }}</p>
             </div>
           </div>
         </div>
@@ -471,15 +441,45 @@
         </div>
       </div>
     </section>
+
+    <!-- Product Quick-View Modal -->
+    <Teleport to="body">
+      <transition name="pmodal">
+        <div v-if="coverflowProduct" class="pmodal-overlay" @click.self="coverflowProduct = null">
+          <div class="pmodal">
+            <button class="pmodal-close" @click="coverflowProduct = null">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="pmodal-img">
+              <img :src="`/products/${coverflowProduct.slug}.webp`" :alt="coverflowProduct.name" />
+            </div>
+            <div class="pmodal-info">
+              <span class="pmodal-cat">{{ coverflowProduct.category }}</span>
+              <h2 class="pmodal-title">{{ coverflowProduct.name }}</h2>
+              <div class="pmodal-features">
+                <div class="pmodal-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Premium Quality</div>
+                <div class="pmodal-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Custom Sizes</div>
+                <div class="pmodal-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Fast Turnaround</div>
+                <div class="pmodal-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> UAE Delivery</div>
+              </div>
+              <div class="pmodal-actions">
+                <button class="pmodal-btn pmodal-btn--primary" @click="coverflowProduct = null; openServiceForm()">Get Quote <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                <router-link to="/products" class="pmodal-btn pmodal-btn--outline" @click="coverflowProduct = null">View All</router-link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </Teleport>
   </div>
 </template>
 
 <script setup>
-import { ref, inject, onMounted, onUnmounted } from 'vue'
+import { ref, inject, onMounted, onUnmounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import CinematicScene from '../components/CinematicScene.vue'
+import HomeStory from '../components/HomeStory.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -496,11 +496,18 @@ const coverflowEl = ref(null)
 const welcomeSection = ref(null)
 const whySection = ref(null)
 const approachSection = ref(null)
+const productsShowcase = ref(null)
 
-// Scroll-pinned cube refs/state
-const cubeSection = ref(null)
-const cubeEl = ref(null)
-const cubeActiveFace = ref(0)
+const popularProducts = [
+  { slug: 'gold-foil-business-cards', name: 'Gold Foil Business Cards', category: 'Business Cards' },
+  { slug: 'rigid-box-packaging', name: 'Rigid Box Packaging', category: 'Packaging' },
+  { slug: 'neon-signage', name: 'Custom Neon Signage', category: 'Signage' },
+  { slug: 'custom-t-shirts', name: 'Custom T-Shirts', category: 'Apparel' },
+  { slug: 'roll-up-banners', name: 'Roll-Up Banners', category: 'Banners' },
+  { slug: 'company-profile', name: 'Company Profile', category: 'Printing' },
+  { slug: 'vehicle-branding', name: 'Vehicle Branding', category: 'Branding' },
+  { slug: 'metal-business-cards', name: 'Metal Business Cards', category: 'Business Cards' },
+]
 
 // CMYK + Print Process refs
 const cmykSection = ref(null)
@@ -566,31 +573,23 @@ function onTiltLeave(e) {
   if (glow) glow.style.opacity = '0'
 }
 
-const cubeSlides = [
-  {
-    title: 'Business Cards',
-    desc: 'Premium printed cards with foil, embossing, NFC, and unique die-cut shapes that turn first impressions into lasting ones.',
-    features: ['Gold & silver foil stamping', 'NFC smart cards', 'Die-cut and special shapes', 'Premium soft-touch finishes']
-  },
-  {
-    title: 'Custom Packaging',
-    desc: 'Rigid boxes, food-safe packaging and luxury retail boxes designed to protect and showcase your products.',
-    features: ['Rigid gift boxes', 'Food-grade printing', 'Custom shipping boxes', 'Branded paper bags']
-  },
-  {
-    title: 'Signage & Neon',
-    desc: 'Indoor, outdoor, neon, and LED signs that make your brand impossible to miss — day or night.',
-    features: ['Custom neon signage', '3D metal letters', 'Roll-up & feather flags', 'Vehicle wraps']
-  },
-  {
-    title: 'Apparel & Merch',
-    desc: 'High-quality custom T-shirts, hoodies, caps and corporate gifts ready to wear your brand everywhere.',
-    features: ['Screen & DTG printing', 'Embroidered polos', 'Branded caps & hoodies', 'Tote bags & welcome kits']
-  },
-]
 
 // 3D Coverflow state
-const activeIndex = ref(0)
+const activeIndex = ref(4)
+const coverflowProduct = ref(null)
+
+function openCoverflowProduct(item) {
+  coverflowProduct.value = item
+  pauseAutoplay()
+  document.body.style.overflow = 'hidden'
+}
+
+watch(coverflowProduct, (val) => {
+  if (!val) {
+    document.body.style.overflow = ''
+    resumeAutoplay()
+  }
+})
 const coverflowItems = [
   { slug: 'gold-foil-business-cards', name: 'Gold Foil Business Cards', category: 'Business Cards' },
   { slug: 'neon-signage', name: 'Custom Neon Signage', category: 'Signage' },
@@ -759,227 +758,144 @@ const trustFeatures = [
 let scrollTriggers = []
 
 onMounted(() => {
-  // Old hero animations removed — cinematic 3D scene now handles the hero.
-
-  // Animate category strip
-  gsap.from('.category-chip', {
-    y: 20,
-    opacity: 0,
-    duration: 0.5,
-    stagger: 0.06,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: '.category-strip',
-      start: 'top 85%',
-      once: true,
-    },
-  })
-
-  // Helper to animate sections on scroll
-  const animateSection = (triggerEl, targets, opts = {}) => {
+  // ── Smooth reveal helper ──
+  // Uses fromTo to avoid flash on reload. Gentle y-slide + fade.
+  const reveal = (triggerEl, targets, opts = {}) => {
     if (!triggerEl) return
+    const elements = typeof targets === 'string'
+      ? triggerEl.querySelectorAll(targets)
+      : [targets]
+    if (!elements.length) return
+    // Hide + disable CSS transitions to avoid fighting GSAP
+    elements.forEach(el => {
+      el.style.transition = 'none'
+      el.style.opacity = '0'
+      el.style.transform = `translateY(${opts.y ?? 40}px)${opts.x ? ` translateX(${opts.x}px)` : ''}`
+    })
     const st = ScrollTrigger.create({
       trigger: triggerEl,
-      start: 'top 80%',
+      start: opts.start || 'top 88%',
       once: true,
       onEnter: () => {
-        gsap.from(triggerEl.querySelectorAll(targets), {
-          y: 30,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.08,
+        gsap.to(elements, {
+          y: 0, x: 0, opacity: 1, scale: 1,
+          duration: opts.duration ?? 1,
+          stagger: opts.stagger ?? 0.08,
           ease: 'power2.out',
-          ...opts,
+          delay: opts.delay ?? 0,
+          onComplete: () => elements.forEach(el => el.style.transition = ''),
         })
       },
     })
     scrollTriggers.push(st)
   }
 
-  animateSection(trustSection.value, '.trust-item', { stagger: 0.12 })
+  // ── Blind reveal helper ──
+  // Clip-path unmasking from top→bottom, like opening blinds
+  const blindReveal = (triggerEl, targets, opts = {}) => {
+    if (!triggerEl) return
+    const elements = typeof targets === 'string'
+      ? triggerEl.querySelectorAll(targets)
+      : [targets]
+    if (!elements.length) return
+    elements.forEach(el => {
+      el.style.transition = 'none'
+      el.style.clipPath = 'inset(0 0 100% 0)'
+      el.style.opacity = '1'
+    })
+    const st = ScrollTrigger.create({
+      trigger: triggerEl,
+      start: opts.start || 'top 88%',
+      once: true,
+      onEnter: () => {
+        gsap.to(elements, {
+          clipPath: 'inset(0 0 0% 0)',
+          duration: opts.duration ?? 1.2,
+          stagger: opts.stagger ?? 0.12,
+          ease: 'power3.inOut',
+          delay: opts.delay ?? 0,
+          onComplete: () => elements.forEach(el => {
+            el.style.clipPath = ''
+            el.style.transition = ''
+          }),
+        })
+      },
+    })
+    scrollTriggers.push(st)
+  }
 
-  // Welcome / About AFME section
+  // Trust bar — fade up
+  reveal(trustSection.value, '.trust-item', { y: 30, stagger: 0.1 })
+
+  // Welcome section
   if (welcomeSection.value) {
+    reveal(welcomeSection.value, '.welcome-text > *:not(.welcome-stats)', { x: -30, y: 0, stagger: 0.08 })
+    blindReveal(welcomeSection.value, '.welcome-visual', { duration: 1.4, delay: 0.15 })
+    const stats = welcomeSection.value.querySelectorAll('.welcome-stat')
     const st = ScrollTrigger.create({
       trigger: welcomeSection.value,
       start: 'top 80%',
       once: true,
       onEnter: () => {
-        gsap.from(welcomeSection.value.querySelectorAll('.welcome-text > *'), {
-          x: -50, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out',
-        })
-        gsap.from(welcomeSection.value.querySelector('.welcome-visual'), {
-          x: 80, opacity: 0, rotationY: -15,
-          transformPerspective: 1200,
-          duration: 1, ease: 'power3.out', delay: 0.2,
+        stats.forEach((el, i) => {
+          gsap.fromTo(el, { y: 20, opacity: 0 }, {
+            y: 0, opacity: 1, duration: 0.6, delay: 0.3 + i * 0.12, ease: 'power2.out',
+            onComplete: () => el.classList.add('animated'),
+          })
         })
       },
     })
     scrollTriggers.push(st)
   }
 
-  // Why Choose Us section
+  // Popular Products — fade up with stagger
+  if (productsShowcase.value) {
+    reveal(productsShowcase.value, '.showcase-header > *', { y: 25, stagger: 0.06 })
+    reveal(productsShowcase.value, '.showcase-item', { y: 40, stagger: 0.06, delay: 0.1 })
+  }
+
+  // Why Choose Us — slide from left
   if (whySection.value) {
-    const st = ScrollTrigger.create({
-      trigger: whySection.value,
-      start: 'top 80%',
-      once: true,
-      onEnter: () => {
-        gsap.from(whySection.value.querySelectorAll('.why-text > *'), {
-          x: -40, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out',
-        })
-        gsap.from(whySection.value.querySelectorAll('.why-point'), {
-          y: 60, opacity: 0,
-          rotationY: -25, rotationX: 10,
-          transformPerspective: 1200,
-          duration: 0.85, stagger: 0.1, ease: 'power3.out', delay: 0.2,
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(whySection.value, '.why-text > *', { x: -25, y: 0, stagger: 0.08 })
+    reveal(whySection.value, '.why-point', { y: 40, stagger: 0.08, delay: 0.15 })
   }
 
-  // Approach pillars section
+  // Approach pillars — fade up
   if (approachSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: approachSection.value,
-      start: 'top 80%',
-      once: true,
-      onEnter: () => {
-        gsap.from(approachSection.value.querySelectorAll('.section-header > *'), {
-          y: 30, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-        })
-        gsap.from(approachSection.value.querySelectorAll('.approach-card'), {
-          y: 80, opacity: 0,
-          rotationY: -25, rotationX: 12,
-          transformPerspective: 1200,
-          duration: 0.9, stagger: 0.12, ease: 'power3.out', delay: 0.2,
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(approachSection.value, '.section-header > *', { y: 25, stagger: 0.06 })
+    reveal(approachSection.value, '.approach-card', { y: 50, stagger: 0.1, delay: 0.15 })
   }
 
-  // Start carousel autoplay immediately so it spins on its own
-  startAutoplay()
+  // Start carousel autoplay
+  setTimeout(startAutoplay, 5000)
 
-  // Print Process cards entrance
+  // Process timeline — fade up
   if (processSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: processSection.value,
-      start: 'top 75%',
-      once: true,
-      onEnter: () => {
-        gsap.from(processSection.value.querySelectorAll('.process-card'), {
-          y: 80,
-          opacity: 0,
-          rotationY: -30,
-          rotationX: 20,
-          transformPerspective: 1200,
-          duration: 0.9,
-          stagger: 0.12,
-          ease: 'power3.out',
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(processSection.value, '.section-header > *', { y: 25, stagger: 0.06 })
+    reveal(processSection.value, '.process-step', { y: 35, stagger: 0.1, delay: 0.1 })
   }
 
-  // Printing Press section entrance
+  // Press section — blind only on image
   if (pressSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: pressSection.value,
-      start: 'top 75%',
-      once: true,
-      onEnter: () => {
-        gsap.from(pressSection.value.querySelectorAll('.press-text > *'), {
-          x: -50, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out',
-        })
-        gsap.from(pressSection.value.querySelector('.press-machine'), {
-          x: 80, opacity: 0, rotationY: -25, scale: 0.85,
-          transformPerspective: 1400, duration: 1.1, ease: 'power3.out', delay: 0.15,
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(pressSection.value, '.press-text > *', { x: -30, y: 0, stagger: 0.08 })
+    blindReveal(pressSection.value, '.press-machine', { duration: 1.4, delay: 0.1 })
   }
 
-  // Paper Roll section entrance
+  // Paper Roll — blind only on image
   if (rollSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: rollSection.value,
-      start: 'top 75%',
-      once: true,
-      onEnter: () => {
-        gsap.from(rollSection.value.querySelector('.roll-stage'), {
-          x: -80, opacity: 0, rotationY: 30,
-          transformPerspective: 1400, duration: 1.1, ease: 'power3.out',
-        })
-        gsap.from(rollSection.value.querySelectorAll('.roll-text > *'), {
-          x: 60, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out', delay: 0.2,
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    blindReveal(rollSection.value, '.roll-stage', { duration: 1.4 })
+    reveal(rollSection.value, '.roll-text > *', { x: 30, y: 0, stagger: 0.08, delay: 0.15 })
   }
 
-  // CMYK section entrance
+  // CMYK — fade up
   if (cmykSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: cmykSection.value,
-      start: 'top 75%',
-      once: true,
-      onEnter: () => {
-        gsap.from(cmykSection.value.querySelectorAll('.cmyk-text > *'), {
-          x: -60, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out',
-        })
-        gsap.from(cmykSection.value.querySelector('.cmyk-stage'), {
-          scale: 0.6, opacity: 0, rotationY: 45,
-          transformPerspective: 1400,
-          duration: 1.2, ease: 'power3.out', delay: 0.2,
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(cmykSection.value, '.cmyk-text > *', { x: -30, y: 0, stagger: 0.08 })
+    reveal(cmykSection.value, '.cmyk-stage', { y: 30, duration: 1, delay: 0.15 })
   }
 
-  // Scroll-pinned 3D cube — pin the section and step through faces discretely.
-  // CSS rotates the cube via [data-face] so the cube + text always land in sync.
-  if (cubeSection.value && cubeEl.value) {
-    const totalFaces = cubeSlides.length
-    const st = ScrollTrigger.create({
-      trigger: cubeSection.value,
-      start: 'top top',
-      end: () => '+=' + (window.innerHeight * totalFaces),
-      pin: true,
-      anticipatePin: 1,
-      onUpdate: (self) => {
-        const idx = Math.min(
-          totalFaces - 1,
-          Math.floor(self.progress * totalFaces)
-        )
-        if (cubeActiveFace.value !== idx) cubeActiveFace.value = idx
-      },
-    })
-    scrollTriggers.push(st)
-  }
-
+  // CTA — fade up
   if (ctaSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: ctaSection.value,
-      start: 'top 85%',
-      once: true,
-      onEnter: () => {
-        gsap.from(ctaSection.value.querySelectorAll('.cta-content > *'), {
-          y: 25,
-          opacity: 0,
-          duration: 0.6,
-          stagger: 0.1,
-          ease: 'power2.out',
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(ctaSection.value, '.cta-content > *', { y: 25, stagger: 0.08 })
   }
 })
 
@@ -1219,23 +1135,34 @@ onUnmounted(() => {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* ========== 2. Category Strip ========== */
+/* ========== 2. Category Strip (smooth auto-scroll) ========== */
 .category-strip {
-  padding: 36px 0 12px;
+  padding: 32px 0 20px;
   background: var(--bg-primary);
+  overflow: hidden;
+}
+
+.category-scroll-wrap {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%);
 }
 
 .category-scroll {
   display: flex;
-  gap: 24px;
-  overflow-x: auto;
-  padding: 8px 0 16px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
+  gap: 36px;
+  width: max-content;
+  animation: categorySlide 35s linear infinite;
+  padding: 12px 0;
 }
 
-.category-scroll::-webkit-scrollbar {
-  display: none;
+.category-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes categorySlide {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .category-chip {
@@ -1245,43 +1172,49 @@ onUnmounted(() => {
   gap: 10px;
   text-decoration: none;
   flex-shrink: 0;
-  min-width: 88px;
-  transition: transform var(--transition-fast);
+  min-width: 100px;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .category-chip:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px) scale(1.05);
 }
 
 .category-chip-img {
-  width: 76px;
-  height: 76px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background: #f2f2f2;
+  background: #fff;
   overflow: hidden;
-  border: 2px solid var(--border-light, rgba(0,0,0,0.08));
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  border: 2px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .category-chip:hover .category-chip-img {
   border-color: var(--accent-teal);
-  box-shadow: 0 4px 16px rgba(46, 139, 192, 0.15);
+  box-shadow: 0 8px 24px rgba(46, 139, 192, 0.2);
 }
 
 .category-chip-img img {
-  width: 100%;
-  height: 100%;
+  width: 60%;
+  height: 60%;
   object-fit: contain;
-  padding: 10px;
 }
 
 .category-chip-name {
-  font-size: 0.78rem;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 400;
   color: var(--text-primary);
   text-align: center;
   line-height: 1.3;
   white-space: nowrap;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
 }
 
 /* ========== Section Shared ========== */
@@ -1308,11 +1241,13 @@ onUnmounted(() => {
 }
 
 .section-title {
-  font-family: var(--font-sans);
-  font-size: 1.75rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 400;
   color: var(--text-primary);
-  letter-spacing: -0.3px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  line-height: 0.95;
 }
 
 .section-subtitle {
@@ -1567,10 +1502,13 @@ onUnmounted(() => {
 }
 
 .coverflow-card-info h3 {
-  font-size: 1rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
   color: var(--text-primary);
-  line-height: 1.3;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .coverflow-card-reflection {
@@ -1646,260 +1584,24 @@ onUnmounted(() => {
   .coverflow-section { padding: 56px 0 64px; }
 }
 
-/* ========== Scroll-pinned 3D Cube ========== */
-.cube-section {
-  background: linear-gradient(180deg, #0f1923 0%, #1a2a3a 50%, #0f1923 100%);
-  position: relative;
-  overflow: hidden;
-  color: #fff;
-}
-
-.cube-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 30%, rgba(46, 139, 192, 0.25) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(74, 171, 222, 0.18) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.cube-pin {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
-
-.cube-container {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 60px;
-  align-items: center;
-  width: 100%;
-  position: relative;
-  z-index: 2;
-}
-
-/* Cube stage */
-.cube-stage {
-  position: relative;
-  height: 460px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  perspective: 1600px;
-  perspective-origin: 50% 50%;
-}
-
-.cube {
-  position: relative;
-  width: 340px;
-  height: 340px;
-  transform-style: preserve-3d;
-  transform: rotateY(0deg);
-  transition: transform 0.9s cubic-bezier(0.65, 0, 0.35, 1);
-  will-change: transform;
-}
-.cube[data-face="0"] { transform: rotateY(0deg); }
-.cube[data-face="1"] { transform: rotateY(-90deg); }
-.cube[data-face="2"] { transform: rotateY(-180deg); }
-.cube[data-face="3"] { transform: rotateY(-270deg); }
-
-.cube-face {
-  position: absolute;
-  inset: 0;
-  width: 340px;
-  height: 340px;
-  border-radius: 20px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45),
-              0 0 0 1px rgba(255, 255, 255, 0.08) inset;
-  backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.cube-face img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.cube-face-label {
-  position: absolute;
-  bottom: 16px;
-  left: 16px;
-  right: 16px;
-  background: rgba(15, 25, 35, 0.85);
-  backdrop-filter: blur(10px);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  padding: 10px 16px;
-  border-radius: 8px;
-  text-transform: uppercase;
-}
-
-/* Position 4 faces of cube — half-edge = 170px */
-.cube-face--front  { transform: translateZ(170px); }
-.cube-face--right  { transform: rotateY(90deg)  translateZ(170px); }
-.cube-face--back   { transform: rotateY(180deg) translateZ(170px); }
-.cube-face--left   { transform: rotateY(-90deg) translateZ(170px); }
-
-/* Soft shadow under cube */
-.cube-shadow {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  width: 280px;
-  height: 30px;
-  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
-  transform: translateX(-50%);
-  filter: blur(8px);
-  pointer-events: none;
-}
-
-/* Right side text */
-.cube-content {
-  position: relative;
-  padding: 20px 0;
-}
-
-.cube-eyebrow {
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  color: var(--accent-teal-light);
-  margin-bottom: 24px;
-  padding: 6px 14px;
-  background: rgba(74, 171, 222, 0.12);
-  border: 1px solid rgba(74, 171, 222, 0.25);
-  border-radius: 50px;
-}
-
-.cube-slides {
-  position: relative;
-  min-height: 320px;
-}
-
-.cube-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.6s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-  pointer-events: none;
-}
-
-/* Slides not yet reached wait off-screen to the right */
-.cube-slide.future {
-  opacity: 0;
-  transform: translateX(120px);
-}
-
-/* Slides already passed exit toward the left */
-.cube-slide.past {
-  opacity: 0;
-  transform: translateX(-120px);
-}
-
-/* Active slide is in place */
-.cube-slide.active {
-  opacity: 1;
-  transform: translateX(0);
-  pointer-events: auto;
-}
-
-.cube-slide-num {
-  font-size: 64px;
-  font-weight: 200;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.15);
-  margin-bottom: 4px;
-}
-
-.cube-slide-title {
-  font-size: 2.4rem;
-  font-weight: 600;
-  line-height: 1.15;
-  margin-bottom: 16px;
-  color: #fff;
-  letter-spacing: -0.5px;
-}
-
-.cube-slide-desc {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 24px;
-  max-width: 480px;
-}
-
-.cube-slide-features {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px 24px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.cube-slide-features li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.92rem;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.cube-slide-features svg {
-  flex-shrink: 0;
-  color: var(--accent-teal-light);
-}
-
-.cube-progress {
-  display: flex;
-  gap: 8px;
-  margin-top: 32px;
-}
-
-.cube-progress-dot {
-  width: 32px;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.15);
-  transition: background 0.4s ease, width 0.4s ease;
-}
-
-.cube-progress-dot.active {
-  background: var(--accent-teal-light);
-  width: 56px;
-}
-
-@media (max-width: 1024px) {
-  .cube-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
-    padding-top: 30px;
+@media (max-width: 480px) {
+  .coverflow {
+    height: 320px;
   }
-  .cube-stage { height: 360px; }
-  .cube, .cube-face { width: 260px; height: 260px; }
-  .cube-face--front  { transform: translateZ(130px); }
-  .cube-face--right  { transform: rotateY(90deg)  translateZ(130px); }
-  .cube-face--back   { transform: rotateY(180deg) translateZ(130px); }
-  .cube-face--left   { transform: rotateY(-90deg) translateZ(130px); }
-  .cube-slide-title { font-size: 1.8rem; }
-  .cube-slide-num { font-size: 48px; }
-  .cube-slides { min-height: 260px; }
-}
-
-@media (max-width: 640px) {
-  .cube-slide-features { grid-template-columns: 1fr; }
+  .coverflow-card {
+    width: 180px;
+    height: 270px;
+    margin: -135px 0 0 -90px;
+  }
+  .coverflow-section {
+    padding: 44px 0 52px;
+  }
+  .coverflow-card-info {
+    padding: 10px 14px;
+  }
+  .coverflow-card-info h3 {
+    font-size: 13px;
+  }
 }
 
 /* ========== CMYK Color Section ========== */
@@ -1946,13 +1648,14 @@ onUnmounted(() => {
 }
 
 .cmyk-title {
-  font-family: var(--font-sans);
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.1;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5vw, 78px);
+  font-weight: 400;
+  line-height: 0.95;
   color: var(--text-primary);
   margin-bottom: 18px;
-  letter-spacing: -1px;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
 
 .cmyk-title em {
@@ -1982,8 +1685,9 @@ onUnmounted(() => {
 }
 
 .cmyk-stat strong {
-  font-size: 2rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.5vw, 56px);
+  font-weight: 400;
   color: var(--accent-teal);
   line-height: 1;
 }
@@ -2001,123 +1705,70 @@ onUnmounted(() => {
 .cmyk-stage {
   position: relative;
   width: 100%;
-  height: 460px;
   display: flex;
   align-items: center;
   justify-content: center;
-  perspective: 1400px;
+  min-height: 400px;
 }
 
-.cmyk-orbit {
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  transform-style: preserve-3d;
-  animation: cmykOrbit 14s linear infinite;
+.cmyk-circles {
+  position: relative;
+  width: 340px;
+  height: 340px;
+  animation: cmykFloat 6s ease-in-out infinite;
 }
 
-@keyframes cmykOrbit {
-  from { transform: rotateZ(0deg); }
-  to   { transform: rotateZ(360deg); }
-}
-
-.cmyk-blob {
+.cmyk-circle {
   position: absolute;
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  filter: blur(8px);
   mix-blend-mode: multiply;
-  opacity: 0.85;
-  animation: cmykPulse 4s ease-in-out infinite;
+  opacity: 0.82;
+  transition: transform 0.6s ease;
 }
 
-.cmyk-blob--c {
-  background: radial-gradient(circle, #00aeef 0%, #00aeef88 70%, transparent 100%);
+.cmyk-c {
+  background: radial-gradient(circle, #00aeef, #0088cc);
   top: 0;
   left: 50%;
-  margin-left: -100px;
+  transform: translateX(-50%);
+  animation: cmykPulse 4s ease-in-out infinite;
 }
-
-.cmyk-blob--m {
-  background: radial-gradient(circle, #ec008c 0%, #ec008c88 70%, transparent 100%);
-  top: 50%;
+.cmyk-m {
+  background: radial-gradient(circle, #ec008c, #c0006f);
+  top: 35%;
   right: 0;
-  margin-top: -100px;
-  animation-delay: -1s;
+  animation: cmykPulse 4s 1s ease-in-out infinite;
 }
-
-.cmyk-blob--y {
-  background: radial-gradient(circle, #fff200 0%, #fff20088 70%, transparent 100%);
+.cmyk-y {
+  background: radial-gradient(circle, #fff200, #e6d900);
   bottom: 0;
   left: 50%;
-  margin-left: -100px;
-  animation-delay: -2s;
+  transform: translateX(-50%);
+  animation: cmykPulse 4s 2s ease-in-out infinite;
+}
+.cmyk-k {
+  background: radial-gradient(circle, #333, #1a1a1a);
+  top: 35%;
+  left: 0;
+  animation: cmykPulse 4s 3s ease-in-out infinite;
 }
 
-.cmyk-blob--k {
-  background: radial-gradient(circle, #1a1a1a 0%, #1a1a1a99 70%, transparent 100%);
-  top: 50%;
-  left: 0;
-  margin-top: -100px;
-  animation-delay: -3s;
-}
+.cmyk-circles:hover .cmyk-c { transform: translateX(-50%) translateY(-12px); }
+.cmyk-circles:hover .cmyk-m { transform: translateX(12px); }
+.cmyk-circles:hover .cmyk-y { transform: translateX(-50%) translateY(12px); }
+.cmyk-circles:hover .cmyk-k { transform: translateX(-12px); }
 
 @keyframes cmykPulse {
   0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.12); }
+  50%      { transform: scale(1.06); }
 }
+.cmyk-c { animation: cmykPulse 4s ease-in-out infinite; }
 
-.cmyk-paper {
-  position: relative;
-  width: 220px;
-  height: 300px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18),
-              0 0 0 1px rgba(0, 0, 0, 0.05);
-  z-index: 5;
-  transform: rotate(-4deg);
-  animation: cmykPaperFloat 6s ease-in-out infinite;
-  padding: 20px;
-}
-
-@keyframes cmykPaperFloat {
-  0%, 100% { transform: rotate(-4deg) translateY(0); }
-  50%      { transform: rotate(-4deg) translateY(-12px); }
-}
-
-.cmyk-paper-content {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  height: 100%;
-}
-
-.cmyk-paper-line {
-  height: 6px;
-  border-radius: 3px;
-}
-
-.cmyk-paper-line--1 { width: 80%; background: #1a1a1a; }
-.cmyk-paper-line--2 { width: 60%; background: #00aeef; }
-.cmyk-paper-line--3 { width: 70%; background: #ec008c; }
-.cmyk-paper-line--4 { width: 50%; background: #fff200; }
-
-.cmyk-paper-image {
-  flex: 1;
-  margin: 8px 0;
-  background: linear-gradient(135deg, #00aeef 0%, #ec008c 50%, #fff200 100%);
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.cmyk-paper-image::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.4), transparent 50%);
+@keyframes cmykFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-10px) rotate(2deg); }
 }
 
 @media (max-width: 1024px) {
@@ -2127,6 +1778,48 @@ onUnmounted(() => {
   }
   .cmyk-text { padding-right: 0; text-align: center; }
   .cmyk-stats { justify-content: center; }
+}
+
+@media (max-width: 768px) {
+  .cmyk-section {
+    padding: 72px 0;
+  }
+  .cmyk-circles {
+    width: 260px;
+    height: 260px;
+  }
+  .cmyk-circle {
+    width: 150px;
+    height: 150px;
+  }
+  .cmyk-stage {
+    min-height: 300px;
+  }
+  .cmyk-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .cmyk-section {
+    padding: 56px 0;
+  }
+  .cmyk-circles {
+    width: 200px;
+    height: 200px;
+  }
+  .cmyk-circle {
+    width: 120px;
+    height: 120px;
+  }
+  .cmyk-stage {
+    min-height: 240px;
+  }
+  .cmyk-stats {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
 }
 
 /* ========== Welcome / About AFME ========== */
@@ -2146,24 +1839,28 @@ onUnmounted(() => {
 
 .welcome-eyebrow {
   display: inline-block;
+  font-family: var(--font-accent);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.3em;
   color: var(--accent-teal);
   background: rgba(46, 139, 192, 0.1);
-  padding: 6px 14px;
+  padding: 7px 16px;
   border-radius: 50px;
   margin-bottom: 22px;
   text-transform: uppercase;
+  border: 1px solid rgba(46, 139, 192, 0.25);
 }
 
 .welcome-title {
-  font-size: clamp(2rem, 4.2vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -1px;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5.2vw, 84px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
   margin-bottom: 22px;
   color: var(--text-primary);
+  text-transform: uppercase;
 }
 
 .welcome-title em {
@@ -2232,8 +1929,9 @@ onUnmounted(() => {
 
 .welcome-stat strong {
   display: block;
-  font-size: 2.2rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(42px, 4vw, 64px);
+  font-weight: 400;
   color: var(--accent-teal);
   line-height: 1;
 }
@@ -2246,6 +1944,26 @@ onUnmounted(() => {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   line-height: 1.4;
+}
+
+/* Animated progress bars */
+.stat-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(46, 139, 192, 0.12);
+  border-radius: 3px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+.stat-bar-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent-teal), var(--color-blue));
+  border-radius: 3px;
+  transition: width 1.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.welcome-stat.animated .stat-bar-fill {
+  width: var(--fill);
 }
 
 .welcome-visual {
@@ -2344,11 +2062,217 @@ onUnmounted(() => {
   .welcome-image-stack { height: 380px; }
 }
 
+@media (max-width: 768px) {
+  .welcome-section {
+    padding: 72px 0;
+  }
+  .welcome-image-stack {
+    height: 320px;
+  }
+  .welcome-floating-card {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+  .welcome-floating-num {
+    font-size: 1.5rem;
+  }
+}
+
 @media (max-width: 600px) {
   .welcome-stats {
     flex-wrap: wrap;
     gap: 20px;
   }
+}
+
+@media (max-width: 480px) {
+  .welcome-section {
+    padding: 56px 0;
+  }
+  .welcome-image-stack {
+    height: 260px;
+  }
+  .welcome-img--back {
+    width: 55%;
+    height: 65%;
+  }
+  .welcome-img--front {
+    width: 60%;
+    height: 70%;
+  }
+  .welcome-floating-card {
+    bottom: 10px;
+    right: 10px;
+    padding: 10px 14px;
+  }
+}
+
+/* ========== Popular Products Showcase ========== */
+.products-showcase {
+  padding: 80px 0;
+  background: var(--bg-primary);
+}
+
+.showcase-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 24px;
+}
+
+.showcase-eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  color: var(--accent-teal);
+  margin-bottom: 8px;
+}
+
+.showcase-header .section-title {
+  margin-bottom: 0;
+}
+
+.showcase-view-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  white-space: nowrap;
+  transition: gap 0.3s ease;
+}
+
+.showcase-view-all:hover {
+  gap: 14px;
+}
+
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.showcase-item {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+              box-shadow 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.showcase-item:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 24px 48px rgba(46, 139, 192, 0.15),
+              0 0 0 1px rgba(46, 139, 192, 0.1);
+}
+
+.showcase-item-img {
+  aspect-ratio: 1;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Shine sweep on hover */
+.showcase-item-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.5) 50%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+}
+
+.showcase-item:hover .showcase-item-img::after {
+  transform: translateX(100%);
+}
+
+.showcase-item-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.showcase-item:hover .showcase-item-img img {
+  transform: scale(1.1) rotate(2deg);
+}
+
+.showcase-item-info {
+  padding: 16px 18px;
+  transition: background 0.4s ease;
+}
+
+.showcase-item:hover .showcase-item-info {
+  background: linear-gradient(180deg, transparent, rgba(46, 139, 192, 0.03));
+}
+
+.showcase-item-cat {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  transition: letter-spacing 0.4s ease;
+}
+
+.showcase-item:hover .showcase-item-cat {
+  letter-spacing: 0.16em;
+}
+
+.showcase-item-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--text-primary);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease;
+}
+
+.showcase-item:hover .showcase-item-name {
+  color: var(--accent-teal);
+}
+
+@media (max-width: 1024px) {
+  .showcase-grid { grid-template-columns: repeat(3, 1fr); }
+  .showcase-grid .showcase-item:nth-child(n+7) { display: none; }
+}
+
+@media (max-width: 768px) {
+  .products-showcase { padding: 56px 0; }
+  .showcase-grid { grid-template-columns: repeat(2, 1fr); }
+  .showcase-grid .showcase-item:nth-child(n+5) { display: none; }
+  .showcase-header { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 480px) {
+  .products-showcase { padding: 44px 0; }
+  .showcase-grid { gap: 12px; }
+  .showcase-item-info { padding: 12px 14px; }
+  .showcase-item-name { font-size: 15px; }
+  .showcase-item-img { padding: 12px; }
 }
 
 /* ========== Why Choose Us ========== */
@@ -2374,12 +2298,14 @@ onUnmounted(() => {
 }
 
 .why-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1px;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5vw, 78px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
   margin-bottom: 22px;
   color: var(--text-primary);
+  text-transform: uppercase;
 }
 
 .why-title em {
@@ -2442,9 +2368,10 @@ onUnmounted(() => {
   position: absolute;
   top: 14px;
   right: 18px;
-  font-size: 1.6rem;
-  font-weight: 200;
-  color: rgba(46, 139, 192, 0.2);
+  font-family: var(--font-display);
+  font-size: clamp(28px, 2.5vw, 40px);
+  font-weight: 400;
+  color: rgba(46, 139, 192, 0.18);
 }
 
 .why-point-icon {
@@ -2479,9 +2406,27 @@ onUnmounted(() => {
   }
 }
 
+@media (max-width: 768px) {
+  .why-section {
+    padding: 72px 0;
+  }
+  .why-text {
+    text-align: center;
+  }
+}
+
 @media (max-width: 600px) {
   .why-points {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-section {
+    padding: 56px 0;
+  }
+  .why-point {
+    padding: 22px 18px;
   }
 }
 
@@ -2538,9 +2483,10 @@ onUnmounted(() => {
 }
 
 .approach-card-num {
-  font-size: 2.6rem;
-  font-weight: 200;
-  color: rgba(46, 139, 192, 0.2);
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3vw, 50px);
+  font-weight: 400;
+  color: rgba(46, 139, 192, 0.15);
   line-height: 1;
   margin-bottom: 14px;
   transform: translateZ(30px);
@@ -2589,9 +2535,35 @@ onUnmounted(() => {
   }
 }
 
+@media (max-width: 768px) {
+  .approach-section {
+    padding: 72px 0;
+  }
+  .approach-card {
+    height: auto;
+    min-height: 260px;
+  }
+  .approach-grid {
+    margin-top: 36px;
+  }
+}
+
 @media (max-width: 600px) {
   .approach-grid {
     grid-template-columns: 1fr;
+  }
+  .approach-card {
+    height: auto;
+    min-height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .approach-section {
+    padding: 56px 0;
+  }
+  .approach-card-inner {
+    padding: 24px 20px;
   }
 }
 
@@ -2630,12 +2602,12 @@ onUnmounted(() => {
   position: absolute;
   top: -40px;
   left: var(--left);
-  width: var(--size);
-  height: calc(var(--size) * 1.4);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  filter: blur(0.5px);
-  opacity: 0.8;
-  animation: inkDropFall 6s var(--delay) linear infinite;
+  width: 2px;
+  height: 60px;
+  border-radius: 0 0 2px 2px;
+  filter: blur(0);
+  opacity: 0.5;
+  animation: inkDropFall 5s var(--delay) linear infinite;
   transform-origin: top center;
 }
 
@@ -2644,32 +2616,32 @@ onUnmounted(() => {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: calc(var(--size) * 2.5);
-  height: calc(var(--size) * 0.8);
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  border: 2px solid currentColor;
+  background: currentColor;
   transform: translate(-50%, 100%) scale(0);
   opacity: 0;
-  animation: inkSplash 6s var(--delay) linear infinite;
+  animation: inkSplash 5s var(--delay) linear infinite;
 }
 
-.ink-drop--c { background: #00aeef; color: #00aeef; box-shadow: 0 0 20px #00aeef88; }
-.ink-drop--m { background: #ec008c; color: #ec008c; box-shadow: 0 0 20px #ec008c88; }
-.ink-drop--y { background: #fff200; color: #fff200; box-shadow: 0 0 20px #fff20088; }
-.ink-drop--k { background: #2a2a2a; color: #555;    box-shadow: 0 0 20px #00000088; }
+.ink-drop--c { background: #00aeef; color: #00aeef; }
+.ink-drop--m { background: #ec008c; color: #ec008c; }
+.ink-drop--y { background: #fff200; color: #fff200; }
+.ink-drop--k { background: #2a2a2a; color: #555; }
 
 @keyframes inkDropFall {
-  0%   { top: -5%;  opacity: 0; transform: scale(0.6); }
-  10%  { opacity: 0.9; transform: scale(1); }
-  85%  { top: 90%;  opacity: 0.9; transform: scale(1); }
-  92%  { top: 92%;  opacity: 0; transform: scaleY(0.4) scaleX(1.4); }
+  0%   { top: -5%;  opacity: 0; }
+  8%   { opacity: 0.5; }
+  80%  { top: 88%;  opacity: 0.5; }
+  90%  { top: 92%;  opacity: 0; }
   100% { top: 92%;  opacity: 0; }
 }
 
 @keyframes inkSplash {
-  0%, 85%  { opacity: 0; transform: translate(-50%, 100%) scale(0); }
-  88%      { opacity: 0.7; transform: translate(-50%, 100%) scale(0.4); }
-  100%     { opacity: 0; transform: translate(-50%, 100%) scale(2); }
+  0%, 78%  { opacity: 0; transform: translate(-50%, 100%) scale(0); }
+  82%      { opacity: 0.5; transform: translate(-50%, 100%) scale(1); }
+  100%     { opacity: 0; transform: translate(-50%, 100%) scale(3); }
 }
 
 .press-container {
@@ -2699,12 +2671,14 @@ onUnmounted(() => {
 }
 
 .press-title {
-  font-size: clamp(2.2rem, 4vw, 3.2rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -1px;
+  font-family: var(--font-display);
+  font-size: clamp(46px, 5.2vw, 84px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
   margin-bottom: 20px;
   color: #fff;
+  text-transform: uppercase;
 }
 
 .press-title em {
@@ -2752,174 +2726,72 @@ onUnmounted(() => {
   font-weight: 700;
 }
 
-/* The 3D press machine */
+/* Real press machine photo */
 .press-machine {
   position: relative;
   perspective: 1400px;
   perspective-origin: 50% 50%;
 }
 
-.press-frame {
+.press-photo-frame {
   position: relative;
   width: 100%;
-  max-width: 560px;
-  height: 320px;
+  max-width: 580px;
   margin: 0 auto;
-  background: linear-gradient(180deg, #1f2d3f 0%, #0f1923 100%);
   border-radius: 18px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5),
-              inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
-  transform: rotateX(8deg) rotateY(-12deg);
+  border: 1px solid rgba(74, 171, 222, 0.18);
+  box-shadow:
+    0 40px 90px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 0 80px rgba(74, 171, 222, 0.12);
+  transform: rotateX(6deg) rotateY(-10deg);
   transform-style: preserve-3d;
+  background: #0c1622;
 }
 
-/* Paper feed in (left side) */
-.press-paper--feed {
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  width: 70px;
-  height: 90px;
-  background: #fff;
-  border-radius: 2px;
-  transform: translateY(-50%);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+.press-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  filter: saturate(1.1) contrast(1.05);
 }
 
-.press-paper--feed::before,
-.press-paper--feed::after {
-  content: '';
-  position: absolute;
-  left: 8px;
-  right: 8px;
-  height: 2px;
-  background: #ddd;
-}
-.press-paper--feed::before { top: 12px; }
-.press-paper--feed::after  { top: 22px; }
-
-/* CMYK rollers */
-.press-rollers {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-55%, -50%);
-  display: flex;
-  gap: 12px;
-}
-
-.press-roller {
-  position: relative;
-  width: 56px;
-  height: 130px;
-  border-radius: 50% / 14%;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5),
-              inset 0 0 12px rgba(0, 0, 0, 0.3),
-              inset 0 4px 0 rgba(255, 255, 255, 0.15);
-  overflow: hidden;
-  animation: rollerSpin 1.4s linear infinite;
-}
-
-.press-roller--c { background: linear-gradient(180deg, #00cdf2 0%, #0097c9 50%, #00cdf2 100%); }
-.press-roller--m { background: linear-gradient(180deg, #ff1aa3 0%, #c2007a 50%, #ff1aa3 100%); animation-delay: -0.35s; }
-.press-roller--y { background: linear-gradient(180deg, #fff340 0%, #d6c800 50%, #fff340 100%); animation-delay: -0.7s; }
-.press-roller--k { background: linear-gradient(180deg, #444 0%, #111 50%, #444 100%); animation-delay: -1.05s; }
-
-.press-roller-stripe {
+.press-photo-overlay {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.18) 0 4px,
-    transparent 4px 14px
-  );
-}
-
-@keyframes rollerSpin {
-  0%   { background-position: 0 0; }
-  100% { background-position: 0 -130px; }
-}
-
-/* Paper moving through */
-.press-paper-track {
-  position: absolute;
-  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(12, 22, 34, 0) 50%, rgba(12, 22, 34, 0.72) 100%),
+    radial-gradient(ellipse at 30% 20%, rgba(74, 171, 222, 0.18), transparent 60%);
   pointer-events: none;
 }
 
-.press-paper--moving {
+.press-photo-corners span {
   position: absolute;
-  top: calc(50% + 28px);
-  left: 0;
-  width: 70px;
-  height: 50px;
-  background: linear-gradient(180deg, #fff 60%, #4AABDE 60%);
-  border-radius: 2px;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-  animation: paperMove 4.8s linear infinite;
+  width: 28px;
+  height: 28px;
+  border: 2px solid rgba(74, 171, 222, 0.9);
 }
+.press-photo-corners span:nth-child(1) { top: 14px; left: 14px;  border-right: none; border-bottom: none; }
+.press-photo-corners span:nth-child(2) { top: 14px; right: 14px; border-left: none;  border-bottom: none; }
+.press-photo-corners span:nth-child(3) { bottom: 14px; left: 14px;  border-right: none; border-top: none; }
+.press-photo-corners span:nth-child(4) { bottom: 14px; right: 14px; border-left: none;  border-top: none; }
 
-@keyframes paperMove {
-  0%   { left: -80px; opacity: 0; transform: rotate(-2deg); }
-  10%  { opacity: 1; }
-  45%  { left: 50%; transform: translateX(-50%) rotate(0); }
-  90%  { opacity: 1; }
-  100% { left: calc(100% + 20px); transform: rotate(2deg); opacity: 0; }
-}
-
-/* Output tray */
-.press-output {
+.press-photo-leds {
   position: absolute;
-  right: 14px;
-  bottom: 14px;
-  display: flex;
-  align-items: flex-end;
-  height: 70px;
-}
-
-.press-output-stack {
-  display: flex;
-  flex-direction: column-reverse;
-  gap: 2px;
-}
-
-.press-output-stack div {
-  width: 60px;
-  height: 6px;
-  background: linear-gradient(90deg, #fff 60%, #4AABDE 60%);
-  border-radius: 1px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
-  animation: stackUp 4.8s linear infinite;
-  opacity: 0;
-}
-
-.press-output-stack div:nth-child(1) { animation-delay: 0.6s; }
-.press-output-stack div:nth-child(2) { animation-delay: 1.6s; }
-.press-output-stack div:nth-child(3) { animation-delay: 2.6s; }
-.press-output-stack div:nth-child(4) { animation-delay: 3.6s; }
-.press-output-stack div:nth-child(5) { animation-delay: 4.6s; }
-
-@keyframes stackUp {
-  0%, 5%   { opacity: 0; transform: translateY(-30px); }
-  10%      { opacity: 1; transform: translateY(0); }
-  100%     { opacity: 1; transform: translateY(0); }
-}
-
-.press-leds {
-  position: absolute;
-  top: 14px;
-  right: 14px;
+  top: 18px;
+  right: 60px;
   display: flex;
   gap: 8px;
+  z-index: 2;
 }
 
 .press-led {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  box-shadow: 0 0 12px currentColor;
+  box-shadow: 0 0 14px currentColor;
 }
 
 .press-led--green  { background: #34d399; color: #34d399; animation: ledBlink 1.2s infinite; }
@@ -2931,24 +2803,37 @@ onUnmounted(() => {
   25%, 75%      { opacity: 0.3; }
 }
 
-.press-label {
+.press-photo-label {
   position: absolute;
-  bottom: 14px;
-  left: 14px;
+  bottom: 18px;
+  left: 22px;
   font-size: 10px;
   font-weight: 700;
-  letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.28em;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+  z-index: 2;
 }
 
-.press-base {
-  width: 80%;
-  max-width: 460px;
-  height: 18px;
-  margin: 12px auto 0;
-  background: linear-gradient(180deg, #1a2535 0%, #0c1622 100%);
-  border-radius: 0 0 30px 30px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+/* Inset secondary photo — real factory floor */
+.press-photo-thumb {
+  position: absolute;
+  bottom: -34px;
+  right: -28px;
+  width: 180px;
+  height: 110px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid #0c1622;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  transform: rotate(4deg);
+  z-index: 3;
+}
+.press-photo-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 @media (max-width: 1024px) {
@@ -2958,6 +2843,27 @@ onUnmounted(() => {
   }
   .press-text { padding-right: 0; text-align: center; }
   .press-features { align-items: center; }
+  .press-photo-frame { transform: none; }
+  .press-photo-thumb { display: none; }
+}
+
+@media (max-width: 768px) {
+  .press-section {
+    padding: 72px 0 80px;
+  }
+  .press-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .press-section {
+    padding: 56px 0 64px;
+  }
+  .press-features li {
+    font-size: 0.85rem;
+  }
 }
 
 /* ========== Paper Roll Section ========== */
@@ -2989,132 +2895,97 @@ onUnmounted(() => {
 
 .roll-stage {
   position: relative;
-  height: 360px;
-  perspective: 1400px;
-}
-
-/* Paper roll cylinder */
-.paper-roll {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%) rotateY(-15deg) rotateX(5deg);
-  transform-style: preserve-3d;
-  width: 140px;
-  height: 220px;
-}
-
-.paper-roll-cylinder {
-  position: absolute;
-  inset: 0;
-  background:
-    repeating-linear-gradient(
-      90deg,
-      #fff 0 4px,
-      #f0eee8 4px 8px
-    );
-  border-radius: 50% / 14%;
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.25),
-    inset -20px 0 30px rgba(0, 0, 0, 0.18),
-    inset 20px 0 30px rgba(255, 255, 255, 0.6);
-  animation: rollSpin 8s linear infinite;
-}
-
-@keyframes rollSpin {
-  0%   { background-position: 0 0; }
-  100% { background-position: 200px 0; }
-}
-
-.paper-roll-end {
-  position: absolute;
-  top: 50%;
-  width: 32px;
-  height: 32px;
-  margin-top: -16px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #888 0%, #333 100%);
-  box-shadow: 0 0 0 2px #555 inset;
-}
-
-.paper-roll-end--front { left: -16px; }
-.paper-roll-end--back  { right: -16px; }
-
-.paper-roll-stripes {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
-  border-radius: 50% / 14%;
-  pointer-events: none;
-}
-
-/* Unfurled paper sheet */
-.paper-unfurl {
-  position: absolute;
-  left: 130px;
-  top: 50%;
-  transform: translateY(-50%) rotateY(-8deg);
-  transform-style: preserve-3d;
-  perspective: 1200px;
-}
-
-.paper-unfurl-sheet {
-  width: 320px;
-  height: 220px;
-  background: #fff;
-  border-radius: 4px;
-  padding: 22px;
-  box-shadow:
-    0 25px 60px rgba(0, 0, 0, 0.18),
-    0 0 0 1px rgba(0, 0, 0, 0.04);
+  height: 480px;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3D printer photo wrapper */
+.roll-photo-wrap {
   position: relative;
+  width: 100%;
+  max-width: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: rollFloat 7s ease-in-out infinite;
 }
 
-.paper-unfurl-sheet::before {
-  content: '';
-  position: absolute;
-  left: -8px;
-  top: 0;
-  bottom: 0;
-  width: 8px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.15), transparent);
-  border-radius: 4px 0 0 4px;
+@keyframes rollFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
 }
 
-.unfurl-bar {
-  height: 8px;
-  border-radius: 4px;
-  animation: unfurlGrow 2.5s ease-out infinite;
-  transform-origin: left center;
-}
-
-.unfurl-bar--c { width: 70%; background: #00aeef; animation-delay: 0s; }
-.unfurl-bar--m { width: 55%; background: #ec008c; animation-delay: 0.2s; }
-.unfurl-bar--y { width: 80%; background: #fff200; animation-delay: 0.4s; }
-.unfurl-bar--k { width: 45%; background: #1a1a1a; animation-delay: 0.6s; }
-
-@keyframes unfurlGrow {
-  0%, 100% { transform: scaleX(0); opacity: 0; }
-  20%, 80% { transform: scaleX(1); opacity: 1; }
-}
-
-.unfurl-image {
-  flex: 1;
-  margin-top: 8px;
-  background: linear-gradient(135deg, #4AABDE 0%, #ec008c 50%, #fff200 100%);
-  border-radius: 4px;
+.roll-photo {
   position: relative;
-  overflow: hidden;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+  max-height: 460px;
+  object-fit: contain;
+  filter: drop-shadow(0 30px 60px rgba(46, 139, 192, 0.32))
+          drop-shadow(0 8px 18px rgba(0, 0, 0, 0.28));
 }
 
-.unfurl-image::after {
-  content: '';
+.roll-photo-glow {
   position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.5), transparent 50%);
+  inset: 8% 6% 12% 6%;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 60%,
+    rgba(46, 139, 192, 0.45) 0%,
+    rgba(46, 139, 192, 0.18) 35%,
+    transparent 70%
+  );
+  filter: blur(40px);
+  animation: rollGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes rollGlow {
+  0%   { opacity: 0.7; transform: scale(0.96); }
+  100% { opacity: 1;   transform: scale(1.04); }
+}
+
+.roll-photo-shadow {
+  position: absolute;
+  bottom: -10px;
+  left: 12%;
+  right: 12%;
+  height: 30px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35), transparent 70%);
+  filter: blur(14px);
+  z-index: 0;
+}
+
+.roll-tag {
+  position: absolute;
+  z-index: 3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--accent-teal);
+  border: 1px solid rgba(46, 139, 192, 0.2);
+  box-shadow: 0 14px 36px rgba(46, 139, 192, 0.22),
+              0 0 0 4px rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  white-space: nowrap;
+}
+.roll-tag--top    { top: 14%; right: 4%; transform: rotate(2deg); animation: tagBob 5s ease-in-out infinite; }
+.roll-tag--bottom { bottom: 18%; left: 0%; transform: rotate(-3deg); animation: tagBob 5s 1s ease-in-out infinite; }
+
+@keyframes tagBob {
+  0%, 100% { transform: translateY(0) rotate(2deg); }
+  50%      { transform: translateY(-6px) rotate(2deg); }
+}
+.roll-tag--bottom { animation-name: tagBobAlt; }
+@keyframes tagBobAlt {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-6px) rotate(-3deg); }
 }
 
 .roll-text {
@@ -3134,12 +3005,14 @@ onUnmounted(() => {
 }
 
 .roll-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -1px;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 5vw, 78px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
   margin-bottom: 18px;
   color: var(--text-primary);
+  text-transform: uppercase;
 }
 
 .roll-title em {
@@ -3166,8 +3039,9 @@ onUnmounted(() => {
 }
 
 .roll-badge strong {
-  font-size: 1.7rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(34px, 3vw, 52px);
+  font-weight: 400;
   color: var(--accent-teal);
   line-height: 1;
 }
@@ -3188,17 +3062,43 @@ onUnmounted(() => {
   }
   .roll-text { padding-left: 0; text-align: center; }
   .roll-badges { justify-content: center; }
-  .roll-stage { height: 320px; }
+  .roll-stage { height: 380px; }
+}
+
+@media (max-width: 768px) {
+  .paper-roll-section {
+    padding: 72px 0;
+  }
+  .roll-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 @media (max-width: 640px) {
-  .paper-unfurl-sheet { width: 240px; height: 180px; }
-  .paper-roll { width: 100px; height: 170px; }
-  .paper-unfurl { left: 90px; }
+  .roll-stage { height: 300px; }
+  .roll-tag { font-size: 9px; padding: 6px 11px; }
 }
 
-/* ========== Print Process Section ========== */
-.process-3d-section {
+@media (max-width: 480px) {
+  .paper-roll-section {
+    padding: 56px 0;
+  }
+  .roll-stage {
+    height: 240px;
+  }
+  .roll-badges {
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .roll-tag {
+    font-size: 8px;
+    padding: 5px 9px;
+  }
+}
+
+/* ========== Process Timeline Section ========== */
+.process-section {
   padding: 90px 0;
   background: linear-gradient(180deg, var(--bg-primary) 0%, #f5f9fc 100%);
   position: relative;
@@ -3214,99 +3114,129 @@ onUnmounted(() => {
   margin-bottom: 12px;
 }
 
-.process-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 18px;
-  margin-top: 40px;
-  perspective: 1500px;
+.process-timeline {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 60px;
+  position: relative;
+  gap: 16px;
 }
 
-.process-card {
-  position: relative;
-  height: 320px;
-  cursor: pointer;
-  transform-style: preserve-3d;
+/* Connecting horizontal line */
+.process-line {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  right: 32px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-teal), var(--color-blue), var(--accent-teal));
+  opacity: 0.2;
+  z-index: 0;
 }
 
-.process-card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  border-radius: 18px;
-  padding: 30px 22px;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08),
-              0 0 0 1px rgba(46, 139, 192, 0.06);
+.process-step {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
-              box-shadow 0.4s ease;
-  overflow: hidden;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
-.process-card:hover .process-card-inner {
-  box-shadow: 0 24px 60px rgba(46, 139, 192, 0.18),
-              0 0 0 1px rgba(46, 139, 192, 0.15);
-}
-
-.process-card-num {
-  font-size: 3.2rem;
-  font-weight: 200;
-  color: rgba(46, 139, 192, 0.18);
-  line-height: 1;
-  margin-bottom: 10px;
-  transform: translateZ(30px);
-}
-
-.process-card-icon {
-  display: inline-flex;
-  width: 56px;
-  height: 56px;
+.process-dot {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid rgba(46, 139, 192, 0.2);
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(46, 139, 192, 0.1);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  flex-shrink: 0;
+}
+
+.process-step:hover .process-dot {
+  border-color: var(--accent-teal);
+  background: var(--accent-teal);
+  transform: scale(1.1);
+  box-shadow: 0 8px 30px rgba(46, 139, 192, 0.25);
+}
+
+.process-dot-icon {
   color: var(--accent-teal);
-  border-radius: 14px;
-  margin-bottom: 18px;
-  transform: translateZ(40px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.3s ease;
 }
 
-.process-card-title {
-  font-size: 1.15rem;
-  font-weight: 600;
+.process-step:hover .process-dot-icon {
+  color: #fff;
+}
+
+.process-step-content {
+  max-width: 200px;
+}
+
+.process-step-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
   color: var(--text-primary);
-  margin-bottom: 10px;
-  transform: translateZ(50px);
+  margin-bottom: 8px;
 }
 
-.process-card-desc {
-  font-size: 0.85rem;
-  line-height: 1.6;
+.process-step-desc {
+  font-size: 13px;
+  line-height: 1.65;
   color: var(--text-secondary);
-  transform: translateZ(20px);
-}
-
-.process-card-glow {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  border-radius: 18px;
 }
 
 @media (max-width: 1024px) {
-  .process-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .process-timeline {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
   }
-  .process-card { height: 280px; }
+  .process-line { display: none; }
+  .process-step { flex: 0 0 calc(33% - 24px); }
+}
+
+@media (max-width: 768px) {
+  .process-section {
+    padding: 72px 0;
+  }
+  .process-timeline {
+    margin-top: 40px;
+  }
+  .process-step {
+    flex: 0 0 calc(50% - 16px);
+  }
 }
 
 @media (max-width: 600px) {
-  .process-grid {
-    grid-template-columns: 1fr;
+  .process-timeline {
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+  .process-step { flex: none; width: 100%; max-width: 280px; }
+}
+
+@media (max-width: 480px) {
+  .process-section {
+    padding: 56px 0;
+  }
+  .process-dot {
+    width: 52px;
+    height: 52px;
   }
 }
 
@@ -3423,10 +3353,13 @@ onUnmounted(() => {
 }
 
 .trust-title {
-  font-size: 1rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
   color: var(--text-primary);
   margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .trust-desc {
@@ -3511,11 +3444,13 @@ onUnmounted(() => {
 }
 
 .cta-title {
-  font-family: var(--font-sans);
-  font-size: 2rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 64px);
+  font-weight: 400;
   color: #fff;
   margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .cta-desc {
@@ -3642,7 +3577,7 @@ onUnmounted(() => {
   }
 
   .section-title {
-    font-size: 1.4rem;
+    font-size: clamp(32px, 8vw, 48px);
   }
 
   .trust-grid {
@@ -3656,7 +3591,7 @@ onUnmounted(() => {
   }
 
   .cta-title {
-    font-size: 1.6rem;
+    font-size: clamp(28px, 7vw, 40px);
   }
 
   .container {
@@ -3712,5 +3647,154 @@ onUnmounted(() => {
   .btn-cta-whatsapp {
     justify-content: center;
   }
+}
+
+/* ========== Product Quick-View Modal ========== */
+.pmodal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.pmodal {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 780px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+.pmodal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.05);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+.pmodal-close:hover { background: rgba(0, 0, 0, 0.1); }
+.pmodal-img {
+  background: #f5f5f5;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pmodal-img img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+}
+.pmodal-info {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+}
+.pmodal-cat {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  margin-bottom: 6px;
+}
+.pmodal-title {
+  font-family: var(--font-display);
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.pmodal-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+.pmodal-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+.pmodal-feature svg { color: var(--accent-teal); flex-shrink: 0; }
+.pmodal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+.pmodal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.pmodal-btn--primary {
+  background: var(--accent-teal);
+  color: #fff;
+}
+.pmodal-btn--primary:hover {
+  background: #1a6fa0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46, 139, 192, 0.3);
+}
+.pmodal-btn--outline {
+  background: transparent;
+  border: 1.5px solid var(--border-medium);
+  color: var(--text-primary);
+}
+.pmodal-btn--outline:hover {
+  border-color: var(--text-primary);
+  background: var(--text-primary);
+  color: #fff;
+}
+.pmodal-enter-active { transition: opacity 0.3s ease; }
+.pmodal-enter-active .pmodal { transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease; }
+.pmodal-leave-active { transition: opacity 0.2s ease; }
+.pmodal-leave-active .pmodal { transition: transform 0.2s ease, opacity 0.2s ease; }
+.pmodal-enter-from { opacity: 0; }
+.pmodal-enter-from .pmodal { transform: translateY(24px) scale(0.96); opacity: 0; }
+.pmodal-leave-to { opacity: 0; }
+.pmodal-leave-to .pmodal { transform: scale(0.98); opacity: 0; }
+@media (max-width: 768px) {
+  .pmodal { grid-template-columns: 1fr; }
+  .pmodal-info { padding: 24px 20px; }
+}
+
+@media (max-width: 480px) {
+  .pmodal-overlay { padding: 16px; }
+  .pmodal-img { padding: 16px; }
+  .pmodal-info { padding: 20px 16px; }
+  .pmodal-actions { flex-direction: column; }
+  .pmodal-btn { justify-content: center; }
 }
 </style>

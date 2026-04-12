@@ -16,8 +16,8 @@
         </div>
         <div class="hero-image-wrapper">
           <img
-            src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=85"
-            alt="Al Falah printing press workshop"
+            src="/hero/pomelli_photoshoot-2.png"
+            alt="3D printing press with operator"
             class="hero-image"
           />
         </div>
@@ -245,134 +245,84 @@ const companyValues = [
 let scrollTriggers = []
 
 onMounted(() => {
-  // Hero animations
-  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+  // Smooth reveal: hide elements, then fade up on scroll.
+  // Disables CSS transitions during entrance to avoid jank.
+  const reveal = (trigger, targets, opts = {}) => {
+    const els = document.querySelectorAll(targets)
+    if (!els.length) return
+    // Hide immediately + kill CSS transitions so they don't fight GSAP
+    els.forEach(el => {
+      el.style.transition = 'none'
+      el.style.opacity = '0'
+      el.style.transform = `translateY(${opts.y ?? 30}px)`
+    })
+    const st = ScrollTrigger.create({
+      trigger: typeof trigger === 'string' ? document.querySelector(trigger) : trigger,
+      start: opts.start || 'top 88%',
+      once: true,
+      onEnter: () => {
+        gsap.to(els, {
+          y: 0, opacity: 1,
+          duration: opts.duration ?? 1,
+          stagger: opts.stagger ?? 0.1,
+          ease: 'power2.out',
+          delay: opts.delay ?? 0,
+          onComplete: () => {
+            // Re-enable CSS transitions for hover effects
+            els.forEach(el => el.style.transition = '')
+          },
+        })
+      },
+    })
+    scrollTriggers.push(st)
+  }
 
-  heroTl
-    .from('.hero-label', { y: 20, opacity: 0, duration: 0.6 })
-    .from('.hero-heading', { y: 40, opacity: 0, duration: 0.8 }, '-=0.3')
-    .from('.hero-description', { y: 30, opacity: 0, duration: 0.7 }, '-=0.4')
-    .from('.hero-image-wrapper', { x: 60, opacity: 0, duration: 1, ease: 'power4.out' }, '-=0.6')
-    .from('.stat-item', {
-      y: 30,
-      opacity: 0,
-      duration: 0.5,
-      stagger: 0.15
-    }, '-=0.4')
+  // Hero - fade up immediately (no scroll trigger)
+  gsap.set(['.hero-label', '.hero-heading', '.hero-description', '.hero-image-wrapper', '.stat-item'], { opacity: 0, y: 20 })
+  gsap.to('.hero-label', { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' })
+  gsap.to('.hero-heading', { y: 0, opacity: 1, duration: 0.9, delay: 0.1, ease: 'power2.out' })
+  gsap.to('.hero-description', { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power2.out' })
+  gsap.to('.hero-image-wrapper', { y: 0, opacity: 1, duration: 1, delay: 0.15, ease: 'power2.out' })
+  gsap.to('.stat-item', { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, delay: 0.35, ease: 'power2.out' })
 
-  // Timeline section
-  scrollTriggers.push(
-    gsap.from('.timeline-section .section-label', {
-      scrollTrigger: { trigger: '.timeline-section', start: 'top 80%' },
-      y: 20, opacity: 0, duration: 0.6
+  // Blind reveal helper
+  const blindReveal = (trigger, targets, opts = {}) => {
+    const els = document.querySelectorAll(targets)
+    if (!els.length) return
+    els.forEach(el => { el.style.transition = 'none'; el.style.clipPath = 'inset(0 0 100% 0)' })
+    const st = ScrollTrigger.create({
+      trigger: document.querySelector(trigger),
+      start: opts.start || 'top 88%',
+      once: true,
+      onEnter: () => {
+        gsap.to(els, {
+          clipPath: 'inset(0 0 0% 0)', duration: opts.duration ?? 1.2,
+          stagger: opts.stagger ?? 0.1, ease: 'power3.inOut', delay: opts.delay ?? 0,
+          onComplete: () => els.forEach(el => { el.style.clipPath = ''; el.style.transition = '' }),
+        })
+      },
     })
-  )
-  scrollTriggers.push(
-    gsap.from('.timeline-section .section-heading', {
-      scrollTrigger: { trigger: '.timeline-section', start: 'top 80%' },
-      y: 30, opacity: 0, duration: 0.7, delay: 0.1
-    })
-  )
-  scrollTriggers.push(
-    gsap.from('.timeline-line', {
-      scrollTrigger: { trigger: '.timeline', start: 'top 80%' },
-      scaleX: 0, duration: 1, ease: 'power2.inOut', transformOrigin: 'left center'
-    })
-  )
-  document.querySelectorAll('.milestone').forEach((el, i) => {
-    scrollTriggers.push(
-      gsap.from(el, {
-        scrollTrigger: { trigger: '.timeline', start: 'top 75%' },
-        y: 40, opacity: 0, duration: 0.7, delay: 0.3 + i * 0.2, ease: 'power3.out'
-      })
-    )
-  })
+    scrollTriggers.push(st)
+  }
 
-  // Features section
-  scrollTriggers.push(
-    gsap.from('.features-section .section-label', {
-      scrollTrigger: { trigger: '.features-section', start: 'top 80%' },
-      y: 20, opacity: 0, duration: 0.6
-    })
-  )
-  scrollTriggers.push(
-    gsap.from('.features-section .section-heading', {
-      scrollTrigger: { trigger: '.features-section', start: 'top 80%' },
-      y: 30, opacity: 0, duration: 0.7, delay: 0.1
-    })
-  )
-  document.querySelectorAll('.feature-card').forEach((el, i) => {
-    scrollTriggers.push(
-      gsap.from(el, {
-        scrollTrigger: { trigger: '.features-grid', start: 'top 80%' },
-        y: 50, opacity: 0, duration: 0.6, delay: i * 0.1, ease: 'power3.out'
-      })
-    )
-  })
+  // Timeline — fade up milestones
+  reveal('.timeline-section', '.timeline-section .section-label, .timeline-section .section-heading')
+  reveal('.timeline', '.milestone', { y: 35, stagger: 0.12, delay: 0.1 })
 
-  // Process section
-  scrollTriggers.push(
-    gsap.from('.process-section .section-label', {
-      scrollTrigger: { trigger: '.process-section', start: 'top 80%' },
-      y: 20, opacity: 0, duration: 0.6
-    })
-  )
-  scrollTriggers.push(
-    gsap.from('.process-section .section-heading', {
-      scrollTrigger: { trigger: '.process-section', start: 'top 80%' },
-      y: 30, opacity: 0, duration: 0.7, delay: 0.1
-    })
-  )
-  document.querySelectorAll('.process-step').forEach((el, i) => {
-    scrollTriggers.push(
-      gsap.from(el, {
-        scrollTrigger: { trigger: '.process-steps', start: 'top 80%' },
-        y: 40, opacity: 0, duration: 0.6, delay: i * 0.15, ease: 'power3.out'
-      })
-    )
-  })
+  // Features — fade up cards
+  reveal('.features-section', '.features-section .section-label, .features-section .section-heading, .features-section .section-intro')
+  reveal('.features-grid', '.feature-card', { y: 40, stagger: 0.08, delay: 0.1 })
 
-  // Values section
-  scrollTriggers.push(
-    gsap.from('.values-section .section-label', {
-      scrollTrigger: { trigger: '.values-section', start: 'top 80%' },
-      y: 20, opacity: 0, duration: 0.6
-    })
-  )
-  scrollTriggers.push(
-    gsap.from('.values-section .section-heading', {
-      scrollTrigger: { trigger: '.values-section', start: 'top 80%' },
-      y: 30, opacity: 0, duration: 0.7, delay: 0.1
-    })
-  )
-  document.querySelectorAll('.value-card').forEach((el, i) => {
-    scrollTriggers.push(
-      gsap.from(el, {
-        scrollTrigger: { trigger: '.values-grid', start: 'top 80%' },
-        y: 50, opacity: 0, duration: 0.7, delay: i * 0.15, ease: 'power3.out'
-      })
-    )
-  })
+  // Process — fade up
+  reveal('.process-section', '.process-section .section-label, .process-section .section-heading')
+  reveal('.process-steps', '.process-step', { y: 30, stagger: 0.12, delay: 0.1 })
 
-  // CTA section
-  scrollTriggers.push(
-    gsap.from('.cta-heading', {
-      scrollTrigger: { trigger: '.cta-section', start: 'top 80%' },
-      y: 30, opacity: 0, duration: 0.7
-    })
-  )
-  scrollTriggers.push(
-    gsap.from('.cta-subtext', {
-      scrollTrigger: { trigger: '.cta-section', start: 'top 80%' },
-      y: 20, opacity: 0, duration: 0.6, delay: 0.15
-    })
-  )
-  scrollTriggers.push(
-    gsap.from('.cta-buttons', {
-      scrollTrigger: { trigger: '.cta-section', start: 'top 80%' },
-      y: 20, opacity: 0, duration: 0.6, delay: 0.3
-    })
-  )
+  // Values — blind on cards (keeps variety)
+  reveal('.values-section', '.values-section .section-label, .values-section .section-heading')
+  blindReveal('.values-grid', '.value-card', { stagger: 0.1, delay: 0.1 })
+
+  // CTA — fade up
+  reveal('.cta-section', '.cta-heading, .cta-subtext, .cta-buttons', { y: 25, stagger: 0.08 })
 })
 
 onUnmounted(() => {
@@ -416,12 +366,14 @@ onUnmounted(() => {
 }
 
 .section-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 68px);
+  font-weight: 400;
   color: var(--text-primary);
   margin-bottom: 24px;
-  line-height: 1.2;
+  line-height: 0.95;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .section-heading + .section-intro {
@@ -466,12 +418,18 @@ onUnmounted(() => {
 }
 
 .hero-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(2.2rem, 5vw, 3.4rem);
-  font-weight: 600;
-  line-height: 1.15;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5.5vw, 80px);
+  font-weight: 400;
+  line-height: 0.95;
   color: var(--text-primary);
   margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+.hero-heading em {
+  font-style: normal;
+  color: var(--accent-teal);
 }
 
 .hero-description {
@@ -510,9 +468,9 @@ onUnmounted(() => {
 
 .stat-number {
   display: block;
-  font-family: var(--font-serif);
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 56px);
+  font-weight: 400;
   color: var(--accent-teal);
   margin-bottom: 4px;
 }
@@ -577,9 +535,9 @@ onUnmounted(() => {
 
 .milestone-year {
   display: inline-block;
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 400;
   color: var(--accent-teal);
   margin-bottom: 8px;
 }
@@ -638,8 +596,11 @@ onUnmounted(() => {
 }
 
 .feature-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   margin-bottom: 8px;
   color: var(--text-primary);
 }
@@ -674,9 +635,9 @@ onUnmounted(() => {
 
 .step-number {
   display: inline-block;
-  font-family: var(--font-serif);
-  font-size: 2.4rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(32px, 3vw, 48px);
+  font-weight: 400;
   color: var(--accent-teal);
   opacity: 0.2;
   margin-bottom: 12px;
@@ -684,8 +645,11 @@ onUnmounted(() => {
 }
 
 .step-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   margin-bottom: 10px;
   color: var(--text-primary);
 }
@@ -744,8 +708,11 @@ onUnmounted(() => {
 }
 
 .value-title {
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
   margin-bottom: 10px;
   color: var(--text-primary);
 }
@@ -767,9 +734,11 @@ onUnmounted(() => {
 }
 
 .cta-heading {
-  font-family: var(--font-serif);
-  font-size: clamp(1.8rem, 4vw, 2.8rem);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
   color: #ffffff;
   margin-bottom: 16px;
 }
@@ -891,7 +860,7 @@ onUnmounted(() => {
   }
 
   .hero-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     margin-top: 48px;
   }
@@ -925,16 +894,16 @@ onUnmounted(() => {
   }
 
   .features-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .process-steps {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 36px;
   }
 
   .values-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .cta-section {
@@ -951,6 +920,24 @@ onUnmounted(() => {
     width: 100%;
     max-width: 280px;
     justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .process-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-stats {
+    grid-template-columns: 1fr;
   }
 }
 

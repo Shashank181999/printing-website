@@ -1,10 +1,5 @@
 <template>
   <div id="app">
-    <!-- Gold page-transition curtain (Barba-style wipe, driven by GSAP) -->
-    <div class="page-curtain" ref="curtainEl" aria-hidden="true">
-      <span class="page-curtain-label">Al Falah</span>
-    </div>
-
     <Header />
     <main>
       <router-view v-slot="{ Component, route }">
@@ -20,7 +15,7 @@
       </router-view>
     </main>
     <Footer />
-    <WhatsAppButton />
+    <SocialSidebar />
     <ChatBot />
     <ServiceRequestForm
       v-if="showServiceForm"
@@ -30,20 +25,20 @@
 </template>
 
 <script setup>
-import { ref, provide, onMounted, onBeforeUnmount } from 'vue'
+import { ref, provide, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
-import WhatsAppButton from './components/WhatsAppButton.vue'
+import SocialSidebar from './components/SocialSidebar.vue'
 import ChatBot from './components/ChatBot.vue'
 import ServiceRequestForm from './components/ServiceRequestForm.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const showServiceForm = ref(false)
-const curtainEl = ref(null)
 
 const openServiceForm = () => {
   showServiceForm.value = true
@@ -80,45 +75,60 @@ onBeforeUnmount(() => {
   window.__lenis = null
 })
 
-// ---------- GSAP-driven page transitions (Barba-style) ----------
+// ---------- Smooth page transitions ----------
+let isFirstLoad = true
+
 const onBeforeEnter = (el) => {
-  gsap.set(el, { opacity: 0, y: 40 })
+  if (isFirstLoad) {
+    // First load / reload — don't animate, just show instantly
+    gsap.set(el, { opacity: 1, y: 0 })
+    isFirstLoad = false
+    return
+  }
+  gsap.set(el, { opacity: 0, y: 16 })
 }
 
+const router = useRouter()
+
 const onEnter = (el, done) => {
-  // Wipe the gold curtain away, reveal the new page
-  const tl = gsap.timeline({ onComplete: done })
-  tl.to(curtainEl.value, {
-    scaleY: 0,
-    duration: 0.75,
-    ease: 'power4.inOut',
-    transformOrigin: 'top center',
-  })
-    .fromTo(
-      el,
-      { opacity: 0, y: 40 },
-      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out' },
-      '-=0.35'
-    )
-    .call(() => {
-      if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
+  if (el.style.opacity === '1') {
+    ScrollTrigger.refresh()
+    done()
+    return
+  }
+  // Scroll to top first
+  window.scrollTo(0, 0)
+  if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
+  gsap.to(el, {
+    opacity: 1, y: 0, duration: 0.5, ease: 'power3.out',
+    onComplete: () => {
       ScrollTrigger.refresh()
-    })
+      // After page renders, scroll to hash if present
+      const hash = router.currentRoute.value.hash
+      if (hash) {
+        nextTick(() => {
+          setTimeout(() => {
+            const target = document.querySelector(hash)
+            if (target) {
+              const top = target.getBoundingClientRect().top + window.scrollY - 80
+              if (lenis) {
+                lenis.scrollTo(top, { duration: 1 })
+              } else {
+                window.scrollTo({ top, behavior: 'smooth' })
+              }
+            }
+          }, 100)
+        })
+      }
+      done()
+    },
+  })
 }
 
 const onLeave = (el, done) => {
-  const tl = gsap.timeline({ onComplete: done })
-  tl.set(curtainEl.value, { scaleY: 0, transformOrigin: 'bottom center' })
-    .to(curtainEl.value, {
-      scaleY: 1,
-      duration: 0.7,
-      ease: 'power4.inOut',
-    })
-    .to(
-      el,
-      { opacity: 0, y: -20, duration: 0.45, ease: 'power2.in' },
-      '-=0.55'
-    )
+  gsap.to(el, {
+    opacity: 0, duration: 0.2, ease: 'power2.in', onComplete: done,
+  })
 }
 </script>
 
@@ -150,9 +160,15 @@ const onLeave = (el, done) => {
   --border-light: rgba(0, 0, 0, 0.08);
   --border-medium: rgba(0, 0, 0, 0.12);
 
-  /* Typography */
-  --font-serif: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* Typography
+     --font-sans:    body copy (Poppins)
+     --font-display: page/section headings (Bebas Neue, condensed display)
+     --font-serif:   alias of --font-display so legacy classes pick it up
+     --font-accent:  small caps / kickers / labels (Oswald) */
   --font-sans: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Bebas Neue', 'Anton', 'Oswald', -apple-system, sans-serif;
+  --font-serif: 'Bebas Neue', 'Anton', 'Oswald', -apple-system, sans-serif;
+  --font-accent: 'Oswald', 'Bebas Neue', sans-serif;
 
   /* Shadows */
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
@@ -234,37 +250,19 @@ img {
   }
 }
 
-/* Typography */
-h1, h2, h3, h4 {
-  font-family: var(--font-serif);
-  font-weight: 300;
-  line-height: 1.2;
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
 }
 
-/* Page transition curtain (GSAP-driven, Barba-style wipe) */
-.page-curtain {
-  position: fixed;
-  inset: 0;
-  z-index: 2000;
-  background:
-    radial-gradient(ellipse at 50% 40%, rgba(255, 255, 255, 0.08), transparent 60%),
-    linear-gradient(135deg, #0a1230 0%, #0052cc 50%, #c9a227 100%);
-  transform: scaleY(0);
-  transform-origin: bottom center;
-  pointer-events: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  will-change: transform;
-}
-.page-curtain-label {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 200;
-  font-size: clamp(36px, 6vw, 80px);
-  color: rgba(255, 255, 255, 0.92);
-  letter-spacing: 0.08em;
+/* Typography — display headings use Bebas Neue */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: 0.005em;
   text-transform: uppercase;
-  mix-blend-mode: overlay;
 }
 
 /* When Lenis is active, it manages scroll — keep html/body friendly */
@@ -278,10 +276,10 @@ html.lenis-smooth {
 
 /* Section Label */
 .section-label {
-  font-family: var(--font-sans);
+  font-family: var(--font-accent);
   font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--accent-teal);
   margin-bottom: 16px;
@@ -289,18 +287,20 @@ html.lenis-smooth {
 
 /* Section Title */
 .section-title {
-  font-family: var(--font-serif);
-  font-size: clamp(32px, 5vw, 48px);
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 6vw, 78px);
+  font-weight: 400;
   color: var(--text-primary);
   margin-bottom: 20px;
-  line-height: 1.15;
+  line-height: 0.95;
+  letter-spacing: 0.005em;
+  text-transform: uppercase;
 }
 
 .section-title em,
 .section-title i {
   font-style: normal;
-  font-weight: 200;
+  font-weight: 400;
   color: var(--accent-teal);
 }
 

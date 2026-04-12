@@ -142,6 +142,7 @@
               :key="product.slug"
               class="product-card"
               :style="{ '--delay': (index % 12) * 0.04 + 's' }"
+              @click="openProduct(product)"
             >
               <div class="product-image-area">
                 <img
@@ -216,6 +217,54 @@
         </div>
       </div>
     </section>
+
+    <!-- Product Detail Modal -->
+    <Teleport to="body">
+      <transition name="modal">
+        <div v-if="selectedProduct" class="product-modal-overlay" @click.self="closeProduct">
+          <div class="product-modal">
+            <button class="modal-close" @click="closeProduct">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="modal-image">
+              <img :src="'/products/' + selectedProduct.slug + '.webp'" :alt="selectedProduct.name" />
+            </div>
+            <div class="modal-info">
+              <span class="modal-category">{{ selectedProduct.category }}</span>
+              <h2 class="modal-title">{{ selectedProduct.name }}</h2>
+              <p class="modal-desc">{{ selectedProduct.description }}</p>
+              <div class="modal-features">
+                <div class="modal-feature">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                  Premium Quality Materials
+                </div>
+                <div class="modal-feature">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                  Custom Sizes Available
+                </div>
+                <div class="modal-feature">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                  Fast Turnaround
+                </div>
+                <div class="modal-feature">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>
+                  UAE-Wide Delivery
+                </div>
+              </div>
+              <div class="modal-actions">
+                <button class="modal-btn modal-btn--primary" @click="closeProduct(); openServiceForm()">
+                  Get Quote
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+                <a href="https://wa.me/971567268735" target="_blank" class="modal-btn modal-btn--outline">
+                  WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </Teleport>
   </div>
 </template>
 
@@ -223,6 +272,7 @@
 import { ref, computed, inject, watch } from 'vue'
 
 const openServiceForm = inject('openServiceForm')
+const selectedProduct = ref(null)
 const activeCategory = ref('all')
 const searchQuery = ref('')
 const ITEMS_PER_PAGE = 12
@@ -387,6 +437,16 @@ const hasMore = computed(() => visibleCount.value < filteredProducts.value.lengt
 
 const loadMore = () => {
   visibleCount.value += ITEMS_PER_PAGE
+}
+
+const openProduct = (product) => {
+  selectedProduct.value = product
+  document.body.style.overflow = 'hidden'
+}
+
+const closeProduct = () => {
+  selectedProduct.value = null
+  document.body.style.overflow = ''
 }
 </script>
 
@@ -560,10 +620,11 @@ const loadMore = () => {
 }
 
 .sidebar-title {
-  font-size: 12px;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 400;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.03em;
   color: var(--text-secondary);
   margin: 0;
 }
@@ -749,6 +810,7 @@ const loadMore = () => {
   opacity: 0;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 
 @keyframes cardAppear {
@@ -809,12 +871,14 @@ const loadMore = () => {
 }
 
 .product-name {
-  font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 400;
   color: var(--text-primary);
-  line-height: 1.3;
-  margin: 0 0 6px;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
 }
 
 .product-desc {
@@ -960,10 +1024,11 @@ const loadMore = () => {
 }
 
 .cta-text h2 {
-  font-family: var(--font-sans);
+  font-family: var(--font-display);
   font-size: 24px;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--text-primary);
+  text-transform: uppercase;
   margin: 0 0 8px;
 }
 
@@ -1232,6 +1297,231 @@ const loadMore = () => {
   .mobile-filter-chip {
     font-size: 12px;
     padding: 6px 12px;
+  }
+}
+
+/* ===== Product Modal ===== */
+.product-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.product-modal {
+  background: #fff;
+  border-radius: 20px;
+  max-width: 860px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25);
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.1);
+  color: var(--text-primary);
+}
+
+.modal-image {
+  background: #f5f5f5;
+  padding: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px 0 0 20px;
+}
+
+.modal-image img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.modal-info {
+  padding: 40px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-category {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-teal);
+  margin-bottom: 8px;
+}
+
+.modal-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 38px);
+  font-weight: 400;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.modal-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.modal-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.modal-feature {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.modal-feature svg {
+  color: var(--accent-teal);
+  flex-shrink: 0;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.modal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.modal-btn--primary {
+  background: var(--accent-teal);
+  color: #fff;
+}
+
+.modal-btn--primary:hover {
+  background: #1a6fa0;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(46, 139, 192, 0.3);
+}
+
+.modal-btn--outline {
+  background: transparent;
+  border: 1.5px solid var(--border-medium);
+  color: var(--text-primary);
+}
+
+.modal-btn--outline:hover {
+  border-color: var(--text-primary);
+  background: var(--text-primary);
+  color: #fff;
+}
+
+/* Modal transition */
+.modal-enter-active {
+  transition: opacity 0.3s ease;
+}
+.modal-enter-active .product-modal {
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease;
+}
+.modal-leave-active {
+  transition: opacity 0.25s ease;
+}
+.modal-leave-active .product-modal {
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.modal-enter-from {
+  opacity: 0;
+}
+.modal-enter-from .product-modal {
+  transform: translateY(30px) scale(0.96);
+  opacity: 0;
+}
+.modal-leave-to {
+  opacity: 0;
+}
+.modal-leave-to .product-modal {
+  transform: translateY(10px) scale(0.98);
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .product-modal {
+    grid-template-columns: 1fr;
+    max-height: 95vh;
+  }
+  .modal-image {
+    border-radius: 20px 20px 0 0;
+    padding: 24px;
+  }
+  .modal-info {
+    padding: 28px 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-modal-overlay {
+    padding: 12px;
+  }
+  .modal-image {
+    padding: 16px;
+  }
+  .modal-info {
+    padding: 20px 16px;
+  }
+  .modal-actions {
+    flex-direction: column;
+  }
+  .modal-btn {
+    justify-content: center;
+    width: 100%;
   }
 }
 </style>

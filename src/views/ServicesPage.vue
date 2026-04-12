@@ -41,12 +41,9 @@
             v-for="(svc, idx) in services"
             :key="svc.title"
             class="svc-card"
-            @mousemove="onTilt($event)"
-            @mouseleave="resetTilt($event)"
+            @click="openServiceForm"
           >
             <div class="svc-card-inner">
-              <div class="svc-card-num">{{ String(idx + 1).padStart(2, '0') }}</div>
-              <div class="svc-card-icon" v-html="svc.icon"></div>
               <h3 class="svc-card-title">{{ svc.title }}</h3>
               <p class="svc-card-desc">{{ svc.desc }}</p>
               <ul class="svc-card-features">
@@ -95,8 +92,7 @@
             v-for="project in filteredPortfolio"
             :key="project.slug + project.title"
             class="portfolio-card"
-            @mousemove="onTilt($event)"
-            @mouseleave="resetTilt($event)"
+            @click="openPortfolioModal(project)"
           >
             <div class="portfolio-card-inner">
               <div class="portfolio-image">
@@ -105,8 +101,8 @@
                   <span class="portfolio-cat">{{ project.category }}</span>
                   <h3>{{ project.title }}</h3>
                   <p>{{ project.desc }}</p>
-                  <button class="portfolio-btn" @click.stop="openServiceForm">
-                    Request Similar
+                  <button class="portfolio-btn" @click.stop="openPortfolioModal(project)">
+                    View Details
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                   </button>
                 </div>
@@ -136,9 +132,8 @@
           </div>
         </div>
         <div class="what-image">
-          <img src="/products/gold-foil-business-cards.webp" alt="Premium printing" />
+          <img src="/hero/pomelli_photoshoot-1.png" alt="Professional offset printing press line" />
           <div class="what-image-card">
-            <div class="what-image-card-num">01</div>
             <div>
               <strong>Premium Print</strong>
               <span>Foil, embossing, die-cut and more</span>
@@ -165,6 +160,36 @@
         </div>
       </div>
     </section>
+
+    <!-- Portfolio Modal -->
+    <Teleport to="body">
+      <transition name="smodal">
+        <div v-if="selectedProject" class="smodal-overlay" @click.self="closeModal">
+          <div class="smodal">
+            <button class="smodal-close" @click="closeModal">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <div class="smodal-img">
+              <img :src="`/products/${selectedProject.slug}.webp`" :alt="selectedProject.title" />
+            </div>
+            <div class="smodal-info">
+              <span class="smodal-cat">{{ selectedProject.category }}</span>
+              <h2 class="smodal-title">{{ selectedProject.title }}</h2>
+              <p class="smodal-desc">{{ selectedProject.desc }}</p>
+              <div class="smodal-features">
+                <div class="smodal-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Premium Quality</div>
+                <div class="smodal-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Custom Sizes</div>
+                <div class="smodal-feature"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Fast Turnaround</div>
+              </div>
+              <div class="smodal-actions">
+                <button class="smodal-btn smodal-btn--primary" @click="closeModal(); openServiceForm()">Get Quote <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                <a href="https://wa.me/971567268735" target="_blank" class="smodal-btn smodal-btn--outline">WhatsApp</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </transition>
+    </Teleport>
   </div>
 </template>
 
@@ -176,7 +201,17 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 const openServiceForm = inject('openServiceForm')
+const selectedProject = ref(null)
 const gridSection = ref(null)
+
+function openPortfolioModal(project) {
+  selectedProject.value = project
+  document.body.style.overflow = 'hidden'
+}
+function closeModal() {
+  selectedProject.value = null
+  document.body.style.overflow = ''
+}
 const whatSection = ref(null)
 const portfolioSection = ref(null)
 const portfolioGrid = ref(null)
@@ -209,12 +244,10 @@ function setPortfolioFilter(cat) {
   activePortfolio.value = cat
   nextTick(() => {
     if (portfolioGrid.value) {
-      gsap.from(portfolioGrid.value.querySelectorAll('.portfolio-card'), {
-        y: 40, opacity: 0,
-        rotationY: -15,
-        transformPerspective: 1200,
-        duration: 0.6, stagger: 0.06, ease: 'power3.out',
-      })
+      gsap.fromTo(portfolioGrid.value.querySelectorAll('.portfolio-card'),
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, stagger: 0.05, ease: 'power2.out' }
+      )
     }
   })
 }
@@ -299,74 +332,67 @@ let scrollTriggers = []
 
 onMounted(() => {
   // Hero entrance
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-  tl.from('.services-eyebrow', { y: 30, opacity: 0, duration: 0.7 })
-    .from('.services-title', { y: 50, opacity: 0, duration: 0.9 }, '-=0.4')
-    .from('.services-lede', { y: 30, opacity: 0, duration: 0.8 }, '-=0.5')
-    .from('.services-actions > *', { y: 20, opacity: 0, stagger: 0.12, duration: 0.6 }, '-=0.4')
+  gsap.fromTo('.services-eyebrow', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' })
+  gsap.fromTo('.services-title', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, delay: 0.1, ease: 'power2.out' })
+  gsap.fromTo('.services-lede', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, delay: 0.2, ease: 'power2.out' })
+  gsap.fromTo('.services-actions > *', { y: 15, opacity: 0 }, { y: 0, opacity: 1, stagger: 0.1, duration: 0.5, delay: 0.3, ease: 'power2.out' })
 
-  // Service cards stagger
+  // Blind reveal helper
+  const blindReveal = (trigger, targets, opts = {}) => {
+    const triggerEl = typeof trigger === 'string' ? document.querySelector(trigger) : trigger
+    if (!triggerEl) return
+    const els = triggerEl.querySelectorAll(targets)
+    if (!els.length) return
+    els.forEach(el => { el.style.transition = 'none'; el.style.clipPath = 'inset(0 0 100% 0)' })
+    const st = ScrollTrigger.create({
+      trigger: triggerEl, start: opts.start || 'top 88%', once: true,
+      onEnter: () => {
+        gsap.to(els, {
+          clipPath: 'inset(0 0 0% 0)', duration: opts.duration ?? 1.2,
+          stagger: opts.stagger ?? 0.1, ease: 'power3.inOut', delay: opts.delay ?? 0,
+          onComplete: () => els.forEach(el => { el.style.clipPath = ''; el.style.transition = '' }),
+        })
+      },
+    })
+    scrollTriggers.push(st)
+  }
+
+  const reveal = (trigger, targets, opts = {}) => {
+    const triggerEl = typeof trigger === 'string' ? document.querySelector(trigger) : trigger
+    if (!triggerEl) return
+    const els = triggerEl.querySelectorAll(targets)
+    if (!els.length) return
+    els.forEach(el => { el.style.transition = 'none'; el.style.opacity = '0'; el.style.transform = `translateY(${opts.y ?? 30}px)` })
+    const st = ScrollTrigger.create({
+      trigger: triggerEl, start: opts.start || 'top 88%', once: true,
+      onEnter: () => {
+        gsap.to(els, {
+          y: 0, opacity: 1, duration: opts.duration ?? 0.9, stagger: opts.stagger ?? 0.08,
+          ease: 'power2.out', delay: opts.delay ?? 0,
+          onComplete: () => els.forEach(el => { el.style.transition = '' }),
+        })
+      },
+    })
+    scrollTriggers.push(st)
+  }
+
+  // Service cards — fade up
   if (gridSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: gridSection.value,
-      start: 'top 80%',
-      once: true,
-      onEnter: () => {
-        gsap.from(gridSection.value.querySelectorAll('.svc-card'), {
-          y: 80, opacity: 0,
-          rotationY: -25, rotationX: 10,
-          transformPerspective: 1200,
-          duration: 0.9, stagger: 0.08, ease: 'power3.out',
-        })
-        gsap.from(gridSection.value.querySelectorAll('.services-section-header > *'), {
-          y: 30, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(gridSection.value, '.services-section-header > *', { stagger: 0.08 })
+    reveal(gridSection.value, '.svc-card', { y: 40, stagger: 0.06, delay: 0.15 })
   }
 
-  // Portfolio section entry
+  // Portfolio — blind only on image cards
   if (portfolioSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: portfolioSection.value,
-      start: 'top 75%',
-      once: true,
-      onEnter: () => {
-        gsap.from(portfolioSection.value.querySelectorAll('.services-section-header > *'), {
-          y: 30, opacity: 0, duration: 0.7, stagger: 0.1, ease: 'power3.out',
-        })
-        gsap.from(portfolioSection.value.querySelectorAll('.portfolio-tab'), {
-          y: 20, opacity: 0, duration: 0.5, stagger: 0.05, ease: 'power3.out', delay: 0.3,
-        })
-        gsap.from(portfolioSection.value.querySelectorAll('.portfolio-card'), {
-          y: 60, opacity: 0,
-          rotationY: -20, rotationX: 10,
-          transformPerspective: 1200,
-          duration: 0.85, stagger: 0.08, ease: 'power3.out', delay: 0.4,
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(portfolioSection.value, '.services-section-header > *', { stagger: 0.08 })
+    reveal(portfolioSection.value, '.portfolio-tab', { y: 15, stagger: 0.04, delay: 0.2 })
+    blindReveal(portfolioSection.value, '.portfolio-card', { stagger: 0.08, delay: 0.3 })
   }
 
-  // What section
+  // What section — blind only on image
   if (whatSection.value) {
-    const st = ScrollTrigger.create({
-      trigger: whatSection.value,
-      start: 'top 75%',
-      once: true,
-      onEnter: () => {
-        gsap.from(whatSection.value.querySelectorAll('.what-text > *'), {
-          x: -50, opacity: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out',
-        })
-        gsap.from(whatSection.value.querySelector('.what-image'), {
-          x: 80, opacity: 0, rotationY: -15,
-          transformPerspective: 1200, duration: 1, ease: 'power3.out', delay: 0.2,
-        })
-      },
-    })
-    scrollTriggers.push(st)
+    reveal(whatSection.value, '.what-text > *', { stagger: 0.08 })
+    blindReveal(whatSection.value, '.what-image', { duration: 1.4, delay: 0.1 })
   }
 })
 
@@ -396,7 +422,7 @@ onUnmounted(() => {
   align-items: center;
   justify-content: center;
   padding: 160px 24px 100px;
-  background: linear-gradient(180deg, #f8fafd 0%, #eef4fa 100%);
+  background: linear-gradient(180deg, var(--bg-primary) 0%, #f0f5fa 100%);
   overflow: hidden;
 }
 
@@ -409,38 +435,29 @@ onUnmounted(() => {
 
 .hero-blob {
   position: absolute;
-  width: 380px;
-  height: 380px;
+  width: 450px;
+  height: 450px;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.35;
-  mix-blend-mode: multiply;
-  animation: heroBlobFloat 14s ease-in-out infinite;
+  filter: blur(120px);
+  opacity: 0.12;
 }
 
 .hero-blob--c {
-  background: #00aeef;
+  background: var(--accent-teal);
   top: 10%;
-  left: -100px;
+  left: -80px;
 }
 
 .hero-blob--m {
-  background: #ec008c;
+  background: var(--accent-teal);
   bottom: 5%;
-  right: -100px;
-  animation-delay: -5s;
+  right: -80px;
 }
 
 .hero-blob--y {
-  background: #fff200;
-  top: 30%;
-  right: 30%;
-  animation-delay: -10s;
-}
-
-@keyframes heroBlobFloat {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50%      { transform: translate(40px, -30px) scale(1.1); }
+  background: var(--color-blue);
+  top: 40%;
+  right: 25%;
 }
 
 .services-hero-inner {
@@ -463,20 +480,19 @@ onUnmounted(() => {
 }
 
 .services-title {
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -1.5px;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 100px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
   margin-bottom: 22px;
   color: var(--text-primary);
+  text-transform: uppercase;
 }
 
 .services-title em {
   font-style: normal;
-  background: linear-gradient(120deg, #00aeef, #ec008c, #fff200);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--accent-teal);
 }
 
 .services-lede {
@@ -553,12 +569,14 @@ onUnmounted(() => {
 }
 
 .section-title {
-  font-size: clamp(1.9rem, 4vw, 2.8rem);
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -1px;
+  font-family: var(--font-display);
+  font-size: clamp(40px, 5vw, 70px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
   margin-bottom: 18px;
   color: var(--text-primary);
+  text-transform: uppercase;
 }
 
 .section-title em {
@@ -589,53 +607,33 @@ onUnmounted(() => {
 .svc-card-inner {
   position: relative;
   background: #fff;
-  border-radius: 20px;
-  padding: 32px 26px;
-  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.06),
-              0 0 0 1px rgba(46, 139, 192, 0.05);
-  transform-style: preserve-3d;
-  transition: transform 0.4s cubic-bezier(0.22, 0.61, 0.36, 1),
-              box-shadow 0.4s ease;
+  border-radius: 16px;
+  padding: 28px 26px;
+  border-left: 3px solid rgba(46, 139, 192, 0.25);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .svc-card:hover .svc-card-inner {
-  box-shadow: 0 24px 60px rgba(46, 139, 192, 0.18),
-              0 0 0 1px rgba(46, 139, 192, 0.18);
-}
-
-.svc-card-num {
-  font-size: 2.6rem;
-  font-weight: 200;
-  color: rgba(46, 139, 192, 0.18);
-  line-height: 1;
-  margin-bottom: 10px;
-  transform: translateZ(30px);
-}
-
-.svc-card-icon {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  background: rgba(46, 139, 192, 0.1);
-  color: var(--accent-teal);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-  transform: translateZ(50px);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 48px rgba(46, 139, 192, 0.14);
+  border-left-color: var(--accent-teal);
+  border-left-width: 4px;
 }
 
 .svc-card-title {
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
   color: var(--text-primary);
-  margin-bottom: 10px;
-  line-height: 1.3;
-  transform: translateZ(40px);
+  margin-bottom: 12px;
+  line-height: 1.1;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .svc-card-desc {
@@ -909,6 +907,7 @@ onUnmounted(() => {
 .what-section {
   padding: 100px 0;
   background: linear-gradient(180deg, var(--bg-primary) 0%, #f5f9fc 100%);
+  overflow: hidden;
 }
 
 .what-grid {
@@ -935,8 +934,9 @@ onUnmounted(() => {
 
 .what-stat strong {
   display: block;
-  font-size: 2rem;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 3.5vw, 52px);
+  font-weight: 400;
   color: var(--accent-teal);
   line-height: 1;
 }
@@ -959,14 +959,13 @@ onUnmounted(() => {
 .what-image img {
   width: 100%;
   border-radius: 20px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
   display: block;
-  transform: rotateY(-6deg) rotateX(3deg);
-  transition: transform 0.6s ease;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .what-image:hover img {
-  transform: rotateY(0deg) rotateX(0deg);
+  transform: scale(1.03);
 }
 
 .what-image-card {
@@ -984,9 +983,7 @@ onUnmounted(() => {
 }
 
 .what-image-card-num {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--accent-teal);
+  display: none;
 }
 
 .what-image-card strong {
@@ -1011,10 +1008,13 @@ onUnmounted(() => {
 }
 
 .cta-heading {
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 72px);
+  font-weight: 400;
   margin-bottom: 14px;
   color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .cta-heading em {
@@ -1071,10 +1071,148 @@ onUnmounted(() => {
   .what-stats { justify-content: center; }
 }
 
+@media (max-width: 768px) {
+  .services-hero {
+    padding: 130px 24px 70px;
+    min-height: auto;
+  }
+  .services-section {
+    padding: 72px 0;
+  }
+  .services-cta {
+    padding: 72px 0;
+  }
+  .what-section {
+    padding: 72px 0;
+  }
+  .what-desc {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .what-stats {
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .portfolio-tabs {
+    gap: 8px;
+    margin-bottom: 36px;
+  }
+  .portfolio-tab {
+    padding: 8px 14px;
+    font-size: 0.78rem;
+  }
+}
+
 @media (max-width: 600px) {
   .services-grid { grid-template-columns: 1fr; }
-  .services-section { padding: 64px 0; }
-  .services-hero { padding: 130px 24px 70px; min-height: auto; }
-  .services-cta { padding: 70px 0; }
+  .services-section { padding: 56px 0; }
+  .services-hero { padding: 120px 20px 56px; }
+  .services-cta { padding: 56px 0; }
+}
+
+@media (max-width: 480px) {
+  .services-hero {
+    padding: 100px 16px 48px;
+  }
+  .services-lede {
+    font-size: 0.95rem;
+  }
+  .svc-card-inner {
+    padding: 22px 18px;
+  }
+  .svc-card-title {
+    font-size: 18px;
+  }
+  .what-section {
+    padding: 56px 0;
+  }
+  .what-stats {
+    gap: 18px;
+  }
+  .what-image-card {
+    bottom: -10px;
+    left: -10px;
+    padding: 12px 16px;
+  }
+  .portfolio-section {
+    padding: 56px 0;
+  }
+  .portfolio-tab {
+    padding: 6px 12px;
+    font-size: 0.72rem;
+  }
+  .cta-heading {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+}
+
+/* ========== Portfolio Modal ========== */
+.smodal-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(0,0,0,0.6); backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+}
+.smodal {
+  background: #fff; border-radius: 20px; max-width: 780px; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr; position: relative;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.25); overflow: hidden;
+}
+.smodal-close {
+  position: absolute; top: 14px; right: 14px; z-index: 10;
+  width: 38px; height: 38px; border-radius: 50%; border: none;
+  background: rgba(0,0,0,0.05); color: var(--text-secondary);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.3s ease;
+}
+.smodal-close:hover { background: rgba(0,0,0,0.1); }
+.smodal-img {
+  background: #f5f5f5; padding: 28px;
+  display: flex; align-items: center; justify-content: center;
+}
+.smodal-img img { width: 100%; max-height: 360px; object-fit: contain; }
+.smodal-info { padding: 36px 32px; display: flex; flex-direction: column; }
+.smodal-cat {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent-teal); margin-bottom: 6px;
+}
+.smodal-title {
+  font-family: var(--font-display); font-size: clamp(24px,3vw,34px);
+  font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em;
+  line-height: 1; margin-bottom: 14px;
+}
+.smodal-desc { font-size: 14px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 20px; }
+.smodal-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+.smodal-feature { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); }
+.smodal-feature svg { color: var(--accent-teal); flex-shrink: 0; }
+.smodal-actions { display: flex; gap: 10px; margin-top: auto; }
+.smodal-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 22px; border-radius: 10px;
+  font-family: var(--font-display); font-size: 13px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; border: none; text-decoration: none; transition: all 0.3s ease;
+}
+.smodal-btn--primary { background: var(--accent-teal); color: #fff; }
+.smodal-btn--primary:hover { background: #1a6fa0; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(46,139,192,0.3); }
+.smodal-btn--outline { background: transparent; border: 1.5px solid var(--border-medium); color: var(--text-primary); }
+.smodal-btn--outline:hover { border-color: var(--text-primary); background: var(--text-primary); color: #fff; }
+.smodal-enter-active { transition: opacity 0.3s ease; }
+.smodal-enter-active .smodal { transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), opacity 0.3s ease; }
+.smodal-leave-active { transition: opacity 0.2s ease; }
+.smodal-enter-from { opacity: 0; }
+.smodal-enter-from .smodal { transform: translateY(24px) scale(0.96); opacity: 0; }
+.smodal-leave-to { opacity: 0; }
+.smodal-leave-to .smodal { transform: scale(0.98); opacity: 0; }
+@media (max-width: 768px) {
+  .smodal { grid-template-columns: 1fr; }
+  .smodal-info { padding: 24px 20px; }
+}
+
+@media (max-width: 480px) {
+  .smodal-overlay { padding: 16px; }
+  .smodal-img { padding: 16px; }
+  .smodal-info { padding: 20px 16px; }
+  .smodal-actions { flex-direction: column; }
+  .smodal-btn { justify-content: center; }
 }
 </style>

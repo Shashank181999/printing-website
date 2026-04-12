@@ -104,9 +104,9 @@ const isDarkPage = computed(() => {
 
 const navLinks = [
   { name: 'Home', path: '/', route: true },
+  { name: 'About', path: '/about', route: true },
   { name: 'Services', path: '/services', route: true },
   { name: 'Products', path: '/products', route: true },
-  { name: 'About', path: '/about', route: true },
   { name: 'Contact', path: '/contact', route: true }
 ]
 
@@ -571,6 +571,16 @@ onUnmounted(() => {
   .logo-image {
     height: 48px;
   }
+
+  .header-search {
+    width: 44px;
+    height: 44px;
+  }
+
+  .header-search svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -580,6 +590,11 @@ onUnmounted(() => {
 
   .logo-image {
     height: 44px;
+  }
+
+  .header-search {
+    width: 40px;
+    height: 40px;
   }
 }
 
@@ -618,5 +633,19 @@ onUnmounted(() => {
 
 .header.dark-page .progress-bar {
   background: white;
+}
+
+/* When mobile menu is open on dark page, reset to normal colors */
+@media (max-width: 1024px) {
+  .header.dark-page.menu-open .nav-links a {
+    color: var(--text-secondary);
+  }
+  .header.dark-page.menu-open .nav-links a:hover,
+  .header.dark-page.menu-open .nav-links a.active {
+    color: var(--text-primary);
+  }
+  .header.dark-page.menu-open .menu-line {
+    background: var(--text-primary);
+  }
 }
 </style>

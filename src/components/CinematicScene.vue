@@ -60,13 +60,16 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 // =============================================================
-// Story chapters — each page of the book is a chapter
+// Story chapters — each page of the book is a chapter.
+// hero = main image on the page; thumbs = small images in the strip below.
 // =============================================================
 const stories = [
   {
     id: 'intro',
     label: 'Intro',
-    image: '/products/company-profile.webp',
+    chapter: '00',
+    hero: '/products/company-profile.webp',
+    thumbs: [],
     kicker: 'Al Falah · Middle East · Dubai',
     title: 'Print the <em>story</em><br />behind your brand',
     desc: "A craft half a century in the making. Dubai's trusted studio for print, branding and advertising. Scroll to turn the page.",
@@ -74,7 +77,13 @@ const stories = [
   {
     id: 'brochure',
     label: 'Brochures',
-    image: '/products/annual-report.webp',
+    chapter: '01',
+    hero: '/products/magazine.webp',
+    thumbs: [
+      '/products/company-profile.webp',
+      '/products/annual-report.webp',
+      '/products/company-profile-bookle.webp',
+    ],
     kicker: 'Brochures & print collateral',
     title: 'Folded <em>stories</em>',
     desc: 'Tri-fold, bi-fold, saddle stitched. Premium stocks, spot UV, gold foil and soft-touch lamination — engineered paper that guides the eye page after page.',
@@ -82,7 +91,13 @@ const stories = [
   {
     id: 'label',
     label: 'Labels',
-    image: '/products/product-labels-stickers.webp',
+    chapter: '02',
+    hero: '/products/product-labels-stickers.webp',
+    thumbs: [
+      '/products/pharma-labels.webp',
+      '/products/label-rolls.webp',
+      '/products/sticker-sheets.webp',
+    ],
     kicker: 'Labels & product identity',
     title: 'Shelf-ready <em>craft</em>',
     desc: 'Die-cut, embossed, metallic. Waterproof and freezer-safe stocks, hot foil and holograms. Every millimetre sculpted to pull weight on the shelf.',
@@ -90,7 +105,13 @@ const stories = [
   {
     id: 'banner',
     label: 'Banners',
-    image: '/products/roll-up-banners.webp',
+    chapter: '03',
+    hero: '/products/roll-up-banners.webp',
+    thumbs: [
+      '/products/outdoor-feather-flags.webp',
+      '/products/fence-banners.webp',
+      '/products/teardrop-flags.webp',
+    ],
     kicker: 'Banners & exhibition signage',
     title: 'Stand <em>tall</em>',
     desc: 'Roll-ups, tension fabric, exhibition backdrops. 4K dye-sublimation printing on aluminium hardware — pin-sharp, built to travel.',
@@ -98,15 +119,69 @@ const stories = [
   {
     id: 'giftbox',
     label: 'Packaging',
-    image: '/products/rigid-box-packaging.webp',
+    chapter: '04',
+    hero: '/products/rigid-box-packaging.webp',
+    thumbs: [
+      '/products/paper-shopping-bags.webp',
+      '/products/productshipping-boxes.webp',
+      '/products/food-packaging-box-custom.webp',
+    ],
     kicker: 'Luxury packaging',
     title: 'Unboxing as <em>theatre</em>',
     desc: 'Rigid set-up boxes, magnetic closures, ribboned lids. Velvet, linen and leatherette finishes with custom foam and silk inserts — the first touch of your brand.',
   },
   {
+    id: 'cards',
+    label: 'Cards',
+    chapter: '05',
+    hero: '/products/gold-foil-business-cards.webp',
+    thumbs: [
+      '/products/metal-business-cards.webp',
+      '/products/premium-mattesoft-touch-cards.webp',
+      '/products/nfcsmart-business-card.webp',
+    ],
+    kicker: 'Business cards & stationery',
+    title: 'First <em>impressions</em>',
+    desc: 'Gold foil, metal, soft-touch and NFC smart cards. Letterpress, debossing and edge painting on cotton stocks — the handshake before the handshake.',
+  },
+  {
+    id: 'signage',
+    label: 'Signage',
+    chapter: '06',
+    hero: '/products/neon-signage.webp',
+    thumbs: [
+      '/products/3d-metal-letters-signage.webp',
+      '/products/glassfacade-branding.webp',
+      '/products/acrylic-name-plate.webp',
+    ],
+    kicker: 'Signage & 3D branding',
+    title: 'Built to be <em>seen</em>',
+    desc: 'Neon, 3D metal letters, acrylic and frosted glass. Architectural-grade signage fabricated and installed across Dubai and the wider UAE.',
+  },
+  {
+    id: 'apparel',
+    label: 'Apparel',
+    chapter: '07',
+    hero: '/products/custom-t-shirts.webp',
+    thumbs: [
+      '/products/hoodie.webp',
+      '/products/polo-t-shirt.webp',
+      '/products/branded-caps.webp',
+    ],
+    kicker: 'Apparel & merchandise',
+    title: 'Wear the <em>brand</em>',
+    desc: 'Embroidered, screen-printed and DTG. Premium cotton tees, hoodies and caps — uniforms and giveaways your team will actually wear.',
+  },
+  {
     id: 'outro',
     label: 'Begin',
-    image: '/products/gold-foil-business-cards.webp',
+    chapter: '08',
+    hero: '/products/office-branding.webp',
+    thumbs: [
+      '/products/welcome-kits.webp',
+      '/products/trophyawards.webp',
+      '/products/certificates-with-frame.webp',
+    ],
     kicker: 'Begin the story',
     title: 'Make your brand<br /><em>unforgettable</em>',
     desc: 'From concept to delivery — Al Falah prints the vision behind your business.',
@@ -241,9 +316,46 @@ function makeCoverTexture() {
   return tex
 }
 
-// Generate a page canvas — mostly a big product image with minimal framing.
-// The HTML overlay handles the title + description, so the page stays clean.
-function makePageTexture(story, productImage) {
+// Draw an image fitted ("contain") inside a box, with an optional white card
+// background, drop shadow and thin navy border. Used for the hero and thumbs.
+function drawImageInBox(ctx, img, x, y, boxW, boxH, opts = {}) {
+  const { card = true, padding = 0.06, shadow = true, border = true } = opts
+  if (card) {
+    ctx.fillStyle = '#ffffff'
+    ctx.fillRect(x, y, boxW, boxH)
+  }
+  if (img && img.complete && img.naturalWidth > 0) {
+    const aspect = img.naturalWidth / img.naturalHeight
+    const innerW = boxW * (1 - padding * 2)
+    const innerH = boxH * (1 - padding * 2)
+    let dw = innerW
+    let dh = dw / aspect
+    if (dh > innerH) {
+      dh = innerH
+      dw = dh * aspect
+    }
+    const dx = x + (boxW - dw) / 2
+    const dy = y + (boxH - dh) / 2
+    ctx.save()
+    if (shadow) {
+      ctx.shadowColor = 'rgba(0,0,0,0.22)'
+      ctx.shadowBlur = 26
+      ctx.shadowOffsetY = 10
+    }
+    ctx.drawImage(img, dx, dy, dw, dh)
+    ctx.restore()
+  }
+  if (border) {
+    ctx.strokeStyle = 'rgba(10, 24, 69, 0.16)'
+    ctx.lineWidth = 2
+    ctx.strokeRect(x + 0.5, y + 0.5, boxW - 1, boxH - 1)
+  }
+}
+
+// Generate a magazine-style page canvas: header bar, big chapter number,
+// a hero product photo and a strip of three thumbnails. The HTML overlay
+// still handles the readable title + description; this is the printed art.
+function makePageTexture(story, heroImg, thumbImgs) {
   const w = 1024
   const h = 1440
   const c = document.createElement('canvas')
@@ -255,44 +367,65 @@ function makePageTexture(story, productImage) {
   ctx.fillStyle = '#f8f3e8'
   ctx.fillRect(0, 0, w, h)
 
+  // Subtle paper grain
+  ctx.fillStyle = 'rgba(10, 24, 69, 0.025)'
+  for (let i = 0; i < 900; i++) {
+    ctx.fillRect(Math.random() * w, Math.random() * h, 1, 1)
+  }
+
   // Top navy header bar
   ctx.fillStyle = '#0a1845'
-  ctx.fillRect(0, 0, w, 130)
+  ctx.fillRect(0, 0, w, 140)
   ctx.fillStyle = '#f0d97a'
-  ctx.font = '400 56px "Bebas Neue", "Anton", sans-serif'
+  ctx.font = '400 60px "Bebas Neue", "Anton", sans-serif'
   ctx.textAlign = 'left'
   ctx.textBaseline = 'middle'
-  ctx.fillText('AL FALAH', 80, 65)
+  ctx.fillText('AL FALAH', 80, 70)
   ctx.textAlign = 'right'
-  ctx.font = '400 44px "Bebas Neue", "Anton", sans-serif'
-  ctx.fillText(story.label.toUpperCase(), w - 80, 65)
+  ctx.font = '400 46px "Bebas Neue", "Anton", sans-serif'
+  ctx.fillText(story.label.toUpperCase(), w - 80, 70)
   // Gold strip under header
   ctx.fillStyle = '#c9a227'
-  ctx.fillRect(0, 130, w, 6)
+  ctx.fillRect(0, 140, w, 6)
 
-  // Draw product image — fills most of the page
-  if (productImage && productImage.complete && productImage.naturalWidth > 0) {
-    const imgAspect = productImage.naturalWidth / productImage.naturalHeight
-    const padding = 100
-    const availW = w - padding * 2
-    const availH = h - 130 - 120 - padding * 2 // between header and footer
-    let targetW = availW
-    let targetH = targetW / imgAspect
-    if (targetH > availH) {
-      targetH = availH
-      targetW = targetH * imgAspect
-    }
-    const imgX = (w - targetW) / 2
-    const imgY = 130 + padding + (availH - targetH) / 2
+  // Giant ghosted chapter number in the corner
+  if (story.chapter) {
     ctx.save()
-    ctx.shadowColor = 'rgba(0,0,0,0.22)'
-    ctx.shadowBlur = 40
-    ctx.shadowOffsetY = 14
-    ctx.drawImage(productImage, imgX, imgY, targetW, targetH)
+    ctx.fillStyle = 'rgba(10, 24, 69, 0.07)'
+    ctx.font = '400 520px "Bebas Neue", "Anton", sans-serif'
+    ctx.textAlign = 'right'
+    ctx.textBaseline = 'top'
+    ctx.fillText(story.chapter, w - 50, 160)
     ctx.restore()
   }
 
-  // Bottom footer bar — simple brand strip
+  // Hero image — large, fills the upper region
+  const heroX = 80
+  const heroY = 200
+  const heroW = w - 160
+  const heroH = 720
+  drawImageInBox(ctx, heroImg, heroX, heroY, heroW, heroH)
+
+  // Section label above thumb strip
+  ctx.fillStyle = '#0a1845'
+  ctx.font = '600 30px "Oswald", sans-serif'
+  ctx.textAlign = 'left'
+  ctx.textBaseline = 'alphabetic'
+  ctx.fillText('FROM THE COLLECTION', 80, 985)
+  ctx.fillStyle = '#c9a227'
+  ctx.fillRect(80, 1000, 110, 4)
+
+  // Thumbnail strip (3 cards)
+  const thumbY = 1030
+  const thumbH = 240
+  const thumbGap = 22
+  const thumbW = (w - 160 - thumbGap * 2) / 3
+  for (let i = 0; i < 3; i++) {
+    const tx = 80 + i * (thumbW + thumbGap)
+    drawImageInBox(ctx, thumbImgs && thumbImgs[i], tx, thumbY, thumbW, thumbH)
+  }
+
+  // Bottom footer bar — brand strip
   ctx.fillStyle = '#c9a227'
   ctx.fillRect(0, h - 126, w, 6)
   ctx.fillStyle = '#0a1845'
@@ -365,7 +498,7 @@ function buildBook(pageTextures, coverTex, backPageTex) {
     })
   )
 
-  const NUM_PAGES = 5
+  const NUM_PAGES = 8
 
   // Z layout: back cover behind, pages in the middle, top cover in front.
   const backCoverZ = -(NUM_PAGES * pageD) / 2 - coverD / 2 - 0.004
@@ -617,12 +750,24 @@ async function initScene() {
     }
   }
 
-  // Load product images and build page textures
-  const productImgs = await Promise.all(stories.map((s) => loadImage(s.image)))
+  // Load all product images (hero + thumbs across all chapters), de-duplicated.
+  const allSrcs = new Set()
+  for (const s of stories) {
+    if (s.hero) allSrcs.add(s.hero)
+    for (const t of s.thumbs || []) allSrcs.add(t)
+  }
+  const srcList = Array.from(allSrcs)
+  const loaded = await Promise.all(srcList.map((src) => loadImage(src)))
+  const imageMap = {}
+  srcList.forEach((src, i) => (imageMap[src] = loaded[i]))
+
+  // Skip index 0 (intro) — the COVER is the intro. Pages are stories[1..N-1].
   const pageTextures = []
-  for (let i = 1; i < 6; i++) {
-    // skip index 0 (intro) — the COVER is the intro. Pages are stories 1..5.
-    pageTextures.push(makePageTexture(stories[i], productImgs[i]))
+  for (let i = 1; i < stories.length; i++) {
+    const s = stories[i]
+    const heroImg = imageMap[s.hero]
+    const thumbImgs = (s.thumbs || []).map((t) => imageMap[t])
+    pageTextures.push(makePageTexture(s, heroImg, thumbImgs))
   }
   const coverTex = makeCoverTexture()
   const backPageTex = makeBackPageTexture()
@@ -742,34 +887,38 @@ function setupScrollAnimations() {
     c1
   )
 
-  // ---------- Ch 2: Label — page 0 flips ----------
-  const c2 = seg * 2
-  tl.to(bookPages[0].rotation, { y: FLIP, duration: seg * 0.88, ease: flipEase }, c2)
-  tl.to(book.rotation, { y: -0.22, x: -0.2, duration: seg, ease: 'sine.inOut' }, c2)
+  // ---------- Chapters 2..(N-1): each flips bookPages[i-2] ----------
+  // Slight rotation tilts per chapter for variety as you scroll.
+  const tilts = [
+    { y: -0.22, x: -0.2 },  // ch 2 — Labels
+    { y: -0.1,  x: -0.18 }, // ch 3 — Banners
+    { y:  0.04, x: -0.18 }, // ch 4 — Packaging
+    { y: -0.18, x: -0.16 }, // ch 5 — Cards
+    { y: -0.04, x: -0.2  }, // ch 6 — Signage
+    { y:  0.08, x: -0.18 }, // ch 7 — Apparel
+    { y: -0.12, x: -0.12 }, // ch 8 — Outro
+  ]
+  for (let i = 2; i < N; i++) {
+    const ci = seg * i
+    const pageIdx = i - 2
+    if (bookPages[pageIdx]) {
+      tl.to(bookPages[pageIdx].rotation, { y: FLIP, duration: seg * 0.88, ease: flipEase }, ci)
+    }
+    const tilt = tilts[i - 2] || { y: -0.1, x: -0.16 }
+    tl.to(book.rotation, { y: tilt.y, x: tilt.x, duration: seg, ease: 'sine.inOut' }, ci)
+  }
 
-  // ---------- Ch 3: Banner — page 1 flips ----------
-  const c3 = seg * 3
-  tl.to(bookPages[1].rotation, { y: FLIP, duration: seg * 0.88, ease: flipEase }, c3)
-  tl.to(book.rotation, { y: -0.1, x: -0.18, duration: seg, ease: 'sine.inOut' }, c3)
-
-  // ---------- Ch 4: Gift box — page 2 flips ----------
-  const c4 = seg * 4
-  tl.to(bookPages[2].rotation, { y: FLIP, duration: seg * 0.88, ease: flipEase }, c4)
-  tl.to(book.rotation, { y: 0.04, x: -0.18, duration: seg, ease: 'sine.inOut' }, c4)
-
-  // ---------- Ch 5: Outro — page 3 flips ----------
-  const c5 = seg * 5
-  tl.to(bookPages[3].rotation, { y: FLIP, duration: seg * 0.88, ease: flipEase }, c5)
-  tl.to(book.rotation, { y: -0.18, x: -0.1, duration: seg, ease: 'sine.inOut' }, c5)
-
-  // Background glow shift per chapter
+  // Background glow shift per chapter — one entry per story
   const palettes = [
-    { a: '#0a1230', b: '#c9a227' },
-    { a: '#0a1d4a', b: '#c9a227' },
-    { a: '#2a1a0b', b: '#e8c857' },
-    { a: '#0a2a3a', b: '#c9a227' },
-    { a: '#1f0a1a', b: '#c9a227' },
-    { a: '#0a1230', b: '#f0d97a' },
+    { a: '#0a1230', b: '#c9a227' }, // intro
+    { a: '#0a1d4a', b: '#c9a227' }, // brochures
+    { a: '#2a1a0b', b: '#e8c857' }, // labels
+    { a: '#0a2a3a', b: '#c9a227' }, // banners
+    { a: '#1f0a1a', b: '#c9a227' }, // packaging
+    { a: '#1a1408', b: '#f0d97a' }, // cards
+    { a: '#240a2a', b: '#c9a227' }, // signage
+    { a: '#0a2218', b: '#e8c857' }, // apparel
+    { a: '#0a1230', b: '#f0d97a' }, // outro
   ]
   stories.forEach((s, i) => {
     const segStart = i / N
@@ -831,7 +980,7 @@ onBeforeUnmount(() => {
 .story {
   position: relative;
   width: 100%;
-  height: 600vh;
+  height: 900vh;
   background: #04080f;
   color: #f3f4f6;
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -1106,7 +1255,7 @@ onBeforeUnmount(() => {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  gap: 16px;
 }
 .story-dots li {
   display: flex;
@@ -1198,5 +1347,21 @@ onBeforeUnmount(() => {
   .story-dots { right: 14px; gap: 16px; }
   .story-dots .dot-label { display: none; }
   .scroll-hint { bottom: 28px; }
+}
+
+@media (max-width: 480px) {
+  .story-text-inner {
+    padding: 18px 16px 22px;
+  }
+  .story-title { font-size: clamp(28px, 8vw, 40px); }
+  .story-desc { font-size: 13px; margin-bottom: 20px; }
+  .story-kicker { font-size: 11px; padding: 7px 14px; margin-bottom: 18px; }
+  .btn-gold,
+  .btn-ghost {
+    padding: 12px 18px;
+    font-size: 10px;
+  }
+  .story-dots { display: none; }
+  .scroll-hint { display: none; }
 }
 </style>

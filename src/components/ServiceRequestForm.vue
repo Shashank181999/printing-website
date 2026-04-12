@@ -84,7 +84,7 @@
                 v-model="form.message"
                 required
                 placeholder="Describe your project requirements, quantities, timeline..."
-                rows="4"
+                rows="3"
               ></textarea>
             </div>
 
@@ -180,23 +180,25 @@ onUnmounted(() => {
   position: fixed;
   inset: 0;
   background: rgba(26, 26, 26, 0.6);
-  backdrop-filter: blur(4px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  backdrop-filter: blur(6px);
   z-index: 2000;
-  padding: 24px;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
 }
 
 .modal {
   position: relative;
   width: 100%;
-  max-width: 580px;
-  max-height: 90vh;
-  overflow-y: auto;
+  max-width: 540px;
   background: var(--bg-primary);
   border-radius: 16px;
-  padding: 48px;
+  padding: 32px 36px;
+  box-sizing: border-box;
+  margin: auto;
+  flex-shrink: 0;
+  overflow: hidden;
 }
 
 .modal-close {
@@ -226,49 +228,54 @@ onUnmounted(() => {
 }
 
 .modal-label {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent-teal);
-  margin-bottom: 12px;
+  margin-bottom: 6px;
   display: block;
 }
 
 .modal-title {
-  font-family: var(--font-serif);
-  font-size: 32px;
+  font-family: var(--font-display);
+  font-size: 30px;
   font-weight: 400;
   color: var(--text-primary);
-  margin-bottom: 12px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .modal-title em {
-  font-style: italic;
+  font-style: normal;
+  color: var(--accent-teal);
 }
 
 .modal-desc {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.5;
+  margin-bottom: 4px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 14px;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 14px;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
+  min-width: 0;
 }
 
 .form-group label {
@@ -281,14 +288,17 @@ onUnmounted(() => {
 
 .form-group input,
 .form-group textarea {
-  padding: 14px 16px;
+  padding: 10px 14px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-light);
   border-radius: 8px;
-  font-size: 15px;
+  font-size: 14px;
   font-family: var(--font-sans);
   color: var(--text-primary);
   transition: all 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .form-group input:focus,
@@ -305,7 +315,7 @@ onUnmounted(() => {
 
 .form-group textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 70px;
 }
 
 .service-tags {
@@ -315,7 +325,7 @@ onUnmounted(() => {
 }
 
 .service-tag {
-  padding: 8px 16px;
+  padding: 6px 14px;
   background: var(--bg-secondary);
   border: 1px solid var(--border-medium);
   border-radius: 50px;
@@ -340,7 +350,7 @@ onUnmounted(() => {
   display: flex;
   gap: 12px;
   justify-content: flex-end;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .btn-secondary {
@@ -395,7 +405,7 @@ onUnmounted(() => {
 }
 
 .success-content h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 28px;
   font-weight: 400;
   color: var(--text-primary);
@@ -409,8 +419,16 @@ onUnmounted(() => {
 }
 
 @media (max-width: 640px) {
+  .modal-overlay {
+    padding: 12px;
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+
   .modal {
-    padding: 32px 24px;
+    padding: 28px 20px;
+    max-height: none;
+    border-radius: 14px;
   }
 
   .form-row {

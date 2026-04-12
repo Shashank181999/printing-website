@@ -99,17 +99,17 @@
               </div>
             </div>
 
-            <!-- Map Preview -->
+            <!-- Google Map -->
             <div class="map-preview">
-              <div class="map-overlay">
-                <a href="https://maps.google.com" target="_blank" class="map-btn">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
-                    <circle cx="12" cy="10" r="3"/>
-                  </svg>
-                  Open in Google Maps
-                </a>
-              </div>
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d923767.2638908796!2d54.08373187812501!3d25.2549091!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f4320b2d773eb%3A0xc69324231815f362!2sSharaf%20DG!5e0!3m2!1sen!2sae!4v1775993147919!5m2!1sen!2sae"
+                width="100%"
+                height="240"
+                style="border:0; border-radius: 12px;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
           </div>
 
@@ -287,91 +287,51 @@ const resetForm = () => {
 }
 
 onMounted(() => {
-  // Hero animations
-  const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+  // Hero - instant fade up
+  gsap.set(['.hero-label', '.hero-title', '.hero-desc'], { opacity: 0, y: 20 })
+  gsap.to('.hero-label', { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' })
+  gsap.to('.hero-title', { y: 0, opacity: 1, duration: 0.8, delay: 0.1, ease: 'power2.out' })
+  gsap.to('.hero-desc', { y: 0, opacity: 1, duration: 0.7, delay: 0.2, ease: 'power2.out' })
 
-  heroTl
-    .from('.hero-bg img', { scale: 1.2, duration: 1.5 })
-    .from('.hero-label', { y: 40, opacity: 0, duration: 0.8 }, 0.3)
-    .from('.hero-title', { y: 60, opacity: 0, duration: 1 }, 0.5)
-    .from('.hero-desc', { y: 40, opacity: 0, duration: 0.8 }, 0.8)
-    .from('.hero-scroll-hint', { opacity: 0, duration: 0.6 }, 1.2)
+  // Smooth reveal helper - hides first, animates on scroll
+  const reveal = (trigger, targets, opts = {}) => {
+    const els = document.querySelectorAll(targets)
+    if (!els.length) return
+    els.forEach(el => {
+      el.style.transition = 'none'
+      el.style.opacity = '0'
+      el.style.transform = `translateY(${opts.y ?? 30}px)`
+    })
+    ScrollTrigger.create({
+      trigger: document.querySelector(trigger),
+      start: opts.start || 'top 88%',
+      once: true,
+      onEnter: () => {
+        gsap.to(els, {
+          y: 0, opacity: 1,
+          duration: opts.duration ?? 0.9,
+          stagger: opts.stagger ?? 0.08,
+          ease: 'power2.out',
+          delay: opts.delay ?? 0,
+          onComplete: () => els.forEach(el => el.style.transition = ''),
+        })
+      },
+    })
+  }
 
-  // Scroll line animation
-  gsap.to('.scroll-line', {
-    scaleY: 1,
-    duration: 1,
-    delay: 1.5,
-    ease: 'power2.out'
-  })
+  // Left side - contact details
+  reveal('.contact-details', '.details-header')
+  reveal('.info-cards', '.info-card', { stagger: 0.1 })
+  reveal('.hours-section', '.hours-title, .hours-item', { stagger: 0.08 })
+  reveal('.map-preview', '.map-preview', { y: 20 })
 
-  // Contact details animations
-  gsap.from('.details-header', {
-    scrollTrigger: { trigger: '.contact-details', start: 'top 80%' },
-    y: 50, opacity: 0, duration: 0.8, ease: 'power3.out'
-  })
+  // Right side - form
+  reveal('.form-section', '.form-header', { delay: 0.1 })
+  reveal('.contact-form', '.form-group', { stagger: 0.06, delay: 0.15 })
+  reveal('.contact-form', '.submit-btn', { delay: 0.3 })
 
-  gsap.from('.info-card', {
-    scrollTrigger: { trigger: '.info-cards', start: 'top 80%' },
-    y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: 'power3.out'
-  })
-
-  // Hours section
-  gsap.from('.hours-section', {
-    scrollTrigger: { trigger: '.hours-section', start: 'top 85%' },
-    y: 50, opacity: 0, duration: 0.8, ease: 'power3.out'
-  })
-
-  gsap.from('.hours-item', {
-    scrollTrigger: { trigger: '.hours-grid', start: 'top 85%' },
-    x: -30, opacity: 0, duration: 0.6, stagger: 0.1, delay: 0.2, ease: 'power3.out'
-  })
-
-  // Map preview
-  gsap.from('.map-preview', {
-    scrollTrigger: { trigger: '.map-preview', start: 'top 90%' },
-    scale: 0.95, opacity: 0, duration: 0.8, ease: 'power3.out'
-  })
-
-  // Form section with clip-path reveal
-  gsap.set('.form-wrapper', { clipPath: 'inset(0 100% 0 0)' })
-  gsap.to('.form-wrapper', {
-    scrollTrigger: { trigger: '.form-section', start: 'top 75%' },
-    clipPath: 'inset(0 0% 0 0)', duration: 1.2, ease: 'power4.out'
-  })
-
-  gsap.from('.form-header', {
-    scrollTrigger: { trigger: '.form-wrapper', start: 'top 70%' },
-    y: 40, opacity: 0, duration: 0.8, delay: 0.4, ease: 'power3.out'
-  })
-
-  gsap.from('.form-group', {
-    scrollTrigger: { trigger: '.contact-form', start: 'top 80%' },
-    y: 30, opacity: 0, duration: 0.6, stagger: 0.1, delay: 0.5, ease: 'power3.out'
-  })
-
-  // Service tags animation
-  gsap.from('.service-tag', {
-    scrollTrigger: { trigger: '.service-tags', start: 'top 90%' },
-    scale: 0.8, opacity: 0, duration: 0.4, stagger: 0.05, ease: 'back.out(1.5)'
-  })
-
-  // Submit button
-  gsap.from('.submit-btn', {
-    scrollTrigger: { trigger: '.submit-btn', start: 'top 95%' },
-    y: 20, opacity: 0, duration: 0.6, ease: 'power3.out'
-  })
-
-  // CTA section
-  gsap.from('.cta-content', {
-    scrollTrigger: { trigger: '.contact-cta', start: 'top 80%' },
-    y: 50, opacity: 0, duration: 0.8, ease: 'power3.out'
-  })
-
-  gsap.from('.cta-phone', {
-    scrollTrigger: { trigger: '.contact-cta', start: 'top 75%' },
-    scale: 0.9, opacity: 0, duration: 0.6, delay: 0.3, ease: 'back.out(1.5)'
-  })
+  // CTA
+  reveal('.contact-cta', '.cta-content, .cta-phone', { stagger: 0.1 })
 
   // Hover effects for info cards
   document.querySelectorAll('.info-card').forEach(card => {
@@ -453,12 +413,14 @@ onMounted(() => {
 }
 
 .hero-title {
-  font-family: var(--font-serif);
-  font-size: clamp(42px, 6vw, 72px);
-  font-weight: 300;
-  line-height: 1.1;
+  font-family: var(--font-display);
+  font-size: clamp(44px, 6vw, 80px);
+  font-weight: 400;
+  line-height: 0.95;
   color: #ffffff;
   margin-bottom: 32px;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
 }
 
 .hero-title .highlight {
@@ -520,7 +482,7 @@ onMounted(() => {
 }
 
 .details-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: clamp(28px, 3vw, 36px);
   font-weight: 300;
   color: var(--text-primary);
@@ -591,7 +553,7 @@ onMounted(() => {
 }
 
 .hours-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 20px;
   font-weight: 200;
   color: var(--text-primary);
@@ -683,7 +645,7 @@ onMounted(() => {
 }
 
 .form-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: clamp(28px, 3vw, 36px);
   font-weight: 300;
   color: var(--text-primary);
@@ -742,6 +704,8 @@ onMounted(() => {
   font-weight: 400;
   color: var(--text-primary);
   transition: all var(--transition-base);
+  width: 100%;
+  min-width: 0;
 }
 
 .form-group input:focus,
@@ -850,7 +814,7 @@ onMounted(() => {
 }
 
 .success-content h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 32px;
   font-weight: 400;
   color: var(--text-primary);
@@ -910,7 +874,7 @@ onMounted(() => {
 }
 
 .cta-title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: clamp(32px, 4vw, 48px);
   font-weight: 300;
   color: var(--text-primary);
@@ -1012,6 +976,104 @@ onMounted(() => {
 
   .contact-cta {
     padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .service-tags {
+    gap: 8px;
+  }
+
+  .service-tag {
+    padding: 10px 16px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-hero {
+    min-height: 80vh;
+  }
+
+  .hero-content {
+    padding: 60px 0;
+  }
+
+  .hero-title {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .hero-desc {
+    font-size: 15px;
+  }
+
+  .contact-main {
+    padding: 56px 0;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .form-wrapper {
+    padding: 24px 16px;
+    border-radius: 12px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    padding: 14px 16px;
+    font-size: 14px;
+  }
+
+  .service-tag {
+    padding: 8px 14px;
+    font-size: 11px;
+  }
+
+  .submit-btn {
+    padding: 16px 32px;
+    font-size: 14px;
+  }
+
+  .info-card {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .hours-item {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .contact-cta {
+    padding: 56px 0;
+  }
+
+  .phone-number {
+    font-size: 18px;
+  }
+
+  .details-header {
+    margin-bottom: 32px;
+  }
+
+  .success-content {
+    padding: 24px;
+  }
+
+  .success-icon {
+    width: 80px;
+    height: 80px;
   }
 }
 </style>
