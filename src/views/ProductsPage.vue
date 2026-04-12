@@ -455,6 +455,7 @@ const closeProduct = () => {
 .products-page {
   background: var(--bg-primary);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .container {

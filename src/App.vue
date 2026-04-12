@@ -205,6 +205,7 @@ body {
 #app {
   min-height: 100vh;
   display: flex;
+  overflow-x: hidden;
   flex-direction: column;
 }
 

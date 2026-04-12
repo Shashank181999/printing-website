@@ -292,7 +292,7 @@ onUnmounted(() => {
   background: var(--bg-secondary);
   border: 1px solid var(--border-light);
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 16px;
   font-family: var(--font-sans);
   color: var(--text-primary);
   transition: all 0.3s ease;

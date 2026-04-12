@@ -468,7 +468,7 @@ const sendQuickReply = (reply) => {
   padding: 10px 14px;
   border: 1px solid var(--border-light);
   border-radius: 24px;
-  font-size: 13px;
+  font-size: 16px;
   color: var(--text-primary);
   outline: none;
   transition: border-color 0.2s;

@@ -739,69 +739,130 @@ onBeforeUnmount(() => {
 
 @media (max-width: 768px) {
   .scroll-story {
-    height: 260vh;
+    height: 250vh;
   }
+
+  /* Hide printer on mobile — text only */
+  .ss-hero-perspective { display: none !important; }
+  .ss-progress { display: none; }
+  .ss-scroll-cue { bottom: 20px; }
+
   .ss-panel--left,
   .ss-panel--right {
-    left: 20px;
-    right: 20px;
-    top: auto;
-    bottom: 8%;
-    transform: none;
+    left: 24px;
+    right: 24px;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
     max-width: none;
     text-align: left;
   }
-  .ss-final-inner {
+
+  .ss-panel--final {
     padding: 0 24px;
   }
-  .ss-heading--large {
-    font-size: clamp(42px, 11vw, 80px);
-  }
-  .ss-hero {
-    width: 45vw;
-  }
+
   .ss-heading {
-    font-size: clamp(38px, 11vw, 64px);
+    font-size: clamp(32px, 9vw, 52px);
+    line-height: 1;
+    margin-bottom: 16px;
   }
+
+  .ss-heading--large {
+    font-size: clamp(36px, 10vw, 60px);
+  }
+
+  .ss-kicker {
+    font-size: 10px;
+    padding: 7px 14px;
+    margin-bottom: 16px;
+  }
+
   .ss-body {
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 24px;
   }
+
   .ss-stats {
-    gap: 24px;
+    gap: 28px;
   }
+
   .ss-stat strong {
-    font-size: 38px;
+    font-size: 36px;
   }
+
+  .ss-stat span {
+    font-size: 10px;
+  }
+
   .ss-features {
     grid-template-columns: 1fr;
   }
-  .ss-progress {
-    display: none;
+
+  .ss-feature {
+    font-size: 14px;
+  }
+
+  .ss-cta {
+    justify-content: flex-start;
+  }
+
+  .ss-final-tags {
+    justify-content: flex-start;
+  }
+
+  .ss-btn {
+    padding: 14px 26px;
+    font-size: 11px;
   }
 }
 
 @media (max-width: 480px) {
   .scroll-story {
-    height: 240vh;
+    height: 230vh;
   }
-  .ss-hero {
-    width: 40vw;
+
+  .ss-panel--left,
+  .ss-panel--right {
+    left: 20px;
+    right: 20px;
   }
+
   .ss-heading {
-    font-size: clamp(28px, 9vw, 44px);
+    font-size: clamp(28px, 8.5vw, 40px);
   }
+
+  .ss-heading--large {
+    font-size: clamp(32px, 9vw, 48px);
+  }
+
   .ss-body {
-    font-size: 13px;
+    font-size: 14px;
   }
+
   .ss-stats {
-    gap: 16px;
+    gap: 20px;
   }
+
   .ss-stat strong {
-    font-size: 28px;
+    font-size: 30px;
   }
+
   .ss-kicker {
     font-size: 9px;
     padding: 6px 12px;
+    margin-bottom: 12px;
+  }
+
+  .ss-btn {
+    padding: 12px 22px;
+    font-size: 10px;
+  }
+
+  .ss-final-tags span {
+    font-size: 9px;
+    padding: 6px 14px;
   }
 }
 </style>
