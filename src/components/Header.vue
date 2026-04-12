@@ -557,6 +557,13 @@ onUnmounted(() => {
   color: white;
 }
 
+.header.dark-page .logo-image {
+  filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  padding: 4px;
+}
+
 .header.dark-page .nav-links a {
   color: rgba(255, 255, 255, 0.85);
 }
