@@ -84,10 +84,10 @@
         <div class="welcome-visual">
           <div class="welcome-image-stack">
             <div class="welcome-img welcome-img--back">
-              <img src="/hero/pomelli_photoshoot-2.jpg" alt="Printing press with operator" />
+              <img src="/hero/pomelli_photoshoot-2.png" alt="Printing press with operator" />
             </div>
             <div class="welcome-img welcome-img--front">
-              <img src="/hero/pomelli_photoshoot-4.jpg" alt="3D label printing press" />
+              <img src="/hero/pomelli_photoshoot-4.png" alt="3D label printing press" />
             </div>
             <div class="welcome-floating-card">
               <div class="welcome-floating-num">50+</div>
@@ -304,7 +304,7 @@
         <div class="press-machine">
           <div class="press-photo-frame">
             <img
-              src="/hero/pomelli_photoshoot-3.jpg"
+              src="/hero/pomelli_photoshoot-3.png"
               alt="3D render of high-speed printing press"
               class="press-photo"
             />
@@ -320,7 +320,7 @@
             <div class="press-photo-label">AL FALAH PRINT 4.0</div>
           </div>
           <div class="press-photo-thumb">
-            <img src="/hero/pomelli_photoshoot-4.jpg" alt="3D label printing press" />
+            <img src="/hero/pomelli_photoshoot-4.png" alt="3D label printing press" />
           </div>
         </div>
       </div>
@@ -333,7 +333,7 @@
           <div class="roll-photo-wrap">
             <div class="roll-photo-glow"></div>
             <img
-              src="/hero/pomelli_photoshoot-1.jpg"
+              src="/hero/pomelli_photoshoot-1.png"
               alt="Large format wide printer"
               class="roll-photo"
             />

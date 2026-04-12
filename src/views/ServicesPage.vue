@@ -132,7 +132,7 @@
           </div>
         </div>
         <div class="what-image">
-          <img src="/hero/pomelli_photoshoot-1.jpg" alt="Professional offset printing press line" />
+          <img src="/hero/pomelli_photoshoot-1.png" alt="Professional offset printing press line" />
           <div class="what-image-card">
             <div>
               <strong>Premium Print</strong>

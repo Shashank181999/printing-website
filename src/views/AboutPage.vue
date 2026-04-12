@@ -16,7 +16,7 @@
         </div>
         <div class="hero-image-wrapper">
           <img
-            src="/hero/pomelli_photoshoot-2.jpg"
+            src="/hero/pomelli_photoshoot-2.png"
             alt="3D printing press with operator"
             class="hero-image"
           />

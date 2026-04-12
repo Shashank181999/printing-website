@@ -73,7 +73,7 @@
 
           <!-- The printer is the constant centerpiece across all stages -->
           <div class="hero-printer" ref="printerEl">
-            <img src="/hero/large-format-printer.jpg" alt="Large format printer" />
+            <img src="/hero/large-format-printer.png" alt="Large format printer" />
           </div>
 
           <!-- Stage 2: blank paper sheets flying out of the printer -->
