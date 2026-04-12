@@ -147,13 +147,14 @@ let ctx // GSAP context for clean teardown
 onMounted(() => {
   // Mobile: skip all animation, show static chapter 1
   if (window.innerWidth <= 768) {
-    gsap.set(panel1El.value, { opacity: 1, y: 0 })
-    gsap.set(panel2El.value, { opacity: 0 })
-    gsap.set(panel3El.value, { opacity: 0 })
-    gsap.set(bg1El.value, { opacity: 1 })
-    gsap.set(bg2El.value, { opacity: 0 })
-    gsap.set(bg3El.value, { opacity: 0 })
-    if (scrollCueEl.value) gsap.set(scrollCueEl.value, { opacity: 0 })
+    // Don't use gsap.set on panel1 — it overwrites CSS transform: translateY(-50%)
+    panel1El.value.style.opacity = '1'
+    panel2El.value.style.opacity = '0'
+    panel3El.value.style.opacity = '0'
+    bg1El.value.style.opacity = '1'
+    bg2El.value.style.opacity = '0'
+    bg3El.value.style.opacity = '0'
+    if (scrollCueEl.value) scrollCueEl.value.style.opacity = '0'
     return
   }
 
