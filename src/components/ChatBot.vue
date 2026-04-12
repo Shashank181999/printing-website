@@ -100,6 +100,7 @@ const isTyping = ref(false)
 const userInput = ref('')
 const messagesRef = ref(null)
 const showQuickReplies = ref(true)
+const messageCount = ref(0)
 
 const quickReplies = [
   'Get a Quote',
@@ -132,36 +133,66 @@ const toggleChat = () => {
 
 const botReply = (userText) => {
   const text = userText.toLowerCase()
+  messageCount.value++
 
-  if (text.includes('quote') || text.includes('price') || text.includes('cost')) {
-    return 'We\'d love to help with a quote! Please share what you need (product type, quantity, size) and we\'ll get back to you quickly. Or call us at +971 56 726 8735.'
+  // After 3 messages, suggest WhatsApp
+  const whatsappNudge = messageCount.value >= 3
+    ? '\n\nFor faster help, chat with our team directly on WhatsApp: wa.me/971567268735'
+    : ''
+
+  if (text.includes('quote') || text.includes('price') || text.includes('cost') || text.includes('how much')) {
+    return 'We\'d love to help with a quote! Pricing depends on the product, quantity, and finish. Share your requirements and we\'ll prepare a custom quote within 24 hours. Call us at +971 56 726 8735 or click "Get Quote" on any product.' + whatsappNudge
+  }
+  if (text.includes('about') || text.includes('who') || text.includes('company') || text.includes('afme') || text.includes('al falah')) {
+    return 'Al Falah Middle East (AFME) has been Dubai\'s trusted printing partner since 1974 — that\'s 50 years of expertise! We offer 8 service verticals: Printing, Labels, Brand Activation, Stand Production, Event Management, Creative Design, Corporate Gifts, and Vehicle Graphics.' + whatsappNudge
   }
   if (text.includes('business card')) {
-    return 'We offer premium business cards: Gold Foil, Metal, NFC Smart Cards, Die-Cut, Textured, and more! Visit our Products page or tell me which type interests you.'
+    return 'We offer 10+ types of business cards: Gold Foil, Metal, NFC Smart Cards, Die-Cut, Frosted PVC, Textured, Square, Matte Soft-Touch, and more. Starting from 250 pieces. Premium finishes include embossing, debossing, spot UV, and edge painting.' + whatsappNudge
   }
-  if (text.includes('banner') || text.includes('sign')) {
-    return 'We have Roll-Up Banners, Feather Flags, Outdoor Billboards, Neon Signage, 3D Acrylic Letters and more. Want a quote for a specific type?'
+  if (text.includes('banner') || text.includes('sign') || text.includes('neon')) {
+    return 'Our signage range includes Roll-Up Banners, Feather Flags, Fence Banners, Outdoor Billboards, Neon Signs, 3D Metal Letters, Acrylic Signage, and LED displays. We handle design, production, and installation across UAE.' + whatsappNudge
   }
-  if (text.includes('packaging') || text.includes('box')) {
-    return 'Our packaging range includes Rigid Boxes, Food Packaging, Custom Boxes, Paper Shopping Bags, and Printed Ribbons. What kind of packaging do you need?'
+  if (text.includes('packaging') || text.includes('box') || text.includes('bag')) {
+    return 'We produce Rigid Gift Boxes, Food Packaging, Shipping Boxes, Paper Shopping Bags, Custom Tape, and Printed Ribbons. All with custom printing, embossing, foil stamping, and spot UV options.' + whatsappNudge
   }
-  if (text.includes('contact') || text.includes('phone') || text.includes('email') || text.includes('address')) {
-    return 'You can reach us at:\nPhone: +971 56 726 8735\nEmail: info@alfalahme.com\nVisit our Contact page for more details!'
+  if (text.includes('print') || text.includes('brochure') || text.includes('flyer') || text.includes('catalog') || text.includes('magazine')) {
+    return 'Our printing services cover Brochures, Flyers, Catalogs, Magazines, Annual Reports, Company Profiles, Books, Calendars, and Notebooks. We use both offset and digital presses for the best quality at any quantity.' + whatsappNudge
   }
-  if (text.includes('delivery') || text.includes('shipping') || text.includes('time')) {
-    return 'Delivery times vary by product. Standard orders take 3-5 business days, rush orders available for most products. We deliver across UAE and ship to 15+ countries.'
+  if (text.includes('label') || text.includes('sticker')) {
+    return 'We produce Product Labels, Pharma Labels, Roll Labels, Die-Cut Stickers, Sheet Stickers, and Barcode Labels. Available in waterproof, freezer-safe, and metallic finishes.' + whatsappNudge
   }
-  if (text.includes('apparel') || text.includes('shirt') || text.includes('cap') || text.includes('hoodie')) {
-    return 'We print Custom T-Shirts, Polo Shirts, Hoodies, Branded Caps, and more. Perfect for teams, events, and promotions!'
+  if (text.includes('apparel') || text.includes('shirt') || text.includes('cap') || text.includes('hoodie') || text.includes('uniform')) {
+    return 'Custom apparel printing: T-Shirts, Polo Shirts, Hoodies, Caps, and Jackets. We offer screen printing, DTG, embroidery, and sublimation. Perfect for corporate uniforms, events, and merchandise.' + whatsappNudge
   }
-  if (text.includes('hello') || text.includes('hi') || text.includes('hey')) {
-    return 'Hello! How can I assist you today? Feel free to ask about our products, pricing, or services.'
+  if (text.includes('vehicle') || text.includes('car') || text.includes('wrap') || text.includes('fleet')) {
+    return 'Full and partial vehicle wraps, cut vinyl graphics, and fleet branding. We design, print, and install across Dubai and UAE. Turn your vehicles into mobile billboards!' + whatsappNudge
   }
-  if (text.includes('thank')) {
-    return 'You\'re welcome! Don\'t hesitate to reach out if you need anything else. We\'re here to help!'
+  if (text.includes('event') || text.includes('exhibition') || text.includes('booth') || text.includes('stand')) {
+    return 'We handle end-to-end event solutions: Exhibition Booth Design & Setup, Backdrop Banners, Pop-Up Stands, Promotional Materials, and on-site branding. From concept to installation.' + whatsappNudge
+  }
+  if (text.includes('gift') || text.includes('corporate') || text.includes('welcome kit') || text.includes('merchandise')) {
+    return 'Corporate gifting solutions: Welcome Kits, Branded Merchandise, Award Trophies, Gift Boxes, Lanyards, Badges, and custom promotional items. Perfect for client appreciation and team events.' + whatsappNudge
+  }
+  if (text.includes('contact') || text.includes('phone') || text.includes('email') || text.includes('address') || text.includes('location') || text.includes('where')) {
+    return 'Reach us at:\n📞 +971 56 726 8735\n📧 info@alfalah-me.com\n📍 Dubai, UAE\n⏰ Mon-Fri: 9:00 AM - 6:30 PM\n\nOr chat on WhatsApp: wa.me/971567268735'
+  }
+  if (text.includes('delivery') || text.includes('shipping') || text.includes('time') || text.includes('fast') || text.includes('urgent')) {
+    return 'Standard delivery: 3-5 business days. Rush/express available for most products. We deliver across all UAE emirates and ship internationally to 15+ countries.' + whatsappNudge
+  }
+  if (text.includes('design') || text.includes('creative')) {
+    return 'We offer free design support! Our in-house creative team handles Brand Identity, Logo Design, Print Collateral, Packaging Design, and Concept Artwork. Share your brief and we\'ll create something amazing.' + whatsappNudge
+  }
+  if (text.includes('hello') || text.includes('hi') || text.includes('hey') || text.includes('good')) {
+    return 'Hello! 👋 Welcome to Al Falah Middle East — 50 years of printing excellence in Dubai. How can I help you today? Ask me about our products, services, or pricing!'
+  }
+  if (text.includes('thank') || text.includes('thanks')) {
+    return 'You\'re welcome! Happy to help. For any future inquiries, we\'re always here. You can also reach us on WhatsApp: wa.me/971567268735'
+  }
+  if (text.includes('whatsapp') || text.includes('chat') || text.includes('talk') || text.includes('human') || text.includes('person') || text.includes('agent')) {
+    return 'Connect with our team directly on WhatsApp for instant support: wa.me/971567268735\n\nOr call us at +971 56 726 8735. We\'re available Mon-Fri, 9 AM - 6:30 PM.'
   }
 
-  return 'Thanks for your message! For detailed assistance, please call us at +971 56 726 8735 or use the "Get Quote" button on any product page. Is there something specific I can help with?'
+  return 'I can help with info about our products (Business Cards, Banners, Packaging, Apparel, Signage, Labels), pricing, delivery, or services. What would you like to know?' + whatsappNudge
 }
 
 const sendMessage = () => {

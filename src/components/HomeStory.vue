@@ -739,68 +739,109 @@ onBeforeUnmount(() => {
 
 @media (max-width: 768px) {
   .scroll-story {
-    height: 260vh;
+    height: 250vh;
   }
+
+  /* Hide the 3D printer — content only on mobile */
+  .ss-hero-perspective {
+    display: none !important;
+  }
+
+  /* Center all panels */
   .ss-panel--left,
   .ss-panel--right {
     left: 24px;
     right: 24px;
-    top: auto;
-    bottom: 12%;
-    transform: none;
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
     max-width: none;
-    text-align: left;
+    text-align: center;
   }
+
+  .ss-stats {
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .ss-features {
+    grid-template-columns: 1fr;
+    text-align: left;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .ss-cta {
+    justify-content: center;
+  }
+
   .ss-final-inner {
     padding: 0 24px;
   }
-  .ss-heading--large {
-    font-size: clamp(42px, 11vw, 80px);
-  }
-  .ss-hero {
-    width: 55vw;
-  }
+
   .ss-heading {
-    font-size: clamp(38px, 11vw, 64px);
+    font-size: clamp(36px, 10vw, 56px);
   }
+
+  .ss-heading--large {
+    font-size: clamp(40px, 12vw, 72px);
+  }
+
   .ss-body {
     font-size: 14px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
   }
-  .ss-stats {
-    gap: 24px;
-  }
-  .ss-stat strong {
-    font-size: 38px;
-  }
-  .ss-features {
-    grid-template-columns: 1fr;
-  }
+
   .ss-progress {
-    right: 12px;
-  }
-  .ss-progress-labels {
     display: none;
+  }
+
+  .ss-scroll-cue {
+    bottom: 24px;
   }
 }
 
 @media (max-width: 480px) {
   .scroll-story {
-    height: 240vh;
+    height: 220vh;
   }
-  .ss-hero {
-    width: 60vw;
+
+  .ss-panel--left,
+  .ss-panel--right {
+    left: 16px;
+    right: 16px;
   }
+
   .ss-heading {
-    font-size: clamp(34px, 10vw, 52px);
+    font-size: clamp(28px, 9vw, 42px);
   }
+
+  .ss-heading--large {
+    font-size: clamp(34px, 11vw, 56px);
+  }
+
+  .ss-body {
+    font-size: 13px;
+  }
+
+  .ss-kicker {
+    font-size: 9px;
+    padding: 6px 12px;
+  }
+
   .ss-stats {
-    gap: 18px;
+    gap: 16px;
   }
+
   .ss-stat strong {
-    font-size: 32px;
+    font-size: 28px;
   }
-  .ss-progress {
-    display: none;
+
+  .ss-btn {
+    padding: 13px 24px;
+    font-size: 11px;
   }
 }
 </style>

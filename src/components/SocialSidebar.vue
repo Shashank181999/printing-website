@@ -127,16 +127,7 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 
 @media (max-width: 768px) {
   .social-sidebar {
-    right: 10px;
-    gap: 6px;
-  }
-  .social-link {
-    width: 36px;
-    height: 36px;
-  }
-  .social-link svg {
-    width: 16px;
-    height: 16px;
+    display: none;
   }
 }
 </style>

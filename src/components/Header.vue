@@ -43,12 +43,6 @@
 
         <!-- Header Actions -->
         <div class="header-actions">
-          <button class="header-search" aria-label="Search" @click="toggleSearch">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8"/>
-              <path d="M21 21l-4.35-4.35"/>
-            </svg>
-          </button>
           <a href="tel:+971567268735" class="header-phone" aria-label="Call us">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -151,11 +145,6 @@ const closeMobileMenu = () => {
 const openQuoteForm = () => {
   closeMobileMenu()
   openServiceForm()
-}
-
-const toggleSearch = () => {
-  // Placeholder for search functionality
-  console.log('Search clicked')
 }
 
 const handleScroll = () => {
@@ -377,27 +366,6 @@ onUnmounted(() => {
   gap: 12px;
 }
 
-.header-search {
-  width: 56px;
-  height: 56px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--accent-teal);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(46, 139, 192, 0.3);
-}
-
-.header-search:hover {
-  background: var(--bg-teal-dark);
-  transform: scale(1.08);
-  box-shadow: 0 6px 20px rgba(46, 139, 192, 0.4);
-}
-
 .header-phone {
   width: 44px;
   height: 44px;
@@ -571,16 +539,6 @@ onUnmounted(() => {
   .logo-image {
     height: 48px;
   }
-
-  .header-search {
-    width: 44px;
-    height: 44px;
-  }
-
-  .header-search svg {
-    width: 20px;
-    height: 20px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -590,11 +548,6 @@ onUnmounted(() => {
 
   .logo-image {
     height: 44px;
-  }
-
-  .header-search {
-    width: 40px;
-    height: 40px;
   }
 }
 
