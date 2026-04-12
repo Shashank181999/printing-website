@@ -739,109 +739,69 @@ onBeforeUnmount(() => {
 
 @media (max-width: 768px) {
   .scroll-story {
-    height: 250vh;
+    height: 260vh;
   }
-
-  /* Hide the 3D printer — content only on mobile */
-  .ss-hero-perspective {
-    display: none !important;
-  }
-
-  /* Center all panels */
   .ss-panel--left,
   .ss-panel--right {
-    left: 24px;
-    right: 24px;
-    top: 50%;
-    bottom: auto;
-    transform: translateY(-50%);
+    left: 20px;
+    right: 20px;
+    top: auto;
+    bottom: 8%;
+    transform: none;
     max-width: none;
-    text-align: center;
-  }
-
-  .ss-stats {
-    justify-content: center;
-    gap: 24px;
-  }
-
-  .ss-features {
-    grid-template-columns: 1fr;
     text-align: left;
-    max-width: 280px;
-    margin: 0 auto;
   }
-
-  .ss-cta {
-    justify-content: center;
-  }
-
   .ss-final-inner {
     padding: 0 24px;
   }
-
-  .ss-heading {
-    font-size: clamp(36px, 10vw, 56px);
-  }
-
   .ss-heading--large {
-    font-size: clamp(40px, 12vw, 72px);
+    font-size: clamp(42px, 11vw, 80px);
   }
-
+  .ss-hero {
+    width: 45vw;
+  }
+  .ss-heading {
+    font-size: clamp(38px, 11vw, 64px);
+  }
   .ss-body {
     font-size: 14px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
   }
-
+  .ss-stats {
+    gap: 24px;
+  }
+  .ss-stat strong {
+    font-size: 38px;
+  }
+  .ss-features {
+    grid-template-columns: 1fr;
+  }
   .ss-progress {
     display: none;
-  }
-
-  .ss-scroll-cue {
-    bottom: 24px;
   }
 }
 
 @media (max-width: 480px) {
   .scroll-story {
-    height: 220vh;
+    height: 240vh;
   }
-
-  .ss-panel--left,
-  .ss-panel--right {
-    left: 16px;
-    right: 16px;
+  .ss-hero {
+    width: 40vw;
   }
-
   .ss-heading {
-    font-size: clamp(28px, 9vw, 42px);
+    font-size: clamp(28px, 9vw, 44px);
   }
-
-  .ss-heading--large {
-    font-size: clamp(34px, 11vw, 56px);
-  }
-
   .ss-body {
     font-size: 13px;
   }
-
-  .ss-kicker {
-    font-size: 9px;
-    padding: 6px 12px;
-  }
-
   .ss-stats {
     gap: 16px;
   }
-
   .ss-stat strong {
     font-size: 28px;
   }
-
-  .ss-btn {
-    padding: 13px 24px;
-    font-size: 11px;
+  .ss-kicker {
+    font-size: 9px;
+    padding: 6px 12px;
   }
 }
 </style>
