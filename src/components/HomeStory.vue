@@ -143,11 +143,10 @@ const scrollCueEl  = ref(null)
 const activeChapter = ref(0)
 
 let ctx // GSAP context for clean teardown
-const isMobile = () => window.innerWidth <= 768
 
 onMounted(() => {
-  // On mobile: static hero, no scroll animation
-  if (isMobile()) {
+  // Mobile: skip all animation, show static chapter 1
+  if (window.innerWidth <= 768) {
     gsap.set(panel1El.value, { opacity: 1, y: 0 })
     gsap.set(panel2El.value, { opacity: 0 })
     gsap.set(panel3El.value, { opacity: 0 })
@@ -738,97 +737,48 @@ onBeforeUnmount(() => {
 /* ════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .ss-panel--left,
+  .ss-panel--right {
+    left: 6%;
+    right: auto;
+    max-width: 420px;
+  }
+  .ss-hero {
+    width: clamp(220px, 38vw, 340px);
+  }
+}
+
 @media (max-width: 768px) {
-  .scroll-story {
-    height: auto;
-  }
-
-  .scroll-story__stage {
-    position: relative;
-    height: 100vh;
-    min-height: 600px;
-  }
-
-  /* Hide scroll-only elements */
+  /* Static hero — no scroll */
+  .scroll-story { height: auto; }
+  .scroll-story__stage { position: relative; height: 100vh; min-height: 600px; }
   .ss-hero-perspective,
   .ss-progress,
   .ss-scroll-cue,
   .ss-panel--right,
-  .ss-panel--final {
-    display: none !important;
-  }
-
-  /* Show only chapter 1 — centered */
+  .ss-panel--final { display: none !important; }
   .ss-panel--left {
-    left: 24px;
-    right: 24px;
-    top: 50%;
-    bottom: auto;
+    left: 24px; right: 24px;
+    top: 50%; bottom: auto;
     transform: translateY(-50%);
-    max-width: none;
-    text-align: left;
+    max-width: none; text-align: left;
   }
-
-  .ss-heading {
-    font-size: clamp(36px, 10vw, 56px);
-    line-height: 0.95;
-    margin-bottom: 16px;
-  }
-
-  .ss-kicker {
-    font-size: 10px;
-    padding: 7px 14px;
-    margin-bottom: 16px;
-  }
-
-  .ss-body {
-    font-size: 15px;
-    line-height: 1.7;
-    margin-bottom: 24px;
-  }
-
-  .ss-stats {
-    gap: 28px;
-  }
-
-  .ss-stat strong {
-    font-size: 36px;
-  }
-
-  .ss-stat span {
-    font-size: 10px;
-  }
+  .ss-heading { font-size: clamp(36px, 10vw, 56px); margin-bottom: 16px; }
+  .ss-kicker { font-size: 10px; padding: 7px 14px; margin-bottom: 16px; }
+  .ss-body { font-size: 15px; line-height: 1.7; margin-bottom: 24px; }
+  .ss-stats { gap: 28px; }
+  .ss-stat strong { font-size: 36px; }
+  .ss-features { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .scroll-story__stage {
-    min-height: 520px;
-  }
-
-  .ss-panel--left {
-    left: 20px;
-    right: 20px;
-  }
-
-  .ss-heading {
-    font-size: clamp(30px, 9vw, 44px);
-  }
-
-  .ss-body {
-    font-size: 14px;
-  }
-
-  .ss-stats {
-    gap: 20px;
-  }
-
-  .ss-stat strong {
-    font-size: 30px;
-  }
-
-  .ss-kicker {
-    font-size: 9px;
-    padding: 6px 12px;
-  }
+  .scroll-story__stage { min-height: 520px; }
+  .ss-panel--left { left: 20px; right: 20px; }
+  .ss-heading { font-size: clamp(28px, 9vw, 44px); }
+  .ss-body { font-size: 14px; }
+  .ss-stats { gap: 20px; }
+  .ss-stat strong { font-size: 30px; }
+  .ss-kicker { font-size: 9px; padding: 6px 12px; }
 }
 </style>
