@@ -1114,11 +1114,9 @@ const closeProduct = () => {
 
   .mobile-filter-bar {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
-    overflow-x: auto;
     padding: 16px 0;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     position: sticky;
     top: 70px;
     z-index: 40;
@@ -1129,9 +1127,6 @@ const closeProduct = () => {
     padding-right: 24px;
   }
 
-  .mobile-filter-bar::-webkit-scrollbar {
-    display: none;
-  }
 
   .mobile-filter-chip {
     display: inline-flex;
