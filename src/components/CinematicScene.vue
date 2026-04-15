@@ -134,7 +134,7 @@ const stories = [
     id: 'cards',
     label: 'Cards',
     chapter: '05',
-    hero: '/products/gold-foil-business-cards.webp',
+    hero: '/products/die-cut-business-cards.webp',
     thumbs: [
       '/products/metal-business-cards.webp',
       '/products/premium-mattesoft-touch-cards.webp',

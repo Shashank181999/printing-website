@@ -341,7 +341,7 @@ onUnmounted(() => {
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--accent-teal);
+  background: linear-gradient(90deg, #0072bc, #00a651, #ffd700, #ed1c24);
   transition: width 0.3s ease;
 }
 
@@ -558,10 +558,7 @@ onUnmounted(() => {
 }
 
 .header.dark-page .logo-image {
-  filter: drop-shadow(0 0 8px rgba(255,255,255,0.3));
-  background: rgba(255,255,255,0.15);
-  border-radius: 50%;
-  padding: 4px;
+  filter: none;
 }
 
 .header.dark-page .nav-links a {
@@ -574,7 +571,7 @@ onUnmounted(() => {
 }
 
 .header.dark-page .nav-links a::after {
-  background: white;
+  background: linear-gradient(90deg, #0072bc, #00a651, #ffd700, #ed1c24);
 }
 
 .header.dark-page .header-phone {

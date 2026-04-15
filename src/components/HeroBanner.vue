@@ -177,7 +177,7 @@ const stages = [
 ]
 
 const productCards = [
-  { src: '/products/gold-foil-business-cards.webp', label: 'Cards' },
+  { src: '/products/die-cut-business-cards.webp', label: 'Cards' },
   { src: '/products/magazine.webp',                 label: 'Brochures' },
   { src: '/products/rigid-box-packaging.webp',      label: 'Packaging' },
   { src: '/products/neon-signage.webp',             label: 'Signage' },

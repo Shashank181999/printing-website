@@ -22,6 +22,17 @@
             alt="Large format printer"
             class="ss-hero-img"
           />
+          <!-- 3D Ink drops -->
+          <div class="hero-ink-drips" aria-hidden="true">
+            <div class="hero-ink hero-ink--cyan"    style="--x: 22%; --delay: 0s; --dur: 3.2s; --size: 5px;"></div>
+            <div class="hero-ink hero-ink--magenta" style="--x: 40%; --delay: 1.4s; --dur: 2.8s; --size: 4px;"></div>
+            <div class="hero-ink hero-ink--yellow"  style="--x: 55%; --delay: 0.6s; --dur: 3.5s; --size: 5px;"></div>
+            <div class="hero-ink hero-ink--key"     style="--x: 72%; --delay: 2s; --dur: 3s; --size: 4px;"></div>
+            <div class="hero-ink hero-ink--cyan"    style="--x: 48%; --delay: 2.6s; --dur: 3.4s; --size: 3px;"></div>
+            <div class="hero-ink hero-ink--magenta" style="--x: 30%; --delay: 1s; --dur: 3.8s; --size: 4px;"></div>
+            <div class="hero-ink hero-ink--yellow"  style="--x: 65%; --delay: 3.2s; --dur: 2.6s; --size: 3px;"></div>
+            <div class="hero-ink hero-ink--key"     style="--x: 35%; --delay: 2.2s; --dur: 3.6s; --size: 3px;"></div>
+          </div>
           <div class="ss-hero-shadow" ref="shadowEl"></div>
         </div>
       </div>
@@ -412,6 +423,89 @@ onBeforeUnmount(() => {
 @keyframes glowPulse {
   0%   { opacity: 0.5; transform: scale(0.92); }
   100% { opacity: 0.85; transform: scale(1.08); }
+}
+
+/* 3D Ink drops from printer */
+.hero-ink-drips {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  transform: translateZ(30px);
+}
+
+.hero-ink {
+  --size: 5px;
+  position: absolute;
+  left: var(--x);
+  top: 40%;
+  width: var(--size);
+  height: calc(var(--size) * 3);
+  border-radius: 40% 40% 50% 50% / 15% 15% 85% 85%;
+  opacity: 0;
+  animation: heroInkFall var(--dur, 3s) var(--delay, 0s) cubic-bezier(0.2, 0, 0.8, 1) infinite;
+  filter: blur(0.2px);
+}
+
+/* Glossy specular highlight */
+.hero-ink::before {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 15%;
+  width: 40%;
+  height: 25%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.7), transparent);
+  filter: blur(0.5px);
+}
+
+/* Splash on impact */
+.hero-ink::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateX(-50%);
+  animation: inkSplash var(--dur, 3s) var(--delay, 0s) cubic-bezier(0.2, 0, 0.8, 1) infinite;
+}
+
+.hero-ink--cyan {
+  background: radial-gradient(ellipse at 30% 20%, #00e5ff, #0097d4);
+  box-shadow: 0 2px 8px rgba(0,174,239,0.4), 0 0 20px rgba(0,174,239,0.15);
+}
+.hero-ink--magenta {
+  background: radial-gradient(ellipse at 30% 20%, #ff4dbf, #d4008c);
+  box-shadow: 0 2px 8px rgba(236,0,140,0.4), 0 0 20px rgba(236,0,140,0.15);
+}
+.hero-ink--yellow {
+  background: radial-gradient(ellipse at 30% 20%, #ffe44d, #f0c800);
+  box-shadow: 0 2px 8px rgba(255,242,0,0.4), 0 0 20px rgba(255,242,0,0.15);
+}
+.hero-ink--key {
+  background: radial-gradient(ellipse at 30% 20%, #5a5a66, #1a1a22);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3), 0 0 20px rgba(0,0,0,0.1);
+}
+
+@keyframes heroInkFall {
+  0%   { top: 38%; opacity: 0; transform: scaleY(0.5) scaleX(1); }
+  4%   { opacity: 0.9; transform: scaleY(1) scaleX(0.85); }
+  50%  { top: 70%; opacity: 0.85; transform: scaleY(1.8) scaleX(0.65); }
+  90%  { top: 100%; opacity: 0.4; transform: scaleY(1.2) scaleX(0.8); }
+  95%  { opacity: 0; transform: scaleY(0.2) scaleX(2); }
+  100% { top: 100%; opacity: 0; transform: scaleY(0.1) scaleX(2.5); }
+}
+
+@keyframes inkSplash {
+  0%, 85% { width: 0; height: 0; opacity: 0; }
+  90%     { width: 16px; height: 4px; opacity: 0.5; }
+  100%    { width: 24px; height: 1px; opacity: 0; }
 }
 
 .ss-hero-shadow {

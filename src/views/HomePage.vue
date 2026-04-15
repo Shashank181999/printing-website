@@ -19,6 +19,38 @@
       </div>
     </section>
 
+    <!-- Products Showcase -->
+    <section class="products-showcase" ref="productsShowcase">
+      <div class="container">
+        <div class="showcase-header">
+          <div>
+            <span class="showcase-eyebrow">OUR PRODUCTS</span>
+            <h2 class="section-title">Popular <em>Products</em></h2>
+          </div>
+          <router-link to="/products" class="showcase-view-all">
+            View All Products
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </router-link>
+        </div>
+        <div class="showcase-grid">
+          <div
+            v-for="prod in popularProducts"
+            :key="prod.slug"
+            class="showcase-item"
+            @click="openCoverflowProduct(prod)"
+          >
+            <div class="showcase-item-img">
+              <img :src="`/products/${prod.slug}.webp`" :alt="prod.name" />
+            </div>
+            <div class="showcase-item-info">
+              <span class="showcase-item-cat">{{ prod.category }}</span>
+              <h3 class="showcase-item-name">{{ prod.name }}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 2. Category Strip -->
     <section class="category-strip">
       <div class="category-scroll-wrap">
@@ -189,37 +221,6 @@
     </section>
 
     <!-- Popular Products -->
-    <section class="products-showcase" ref="productsShowcase">
-      <div class="container">
-        <div class="showcase-header">
-          <div>
-            <span class="showcase-eyebrow">OUR PRODUCTS</span>
-            <h2 class="section-title">Popular <em>Products</em></h2>
-          </div>
-          <router-link to="/products" class="showcase-view-all">
-            View All Products
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </router-link>
-        </div>
-        <div class="showcase-grid">
-          <div
-            v-for="prod in popularProducts"
-            :key="prod.slug"
-            class="showcase-item"
-            @click="openCoverflowProduct(prod)"
-          >
-            <div class="showcase-item-img">
-              <img :src="`/products/${prod.slug}.webp`" :alt="prod.name" />
-            </div>
-            <div class="showcase-item-info">
-              <span class="showcase-item-cat">{{ prod.category }}</span>
-              <h3 class="showcase-item-name">{{ prod.name }}</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Why Choose Us -->
     <section class="why-section" ref="whySection">
       <div class="container why-container">
@@ -287,21 +288,26 @@
       <div class="container press-container">
         <div class="press-text">
           <span class="press-eyebrow">PRECISION TECHNOLOGY</span>
-          <h2 class="press-title">Our <em>Press</em><br>In Action</h2>
+          <h2 class="press-title"><em>Press</em><br>In Action</h2>
           <p class="press-desc">
             State-of-the-art offset and digital presses, calibrated to deliver razor-sharp
             details and consistent color from the first sheet to the millionth.
           </p>
-          <ul class="press-features">
-            <li><span class="press-tick">✓</span> 4-color CMYK + spot color printing</li>
-            <li><span class="press-tick">✓</span> Up to 18,000 sheets per hour</li>
-            <li><span class="press-tick">✓</span> 2400 DPI razor-sharp resolution</li>
-            <li><span class="press-tick">✓</span> Eco-friendly soy-based inks</li>
-          </ul>
         </div>
 
         <!-- Real press machine photo with floating frame -->
         <div class="press-machine">
+          <!-- Ink drips falling from printer -->
+          <div class="ink-drips" aria-hidden="true">
+            <span class="ink-drop ink-drop--cyan" style="--x: 18%; --delay: 0s; --dur: 2.4s;"></span>
+            <span class="ink-drop ink-drop--magenta" style="--x: 35%; --delay: 0.8s; --dur: 2.8s;"></span>
+            <span class="ink-drop ink-drop--yellow" style="--x: 55%; --delay: 1.6s; --dur: 2.2s;"></span>
+            <span class="ink-drop ink-drop--black" style="--x: 72%; --delay: 0.4s; --dur: 3s;"></span>
+            <span class="ink-drop ink-drop--cyan" style="--x: 85%; --delay: 2s; --dur: 2.6s;"></span>
+            <span class="ink-drop ink-drop--magenta" style="--x: 42%; --delay: 1.2s; --dur: 2s;"></span>
+            <span class="ink-drop ink-drop--yellow" style="--x: 25%; --delay: 2.4s; --dur: 2.5s;"></span>
+            <span class="ink-drop ink-drop--black" style="--x: 62%; --delay: 0.6s; --dur: 3.2s;"></span>
+          </div>
           <div class="press-photo-frame">
             <img
               src="/hero/pomelli_photoshoot-3.png"
@@ -499,7 +505,7 @@ const approachSection = ref(null)
 const productsShowcase = ref(null)
 
 const popularProducts = [
-  { slug: 'gold-foil-business-cards', name: 'Gold Foil Business Cards', category: 'Business Cards' },
+  { slug: 'product-labels-stickers', name: 'Product Labels & Stickers', category: 'Labels & Stickers' },
   { slug: 'rigid-box-packaging', name: 'Rigid Box Packaging', category: 'Packaging' },
   { slug: 'neon-signage', name: 'Custom Neon Signage', category: 'Signage' },
   { slug: 'custom-t-shirts', name: 'Custom T-Shirts', category: 'Apparel' },
@@ -591,7 +597,7 @@ watch(coverflowProduct, (val) => {
   }
 })
 const coverflowItems = [
-  { slug: 'gold-foil-business-cards', name: 'Gold Foil Business Cards', category: 'Business Cards' },
+  { slug: 'product-labels-stickers', name: 'Product Labels & Stickers', category: 'Labels & Stickers' },
   { slug: 'neon-signage', name: 'Custom Neon Signage', category: 'Signage' },
   { slug: 'rigid-box-packaging', name: 'Rigid Box Packaging', category: 'Packaging' },
   { slug: 'nfcsmart-business-card', name: 'NFC Smart Business Card', category: 'Business Cards' },
@@ -671,7 +677,7 @@ function goToProducts() {
 
 // Category strip data
 const categoryStrip = [
-  { name: 'Business Cards', slug: 'gold-foil-business-cards' },
+  { name: 'Business Cards', slug: 'die-cut-business-cards' },
   { name: 'Printing', slug: 'annual-report' },
   { name: 'Stationery', slug: 'customized-envelopes' },
   { name: 'Labels & Stickers', slug: 'die-cut-stickers' },
@@ -1682,12 +1688,14 @@ onUnmounted(() => {
 .cmyk-stat {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .cmyk-stat strong {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 3.5vw, 56px);
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: clamp(22px, 2vw, 32px);
+  font-weight: 700;
   color: var(--accent-teal);
   line-height: 1;
 }
@@ -2387,10 +2395,13 @@ onUnmounted(() => {
 }
 
 .why-point h3 {
+  font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .why-point p {
@@ -2733,6 +2744,53 @@ onUnmounted(() => {
   perspective-origin: 50% 50%;
 }
 
+/* Ink drips falling from printer */
+.ink-drips {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.ink-drop {
+  position: absolute;
+  left: var(--x);
+  top: 30%;
+  width: 6px;
+  height: 18px;
+  border-radius: 50% 50% 50% 50% / 30% 30% 70% 70%;
+  opacity: 0;
+  filter: blur(0.5px);
+  animation: inkFall var(--dur, 2.5s) var(--delay, 0s) ease-in infinite;
+}
+
+.ink-drop::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: inherit;
+  opacity: 0.6;
+}
+
+.ink-drop--cyan    { background: rgba(0, 174, 239, 0.7); }
+.ink-drop--magenta { background: rgba(236, 0, 140, 0.7); }
+.ink-drop--yellow  { background: rgba(255, 242, 0, 0.7); }
+.ink-drop--black   { background: rgba(35, 31, 32, 0.7); }
+
+@keyframes inkFall {
+  0%   { top: 30%; opacity: 0; transform: scaleY(1); }
+  8%   { opacity: 0.85; }
+  50%  { top: 65%; opacity: 0.7; transform: scaleY(1.4); }
+  85%  { top: 90%; opacity: 0.3; transform: scaleY(0.8); }
+  100% { top: 105%; opacity: 0; transform: scaleY(0.5); }
+}
+
 .press-photo-frame {
   position: relative;
   width: 100%;
@@ -3036,12 +3094,14 @@ onUnmounted(() => {
 .roll-badge {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .roll-badge strong {
-  font-family: var(--font-display);
-  font-size: clamp(34px, 3vw, 52px);
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: clamp(22px, 2vw, 32px);
+  font-weight: 700;
   color: var(--accent-teal);
   line-height: 1;
 }

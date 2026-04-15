@@ -221,7 +221,7 @@ const portfolioCategories = ['All', 'Design', '3D Printing', 'Card Printing', 'F
 const activePortfolio = ref('All')
 
 const portfolioProjects = [
-  { slug: 'gold-foil-business-cards', title: 'Gold Foil Business Cards', category: 'Card Printing', desc: 'Premium gold foil-stamped cards for a corporate launch.' },
+  { slug: 'die-cut-business-cards', title: 'Die-Cut Business Cards', category: 'Card Printing', desc: 'Custom-shaped cards that stand out with unique die-cut designs.' },
   { slug: 'metal-business-cards', title: 'Metal Business Cards', category: 'Card Printing', desc: 'Sleek brushed-metal cards for a luxury client.' },
   { slug: 'nfcsmart-business-card', title: 'NFC Smart Business Cards', category: '3D Printing', desc: 'Embedded NFC chips for instant digital sharing.' },
   { slug: 'rigid-box-packaging', title: 'Rigid Gift Boxes', category: 'Packaging', desc: 'Premium rigid boxes for a luxury retail brand.' },

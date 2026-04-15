@@ -304,8 +304,7 @@ const categories = [
 const products = [
   // Business Cards
   { slug: 'die-cut-business-cards', name: 'Die-Cut Business Cards', category: 'Business Cards', description: 'Custom-shaped cards that stand out from the crowd with unique die-cut designs.' },
-  { slug: 'gold-foil-business-cards', name: 'Gold Foil Business Cards', category: 'Business Cards', description: 'Luxurious gold foil stamped cards for a premium, elegant first impression.' },
-  { slug: 'metal-business-cards', name: 'Metal Business Cards', category: 'Business Cards', description: 'Durable metal cards that leave a lasting impression with a modern, sleek finish.' },
+{ slug: 'metal-business-cards', name: 'Metal Business Cards', category: 'Business Cards', description: 'Durable metal cards that leave a lasting impression with a modern, sleek finish.' },
   { slug: 'frostedclear-pvc-cards', name: 'Frosted & Clear PVC Cards', category: 'Business Cards', description: 'Transparent or frosted PVC cards for a unique, eye-catching look.' },
   { slug: 'textured-business-cards', name: 'Textured Business Cards', category: 'Business Cards', description: 'Tactile finishes that add depth and character to your business card design.' },
   { slug: 'square-business-cards', name: 'Square Business Cards', category: 'Business Cards', description: 'Modern square-format cards that break away from traditional rectangular shapes.' },
@@ -459,9 +458,9 @@ const closeProduct = () => {
 }
 
 .container {
-  max-width: 1320px;
+  max-width: 96%;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 0 12px;
 }
 
 /* ===== Breadcrumb Bar ===== */

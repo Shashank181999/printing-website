@@ -16,9 +16,6 @@
         <div class="footer-grid">
           <!-- Brand Column -->
           <div class="footer-brand">
-            <router-link to="/" class="footer-logo">
-              <img :src="logoImage" alt="Al Falah Middle East FZ LLC" class="footer-logo-image" />
-            </router-link>
             <div class="brand-info">
               <h3 class="brand-name">Al Falah Middle East</h3>
               <p class="brand-desc">
@@ -79,6 +76,18 @@
               <div class="contact-item">
                 <div class="contact-icon">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <div>
+                  <span class="contact-label">Location</span>
+                  <p>Sharaf DG, Dubai</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
                 </div>
@@ -96,7 +105,7 @@
                 </div>
                 <div>
                   <span class="contact-label">Email</span>
-                  <a href="mailto:info@alfalah-me.com">info@alfalah-me.com</a>
+                  <a href="mailto:alfalah-me.com">alfalah-me.com</a>
                 </div>
               </div>
               <div class="contact-item">
@@ -112,6 +121,7 @@
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -143,7 +153,6 @@
 import { ref, computed, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import logoImage from '@/assets/logo.png'
 
 gsap.registerPlugin(ScrollTrigger)
 

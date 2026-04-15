@@ -48,7 +48,8 @@
                 </div>
                 <div class="card-content">
                   <h3>Our Location</h3>
-                  <p>Dubai, United Arab Emirates</p>
+                  <p>Sharaf DG, Dubai</p>
+                  <a href="https://maps.google.com/?q=Sharaf+DG+Dubai" target="_blank" class="location-link">Get Directions →</a>
                 </div>
               </div>
 
@@ -545,6 +546,19 @@ onMounted(() => {
   font-weight: 400;
   line-height: 1.7;
   color: var(--text-secondary);
+}
+
+.location-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent-teal);
+  transition: color 0.3s ease;
+}
+
+.location-link:hover {
+  color: var(--text-primary);
 }
 
 /* Hours Section */
