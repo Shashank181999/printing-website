@@ -299,14 +299,14 @@
         <div class="press-machine">
           <!-- Ink drips falling from printer -->
           <div class="ink-drips" aria-hidden="true">
-            <span class="ink-drop ink-drop--cyan" style="--x: 18%; --delay: 0s; --dur: 2.4s;"></span>
-            <span class="ink-drop ink-drop--magenta" style="--x: 35%; --delay: 0.8s; --dur: 2.8s;"></span>
-            <span class="ink-drop ink-drop--yellow" style="--x: 55%; --delay: 1.6s; --dur: 2.2s;"></span>
-            <span class="ink-drop ink-drop--black" style="--x: 72%; --delay: 0.4s; --dur: 3s;"></span>
-            <span class="ink-drop ink-drop--cyan" style="--x: 85%; --delay: 2s; --dur: 2.6s;"></span>
-            <span class="ink-drop ink-drop--magenta" style="--x: 42%; --delay: 1.2s; --dur: 2s;"></span>
-            <span class="ink-drop ink-drop--yellow" style="--x: 25%; --delay: 2.4s; --dur: 2.5s;"></span>
-            <span class="ink-drop ink-drop--black" style="--x: 62%; --delay: 0.6s; --dur: 3.2s;"></span>
+            <span class="ink-drip ink-drip--cyan" style="--x: 18%; --delay: 0s; --dur: 2.4s;"></span>
+            <span class="ink-drip ink-drip--magenta" style="--x: 35%; --delay: 0.8s; --dur: 2.8s;"></span>
+            <span class="ink-drip ink-drip--yellow" style="--x: 55%; --delay: 1.6s; --dur: 2.2s;"></span>
+            <span class="ink-drip ink-drip--black" style="--x: 72%; --delay: 0.4s; --dur: 3s;"></span>
+            <span class="ink-drip ink-drip--cyan" style="--x: 85%; --delay: 2s; --dur: 2.6s;"></span>
+            <span class="ink-drip ink-drip--magenta" style="--x: 42%; --delay: 1.2s; --dur: 2s;"></span>
+            <span class="ink-drip ink-drip--yellow" style="--x: 25%; --delay: 2.4s; --dur: 2.5s;"></span>
+            <span class="ink-drip ink-drip--black" style="--x: 62%; --delay: 0.6s; --dur: 3.2s;"></span>
           </div>
           <div class="press-photo-frame">
             <img
@@ -2744,16 +2744,16 @@ onUnmounted(() => {
   perspective-origin: 50% 50%;
 }
 
-/* Ink drips falling from printer */
+/* Ink drips falling behind printer */
 .ink-drips {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 3;
+  z-index: 0;
   overflow: hidden;
 }
 
-.ink-drop {
+.ink-drip {
   position: absolute;
   left: var(--x);
   top: 30%;
@@ -2765,7 +2765,7 @@ onUnmounted(() => {
   animation: inkFall var(--dur, 2.5s) var(--delay, 0s) ease-in infinite;
 }
 
-.ink-drop::after {
+.ink-drip::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -2778,10 +2778,10 @@ onUnmounted(() => {
   opacity: 0.6;
 }
 
-.ink-drop--cyan    { background: rgba(0, 174, 239, 0.7); }
-.ink-drop--magenta { background: rgba(236, 0, 140, 0.7); }
-.ink-drop--yellow  { background: rgba(255, 242, 0, 0.7); }
-.ink-drop--black   { background: rgba(35, 31, 32, 0.7); }
+.ink-drip--cyan    { background: rgba(0, 174, 239, 0.7); }
+.ink-drip--magenta { background: rgba(236, 0, 140, 0.7); }
+.ink-drip--yellow  { background: rgba(255, 242, 0, 0.7); }
+.ink-drip--black   { background: rgba(35, 31, 32, 0.7); }
 
 @keyframes inkFall {
   0%   { top: 30%; opacity: 0; transform: scaleY(1); }
@@ -2803,7 +2803,7 @@ onUnmounted(() => {
     0 40px 90px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(255, 255, 255, 0.04) inset,
     0 0 80px rgba(74, 171, 222, 0.12);
-  transform: rotateX(6deg) rotateY(-10deg);
+  transform: none;
   transform-style: preserve-3d;
   background: #0c1622;
 }

@@ -194,14 +194,13 @@ const particles = Array.from({ length: 22 }).map(() => ({
 
 let triggers = []
 let mouseHandler = null
+let printerTl = null
 
 function goToStage(i) {
   if (!heroEl.value) {
     stageIdx.value = i
     return
   }
-  // The hero section is 1 viewport tall + (stages.length - 1) viewport heights
-  // of scroll. Scroll position for stage i lands ~midway through that stage.
   const rect = heroEl.value.getBoundingClientRect()
   const sectionTop = rect.top + window.scrollY
   const scrollDistance = heroEl.value.offsetHeight - window.innerHeight
@@ -215,7 +214,7 @@ function goToStage(i) {
 }
 
 onMounted(() => {
-  // Subtle mouse parallax on the printer (only x/y/rotation — never opacity)
+  // Subtle mouse parallax on the printer
   mouseHandler = (e) => {
     if (!heroEl.value || !printerEl.value) return
     const rect = heroEl.value.getBoundingClientRect()
@@ -229,13 +228,40 @@ onMounted(() => {
       transformPerspective: 1200,
       duration: 1.2,
       ease: 'power3.out',
+      overwrite: 'auto',
     })
   }
   heroEl.value.addEventListener('mousemove', mouseHandler)
 
-  // Single scroll trigger — no pinning. The hero section is tall (CSS) and the
-  // inner .hero-pin is position: sticky so it naturally stays in view while we
-  // scroll through the section. Same pattern as CinematicScene; works with Lenis.
+  // Smooth scroll-driven printer movement timeline
+  printerTl = gsap.timeline({
+    defaults: { ease: 'none' },
+  })
+
+  // Stage 0 → 1: printer slides slightly right and scales down a touch
+  printerTl.fromTo(
+    printerEl.value,
+    { xPercent: 0, scale: 1 },
+    { xPercent: 8, scale: 0.95, duration: 1 }
+  )
+  // Stage 1 → 2: printer slides further right and scales back up
+  printerTl.to(printerEl.value, {
+    xPercent: 12,
+    scale: 0.92,
+    duration: 1,
+  })
+
+  // Bind the timeline to scroll progress
+  const printerST = ScrollTrigger.create({
+    trigger: heroEl.value,
+    start: 'top top',
+    end: 'bottom bottom',
+    animation: printerTl,
+    scrub: 1.2, // smooth scrubbing — 1.2s lag for buttery movement
+  })
+  triggers.push(printerST)
+
+  // Stage index + progress (separate trigger, no animation — just data)
   const t = ScrollTrigger.create({
     trigger: heroEl.value,
     start: 'top top',
@@ -258,6 +284,10 @@ onMounted(() => {
 onBeforeUnmount(() => {
   if (heroEl.value && mouseHandler) {
     heroEl.value.removeEventListener('mousemove', mouseHandler)
+  }
+  if (printerTl) {
+    printerTl.kill()
+    printerTl = null
   }
   triggers.forEach((t) => t.kill())
   triggers = []
@@ -461,9 +491,9 @@ onBeforeUnmount(() => {
 
 .hero-stage-stack .hero-headline,
 .hero-stage-stack .hero-desc {
-  animation: heroStageIn 0.7s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation: heroStageIn 0.65s cubic-bezier(0.22, 0.61, 0.36, 1) both;
 }
-.hero-stage-stack .hero-desc { animation-delay: 0.08s; }
+.hero-stage-stack .hero-desc { animation-delay: 0.06s; }
 
 .hero-stage-num {
   font-family: 'Oswald', sans-serif;
@@ -607,6 +637,7 @@ onBeforeUnmount(() => {
   transform-style: preserve-3d;
   will-change: transform;
   animation: heroPrinterFloat 6s ease-in-out infinite;
+  transition: filter 0.8s ease;
 }
 @keyframes heroPrinterFloat {
   0%, 100% { translate: 0 0; }
@@ -642,7 +673,7 @@ onBeforeUnmount(() => {
     0 0 0 1px rgba(74, 171, 222, 0.18);
   opacity: 0;
   transform: translate(0, 0) scale(0.6) rotate(0deg);
-  transition: opacity 0.7s ease, transform 1s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 0.9s ease, transform 1.3s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .hero-paper-line {
   height: 5px;
@@ -692,7 +723,7 @@ onBeforeUnmount(() => {
     0 0 0 1px rgba(74, 171, 222, 0.2);
   opacity: 0;
   transform: scale(0.4) translate(0, 60px) rotate(0);
-  transition: opacity 0.6s ease, transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: opacity 0.9s ease, transform 1.3s cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 .hero-product img {
   width: 100%;
@@ -797,6 +828,7 @@ onBeforeUnmount(() => {
   transform: scaleX(0);
   box-shadow: 0 0 20px rgba(74, 171, 222, 0.6);
   will-change: transform;
+  transition: transform 0.3s ease-out;
 }
 
 .hero-progress-tabs {
