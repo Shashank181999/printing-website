@@ -1,6 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 
+// Lazy imports — stored so we can prefetch them after first load
+const lazyServices = () => import('../views/ServicesPage.vue')
+const lazyProducts = () => import('../views/ProductsPage.vue')
+const lazyAbout = () => import('../views/AboutPage.vue')
+const lazyContact = () => import('../views/ContactPage.vue')
+
 const routes = [
   {
     path: '/',
@@ -10,22 +16,22 @@ const routes = [
   {
     path: '/services',
     name: 'Services',
-    component: () => import('../views/ServicesPage.vue')
+    component: lazyServices
   },
   {
     path: '/products',
     name: 'Products',
-    component: () => import('../views/ProductsPage.vue')
+    component: lazyProducts
   },
   {
     path: '/about',
     name: 'About',
-    component: () => import('../views/AboutPage.vue')
+    component: lazyAbout
   },
   {
     path: '/contact',
     name: 'Contact',
-    component: () => import('../views/ContactPage.vue')
+    component: lazyContact
   }
 ]
 
@@ -42,5 +48,20 @@ const router = createRouter({
     return { top: 0, behavior: 'instant' }
   }
 })
+
+// Prefetch all lazy routes once the page is idle so nav clicks are instant
+if (typeof window !== 'undefined') {
+  const prefetch = () => {
+    lazyServices()
+    lazyProducts()
+    lazyAbout()
+    lazyContact()
+  }
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(prefetch)
+  } else {
+    setTimeout(prefetch, 2000)
+  }
+}
 
 export default router

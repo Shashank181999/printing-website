@@ -805,23 +805,9 @@ const closeProduct = () => {
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
-  animation: cardAppear 0.4s ease forwards;
-  animation-delay: var(--delay);
-  opacity: 0;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-}
-
-@keyframes cardAppear {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .product-card:hover {

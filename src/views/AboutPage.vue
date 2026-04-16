@@ -277,13 +277,13 @@ onMounted(() => {
     scrollTriggers.push(st)
   }
 
-  // Hero - fade up immediately (no scroll trigger)
-  gsap.set(['.hero-label', '.hero-heading', '.hero-description', '.hero-image-wrapper', '.stat-item'], { opacity: 0, y: 20 })
-  gsap.to('.hero-label', { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' })
-  gsap.to('.hero-heading', { y: 0, opacity: 1, duration: 0.9, delay: 0.1, ease: 'power2.out' })
-  gsap.to('.hero-description', { y: 0, opacity: 1, duration: 0.8, delay: 0.2, ease: 'power2.out' })
-  gsap.to('.hero-image-wrapper', { y: 0, opacity: 1, duration: 1, delay: 0.15, ease: 'power2.out' })
-  gsap.to('.stat-item', { y: 0, opacity: 1, duration: 0.8, stagger: 0.12, delay: 0.35, ease: 'power2.out' })
+  // Hero - quick fade up so page feels instant
+  gsap.set(['.hero-label', '.hero-heading', '.hero-description', '.hero-image-wrapper', '.stat-item'], { opacity: 0, y: 12 })
+  gsap.to('.hero-label', { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' })
+  gsap.to('.hero-heading', { y: 0, opacity: 1, duration: 0.35, delay: 0.05, ease: 'power2.out' })
+  gsap.to('.hero-description', { y: 0, opacity: 1, duration: 0.3, delay: 0.1, ease: 'power2.out' })
+  gsap.to('.hero-image-wrapper', { y: 0, opacity: 1, duration: 0.4, delay: 0.05, ease: 'power2.out' })
+  gsap.to('.stat-item', { y: 0, opacity: 1, duration: 0.3, stagger: 0.06, delay: 0.15, ease: 'power2.out' })
 
   // Blind reveal helper
   const blindReveal = (trigger, targets, opts = {}) => {

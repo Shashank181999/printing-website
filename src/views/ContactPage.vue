@@ -288,11 +288,11 @@ const resetForm = () => {
 }
 
 onMounted(() => {
-  // Hero - instant fade up
-  gsap.set(['.hero-label', '.hero-title', '.hero-desc'], { opacity: 0, y: 20 })
-  gsap.to('.hero-label', { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' })
-  gsap.to('.hero-title', { y: 0, opacity: 1, duration: 0.8, delay: 0.1, ease: 'power2.out' })
-  gsap.to('.hero-desc', { y: 0, opacity: 1, duration: 0.7, delay: 0.2, ease: 'power2.out' })
+  // Hero - quick fade up
+  gsap.set(['.hero-label', '.hero-title', '.hero-desc'], { opacity: 0, y: 10 })
+  gsap.to('.hero-label', { y: 0, opacity: 1, duration: 0.25, ease: 'power2.out' })
+  gsap.to('.hero-title', { y: 0, opacity: 1, duration: 0.3, delay: 0.05, ease: 'power2.out' })
+  gsap.to('.hero-desc', { y: 0, opacity: 1, duration: 0.25, delay: 0.1, ease: 'power2.out' })
 
   // Smooth reveal helper - hides first, animates on scroll
   const reveal = (trigger, targets, opts = {}) => {
