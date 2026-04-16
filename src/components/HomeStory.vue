@@ -166,18 +166,18 @@ onMounted(() => {
     bg3El.value.style.opacity = '0'
     if (scrollCueEl.value) scrollCueEl.value.style.opacity = '0'
 
-    // Printer entrance: drop in with 3D rotation + bounce
+    // Printer entrance: smooth glide from left to center
     const hero = heroEl.value
     if (hero) {
-      gsap.set(hero, { opacity: 0, y: -60, scale: 0.8, rotateX: 15 })
+      gsap.set(hero, { opacity: 0, x: -120, scale: 0.9 })
       gsap.to(hero, {
-        opacity: 1, y: 0, scale: 1, rotateX: 0,
-        duration: 1, ease: 'back.out(1.4)', delay: 0.3,
+        opacity: 1, x: 0, scale: 1,
+        duration: 1.8, ease: 'power2.out', delay: 0.4,
       })
-      // Continuous subtle float
+      // Continuous subtle float after entrance
       gsap.to(hero, {
-        y: '-=10', duration: 2.5, ease: 'sine.inOut',
-        yoyo: true, repeat: -1, delay: 1.3,
+        y: '-=8', duration: 3, ease: 'sine.inOut',
+        yoyo: true, repeat: -1, delay: 2.2,
       })
     }
 
