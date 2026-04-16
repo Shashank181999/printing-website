@@ -117,7 +117,8 @@
                 </div>
                 <div>
                   <span class="contact-label">Hours</span>
-                  <p>Mon - Fri: 09:00 - 18:30</p>
+                  <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
+                  <p>Sat: 9:00 AM - 3:00 PM</p>
                 </div>
               </div>
             </div>

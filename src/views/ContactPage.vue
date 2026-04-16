@@ -87,11 +87,11 @@
               <div class="hours-grid">
                 <div class="hours-item">
                   <span class="day">Monday — Friday</span>
-                  <span class="time">09:00 — 18:30</span>
+                  <span class="time">9:00 AM — 6:00 PM</span>
                 </div>
                 <div class="hours-item">
                   <span class="day">Saturday</span>
-                  <span class="time">By Appointment</span>
+                  <span class="time">9:00 AM — 3:00 PM</span>
                 </div>
                 <div class="hours-item">
                   <span class="day">Sunday</span>

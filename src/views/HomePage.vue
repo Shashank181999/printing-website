@@ -21,7 +21,7 @@
 
     <!-- Products Showcase -->
     <section class="products-showcase" ref="productsShowcase">
-      <div class="container">
+      <div class="showcase-wide">
         <div class="showcase-header">
           <div>
             <span class="showcase-eyebrow">OUR PRODUCTS</span>
@@ -2119,6 +2119,11 @@ onUnmounted(() => {
 .products-showcase {
   padding: 80px 0;
   background: var(--bg-primary);
+}
+
+.showcase-wide {
+  width: 90%;
+  margin: 0 auto;
 }
 
 .showcase-header {
