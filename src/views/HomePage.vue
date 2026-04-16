@@ -90,7 +90,7 @@
           <h2 class="welcome-title">More Than a Company —<br><em>Your Partners</em> in Print</h2>
           <p class="welcome-desc">
             At AFME, we are more than just a printing company — we are your partners in
-            transforming ideas into tangible realities. With 50 years of expertise across
+            transforming ideas into tangible realities. With 5 years of expertise across
             printing, branding and advertising, we help businesses communicate effectively,
             stand out in the market and build meaningful connections with their audiences.
           </p>
@@ -100,11 +100,11 @@
           </div>
           <div class="welcome-stats">
             <div class="welcome-stat">
-              <strong>50</strong><span>Years of<br>Experience</span>
+              <strong>5</strong><span>Years of<br>Experience</span>
               <div class="stat-bar"><div class="stat-bar-fill" style="--fill: 100%"></div></div>
             </div>
             <div class="welcome-stat">
-              <strong>8</strong><span>Service<br>Verticals</span>
+              <strong>4+</strong><span>Service<br>Verticals</span>
               <div class="stat-bar"><div class="stat-bar-fill" style="--fill: 80%"></div></div>
             </div>
             <div class="welcome-stat">
@@ -122,7 +122,7 @@
               <img src="/hero/pomelli_photoshoot-4.png" alt="3D label printing press" />
             </div>
             <div class="welcome-floating-card">
-              <div class="welcome-floating-num">50+</div>
+              <div class="welcome-floating-num">5+</div>
               <div>
                 <strong>Years</strong>
                 <span>Trusted in UAE</span>
@@ -693,7 +693,7 @@ const categoryStrip = [
 const whyPoints = [
   {
     title: 'Expertise',
-    desc: 'Five decades of know-how across printing, branding and advertising — we have seen it all.',
+    desc: '5 years of know-how across printing, branding and advertising — we have seen it all.',
     icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
   },
   {
@@ -744,7 +744,7 @@ const trustFeatures = [
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
   },
   {
-    title: 'Free Design Support',
+    title: 'Design Support',
     desc: 'Our design team helps bring your vision to life',
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>',
   },

@@ -9,7 +9,7 @@
           <h1 class="hero-heading">More Than a Company —<br><em>Your Partners</em> in Print</h1>
           <p class="hero-description">
             At AFME, we are more than just a printing company — we are your partners in
-            transforming ideas into tangible realities. With 50 years of expertise across
+            transforming ideas into tangible realities. With 5 years of expertise across
             printing, branding, and advertising, we help businesses communicate effectively,
             stand out in the market, and build meaningful connections with their audiences.
           </p>
@@ -112,7 +112,7 @@
       <div class="section-container">
         <h2 class="cta-heading">Ready to Start Your Project?</h2>
         <p class="cta-subtext">
-          Let us bring your vision to life with five decades of printing expertise.
+          Let us bring your vision to life with 5 years of printing expertise.
         </p>
         <div class="cta-buttons">
           <button class="btn-cta-primary" @click="openServiceForm">Get Quote</button>
@@ -134,8 +134,8 @@ gsap.registerPlugin(ScrollTrigger)
 const openServiceForm = inject('openServiceForm')
 
 const stats = [
-  { number: '50', label: 'Years of Experience' },
-  { number: '8', label: 'Service Verticals' },
+  { number: '5', label: 'Years of Experience' },
+  { number: '4', label: 'Service Verticals' },
   { number: '1000+', label: 'Projects Delivered' },
   { number: '24/7', label: 'Production Support' }
 ]
@@ -172,7 +172,7 @@ const features = [
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
     title: 'Trusted Since 1974',
-    description: '50 years of expertise across printing, branding and advertising — making us one of the most established names in the Middle East print industry.'
+    description: '5 years of expertise across printing, branding and advertising — making us one of the most established names in the Middle East print industry.'
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',

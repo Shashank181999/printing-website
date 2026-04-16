@@ -42,18 +42,18 @@
         <!-- kicker removed -->
         <h2 class="ss-heading">PRINT YOUR <em>VISION</em></h2>
         <p class="ss-body">
-          Five decades turning ideas into things you can hold, wear and walk
+          Five years turning ideas into things you can hold, wear and walk
           through. Dubai's trusted studio for print, branding and advertising.
         </p>
         <div class="ss-stats">
           <div class="ss-stat">
-            <strong>50</strong><span>Years</span>
+            <strong>5</strong><span>Years</span>
           </div>
           <div class="ss-stat">
             <strong>1K+</strong><span>Brands</span>
           </div>
           <div class="ss-stat">
-            <strong>8</strong><span>Verticals</span>
+            <strong>4</strong><span>Verticals</span>
           </div>
         </div>
       </div>

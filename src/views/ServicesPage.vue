@@ -14,7 +14,7 @@
         </h1>
         <p class="services-lede">
           A complete suite of printing, branding and advertising solutions —
-          delivered by 50 years of Middle East expertise. From a single business card
+          delivered by 5 years of Middle East expertise. From a single business card
           to a full brand activation, AFME is your end-to-end partner.
         </p>
         <div class="services-actions">
@@ -126,8 +126,8 @@
             deliver quality that speaks for itself.
           </p>
           <div class="what-stats">
-            <div class="what-stat"><strong>50</strong><span>Years of Experience</span></div>
-            <div class="what-stat"><strong>8</strong><span>Service Verticals</span></div>
+            <div class="what-stat"><strong>5</strong><span>Years of Experience</span></div>
+            <div class="what-stat"><strong>4</strong><span>Service Verticals</span></div>
             <div class="what-stat"><strong>1000+</strong><span>Happy Clients</span></div>
           </div>
         </div>
