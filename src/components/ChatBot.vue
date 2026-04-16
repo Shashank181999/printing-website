@@ -174,7 +174,7 @@ const botReply = (userText) => {
     return 'Corporate gifting solutions: Welcome Kits, Branded Merchandise, Award Trophies, Gift Boxes, Lanyards, Badges, and custom promotional items. Perfect for client appreciation and team events.' + whatsappNudge
   }
   if (text.includes('contact') || text.includes('phone') || text.includes('email') || text.includes('address') || text.includes('location') || text.includes('where')) {
-    return 'Reach us at:\n📞 +971 56 726 8735\n📧 info@alfalah-me.com\n📍 Dubai, UAE\n⏰ Mon-Fri: 9:00 AM - 6:30 PM\n\nOr chat on WhatsApp: wa.me/971567268735'
+    return 'Reach us at:\n📞 +971 56 726 8735\n📧 sales@alfalah-me.com\n📍 Dubai, UAE\n⏰ Mon-Fri: 9:00 AM - 6:00 PM, Sat: 9:00 AM - 4:00 PM\n\nOr chat on WhatsApp: wa.me/971567268735'
   }
   if (text.includes('delivery') || text.includes('shipping') || text.includes('time') || text.includes('fast') || text.includes('urgent')) {
     return 'Standard delivery: 3-5 business days. Rush/express available for most products. We deliver across all UAE emirates and ship internationally to 15+ countries.' + whatsappNudge
@@ -189,7 +189,7 @@ const botReply = (userText) => {
     return 'You\'re welcome! Happy to help. For any future inquiries, we\'re always here. You can also reach us on WhatsApp: wa.me/971567268735'
   }
   if (text.includes('whatsapp') || text.includes('chat') || text.includes('talk') || text.includes('human') || text.includes('person') || text.includes('agent')) {
-    return 'Connect with our team directly on WhatsApp for instant support: wa.me/971567268735\n\nOr call us at +971 56 726 8735. We\'re available Mon-Fri, 9 AM - 6:30 PM.'
+    return 'Connect with our team directly on WhatsApp for instant support: wa.me/971567268735\n\nOr call us at +971 56 726 8735. We\'re available Mon-Fri 9 AM - 6 PM, Sat 9 AM - 4 PM.'
   }
 
   return 'I can help with info about our products (Business Cards, Banners, Packaging, Apparel, Signage, Labels), pricing, delivery, or services. What would you like to know?' + whatsappNudge

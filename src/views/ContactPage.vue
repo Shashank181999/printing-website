@@ -76,7 +76,7 @@
                 </div>
                 <div class="card-content">
                   <h3>Email Us</h3>
-                  <p>info@alfalah-me.com</p>
+                  <p>sales@alfalah-me.com</p>
                 </div>
               </div>
             </div>
@@ -91,7 +91,7 @@
                 </div>
                 <div class="hours-item">
                   <span class="day">Saturday</span>
-                  <span class="time">9:00 AM — 3:00 PM</span>
+                  <span class="time">9:00 AM — 4:00 PM</span>
                 </div>
                 <div class="hours-item">
                   <span class="day">Sunday</span>
