@@ -5,7 +5,6 @@
       <router-view v-slot="{ Component, route }">
         <transition
           :css="false"
-          mode="out-in"
           @before-enter="onBeforeEnter"
           @enter="onEnter"
           @leave="onLeave"
@@ -75,8 +74,9 @@ onBeforeUnmount(() => {
   window.__lenis = null
 })
 
-// ---------- Smooth page transitions ----------
+// ---------- Fast page transitions ----------
 let isFirstLoad = true
+let refreshTimer = null
 
 const onBeforeEnter = (el) => {
   if (isFirstLoad) {
@@ -91,30 +91,32 @@ const router = useRouter()
 
 const onEnter = (el, done) => {
   if (el.style.opacity === '1') {
-    ScrollTrigger.refresh()
+    // Defer ScrollTrigger refresh off the critical path
+    if (refreshTimer) clearTimeout(refreshTimer)
+    refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 50)
     done()
     return
   }
   window.scrollTo(0, 0)
   if (lenis) lenis.scrollTo(0, { immediate: true, force: true })
   gsap.to(el, {
-    opacity: 1, duration: 0.4, ease: 'power2.out',
+    opacity: 1, duration: 0.15, ease: 'power2.out',
     onComplete: () => {
-      ScrollTrigger.refresh()
+      // Defer expensive ScrollTrigger refresh so page appears instantly
+      if (refreshTimer) clearTimeout(refreshTimer)
+      refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 50)
       const hash = router.currentRoute.value.hash
       if (hash) {
         nextTick(() => {
-          setTimeout(() => {
-            const target = document.querySelector(hash)
-            if (target) {
-              const top = target.getBoundingClientRect().top + window.scrollY - 80
-              if (lenis) {
-                lenis.scrollTo(top, { duration: 1 })
-              } else {
-                window.scrollTo({ top, behavior: 'smooth' })
-              }
+          const target = document.querySelector(hash)
+          if (target) {
+            const top = target.getBoundingClientRect().top + window.scrollY - 80
+            if (lenis) {
+              lenis.scrollTo(top, { duration: 1 })
+            } else {
+              window.scrollTo({ top, behavior: 'smooth' })
             }
-          }, 100)
+          }
         })
       }
       done()
@@ -124,7 +126,7 @@ const onEnter = (el, done) => {
 
 const onLeave = (el, done) => {
   gsap.to(el, {
-    opacity: 0, duration: 0.3, ease: 'power2.inOut', onComplete: done,
+    opacity: 0, duration: 0.1, ease: 'power2.inOut', onComplete: done,
   })
 }
 </script>

@@ -168,33 +168,36 @@ onMounted(() => {
   window.addEventListener('scroll', handleScroll, { passive: true })
   handleScroll()
 
-  // Delay animations to start after preloader (2s preloader + 0.2s buffer)
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.2 })
+  // Only animate header on first visit, not on every page navigation
+  if (!window.__headerAnimated) {
+    window.__headerAnimated = true
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.2 })
 
-  tl.fromTo(headerRef.value,
-    { y: -100 },
-    { y: 0, duration: 1, ease: 'power4.out' }
-  )
-  .fromTo('.logo-image',
-    { scale: 0.8, opacity: 0 },
-    { scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.5)' },
-    '-=0.6'
-  )
-  .fromTo('.logo-text > *',
-    { x: -20, opacity: 0 },
-    { x: 0, opacity: 1, duration: 0.5, stagger: 0.1 },
-    '-=0.4'
-  )
-  .fromTo('.nav-links li',
-    { y: -20, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 },
-    '-=0.4'
-  )
-  .fromTo('.header-actions > *',
-    { y: -20, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 },
-    '-=0.3'
-  )
+    tl.fromTo(headerRef.value,
+      { y: -100 },
+      { y: 0, duration: 1, ease: 'power4.out' }
+    )
+    .fromTo('.logo-image',
+      { scale: 0.8, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.5)' },
+      '-=0.6'
+    )
+    .fromTo('.logo-text > *',
+      { x: -20, opacity: 0 },
+      { x: 0, opacity: 1, duration: 0.5, stagger: 0.1 },
+      '-=0.4'
+    )
+    .fromTo('.nav-links li',
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 },
+      '-=0.4'
+    )
+    .fromTo('.header-actions > *',
+      { y: -20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 },
+      '-=0.3'
+    )
+  }
 })
 
 onUnmounted(() => {
