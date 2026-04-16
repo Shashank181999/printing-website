@@ -323,7 +323,7 @@
               <span class="press-led press-led--yellow"></span>
               <span class="press-led press-led--red"></span>
             </div>
-            <div class="press-photo-label">AL FALAH PRINT 4.0</div>
+            <div class="press-photo-label"></div>
           </div>
           <div class="press-photo-thumb">
             <img src="/hero/pomelli_photoshoot-4.png" alt="3D label printing press" />

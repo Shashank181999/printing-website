@@ -39,7 +39,7 @@
 
       <!-- ====== CHAPTER 1 — PRINT YOUR VISION ====== -->
       <div class="ss-panel ss-panel--left" ref="panel1El">
-        <span class="ss-kicker">Section 01 · Al Falah Studio</span>
+        <!-- kicker removed -->
         <h2 class="ss-heading">PRINT YOUR <em>VISION</em></h2>
         <p class="ss-body">
           Five decades turning ideas into things you can hold, wear and walk
@@ -60,7 +60,7 @@
 
       <!-- ====== CHAPTER 2 — CRAFTED TO PERFECTION ====== -->
       <div class="ss-panel ss-panel--right" ref="panel2El">
-        <span class="ss-kicker">Section 02 · The Press</span>
+        <!-- kicker removed -->
         <h2 class="ss-heading">CRAFTED TO <em>PERFECTION</em></h2>
         <p class="ss-body">
           CMYK calibrated to a hair, presses tuned by hand, soft-touch finishes
@@ -85,7 +85,7 @@
       <!-- ====== CHAPTER 3 — BUILT TO BE SEEN ====== -->
       <div class="ss-panel ss-panel--final" ref="panel3El">
         <div class="ss-final-inner">
-          <span class="ss-kicker">Section 03 · Begin the Story</span>
+          <!-- kicker removed -->
           <h2 class="ss-heading ss-heading--large">BUILT TO BE <em>SEEN</em></h2>
           <p class="ss-body">
             Cards, brochures, packaging, banners, neon, apparel, vehicles —
@@ -156,9 +156,8 @@ const activeChapter = ref(0)
 let ctx // GSAP context for clean teardown
 
 onMounted(() => {
-  // Mobile: skip all animation, show static chapter 1
+  // Mobile: animated hero entrance, no scroll-scrub
   if (window.innerWidth <= 768) {
-    // Don't use gsap.set on panel1 — it overwrites CSS transform: translateY(-50%)
     panel1El.value.style.opacity = '1'
     panel2El.value.style.opacity = '0'
     panel3El.value.style.opacity = '0'
@@ -166,6 +165,31 @@ onMounted(() => {
     bg2El.value.style.opacity = '0'
     bg3El.value.style.opacity = '0'
     if (scrollCueEl.value) scrollCueEl.value.style.opacity = '0'
+
+    // Printer entrance: drop in with 3D rotation + bounce
+    const hero = heroEl.value
+    if (hero) {
+      gsap.set(hero, { opacity: 0, y: -60, scale: 0.8, rotateX: 15 })
+      gsap.to(hero, {
+        opacity: 1, y: 0, scale: 1, rotateX: 0,
+        duration: 1, ease: 'back.out(1.4)', delay: 0.3,
+      })
+      // Continuous subtle float
+      gsap.to(hero, {
+        y: '-=10', duration: 2.5, ease: 'sine.inOut',
+        yoyo: true, repeat: -1, delay: 1.3,
+      })
+    }
+
+    // Text entrance: stagger fade up
+    const textEls = panel1El.value?.querySelectorAll('.ss-heading, .ss-body, .ss-stats, .ss-features')
+    if (textEls?.length) {
+      gsap.set(textEls, { opacity: 0, y: 20 })
+      gsap.to(textEls, {
+        opacity: 1, y: 0, duration: 0.5, stagger: 0.12,
+        ease: 'power2.out', delay: 0.8,
+      })
+    }
     return
   }
 
@@ -612,11 +636,11 @@ onBeforeUnmount(() => {
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: #4AABDE;
-  padding: 8px 18px;
-  border: 1px solid rgba(74, 171, 222, 0.35);
-  border-radius: 100px;
+  padding: 8px 0;
+  border: none;
+  border-radius: 0;
   margin-bottom: 24px;
-  background: rgba(74, 171, 222, 0.08);
+  background: transparent;
   backdrop-filter: blur(6px);
 }
 
@@ -845,54 +869,115 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 768px) {
-  /* Static hero — no scroll */
-  .scroll-story { height: auto; }
-  .scroll-story__stage { position: relative; height: 100svh; min-height: 600px; }
-  .ss-hero-perspective,
+  /* Static hero — 100vh, stacked: big printer image on top, text below */
+  .scroll-story { height: auto !important; }
+  .scroll-story__stage {
+    position: relative !important;
+    height: 100vh !important;
+    height: 100svh !important;
+    min-height: 600px;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 24px;
+    padding: 90px 24px 36px !important;
+    overflow: hidden;
+  }
+  .ss-bg { position: absolute !important; inset: 0; z-index: 0; }
   .ss-progress,
   .ss-scroll-cue,
   .ss-panel--right,
   .ss-panel--final { display: none !important; }
+
+  /* Printer image — bigger and prominent */
+  .ss-hero-perspective {
+    display: block !important;
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    width: 75% !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+    perspective: 800px !important;
+    flex-shrink: 0;
+    z-index: 10;
+  }
+  .ss-hero {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform-style: preserve-3d;
+    width: 100% !important;
+  }
+  .ss-hero-img {
+    width: 100% !important;
+    height: auto !important;
+    filter: drop-shadow(0 20px 50px rgba(74, 171, 222, 0.25))
+           drop-shadow(0 8px 20px rgba(0,0,0,0.4));
+  }
+  .ss-hero-glow,
+  .ss-hero-shadow { display: none !important; }
+  .hero-ink-drips { display: none !important; }
+
+  /* Text content below image */
+  .ss-panel {
+    position: relative !important;
+    inset: auto !important;
+    transform: none !important;
+    max-width: none !important;
+    width: 100% !important;
+  }
   .ss-panel--left {
-    left: 24px; right: 24px;
-    top: 50%; bottom: auto;
-    transform: translateY(-50%);
-    max-width: none; text-align: left;
+    text-align: center;
+    padding: 0 !important;
+    opacity: 1 !important;
+    flex-shrink: 0;
+    z-index: 10;
   }
   .ss-heading {
-    font-size: clamp(44px, 13vw, 72px);
+    font-size: clamp(40px, 12vw, 64px);
     line-height: 0.9;
-    margin-bottom: 20px;
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
   }
-  .ss-kicker {
-    font-size: 11px;
-    padding: 8px 16px;
-    margin-bottom: 20px;
+  .ss-heading em {
+    color: #4AABDE;
   }
   .ss-body {
-    font-size: 16px;
-    line-height: 1.7;
-    margin-bottom: 28px;
-    color: rgba(255,255,255,0.8);
+    font-size: 15px;
+    line-height: 1.65;
+    margin-bottom: 24px;
+    color: rgba(255,255,255,0.75);
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .ss-stats {
+    justify-content: center;
     gap: 32px;
-    margin-bottom: 32px;
+    margin-bottom: 0;
+    padding: 16px 0;
+    border-top: 1px solid rgba(255,255,255,0.08);
   }
-  .ss-stat strong { font-size: 44px; }
-  .ss-stat span { font-size: 11px; }
-  .ss-features { grid-template-columns: 1fr; }
-  /* Show CTA buttons on mobile hero */
-  .ss-panel--left .ss-cta { display: none; }
+  .ss-stat strong {
+    font-size: 40px;
+    background: linear-gradient(135deg, #fff, #4AABDE);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .ss-stat span { font-size: 10px; letter-spacing: 0.15em; }
+  .ss-features { display: none !important; }
+  .ss-panel--left .ss-cta { display: none !important; }
 }
 
 @media (max-width: 480px) {
-  .scroll-story__stage { min-height: 100svh; }
-  .ss-panel--left { left: 20px; right: 20px; }
-  .ss-heading { font-size: clamp(38px, 11vw, 56px); }
-  .ss-body { font-size: 15px; }
-  .ss-stats { gap: 24px; }
-  .ss-stat strong { font-size: 38px; }
-  .ss-kicker { font-size: 10px; padding: 7px 14px; }
+  .scroll-story__stage { padding: 80px 20px 28px !important; gap: 18px; }
+  .ss-hero-perspective { width: 70% !important; max-width: 280px !important; }
+  .ss-heading { font-size: clamp(34px, 11vw, 52px); }
+  .ss-body { font-size: 14px; margin-bottom: 18px; }
+  .ss-stats { gap: 24px; padding: 12px 0; }
+  .ss-stat strong { font-size: 34px; }
 }
 </style>

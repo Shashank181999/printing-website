@@ -12,7 +12,7 @@
         :class="['story-text', { active: activeIndex === i }]"
       >
         <div class="story-text-inner">
-          <span class="story-kicker">{{ s.kicker }}</span>
+          <!-- kicker removed -->
           <h2 class="story-title" v-html="s.title"></h2>
           <p class="story-desc">{{ s.desc }}</p>
           <div v-if="s.cta" class="story-cta">
@@ -1143,9 +1143,9 @@ onBeforeUnmount(() => {
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: #c9a227;
-  padding: 9px 20px;
-  border: 1px solid rgba(201, 162, 39, 0.5);
-  border-radius: 100px;
+  padding: 9px 0;
+  border: none;
+  border-radius: 0;
   margin-bottom: 28px;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
