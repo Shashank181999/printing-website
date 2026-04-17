@@ -16,6 +16,9 @@
         <div class="footer-grid">
           <!-- Brand Column -->
           <div class="footer-brand">
+            <router-link to="/" class="footer-logo" aria-label="Al Falah Middle East — Home">
+              <img :src="logoImage" alt="Al Falah Middle East" class="footer-logo-image" />
+            </router-link>
             <div class="brand-info">
               <h3 class="brand-name">Al Falah Middle East</h3>
               <p class="brand-desc">
@@ -154,6 +157,7 @@
 import { ref, computed, onMounted } from 'vue'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import logoImage from '@/assets/logo.png'
 
 gsap.registerPlugin(ScrollTrigger)
 

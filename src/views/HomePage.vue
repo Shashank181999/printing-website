@@ -51,6 +51,9 @@
       </div>
     </section>
 
+    <!-- Poster Carousel -->
+    <PosterCarousel />
+
     <!-- 2. Category Strip -->
     <section class="category-strip">
       <div class="category-scroll-wrap">
@@ -486,6 +489,7 @@ import { useRouter } from 'vue-router'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import HomeStory from '../components/HomeStory.vue'
+import PosterCarousel from '../components/PosterCarousel.vue'
 
 gsap.registerPlugin(ScrollTrigger)
 

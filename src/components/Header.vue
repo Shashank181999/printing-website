@@ -8,8 +8,12 @@
             <img :src="logoImage" alt="Al Falah Middle East" class="logo-image" />
           </div>
           <div class="logo-text">
-            <span class="logo-name">Al Falah</span>
-            <span class="logo-tagline">Middle East FZ LLC</span>
+            <span class="logo-name" aria-label="Al Falah">
+              <span v-for="(ch, i) in 'Al Falah'.split('')" :key="i" class="char-mask">
+                <span class="char">{{ ch === ' ' ? '\u00A0' : ch }}</span>
+              </span>
+            </span>
+            <span class="logo-tagline">Middle East</span>
           </div>
         </router-link>
 
@@ -171,31 +175,35 @@ onMounted(() => {
   // Only animate header on first visit, not on every page navigation
   if (!window.__headerAnimated) {
     window.__headerAnimated = true
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.2 })
+    // Header bar is visible from frame 1 — animate only its contents.
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-    tl.fromTo(headerRef.value,
-      { y: -100 },
-      { y: 0, duration: 1, ease: 'power4.out' }
+    // Logo image: 3D flip + scale
+    tl.fromTo('.logo-image',
+      { scale: 0, opacity: 0, rotationY: -180, transformPerspective: 600 },
+      { scale: 1, opacity: 1, rotationY: 0, duration: 1.0, ease: 'back.out(1.4)' }
     )
-    .fromTo('.logo-image',
-      { scale: 0.8, opacity: 0 },
-      { scale: 1, opacity: 1, duration: 0.8, ease: 'back.out(1.5)' },
+    // "Al Falah" — each letter slides up from beneath a mask
+    .fromTo('.logo-name .char',
+      { yPercent: 110, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.5, stagger: 0.04, ease: 'power3.out' },
       '-=0.6'
     )
-    .fromTo('.logo-text > *',
-      { x: -20, opacity: 0 },
-      { x: 0, opacity: 1, duration: 0.5, stagger: 0.1 },
-      '-=0.4'
+    // Tagline: blur-to-sharp fade in
+    .fromTo('.logo-tagline',
+      { opacity: 0, filter: 'blur(6px)', y: 6 },
+      { opacity: 1, filter: 'blur(0px)', y: 0, duration: 0.5, ease: 'power2.out' },
+      '-=0.25'
     )
     .fromTo('.nav-links li',
-      { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.4, stagger: 0.06 },
-      '-=0.4'
+      { y: -12, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.35, stagger: 0.05 },
+      '-=0.8'
     )
     .fromTo('.header-actions > *',
-      { y: -20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 },
-      '-=0.3'
+      { y: -12, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.35, stagger: 0.08 },
+      '-=0.6'
     )
   }
 })
@@ -309,6 +317,18 @@ onUnmounted(() => {
   font-weight: 600;
   color: var(--text-primary);
   line-height: 1.1;
+  display: inline-flex;
+}
+
+.logo-name .char-mask {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.1;
+}
+
+.logo-name .char {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
 .logo-tagline {
