@@ -6,6 +6,7 @@
         <router-link to="/" class="logo" @click="closeMobileMenu">
           <div class="logo-img-wrapper">
             <img :src="logoImage" alt="Al Falah Middle East" class="logo-image" />
+            <span class="logo-shine" aria-hidden="true"></span>
           </div>
           <div class="logo-text">
             <span class="logo-name" aria-label="Al Falah">
@@ -205,8 +206,37 @@ onMounted(() => {
       { y: 0, opacity: 1, duration: 0.35, stagger: 0.08 },
       '-=0.6'
     )
+    .add(() => startLogoIdle(), '+=0.1')
+  } else {
+    startLogoIdle()
   }
 })
+
+// Continuous subtle idle animation on the logo after the intro completes.
+// Gentle "breathing" float + a periodic shine sweep.
+function startLogoIdle() {
+  const img = document.querySelector('.logo-image')
+  const shine = document.querySelector('.logo-shine')
+  if (!img || !shine) return
+
+  // Breathing float: small Y bob + tiny scale pulse. Loops forever.
+  gsap.to(img, {
+    y: -3,
+    scale: 1.03,
+    duration: 2.2,
+    ease: 'sine.inOut',
+    yoyo: true,
+    repeat: -1,
+  })
+
+  // Shine sweep: runs every ~5s.
+  const shineTl = gsap.timeline({ repeat: -1, repeatDelay: 4 })
+  shineTl
+    .set(shine, { xPercent: -120, opacity: 0 })
+    .to(shine, { opacity: 1, duration: 0.15 })
+    .to(shine, { xPercent: 120, duration: 1.1, ease: 'power2.inOut' }, '<')
+    .to(shine, { opacity: 0, duration: 0.2 }, '-=0.25')
+}
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
@@ -289,20 +319,39 @@ onUnmounted(() => {
 }
 
 .logo-img-wrapper {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 8px;
 }
 
 .logo-image {
   height: 56px;
   width: auto;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
 }
 
-.logo:hover .logo-image {
-  transform: scale(1.05);
+.logo-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.55) 50%,
+    rgba(255, 255, 255, 0) 70%,
+    transparent 100%
+  );
+  filter: blur(1px);
+  pointer-events: none;
+  opacity: 0;
+  mix-blend-mode: screen;
 }
 
 .logo-text {
