@@ -509,10 +509,10 @@ const approachSection = ref(null)
 const productsShowcase = ref(null)
 
 const popularProducts = [
-  { slug: 'product-labels-stickers', name: 'Product Labels & Stickers', category: 'Labels & Stickers' },
+  { slug: 'product-labels-and-stickers', name: 'Product Labels & Stickers', category: 'Labels & Stickers' },
   { slug: 'rigid-box-packaging', name: 'Rigid Box Packaging', category: 'Packaging' },
   { slug: 'neon-signage', name: 'Custom Neon Signage', category: 'Signage' },
-  { slug: 'custom-t-shirts', name: 'Custom T-Shirts', category: 'Apparel' },
+  { slug: 'polo-t-shirt', name: 'Custom T-Shirts', category: 'Apparel' },
   { slug: 'roll-up-banners', name: 'Roll-Up Banners', category: 'Banners' },
   { slug: 'company-profile', name: 'Company Profile', category: 'Printing' },
   { slug: 'vehicle-branding', name: 'Vehicle Branding', category: 'Branding' },
@@ -601,11 +601,11 @@ watch(coverflowProduct, (val) => {
   }
 })
 const coverflowItems = [
-  { slug: 'product-labels-stickers', name: 'Product Labels & Stickers', category: 'Labels & Stickers' },
+  { slug: 'product-labels-and-stickers', name: 'Product Labels & Stickers', category: 'Labels & Stickers' },
   { slug: 'neon-signage', name: 'Custom Neon Signage', category: 'Signage' },
   { slug: 'rigid-box-packaging', name: 'Rigid Box Packaging', category: 'Packaging' },
   { slug: 'nfcsmart-business-card', name: 'NFC Smart Business Card', category: 'Business Cards' },
-  { slug: 'custom-t-shirts', name: 'Custom T-Shirts', category: 'Apparel' },
+  { slug: 'polo-t-shirt', name: 'Custom T-Shirts', category: 'Apparel' },
   { slug: 'vehicle-branding', name: 'Vehicle Branding', category: 'Branding' },
   { slug: 'roll-up-banners', name: 'Roll-Up Banners', category: 'Banners' },
   { slug: 'metal-business-cards', name: 'Metal Business Cards', category: 'Business Cards' },
@@ -688,7 +688,7 @@ const categoryStrip = [
   { name: 'Packaging', slug: 'rigid-box-packaging' },
   { name: 'Signage & Banners', slug: 'roll-up-banners' },
   { name: 'Branding & Displays', slug: 'vehicle-branding' },
-  { name: 'Apparel', slug: 'custom-t-shirts' },
+  { name: 'Apparel', slug: 'polo-t-shirt' },
   { name: 'Awards & Gifts', slug: 'badgesmedallions' },
   { name: 'Signage & Letters', slug: '3d-metal-letters-signage' },
 ]
