@@ -2674,13 +2674,13 @@ onUnmounted(() => {
   position: absolute;
   top: -40px;
   left: var(--left);
-  width: 2px;
-  height: 60px;
-  border-radius: 0 0 2px 2px;
-  filter: blur(0);
-  opacity: 0.5;
-  animation: inkDropFall 5s var(--delay) linear infinite;
+  width: 3px;
+  height: 46px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  opacity: 0;
+  animation: inkDropFall 5s var(--delay) cubic-bezier(0.45, 0, 0.9, 0.35) infinite;
   transform-origin: top center;
+  will-change: top, opacity, transform;
 }
 
 .ink-drop::after {
@@ -2697,16 +2697,32 @@ onUnmounted(() => {
   animation: inkSplash 5s var(--delay) linear infinite;
 }
 
-.ink-drop--c { background: #00aeef; color: #00aeef; }
-.ink-drop--m { background: #ec008c; color: #ec008c; }
-.ink-drop--y { background: #fff200; color: #fff200; }
-.ink-drop--k { background: #2a2a2a; color: #555; }
+.ink-drop--c {
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 174, 239, 0.25) 40%, #00aeef 100%);
+  filter: drop-shadow(0 0 3px rgba(0, 174, 239, 0.7));
+  color: #00aeef;
+}
+.ink-drop--m {
+  background: linear-gradient(to bottom, transparent 0%, rgba(236, 0, 140, 0.25) 40%, #ec008c 100%);
+  filter: drop-shadow(0 0 3px rgba(236, 0, 140, 0.7));
+  color: #ec008c;
+}
+.ink-drop--y {
+  background: linear-gradient(to bottom, transparent 0%, rgba(255, 242, 0, 0.25) 40%, #fff200 100%);
+  filter: drop-shadow(0 0 3px rgba(255, 242, 0, 0.7));
+  color: #fff200;
+}
+.ink-drop--k {
+  background: linear-gradient(to bottom, transparent 0%, rgba(157, 179, 201, 0.2) 40%, #9db3c9 100%);
+  filter: drop-shadow(0 0 3px rgba(157, 179, 201, 0.6));
+  color: #9db3c9;
+}
 
 @keyframes inkDropFall {
-  0%   { top: -5%;  opacity: 0;   transform: scaleY(1); }
-  8%   { opacity: 0.55; }
-  74%  { top: 86%;  opacity: 0.55; transform: scaleY(1); }
-  78%  { top: 89%;  opacity: 0.3;  transform: scaleY(0.2); }
+  0%   { top: -5%;  opacity: 0;    transform: scaleY(1); }
+  6%   { opacity: 0.9; }
+  74%  { top: 86%;  opacity: 0.9;  transform: scaleY(1); }
+  78%  { top: 89%;  opacity: 0.5;  transform: scaleY(0.25); }
   80%  { top: 89%;  opacity: 0;    transform: scaleY(0); }
   100% { top: 89%;  opacity: 0;    transform: scaleY(0); }
 }
