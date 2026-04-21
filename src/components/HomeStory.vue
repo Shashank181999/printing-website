@@ -32,6 +32,16 @@
             <div class="hero-ink hero-ink--magenta" style="--x: 30%; --delay: 1s; --dur: 3.8s; --size: 4px;"></div>
             <div class="hero-ink hero-ink--yellow"  style="--x: 65%; --delay: 3.2s; --dur: 2.6s; --size: 3px;"></div>
             <div class="hero-ink hero-ink--key"     style="--x: 35%; --delay: 2.2s; --dur: 3.6s; --size: 3px;"></div>
+
+            <!-- Surface splash (ripple + beads) per drop -->
+            <span class="hero-splash hero-splash--cyan"    style="--x: 22%; --delay: 0s; --dur: 3.2s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
+            <span class="hero-splash hero-splash--magenta" style="--x: 40%; --delay: 1.4s; --dur: 2.8s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
+            <span class="hero-splash hero-splash--yellow"  style="--x: 55%; --delay: 0.6s; --dur: 3.5s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
+            <span class="hero-splash hero-splash--key"     style="--x: 72%; --delay: 2s;   --dur: 3s;"  ><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
+            <span class="hero-splash hero-splash--cyan"    style="--x: 48%; --delay: 2.6s; --dur: 3.4s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
+            <span class="hero-splash hero-splash--magenta" style="--x: 30%; --delay: 1s;   --dur: 3.8s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
+            <span class="hero-splash hero-splash--yellow"  style="--x: 65%; --delay: 3.2s; --dur: 2.6s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
+            <span class="hero-splash hero-splash--key"     style="--x: 35%; --delay: 2.2s; --dur: 3.6s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
           </div>
           <div class="ss-hero-shadow" ref="shadowEl"></div>
         </div>
@@ -521,15 +531,97 @@ onBeforeUnmount(() => {
   0%   { top: 38%; opacity: 0; transform: scaleY(0.5) scaleX(1); }
   4%   { opacity: 0.9; transform: scaleY(1) scaleX(0.85); }
   50%  { top: 70%; opacity: 0.85; transform: scaleY(1.8) scaleX(0.65); }
-  90%  { top: 100%; opacity: 0.4; transform: scaleY(1.2) scaleX(0.8); }
-  95%  { opacity: 0; transform: scaleY(0.2) scaleX(2); }
-  100% { top: 100%; opacity: 0; transform: scaleY(0.1) scaleX(2.5); }
+  84%  { top: 92%; opacity: 0.9; transform: scaleY(1.2) scaleX(0.9); }
+  88%  { top: 94%; opacity: 0;  transform: scaleY(0.15) scaleX(2); }
+  100% { top: 94%; opacity: 0;  transform: scaleY(0) scaleX(0); }
 }
 
 @keyframes inkSplash {
   0%, 85% { width: 0; height: 0; opacity: 0; }
   90%     { width: 16px; height: 4px; opacity: 0.5; }
   100%    { width: 24px; height: 1px; opacity: 0; }
+}
+
+/* ── Surface splash: ripple rings + flying beads, synced to each drop ── */
+.hero-splash {
+  position: absolute;
+  left: var(--x);
+  top: 94%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.hero-splash--cyan    { color: #00eaff; }
+.hero-splash--magenta { color: #ff4dbf; }
+.hero-splash--yellow  { color: #ffe44d; }
+.hero-splash--key     { color: #9db6c8; }
+
+.hero-ripple {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 36px;
+  height: 14px;
+  margin-left: -18px;
+  border: 2px solid currentColor;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: center bottom;
+  box-shadow: 0 0 10px currentColor;
+  animation: heroSplashRipple var(--dur, 3s) var(--delay, 0s) ease-out infinite;
+}
+
+.hero-ripple-2 {
+  width: 60px;
+  height: 22px;
+  margin-left: -30px;
+  border-width: 1px;
+  animation: heroSplashRipple2 var(--dur, 3s) var(--delay, 0s) ease-out infinite;
+}
+
+@keyframes heroSplashRipple {
+  0%, 86% { transform: scale(0); opacity: 0; }
+  89%     { transform: scale(0.25); opacity: 1; }
+  95%     { transform: scale(1); opacity: 0.7; }
+  100%    { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes heroSplashRipple2 {
+  0%, 88% { transform: scale(0); opacity: 0; }
+  91%     { transform: scale(0.3); opacity: 0.8; }
+  100%    { transform: scale(1.4); opacity: 0; }
+}
+
+.hero-bead {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 6px currentColor;
+  opacity: 0;
+}
+
+.hero-bead--l { animation: heroSplashBeadL var(--dur, 3s) var(--delay, 0s) cubic-bezier(0.3, 0.7, 0.4, 1) infinite; }
+.hero-bead--r { animation: heroSplashBeadR var(--dur, 3s) var(--delay, 0s) cubic-bezier(0.3, 0.7, 0.4, 1) infinite; }
+
+@keyframes heroSplashBeadL {
+  0%, 86%  { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  89%      { transform: translate(0, 0) scale(1); opacity: 1; }
+  94%      { transform: translate(-14px, -10px) scale(0.85); opacity: 0.9; }
+  100%     { transform: translate(-22px, 4px) scale(0); opacity: 0; }
+}
+
+@keyframes heroSplashBeadR {
+  0%, 86%  { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  89%      { transform: translate(0, 0) scale(1); opacity: 1; }
+  94%      { transform: translate(14px, -10px) scale(0.85); opacity: 0.9; }
+  100%     { transform: translate(22px, 4px) scale(0); opacity: 0; }
 }
 
 .ss-hero-shadow {

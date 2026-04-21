@@ -282,6 +282,80 @@
         <span class="ink-drop ink-drop--m" style="--delay:1.0s;--left:76%"></span>
         <span class="ink-drop ink-drop--y" style="--delay:2.0s;--left:84%"></span>
         <span class="ink-drop ink-drop--k" style="--delay:0.5s;--left:92%"></span>
+
+        <!-- Splash impact: ripple rings + flying beads, synced to each drop -->
+        <span class="ink-splash ink-splash--c" style="--delay:0s;  --left:5%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--m" style="--delay:1.4s;--left:12%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--y" style="--delay:0.6s;--left:20%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--k" style="--delay:2.2s;--left:28%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--c" style="--delay:0.8s;--left:36%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--m" style="--delay:1.8s;--left:44%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--y" style="--delay:3.1s;--left:52%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--k" style="--delay:0.3s;--left:60%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--c" style="--delay:2.6s;--left:68%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--m" style="--delay:1.0s;--left:76%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--y" style="--delay:2.0s;--left:84%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
+        <span class="ink-splash ink-splash--k" style="--delay:0.5s;--left:92%">
+          <span class="ink-ripple ink-ripple-1"></span>
+          <span class="ink-ripple ink-ripple-2"></span>
+          <span class="ink-bead ink-bead--l"></span>
+          <span class="ink-bead ink-bead--r"></span>
+        </span>
       </div>
 
       <div class="container press-container">
@@ -309,7 +383,7 @@
           </div>
           <div class="press-photo-frame">
             <img
-              src="/hero/pomelli_photoshoot-3.png"
+              src="/hero/press-in-action.png"
               alt="3D render of high-speed printing press"
               class="press-photo"
             />
@@ -338,13 +412,11 @@
           <div class="roll-photo-wrap">
             <div class="roll-photo-glow"></div>
             <img
-              src="/hero/pomelli_photoshoot-1.png"
+              src="/hero/endless-rolls.jpeg"
               alt="Large format wide printer"
               class="roll-photo"
             />
             <div class="roll-photo-shadow"></div>
-            <span class="roll-tag roll-tag--top">5m WIDE</span>
-            <span class="roll-tag roll-tag--bottom">2400 DPI</span>
           </div>
         </div>
 
@@ -2631,17 +2703,109 @@ onUnmounted(() => {
 .ink-drop--k { background: #2a2a2a; color: #555; }
 
 @keyframes inkDropFall {
-  0%   { top: -5%;  opacity: 0; }
-  8%   { opacity: 0.5; }
-  80%  { top: 88%;  opacity: 0.5; }
-  90%  { top: 92%;  opacity: 0; }
-  100% { top: 92%;  opacity: 0; }
+  0%   { top: -5%;  opacity: 0;   transform: scaleY(1); }
+  8%   { opacity: 0.55; }
+  74%  { top: 86%;  opacity: 0.55; transform: scaleY(1); }
+  78%  { top: 89%;  opacity: 0.3;  transform: scaleY(0.2); }
+  80%  { top: 89%;  opacity: 0;    transform: scaleY(0); }
+  100% { top: 89%;  opacity: 0;    transform: scaleY(0); }
 }
 
 @keyframes inkSplash {
   0%, 78%  { opacity: 0; transform: translate(-50%, 100%) scale(0); }
   82%      { opacity: 0.5; transform: translate(-50%, 100%) scale(1); }
   100%     { opacity: 0; transform: translate(-50%, 100%) scale(3); }
+}
+
+/* ── Impact splash: ripple rings + flying beads ── */
+.ink-splash {
+  position: absolute;
+  left: var(--left);
+  bottom: 8%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  color: currentColor;
+}
+
+.ink-splash--c { color: #00aeef; }
+.ink-splash--m { color: #ec008c; }
+.ink-splash--y { color: #fff200; }
+.ink-splash--k { color: #9db3c9; }
+
+.ink-ripple {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 28px;
+  height: 10px;
+  margin-left: -14px;
+  border: 1.5px solid currentColor;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: center bottom;
+  animation: inkRipple 5s var(--delay) ease-out infinite;
+  filter: drop-shadow(0 0 4px currentColor);
+}
+
+.ink-ripple-2 {
+  width: 46px;
+  height: 16px;
+  margin-left: -23px;
+  border-width: 1px;
+  opacity: 0;
+  animation: inkRipple2 5s var(--delay) ease-out infinite;
+}
+
+@keyframes inkRipple {
+  0%, 78% { transform: scale(0); opacity: 0; }
+  82%     { transform: scale(0.2); opacity: 0.9; }
+  90%     { transform: scale(1); opacity: 0.6; }
+  100%    { transform: scale(1.4); opacity: 0; }
+}
+
+@keyframes inkRipple2 {
+  0%, 80% { transform: scale(0); opacity: 0; }
+  84%     { transform: scale(0.25); opacity: 0.7; }
+  100%    { transform: scale(1.3); opacity: 0; }
+}
+
+.ink-bead {
+  position: absolute;
+  left: -1.5px;
+  bottom: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 4px currentColor;
+  opacity: 0;
+}
+
+.ink-bead--l {
+  animation: inkBeadL 5s var(--delay) cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
+}
+
+.ink-bead--r {
+  animation: inkBeadR 5s var(--delay) cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
+}
+
+@keyframes inkBeadL {
+  0%, 78%  { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  82%      { transform: translate(0, 0) scale(1); opacity: 1; }
+  88%      { transform: translate(-12px, -10px) scale(0.9); opacity: 0.9; }
+  94%      { transform: translate(-18px, -2px) scale(0.6); opacity: 0; }
+  100%     { transform: translate(-18px, -2px) scale(0); opacity: 0; }
+}
+
+@keyframes inkBeadR {
+  0%, 78%  { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  82%      { transform: translate(0, 0) scale(1); opacity: 1; }
+  88%      { transform: translate(12px, -10px) scale(0.9); opacity: 0.9; }
+  94%      { transform: translate(18px, -2px) scale(0.6); opacity: 0; }
+  100%     { transform: translate(18px, -2px) scale(0); opacity: 0; }
 }
 
 .press-container {

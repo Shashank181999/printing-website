@@ -272,8 +272,7 @@ onMounted(() => {
   }
 
   // Hero - quick fade up so page feels instant
-  gsap.set(['.hero-label', '.hero-heading', '.hero-description', '.hero-image-wrapper', '.stat-item'], { opacity: 0, y: 12 })
-  gsap.to('.hero-label', { y: 0, opacity: 1, duration: 0.3, ease: 'power2.out' })
+  gsap.set(['.hero-heading', '.hero-description', '.hero-image-wrapper', '.stat-item'], { opacity: 0, y: 12 })
   gsap.to('.hero-heading', { y: 0, opacity: 1, duration: 0.35, delay: 0.05, ease: 'power2.out' })
   gsap.to('.hero-description', { y: 0, opacity: 1, duration: 0.3, delay: 0.1, ease: 'power2.out' })
   gsap.to('.hero-image-wrapper', { y: 0, opacity: 1, duration: 0.4, delay: 0.05, ease: 'power2.out' })

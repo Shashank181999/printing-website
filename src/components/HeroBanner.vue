@@ -9,21 +9,35 @@
         <div class="hero-bg-glow hero-bg-glow--b" :data-stage="stageIdx"></div>
       </div>
 
-      <!-- Floating CMYK ink particles -->
+      <!-- CMYK ink rain with surface splash -->
       <div class="hero-particles" aria-hidden="true">
         <span
           v-for="(p, i) in particles"
-          :key="i"
+          :key="'d-' + i"
           class="hero-particle"
           :class="`hero-particle--${p.c}`"
           :style="{
             '--x': p.x + '%',
-            '--y': p.y + '%',
-            '--size': p.size + 'px',
             '--delay': p.delay + 's',
             '--dur': p.dur + 's',
           }"
         ></span>
+        <span
+          v-for="(p, i) in particles"
+          :key="'s-' + i"
+          class="hero-splash"
+          :class="`hero-splash--${p.c}`"
+          :style="{
+            '--x': p.x + '%',
+            '--delay': p.delay + 's',
+            '--dur': p.dur + 's',
+          }"
+        >
+          <span class="hero-ripple hero-ripple-1"></span>
+          <span class="hero-ripple hero-ripple-2"></span>
+          <span class="hero-bead hero-bead--l"></span>
+          <span class="hero-bead hero-bead--r"></span>
+        </span>
       </div>
 
       <!-- Vertical edge label -->
@@ -183,13 +197,11 @@ const productCards = [
   { src: '/products/neon-signage.webp',             label: 'Signage' },
 ]
 
-const particles = Array.from({ length: 22 }).map(() => ({
-  c: ['c', 'm', 'y', 'k'][Math.floor(Math.random() * 4)],
-  x: Math.random() * 100,
-  y: Math.random() * 100,
-  size: 4 + Math.random() * 9,
-  delay: Math.random() * 4,
-  dur: 6 + Math.random() * 6,
+const particles = Array.from({ length: 14 }).map((_, i) => ({
+  c: ['c', 'm', 'y', 'k'][i % 4],
+  x: 4 + i * 7 + Math.random() * 2,
+  delay: +(Math.random() * 4).toFixed(2),
+  dur: +(4 + Math.random() * 2).toFixed(2),
 }))
 
 let triggers = []
@@ -371,32 +383,147 @@ onBeforeUnmount(() => {
   opacity: 0.4;
 }
 
-/* ============ PARTICLES ============ */
+/* ============ INK RAIN + SURFACE SPLASH ============ */
 .hero-particles {
   position: absolute;
   inset: 0;
-  z-index: 1;
+  z-index: 7;
   pointer-events: none;
 }
+
 .hero-particle {
   position: absolute;
+  top: -60px;
   left: var(--x);
-  top: var(--y);
-  width: var(--size);
-  height: var(--size);
-  border-radius: 50%;
-  opacity: 0.65;
-  filter: blur(0.5px);
-  animation: heroParticleFloat var(--dur) var(--delay) ease-in-out infinite;
-  mix-blend-mode: screen;
+  width: 2px;
+  height: 50px;
+  border-radius: 0 0 2px 2px;
+  opacity: 0;
+  animation: heroInkFall var(--dur) var(--delay) linear infinite;
+  transform-origin: top center;
 }
-.hero-particle--c { background: #00aeef; box-shadow: 0 0 18px #00aeef; }
-.hero-particle--m { background: #ec008c; box-shadow: 0 0 18px #ec008c; }
-.hero-particle--y { background: #fff200; box-shadow: 0 0 18px #fff200; }
-.hero-particle--k { background: #4AABDE; box-shadow: 0 0 18px #4AABDE; }
-@keyframes heroParticleFloat {
-  0%, 100% { transform: translate(0, 0) scale(1);   opacity: 0.55; }
-  50%      { transform: translate(20px, -30px) scale(1.4); opacity: 0.9; }
+
+.hero-particle--c { background: linear-gradient(to bottom, transparent, #00aeef); color: #00aeef; box-shadow: 0 0 6px #00aeef; }
+.hero-particle--m { background: linear-gradient(to bottom, transparent, #ec008c); color: #ec008c; box-shadow: 0 0 6px #ec008c; }
+.hero-particle--y { background: linear-gradient(to bottom, transparent, #fff200); color: #fff200; box-shadow: 0 0 6px #fff200; }
+.hero-particle--k { background: linear-gradient(to bottom, transparent, #4AABDE); color: #4AABDE; box-shadow: 0 0 6px #4AABDE; }
+
+@keyframes heroInkFall {
+  0%   { top: -8%;  opacity: 0;    transform: scaleY(1); }
+  8%   { opacity: 0.85; }
+  74%  { top: calc(100% - 130px); opacity: 0.85; transform: scaleY(1); }
+  78%  { top: calc(100% - 120px); opacity: 0.4;  transform: scaleY(0.25); }
+  80%  { top: calc(100% - 120px); opacity: 0;    transform: scaleY(0); }
+  100% { top: calc(100% - 120px); opacity: 0;    transform: scaleY(0); }
+}
+
+/* ── Surface impact: ripple rings + flying beads ── */
+.hero-splash {
+  position: absolute;
+  left: var(--x);
+  bottom: 120px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.hero-splash--c { color: #00eaff; }
+.hero-splash--m { color: #ff3dae; }
+.hero-splash--y { color: #ffee00; }
+.hero-splash--k { color: #a5dcff; }
+
+/* Bright central hit flash at impact moment */
+.hero-splash::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 14px;
+  height: 14px;
+  margin-left: -7px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 18px currentColor, 0 0 38px currentColor;
+  opacity: 0;
+  transform: scale(0);
+  animation: heroHit var(--dur) var(--delay) ease-out infinite;
+}
+
+@keyframes heroHit {
+  0%, 76%  { transform: scale(0); opacity: 0; }
+  80%      { transform: scale(1.4); opacity: 1; }
+  86%      { transform: scale(0.8); opacity: 0; }
+  100%     { transform: scale(0); opacity: 0; }
+}
+
+.hero-ripple {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 48px;
+  height: 18px;
+  margin-left: -24px;
+  border: 2.5px solid currentColor;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: center bottom;
+  box-shadow: 0 0 12px currentColor;
+  animation: heroRipple var(--dur) var(--delay) ease-out infinite;
+}
+
+.hero-ripple-2 {
+  width: 80px;
+  height: 28px;
+  margin-left: -40px;
+  border-width: 1.5px;
+  animation: heroRipple2 var(--dur) var(--delay) ease-out infinite;
+}
+
+@keyframes heroRipple {
+  0%, 78% { transform: scale(0); opacity: 0; }
+  81%     { transform: scale(0.25); opacity: 1; }
+  88%     { transform: scale(1); opacity: 0.85; }
+  100%    { transform: scale(1.6); opacity: 0; }
+}
+
+@keyframes heroRipple2 {
+  0%, 80% { transform: scale(0); opacity: 0; }
+  84%     { transform: scale(0.35); opacity: 0.9; }
+  100%    { transform: scale(1.5); opacity: 0; }
+}
+
+.hero-bead {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 5px;
+  height: 5px;
+  margin-left: -2.5px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+  opacity: 0;
+}
+
+.hero-bead--l { animation: heroBeadL var(--dur) var(--delay) cubic-bezier(0.3, 0.7, 0.4, 1) infinite; }
+.hero-bead--r { animation: heroBeadR var(--dur) var(--delay) cubic-bezier(0.3, 0.7, 0.4, 1) infinite; }
+
+@keyframes heroBeadL {
+  0%, 78%  { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  81%      { transform: translate(0, 0) scale(1); opacity: 1; }
+  88%      { transform: translate(-18px, -14px) scale(0.9); opacity: 1; }
+  95%      { transform: translate(-28px, -2px) scale(0.5); opacity: 0; }
+  100%     { transform: translate(-28px, -2px) scale(0); opacity: 0; }
+}
+
+@keyframes heroBeadR {
+  0%, 78%  { transform: translate(0, 0) scale(0.5); opacity: 0; }
+  81%      { transform: translate(0, 0) scale(1); opacity: 1; }
+  88%      { transform: translate(18px, -14px) scale(0.9); opacity: 1; }
+  95%      { transform: translate(28px, -2px) scale(0.5); opacity: 0; }
+  100%     { transform: translate(28px, -2px) scale(0); opacity: 0; }
 }
 
 /* ============ EDGE LABEL ============ */
