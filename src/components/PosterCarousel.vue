@@ -20,22 +20,6 @@
             <svg v-if="!paused" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
             <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
           </button>
-          <button
-            class="poster-btn"
-            type="button"
-            @click="prev"
-            aria-label="Previous poster"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button
-            class="poster-btn poster-btn--solid"
-            type="button"
-            @click="next"
-            aria-label="Next poster"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
-          </button>
         </div>
       </div>
 
@@ -47,6 +31,22 @@
         @touchstart="paused = true"
         @touchend="onTouchEnd"
       >
+        <button
+          class="poster-arrow poster-arrow--prev"
+          type="button"
+          @click="prev"
+          aria-label="Previous poster"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button
+          class="poster-arrow poster-arrow--next"
+          type="button"
+          @click="next"
+          aria-label="Next poster"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 6l6 6-6 6"/></svg>
+        </button>
         <div class="poster-track" ref="trackRef" :style="{ transform: `translate3d(${-activeIndex * slideWidth}px, 0, 0)` }">
           <article
             v-for="(poster, i) in posters"
@@ -352,6 +352,7 @@ onUnmounted(() => {
 }
 
 .poster-viewport {
+  position: relative;
   overflow: hidden;
   border-radius: clamp(10px, 1.6vw, 18px);
   box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.18);
@@ -363,6 +364,49 @@ onUnmounted(() => {
   display: flex;
   transition: transform 0.8s cubic-bezier(0.7, 0, 0.2, 1);
   will-change: transform;
+}
+
+/* Overlay prev/next arrows centered on left & right of viewport */
+.poster-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-primary, #111);
+  cursor: pointer;
+  z-index: 5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.poster-arrow:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.05);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+}
+
+.poster-arrow:active {
+  transform: translateY(-50%) scale(0.96);
+}
+
+.poster-arrow--prev { left: 16px; }
+.poster-arrow--next { right: 16px; }
+
+@media (max-width: 640px) {
+  .poster-arrow {
+    width: 40px;
+    height: 40px;
+  }
+  .poster-arrow--prev { left: 10px; }
+  .poster-arrow--next { right: 10px; }
 }
 
 .poster-card {
