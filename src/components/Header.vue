@@ -37,7 +37,7 @@
               </li>
             </ul>
             <div class="nav-footer">
-              <p>Est. 1974 — Dubai, UAE</p>
+              <p>Est. 2020 — Dubai, UAE</p>
               <div class="nav-social">
                 <a href="https://facebook.com/alfalahmiddleeast" target="_blank" aria-label="Facebook">FB</a>
                 <a href="https://instagram.com/alfalahme" target="_blank" aria-label="Instagram">IG</a>

@@ -255,13 +255,21 @@ img {
   }
 }
 
-/* Typography — display headings use Bebas Neue */
-h1, h2, h3, h4 {
+/* Typography — big page/section headings use the display font; sub-headings use sans */
+h1, h2 {
   font-family: var(--font-display);
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: 0.005em;
   text-transform: uppercase;
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0;
+  text-transform: none;
 }
 
 /* When Lenis is active, it manages scroll — keep html/body friendly */

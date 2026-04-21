@@ -798,13 +798,12 @@ const closeProduct = () => {
 }
 
 .product-name {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 600;
   color: var(--text-primary);
-  line-height: 1.15;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  line-height: 1.3;
+  letter-spacing: 0;
   margin-bottom: 6px;
 }
 
@@ -1303,13 +1302,12 @@ const closeProduct = () => {
 }
 
 .modal-title {
-  font-family: var(--font-display);
-  font-size: clamp(28px, 3vw, 38px);
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: clamp(22px, 2.4vw, 30px);
+  font-weight: 600;
   color: var(--text-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  line-height: 1;
+  letter-spacing: 0;
+  line-height: 1.2;
   margin-bottom: 14px;
 }
 

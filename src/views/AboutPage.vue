@@ -5,7 +5,6 @@
     <section class="hero-split">
       <div class="hero-container">
         <div class="hero-text">
-          <span class="hero-label">welcome to AFME</span>
           <h1 class="hero-heading">More Than a Company —<br><em>Your Partners</em> in Print</h1>
           <p class="hero-description">
             At AFME, we are more than just a printing company — we are your partners in
@@ -16,8 +15,8 @@
         </div>
         <div class="hero-image-wrapper">
           <img
-            src="/hero/pomelli_photoshoot-2.png"
-            alt="3D printing press with operator"
+            src="/hero/about-hero.jpeg"
+            alt="AFME printing production"
             class="hero-image"
           />
         </div>
@@ -41,7 +40,6 @@
             <div v-for="(milestone, index) in milestones" :key="index" class="milestone">
               <div class="milestone-dot"></div>
               <div class="milestone-content">
-                <span class="milestone-year">{{ milestone.year }}</span>
                 <h3 class="milestone-title">{{ milestone.title }}</h3>
                 <p class="milestone-desc">{{ milestone.description }}</p>
               </div>
@@ -142,23 +140,19 @@ const stats = [
 
 const milestones = [
   {
-    year: '1974',
-    title: 'Printing & Press',
-    description: 'AFME begins as the best printing solutions provider in the Middle East, laying the foundation for decades of industry leadership.'
+    title: 'Founded in the UAE',
+    description: 'AFME launches in Dubai as a dedicated printing and creative solutions partner — built from day one to deliver premium quality and fast turnaround across the Middle East.'
   },
   {
-    year: '1998',
-    title: 'Digital Printing',
-    description: 'We embrace cutting-edge digital printing, becoming the best digital printing solutions provider across the region while preserving traditional craft.'
+    title: 'Digital & Large-Format',
+    description: 'We expand into digital and large-format printing, serving agencies and brands with same-day proofs, vibrant colour accuracy and production at scale.'
   },
   {
-    year: '2015',
-    title: '3D Printing',
-    description: 'Expanding into 3D printing, AFME positions itself as the best 3D printing solutions provider in the Middle East — pushing every dimension of print.'
+    title: 'Branding & Activation',
+    description: 'New verticals — signage, stand production, vehicle wraps and brand activations — bring a full campaign lifecycle under one roof.'
   },
   {
-    year: 'Today',
-    title: 'Integrated Solutions',
+    title: 'Today',
     description: 'A full-service partner spanning printing, branding, signage, events and corporate gifting — helping brands amplify their presence across the UAE.'
   }
 ]
@@ -171,8 +165,8 @@ const features = [
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-    title: 'Trusted Since 1974',
-    description: '5 years of expertise across printing, branding and advertising — making us one of the most established names in the Middle East print industry.'
+    title: 'Trusted Partner',
+    description: '5 years of expertise across printing, branding and advertising — one of the most reliable end-to-end print partners in the UAE.'
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',
@@ -596,11 +590,10 @@ onUnmounted(() => {
 }
 
 .feature-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
   margin-bottom: 8px;
   color: var(--text-primary);
 }
@@ -645,11 +638,10 @@ onUnmounted(() => {
 }
 
 .step-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
   margin-bottom: 10px;
   color: var(--text-primary);
 }
@@ -708,11 +700,10 @@ onUnmounted(() => {
 }
 
 .value-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0;
   margin-bottom: 10px;
   color: var(--text-primary);
 }

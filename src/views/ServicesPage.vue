@@ -96,7 +96,7 @@
           >
             <div class="portfolio-card-inner">
               <div class="portfolio-image">
-                <img :src="`/products/${project.slug}.webp`" :alt="project.title" />
+                <img :src="project.image" :alt="project.title" />
                 <div class="portfolio-image-overlay">
                   <span class="portfolio-cat">{{ project.category }}</span>
                   <h3>{{ project.title }}</h3>
@@ -132,7 +132,7 @@
           </div>
         </div>
         <div class="what-image">
-          <img src="/hero/pomelli_photoshoot-1.png" alt="Professional offset printing press line" />
+          <img src="/hero/printing-excellence.jpeg" alt="Professional offset printing press line" />
           <div class="what-image-card">
             <div>
               <strong>Premium Print</strong>
@@ -170,7 +170,7 @@
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
             </button>
             <div class="smodal-img">
-              <img :src="`/products/${selectedProject.slug}.webp`" :alt="selectedProject.title" />
+              <img :src="selectedProject.image" :alt="selectedProject.title" />
             </div>
             <div class="smodal-info">
               <span class="smodal-cat">{{ selectedProject.category }}</span>
@@ -221,18 +221,18 @@ const portfolioCategories = ['All', 'Design', '3D Printing', 'Card Printing', 'F
 const activePortfolio = ref('All')
 
 const portfolioProjects = [
-  { slug: 'die-cut-business-cards', title: 'Die-Cut Business Cards', category: 'Card Printing', desc: 'Custom-shaped cards that stand out with unique die-cut designs.' },
-  { slug: 'metal-business-cards', title: 'Metal Business Cards', category: 'Card Printing', desc: 'Sleek brushed-metal cards for a luxury client.' },
-  { slug: 'nfcsmart-business-card', title: 'NFC Smart Business Cards', category: '3D Printing', desc: 'Embedded NFC chips for instant digital sharing.' },
-  { slug: 'rigid-box-packaging', title: 'Rigid Gift Boxes', category: 'Packaging', desc: 'Premium rigid boxes for a luxury retail brand.' },
-  { slug: 'custom-t-shirts', title: 'Custom Branded Apparel', category: 'Branding', desc: 'Screen-printed corporate uniforms for a UAE client.' },
-  { slug: 'vehicle-branding', title: 'Fleet Vehicle Wraps', category: 'Branding', desc: 'Full vehicle wraps turning a fleet into mobile billboards.' },
-  { slug: 'roll-up-banners', title: 'Roll-Up Banners', category: 'Signage', desc: 'Portable retractable banners for a regional roadshow.' },
-  { slug: 'neon-signage', title: 'Custom Neon Signage', category: 'Signage', desc: 'Eye-catching custom neon for a flagship store.' },
-  { slug: 'annual-report', title: 'Corporate Annual Report', category: 'Design', desc: 'Multi-section annual report with premium binding.' },
-  { slug: 'magazine', title: 'Lifestyle Magazine', category: 'Flyer', desc: 'Vibrant 80-page lifestyle magazine for a hospitality brand.' },
-  { slug: 'company-profile', title: 'Company Profile Booklet', category: 'Pamphlet', desc: 'Elegant company profile showcasing services.' },
-  { slug: 'exhibition-booth-setup', title: 'Exhibition Booth', category: 'Design', desc: 'Custom-designed exhibition booth at a trade show.' },
+  { slug: 'die-cut-business-cards', image: '/products/die-cut-business-cards.webp', title: 'Die-Cut Business Cards', category: 'Card Printing', desc: 'Custom-shaped cards that stand out with unique die-cut designs.' },
+  { slug: 'metal-business-cards', image: '/products/metal-business-cards.webp', title: 'Metal Business Cards', category: 'Card Printing', desc: 'Sleek brushed-metal cards for a luxury client.' },
+  { slug: 'nfcsmart-business-card', image: '/products/nfcsmart-business-card.webp', title: 'NFC Smart Business Cards', category: '3D Printing', desc: 'Embedded NFC chips for instant digital sharing.' },
+  { slug: 'rigid-box-packaging', image: '/products/rigid-box-packaging.webp', title: 'Rigid Gift Boxes', category: 'Packaging', desc: 'Premium rigid boxes for a luxury retail brand.' },
+  { slug: 'polo-t-shirt', image: '/products/polo-t-shirt.webp', title: 'Custom Branded Apparel', category: 'Branding', desc: 'Screen-printed corporate uniforms for a UAE client.' },
+  { slug: 'vehicle-branding', image: '/products/vehicle-branding.webp', title: 'Fleet Vehicle Wraps', category: 'Branding', desc: 'Full vehicle wraps turning a fleet into mobile billboards.' },
+  { slug: 'roll-up-banners', image: '/products/roll-up-banners.webp', title: 'Roll-Up Banners', category: 'Signage', desc: 'Portable retractable banners for a regional roadshow.' },
+  { slug: 'neon-signage', image: '/products/neon-signage.webp', title: 'Custom Neon Signage', category: 'Signage', desc: 'Eye-catching custom neon for a flagship store.' },
+  { slug: 'annual-report', image: '/products/annual-report.webp', title: 'Corporate Annual Report', category: 'Design', desc: 'Multi-section annual report with premium binding.' },
+  { slug: 'magazine', image: '/products/magazine.webp', title: 'Lifestyle Magazine', category: 'Flyer', desc: 'Vibrant 80-page lifestyle magazine for a hospitality brand.' },
+  { slug: 'company-profile', image: '/products/company-profile.webp', title: 'Company Profile Booklet', category: 'Pamphlet', desc: 'Elegant company profile showcasing services.' },
+  { slug: 'exhibition-booth-setup', image: '/products/exhibition-booth-setup.webp', title: 'Exhibition Booth', category: 'Design', desc: 'Custom-designed exhibition booth at a trade show.' },
 ]
 
 const filteredPortfolio = computed(() => {
@@ -626,14 +626,13 @@ onUnmounted(() => {
 }
 
 .svc-card-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 12px;
-  line-height: 1.1;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  line-height: 1.3;
+  letter-spacing: 0;
 }
 
 .svc-card-desc {
@@ -837,8 +836,11 @@ onUnmounted(() => {
 }
 
 .portfolio-image-overlay h3 {
-  font-size: 1.15rem;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
   font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
   margin-bottom: 6px;
   line-height: 1.3;
   transform: translateZ(50px);
@@ -1176,9 +1178,9 @@ onUnmounted(() => {
   text-transform: uppercase; color: var(--accent-teal); margin-bottom: 6px;
 }
 .smodal-title {
-  font-family: var(--font-display); font-size: clamp(24px,3vw,34px);
-  font-weight: 400; text-transform: uppercase; letter-spacing: 0.01em;
-  line-height: 1; margin-bottom: 14px;
+  font-family: var(--font-sans); font-size: clamp(22px,2.4vw,28px);
+  font-weight: 600; letter-spacing: 0;
+  line-height: 1.2; margin-bottom: 14px;
 }
 .smodal-desc { font-size: 14px; line-height: 1.7; color: var(--text-secondary); margin-bottom: 20px; }
 .smodal-features { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }

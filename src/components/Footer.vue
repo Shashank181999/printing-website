@@ -2,12 +2,22 @@
   <footer ref="footerRef" class="footer">
     <!-- Thin falling lines (CSS only, no canvas) -->
     <div class="footer-drops" aria-hidden="true">
-      <span v-for="n in 18" :key="n" class="footer-drop" :style="{
+      <span v-for="n in 18" :key="'d'+n" class="footer-drop" :style="{
         '--left': (n * 5.5 - 2) + '%',
         '--delay': (n * 0.37 % 4.2).toFixed(1) + 's',
         '--h': (40 + (n % 4) * 12) + 'px',
         '--speed': (4 + (n % 3) * 1.5).toFixed(1) + 's',
       }"></span>
+      <span v-for="n in 18" :key="'s'+n" class="footer-splash" :style="{
+        '--left': (n * 5.5 - 2) + '%',
+        '--delay': (n * 0.37 % 4.2).toFixed(1) + 's',
+        '--speed': (4 + (n % 3) * 1.5).toFixed(1) + 's',
+      }">
+        <span class="ripple ripple-1"></span>
+        <span class="ripple ripple-2"></span>
+        <span class="splash-bead bead-l"></span>
+        <span class="splash-bead bead-r"></span>
+      </span>
     </div>
 
     <!-- Main Footer -->
@@ -22,7 +32,7 @@
             <div class="brand-info">
               <h3 class="brand-name">Al Falah Middle East</h3>
               <p class="brand-desc">
-                Your trusted partner for premium printing, creative branding, and innovative advertising solutions since 1974.
+                Your trusted partner for premium printing, creative branding, and innovative advertising solutions — serving the UAE since 2020.
               </p>
             </div>
             <div class="social-links">
@@ -206,22 +216,115 @@ onMounted(() => {
 
 .footer-drop {
   position: absolute;
-  top: -80px;
+  top: -10%;
   left: var(--left);
-  width: 1px;
+  width: 2px;
   height: var(--h, 50px);
-  background: linear-gradient(to bottom, transparent, rgba(74, 171, 222, 0.35), transparent);
-  border-radius: 0 0 1px 1px;
+  background: linear-gradient(to bottom,
+    transparent 0%,
+    rgba(120, 200, 240, 0.25) 40%,
+    rgba(160, 220, 250, 0.9) 100%);
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  filter: drop-shadow(0 0 2px rgba(120, 200, 240, 0.6));
   opacity: 0;
-  animation: footerFall var(--speed, 5s) var(--delay, 0s) linear infinite;
+  will-change: top, opacity, transform;
+  transform: translateX(-50%);
+  animation: footerFall var(--speed, 5s) var(--delay, 0s) cubic-bezier(0.45, 0, 0.9, 0.35) infinite;
 }
 
 @keyframes footerFall {
-  0%   { top: -10%; opacity: 0; }
-  5%   { opacity: 0.4; }
-  75%  { opacity: 0.4; }
-  90%  { top: 95%; opacity: 0; }
-  100% { top: 95%; opacity: 0; }
+  0%   { top: -12%; opacity: 0; transform: translateX(-50%) scaleY(1); }
+  6%   { opacity: 0.9; }
+  80%  { top: calc(100% - 6px); opacity: 0.95; transform: translateX(-50%) scaleY(1); }
+  84%  { top: calc(100% - 2px); opacity: 0.7; transform: translateX(-50%) scaleY(0.25); }
+  86%  { top: calc(100% - 2px); opacity: 0; transform: translateX(-50%) scaleY(0); }
+  100% { top: calc(100% - 2px); opacity: 0; transform: translateX(-50%) scaleY(0); }
+}
+
+/* ────────── Splash on impact (ripple rings + flying beads) ────────── */
+.footer-splash {
+  position: absolute;
+  left: var(--left);
+  bottom: 4px;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.ripple {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 28px;
+  height: 10px;
+  margin-left: -14px;
+  border: 1.5px solid rgba(140, 210, 245, 0.95);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0);
+  transform-origin: center bottom;
+  animation: footerRipple var(--speed, 5s) var(--delay, 0s) ease-out infinite;
+}
+
+.ripple-2 {
+  width: 44px;
+  height: 16px;
+  margin-left: -22px;
+  border-width: 1px;
+  border-color: rgba(110, 190, 235, 0.7);
+  border-bottom-color: transparent;
+  animation: footerRipple2 var(--speed, 5s) var(--delay, 0s) ease-out infinite;
+}
+
+@keyframes footerRipple {
+  0%, 82% { transform: scale(0); opacity: 0; }
+  84%     { transform: scale(0.15); opacity: 1; }
+  92%     { transform: scale(1); opacity: 0.7; }
+  100%    { transform: scale(1.3); opacity: 0; }
+}
+
+@keyframes footerRipple2 {
+  0%, 84% { transform: scale(0); opacity: 0; }
+  87%     { transform: scale(0.2); opacity: 0.9; }
+  100%    { transform: scale(1.2); opacity: 0; }
+}
+
+/* Splash beads fly out sideways/upward on impact */
+.splash-bead {
+  position: absolute;
+  left: -1.5px;
+  bottom: 0;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(180, 225, 250, 1);
+  box-shadow: 0 0 3px rgba(140, 210, 245, 0.8);
+  opacity: 0;
+}
+
+.bead-l {
+  animation: footerBeadL var(--speed, 5s) var(--delay, 0s) cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
+}
+
+.bead-r {
+  animation: footerBeadR var(--speed, 5s) var(--delay, 0s) cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
+}
+
+@keyframes footerBeadL {
+  0%, 82%  { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  84%      { transform: translate(0, 0) scale(1); opacity: 1; }
+  90%      { transform: translate(-12px, -10px) scale(0.9); opacity: 0.9; }
+  95%      { transform: translate(-18px, -2px) scale(0.7); opacity: 0; }
+  100%     { transform: translate(-18px, -2px) scale(0); opacity: 0; }
+}
+
+@keyframes footerBeadR {
+  0%, 82%  { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  84%      { transform: translate(0, 0) scale(1); opacity: 1; }
+  90%      { transform: translate(12px, -10px) scale(0.9); opacity: 0.9; }
+  95%      { transform: translate(18px, -2px) scale(0.7); opacity: 0; }
+  100%     { transform: translate(18px, -2px) scale(0); opacity: 0; }
 }
 
 /* ════════════════════════════════════════
@@ -314,11 +417,10 @@ onMounted(() => {
 }
 
 .footer-column h4 {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
   color: white;
   margin-bottom: 22px;
   padding-bottom: 10px;

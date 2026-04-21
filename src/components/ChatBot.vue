@@ -144,7 +144,7 @@ const botReply = (userText) => {
     return 'We\'d love to help with a quote! Pricing depends on the product, quantity, and finish. Share your requirements and we\'ll prepare a custom quote within 24 hours. Call us at +971 56 726 8735 or click "Get Quote" on any product.' + whatsappNudge
   }
   if (text.includes('about') || text.includes('who') || text.includes('company') || text.includes('afme') || text.includes('al falah')) {
-    return 'Al Falah Middle East (AFME) has been Dubai\'s trusted printing partner since 1974 — that\'s 5 years of expertise! We offer 4 service verticals: Printing, Labels, Brand Activation, and Corporate Gifts.' + whatsappNudge
+    return 'Al Falah Middle East (AFME) has been Dubai\'s trusted printing partner since 2020 — with 5 years of expertise across 4 service verticals: Printing, Labels, Brand Activation, and Corporate Gifts.' + whatsappNudge
   }
   if (text.includes('business card')) {
     return 'We offer 10+ types of business cards: Gold Foil, Metal, NFC Smart Cards, Die-Cut, Frosted PVC, Textured, Square, Matte Soft-Touch, and more. Starting from 250 pieces. Premium finishes include embossing, debossing, spot UV, and edge painting.' + whatsappNudge

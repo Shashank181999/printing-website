@@ -567,9 +567,9 @@ onMounted(() => {
 }
 
 .hours-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 200;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 20px;
 }

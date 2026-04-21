@@ -89,7 +89,6 @@
     <section class="welcome-section" ref="welcomeSection">
       <div class="container welcome-container">
         <div class="welcome-text">
-          <span class="welcome-eyebrow">welcome to AFME</span>
           <h2 class="welcome-title">More Than a Company —<br><em>Your Partners</em> in Print</h2>
           <p class="welcome-desc">
             At AFME, we are more than just a printing company — we are your partners in
@@ -118,11 +117,8 @@
         </div>
         <div class="welcome-visual">
           <div class="welcome-image-stack">
-            <div class="welcome-img welcome-img--back">
-              <img src="/hero/pomelli_photoshoot-2.png" alt="Printing press with operator" />
-            </div>
-            <div class="welcome-img welcome-img--front">
-              <img src="/hero/pomelli_photoshoot-4.png" alt="3D label printing press" />
+            <div class="welcome-img welcome-img--single">
+              <img src="/hero/welcome.jpeg" alt="AFME printing production" />
             </div>
             <div class="welcome-floating-card">
               <div class="welcome-floating-num">5+</div>
@@ -1216,15 +1212,14 @@ onUnmounted(() => {
 }
 
 .category-chip-name {
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: 13px;
-  font-weight: 400;
+  font-weight: 600;
   color: var(--text-primary);
   text-align: center;
   line-height: 1.3;
   white-space: nowrap;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  letter-spacing: 0;
 }
 
 /* ========== Section Shared ========== */
@@ -1512,13 +1507,12 @@ onUnmounted(() => {
 }
 
 .coverflow-card-info h3 {
-  font-family: var(--font-display);
-  font-size: 16px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
   color: var(--text-primary);
-  line-height: 1.1;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  line-height: 1.3;
+  letter-spacing: 0;
 }
 
 .coverflow-card-reflection {
@@ -2004,28 +1998,15 @@ onUnmounted(() => {
   display: block;
 }
 
-.welcome-img--back {
-  width: 60%;
-  height: 70%;
-  top: 0;
-  right: 0;
-  transform: rotateY(-12deg) rotateX(5deg) translateZ(-30px);
+.welcome-img--single {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotateY(-4deg) rotateX(2deg) translateZ(0);
 }
 
-.welcome-img--front {
-  width: 65%;
-  height: 75%;
-  bottom: 0;
-  left: 0;
-  transform: rotateY(8deg) rotateX(-3deg) translateZ(40px);
-}
-
-.welcome-image-stack:hover .welcome-img--back {
-  transform: rotateY(-6deg) rotateX(3deg) translateZ(-20px);
-}
-
-.welcome-image-stack:hover .welcome-img--front {
-  transform: rotateY(4deg) rotateX(-1deg) translateZ(50px);
+.welcome-image-stack:hover .welcome-img--single {
+  transform: rotateY(0deg) rotateX(0deg) translateZ(20px);
 }
 
 .welcome-floating-card {
@@ -2258,13 +2239,12 @@ onUnmounted(() => {
 }
 
 .showcase-item-name {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
   color: var(--text-primary);
   margin-top: 4px;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
   transition: color 0.3s ease;
 }
 
@@ -3253,11 +3233,10 @@ onUnmounted(() => {
 }
 
 .process-step-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0;
   color: var(--text-primary);
   margin-bottom: 8px;
 }
@@ -3422,13 +3401,12 @@ onUnmounted(() => {
 }
 
 .trust-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 400;
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
+  letter-spacing: 0;
 }
 
 .trust-desc {
@@ -3785,12 +3763,11 @@ onUnmounted(() => {
   margin-bottom: 6px;
 }
 .pmodal-title {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 3vw, 34px);
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  line-height: 1;
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 2.3vw, 26px);
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
   margin-bottom: 20px;
 }
 .pmodal-features {
