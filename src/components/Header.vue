@@ -326,6 +326,8 @@ onUnmounted(() => {
   flex-shrink: 0;
   overflow: hidden;
   border-radius: 8px;
+  padding: 8px 4px;
+  margin: -8px -4px;
 }
 
 .logo-image {
@@ -336,10 +338,10 @@ onUnmounted(() => {
 
 .logo-shine {
   position: absolute;
-  top: 0;
+  top: 8px;
+  bottom: 8px;
   left: 0;
   width: 45%;
-  height: 100%;
   background: linear-gradient(
     110deg,
     transparent 0%,
