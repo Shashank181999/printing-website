@@ -33,15 +33,15 @@
             <div class="hero-ink hero-ink--yellow"  style="--x: 65%; --delay: 3.2s; --dur: 2.6s; --size: 3px;"></div>
             <div class="hero-ink hero-ink--key"     style="--x: 35%; --delay: 2.2s; --dur: 3.6s; --size: 3px;"></div>
 
-            <!-- Surface splash (ripple + beads) per drop -->
-            <span class="hero-splash hero-splash--cyan"    style="--x: 22%; --delay: 0s; --dur: 3.2s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
-            <span class="hero-splash hero-splash--magenta" style="--x: 40%; --delay: 1.4s; --dur: 2.8s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
-            <span class="hero-splash hero-splash--yellow"  style="--x: 55%; --delay: 0.6s; --dur: 3.5s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
-            <span class="hero-splash hero-splash--key"     style="--x: 72%; --delay: 2s;   --dur: 3s;"  ><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
-            <span class="hero-splash hero-splash--cyan"    style="--x: 48%; --delay: 2.6s; --dur: 3.4s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
-            <span class="hero-splash hero-splash--magenta" style="--x: 30%; --delay: 1s;   --dur: 3.8s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
-            <span class="hero-splash hero-splash--yellow"  style="--x: 65%; --delay: 3.2s; --dur: 2.6s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
-            <span class="hero-splash hero-splash--key"     style="--x: 35%; --delay: 2.2s; --dur: 3.6s;"><span class="hero-ripple"></span><span class="hero-ripple hero-ripple-2"></span><span class="hero-bead hero-bead--l"></span><span class="hero-bead hero-bead--r"></span></span>
+            <!-- Soft glow on impact per drop -->
+            <span class="hero-splash hero-splash--cyan"    style="--x: 22%; --delay: 0s;   --dur: 3.2s;"><span class="hero-glow"></span></span>
+            <span class="hero-splash hero-splash--magenta" style="--x: 40%; --delay: 1.4s; --dur: 2.8s;"><span class="hero-glow"></span></span>
+            <span class="hero-splash hero-splash--yellow"  style="--x: 55%; --delay: 0.6s; --dur: 3.5s;"><span class="hero-glow"></span></span>
+            <span class="hero-splash hero-splash--key"     style="--x: 72%; --delay: 2s;   --dur: 3s;"  ><span class="hero-glow"></span></span>
+            <span class="hero-splash hero-splash--cyan"    style="--x: 48%; --delay: 2.6s; --dur: 3.4s;"><span class="hero-glow"></span></span>
+            <span class="hero-splash hero-splash--magenta" style="--x: 30%; --delay: 1s;   --dur: 3.8s;"><span class="hero-glow"></span></span>
+            <span class="hero-splash hero-splash--yellow"  style="--x: 65%; --delay: 3.2s; --dur: 2.6s;"><span class="hero-glow"></span></span>
+            <span class="hero-splash hero-splash--key"     style="--x: 35%; --delay: 2.2s; --dur: 3.6s;"><span class="hero-glow"></span></span>
           </div>
           <div class="ss-hero-shadow" ref="shadowEl"></div>
         </div>
@@ -52,20 +52,9 @@
         <!-- kicker removed -->
         <h2 class="ss-heading">PRINT YOUR <em>VISION</em></h2>
         <p class="ss-body">
-          Five years turning ideas into things you can hold, wear and walk
+          Since 2020 turning ideas into things you can hold, wear and walk
           through. Dubai's trusted studio for print, branding and advertising.
         </p>
-        <div class="ss-stats">
-          <div class="ss-stat">
-            <strong>5</strong><span>Years</span>
-          </div>
-          <div class="ss-stat">
-            <strong>1K+</strong><span>Brands</span>
-          </div>
-          <div class="ss-stat">
-            <strong>4</strong><span>Verticals</span>
-          </div>
-        </div>
       </div>
 
       <!-- ====== CHAPTER 2 — CRAFTED TO PERFECTION ====== -->
@@ -278,7 +267,7 @@ onMounted(() => {
     // Hero glides right → left
     tl.to(heroEl.value, {
       left: '32%',
-      top: '46%',
+      top: '54%',
       rotateY: 16,
       rotateX: -4,
       scale: 1.08,
@@ -556,72 +545,27 @@ onBeforeUnmount(() => {
 .hero-splash--yellow  { color: #ffe44d; }
 .hero-splash--key     { color: #9db6c8; }
 
-.hero-ripple {
+.hero-glow {
   position: absolute;
   left: 50%;
   top: 0;
-  width: 36px;
-  height: 14px;
-  margin-left: -18px;
-  border: 2px solid currentColor;
-  border-bottom-color: transparent;
+  width: 18px;
+  height: 6px;
+  margin-left: -9px;
+  margin-top: -3px;
   border-radius: 50%;
+  background: radial-gradient(ellipse at center, currentColor 0%, transparent 75%);
   opacity: 0;
   transform: scale(0);
-  transform-origin: center bottom;
-  box-shadow: 0 0 10px currentColor;
-  animation: heroSplashRipple var(--dur, 3s) var(--delay, 0s) ease-out infinite;
+  filter: blur(1.5px);
+  animation: heroSplashGlow var(--dur, 3s) var(--delay, 0s) ease-out infinite;
 }
 
-.hero-ripple-2 {
-  width: 60px;
-  height: 22px;
-  margin-left: -30px;
-  border-width: 1px;
-  animation: heroSplashRipple2 var(--dur, 3s) var(--delay, 0s) ease-out infinite;
-}
-
-@keyframes heroSplashRipple {
-  0%, 86% { transform: scale(0); opacity: 0; }
-  89%     { transform: scale(0.25); opacity: 1; }
-  95%     { transform: scale(1); opacity: 0.7; }
-  100%    { transform: scale(1.5); opacity: 0; }
-}
-
-@keyframes heroSplashRipple2 {
-  0%, 88% { transform: scale(0); opacity: 0; }
-  91%     { transform: scale(0.3); opacity: 0.8; }
-  100%    { transform: scale(1.4); opacity: 0; }
-}
-
-.hero-bead {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  width: 4px;
-  height: 4px;
-  margin-left: -2px;
-  border-radius: 50%;
-  background: currentColor;
-  box-shadow: 0 0 6px currentColor;
-  opacity: 0;
-}
-
-.hero-bead--l { animation: heroSplashBeadL var(--dur, 3s) var(--delay, 0s) cubic-bezier(0.3, 0.7, 0.4, 1) infinite; }
-.hero-bead--r { animation: heroSplashBeadR var(--dur, 3s) var(--delay, 0s) cubic-bezier(0.3, 0.7, 0.4, 1) infinite; }
-
-@keyframes heroSplashBeadL {
-  0%, 86%  { transform: translate(0, 0) scale(0.5); opacity: 0; }
-  89%      { transform: translate(0, 0) scale(1); opacity: 1; }
-  94%      { transform: translate(-14px, -10px) scale(0.85); opacity: 0.9; }
-  100%     { transform: translate(-22px, 4px) scale(0); opacity: 0; }
-}
-
-@keyframes heroSplashBeadR {
-  0%, 86%  { transform: translate(0, 0) scale(0.5); opacity: 0; }
-  89%      { transform: translate(0, 0) scale(1); opacity: 1; }
-  94%      { transform: translate(14px, -10px) scale(0.85); opacity: 0.9; }
-  100%     { transform: translate(22px, 4px) scale(0); opacity: 0; }
+@keyframes heroSplashGlow {
+  0%, 85%  { transform: scaleX(0) scaleY(0.4); opacity: 0; }
+  89%      { transform: scaleX(0.9) scaleY(1); opacity: 0.8; }
+  94%      { transform: scaleX(1.2) scaleY(0.85); opacity: 0.55; }
+  100%     { transform: scaleX(1.5) scaleY(0.6); opacity: 0; }
 }
 
 .ss-hero-shadow {

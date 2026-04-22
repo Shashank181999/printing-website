@@ -102,7 +102,7 @@ const posters = ref([
     tag: 'Offset / Digital',
     title: 'Sheet-fed Press Precision',
     desc: 'Sharp CMYK reproduction, consistent dot-gain, every run.',
-    image: 'https://images.unsplash.com/photo-1542435503-956c469947f6?auto=format&fit=crop&w=1400&q=80',
+    image: '/images/posters/poster-1.jpg',
     fallback: 'https://picsum.photos/seed/afme-offset/1400/1700',
   },
   {
@@ -110,7 +110,7 @@ const posters = ref([
     tag: 'Branding Suite',
     title: 'Stationery & Business Cards',
     desc: 'Letterpress, foil and spot-UV finishes that feel premium.',
-    image: 'https://images.unsplash.com/photo-1586953208448-b95a79798f07?auto=format&fit=crop&w=1400&q=80',
+    image: '/images/posters/poster-2.jpg',
     fallback: 'https://picsum.photos/seed/afme-branding/1400/1700',
   },
   {
@@ -118,7 +118,7 @@ const posters = ref([
     tag: 'Large Format',
     title: 'Posters & Billboards',
     desc: 'Outdoor-grade inks, up to grand-format sizes.',
-    image: 'https://images.unsplash.com/photo-1513542789411-b6a5d4f31634?auto=format&fit=crop&w=1400&q=80',
+    image: '/images/posters/poster-3.jpg',
     fallback: 'https://picsum.photos/seed/afme-posters/1400/1700',
   },
   {
@@ -126,7 +126,7 @@ const posters = ref([
     tag: 'Editorial',
     title: 'Magazines & Catalogues',
     desc: 'Perfect-bound, saddle-stitched, lay-flat options.',
-    image: 'https://images.unsplash.com/photo-1611532736597-de2d4265fba3?auto=format&fit=crop&w=1400&q=80',
+    image: '/images/posters/poster-4.jpg',
     fallback: 'https://picsum.photos/seed/afme-magazines/1400/1700',
   },
   {
@@ -134,7 +134,7 @@ const posters = ref([
     tag: 'Packaging',
     title: 'Boxes & Labels',
     desc: 'Die-cut packaging, custom labels and sticker runs.',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b8?auto=format&fit=crop&w=1400&q=80',
+    image: '/images/posters/poster-5.jpg',
     fallback: 'https://picsum.photos/seed/afme-packaging/1400/1700',
   },
 ])

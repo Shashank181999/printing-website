@@ -410,9 +410,9 @@ input, textarea, select {
   font-family: var(--font-sans);
 }
 
-/* Scrollbar */
+/* Scrollbar — rainbow gradient */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -420,12 +420,31 @@ input, textarea, select {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-medium);
-  border-radius: 4px;
+  background: repeating-linear-gradient(
+    180deg,
+    #4a90e2 0,
+    #3fb8af 16px,
+    #5fc85c 32px,
+    #d4e04a 48px,
+    #f2a23c 64px,
+    #ed4c34 80px,
+    #4a90e2 96px
+  ) !important;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-light);
+  background: repeating-linear-gradient(
+    180deg,
+    #5aa0f2 0,
+    #4fc8be 16px,
+    #6ed86a 32px,
+    #e0ec5a 48px,
+    #ffb34c 64px,
+    #ff5c44 80px,
+    #5aa0f2 96px
+  ) !important;
 }
 
 /* Selection */

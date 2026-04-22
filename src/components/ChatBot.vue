@@ -144,7 +144,7 @@ const botReply = (userText) => {
     return 'We\'d love to help with a quote! Pricing depends on the product, quantity, and finish. Share your requirements and we\'ll prepare a custom quote within 24 hours. Call us at +971 56 726 8735 or click "Get Quote" on any product.' + whatsappNudge
   }
   if (text.includes('about') || text.includes('who') || text.includes('company') || text.includes('afme') || text.includes('al falah')) {
-    return 'Al Falah Middle East (AFME) has been Dubai\'s trusted printing partner since 2020 — with 5 years of expertise across 4 service verticals: Printing, Labels, Brand Activation, and Corporate Gifts.' + whatsappNudge
+    return 'Al Falah Middle East (AFME) has been Dubai\'s trusted printing partner since 2020 — with deep expertise across 4 service verticals: Printing, Labels, Brand Activation, and Corporate Gifts.' + whatsappNudge
   }
   if (text.includes('business card')) {
     return 'We offer 10+ types of business cards: Gold Foil, Metal, NFC Smart Cards, Die-Cut, Frosted PVC, Textured, Square, Matte Soft-Touch, and more. Starting from 250 pieces. Premium finishes include embossing, debossing, spot UV, and edge painting.' + whatsappNudge
@@ -183,7 +183,7 @@ const botReply = (userText) => {
     return 'We offer free design support! Our in-house creative team handles Brand Identity, Logo Design, Print Collateral, Packaging Design, and Concept Artwork. Share your brief and we\'ll create something amazing.' + whatsappNudge
   }
   if (text.includes('hello') || text.includes('hi') || text.includes('hey') || text.includes('good')) {
-    return 'Hello! 👋 Welcome to Al Falah Middle East — 5 years of printing excellence in Dubai. How can I help you today? Ask me about our products, services, or pricing!'
+    return 'Hello! 👋 Welcome to Al Falah Middle East — Dubai\'s trusted printing partner since 2020. How can I help you today? Ask me about our products, services, or pricing!'
   }
   if (text.includes('thank') || text.includes('thanks')) {
     return 'You\'re welcome! Happy to help. For any future inquiries, we\'re always here. You can also reach us on WhatsApp: wa.me/971567268735'

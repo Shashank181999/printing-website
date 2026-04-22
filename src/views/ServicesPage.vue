@@ -14,8 +14,8 @@
         </h1>
         <p class="services-lede">
           A complete suite of printing, branding and advertising solutions —
-          delivered by 5 years of Middle East expertise. From a single business card
-          to a full brand activation, AFME is your end-to-end partner.
+          delivered by Middle East expertise built since 2020. From a single business
+          card to a full brand activation, AFME is your end-to-end partner.
         </p>
         <div class="services-actions">
           <button class="btn-cta-primary" @click="openServiceForm">Get a Quote</button>

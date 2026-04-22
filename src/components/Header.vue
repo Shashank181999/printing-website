@@ -159,12 +159,7 @@ const handleScroll = () => {
 
   scrollProgress.value = (currentScrollY / documentHeight) * 100
   isScrolled.value = currentScrollY > 50
-
-  if (currentScrollY > lastScrollY && currentScrollY > 150) {
-    isHidden.value = true
-  } else {
-    isHidden.value = false
-  }
+  isHidden.value = false
 
   lastScrollY = currentScrollY
 }
@@ -383,9 +378,9 @@ onUnmounted(() => {
 }
 
 .logo-tagline {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--text-light);
 }
 
@@ -415,7 +410,7 @@ onUnmounted(() => {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #0072bc, #00a651, #ffd700, #ed1c24);
+  background: linear-gradient(90deg, #4a90e2, #3fb8af, #5fc85c, #d4e04a, #f2a23c, #ed4c34);
   transition: width 0.3s ease;
 }
 
@@ -645,7 +640,7 @@ onUnmounted(() => {
 }
 
 .header.dark-page .nav-links a::after {
-  background: linear-gradient(90deg, #0072bc, #00a651, #ffd700, #ed1c24);
+  background: linear-gradient(90deg, #4a90e2, #3fb8af, #5fc85c, #d4e04a, #f2a23c, #ed4c34);
 }
 
 .header.dark-page .header-phone {

@@ -174,7 +174,7 @@ const stages = [
     label: 'Print',
     word1: 'PRINT',
     word2: 'YOUR VISION',
-    desc: 'Five years turning ideas into things you can hold, wear and walk through. Al Falah is where Dubai\'s biggest brands come to be made real.',
+    desc: 'Since 2020, turning ideas into things you can hold, wear and walk through. Al Falah is where Dubai\'s biggest brands come to be made real.',
   },
   {
     label: 'Craft',

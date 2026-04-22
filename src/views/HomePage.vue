@@ -92,104 +92,21 @@
           <h2 class="welcome-title">More Than a Company —<br><em>Your Partners</em> in Print</h2>
           <p class="welcome-desc">
             At AFME, we are more than just a printing company — we are your partners in
-            transforming ideas into tangible realities. With 5 years of expertise across
-            printing, branding and advertising, we help businesses communicate effectively,
-            stand out in the market and build meaningful connections with their audiences.
+            transforming ideas into tangible realities. Trusted since 2020 for precision
+            printing, sharp branding and standout advertising, we help businesses communicate
+            effectively, stand out in the market and build meaningful connections with their
+            audiences.
           </p>
-          <div class="welcome-cta">
-            <router-link to="/about" class="btn-welcome-primary">About AFME</router-link>
-            <router-link to="/services" class="btn-welcome-outline">Our Services</router-link>
-          </div>
-          <div class="welcome-stats">
-            <div class="welcome-stat">
-              <strong>5</strong><span>Years of<br>Experience</span>
-              <div class="stat-bar"><div class="stat-bar-fill" style="--fill: 100%"></div></div>
-            </div>
-            <div class="welcome-stat">
-              <strong>4+</strong><span>Service<br>Verticals</span>
-              <div class="stat-bar"><div class="stat-bar-fill" style="--fill: 80%"></div></div>
-            </div>
-            <div class="welcome-stat">
-              <strong>1000+</strong><span>Projects<br>Delivered</span>
-              <div class="stat-bar"><div class="stat-bar-fill" style="--fill: 95%"></div></div>
-            </div>
-          </div>
         </div>
         <div class="welcome-visual">
           <div class="welcome-image-stack">
             <div class="welcome-img welcome-img--single">
               <img src="/hero/welcome.jpeg" alt="AFME printing production" />
             </div>
-            <div class="welcome-floating-card">
-              <div class="welcome-floating-num">5+</div>
-              <div>
-                <strong>Years</strong>
-                <span>Trusted in UAE</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- 3D Coverflow Carousel -->
-    <section class="coverflow-section" ref="coverflowSection">
-      <div class="container">
-        <div class="section-header section-header--center">
-          <span class="coverflow-eyebrow">FEATURED SHOWCASE</span>
-          <h2 class="section-title">Explore in <em>3D</em></h2>
-          <p class="section-subtitle">Drag, swipe or use the arrows — every product spins into focus.</p>
-        </div>
-
-        <div
-          class="coverflow"
-          ref="coverflowEl"
-          @pointerdown="onCoverflowDown"
-          @pointermove="onCoverflowMove"
-          @pointerup="onCoverflowUp"
-          @pointerleave="onCoverflowUp"
-          @pointercancel="onCoverflowUp"
-        >
-          <div class="coverflow-stage">
-            <div
-              v-for="(item, idx) in coverflowItems"
-              :key="item.slug"
-              class="coverflow-card"
-              :class="{ 'is-active': idx === activeIndex }"
-              :style="getCoverflowStyle(idx)"
-              @click="idx === activeIndex ? openCoverflowProduct(item) : setActive(idx)"
-            >
-              <img :src="`/products/${item.slug}.webp`" :alt="item.name" />
-              <div class="coverflow-shine"></div>
-              <div class="coverflow-card-info">
-                <span class="coverflow-card-cat">{{ item.category }}</span>
-                <h3>{{ item.name }}</h3>
-              </div>
-              <div class="coverflow-card-reflection"></div>
-            </div>
-          </div>
-
-          <button class="coverflow-nav coverflow-nav--prev" @click="prevSlide" aria-label="Previous">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
-          </button>
-          <button class="coverflow-nav coverflow-nav--next" @click="nextSlide" aria-label="Next">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-          </button>
-        </div>
-
-        <div class="coverflow-dots">
-          <button
-            v-for="(item, idx) in coverflowItems"
-            :key="'dot-' + item.slug"
-            class="coverflow-dot"
-            :class="{ active: idx === activeIndex }"
-            @click="setActive(idx)"
-            :aria-label="`Go to ${item.name}`"
-          ></button>
-        </div>
-      </div>
-    </section>
-
 
     <!-- CMYK Color Magic Section -->
     <section class="cmyk-section" ref="cmykSection">
@@ -201,10 +118,16 @@
             Cyan, Magenta, Yellow, and Black — four inks layered with precision to bring
             your designs to life in vibrant detail. Watch them converge into the perfect print.
           </p>
-          <div class="cmyk-stats">
-            <div class="cmyk-stat"><strong>4</strong><span>Color Channels</span></div>
-            <div class="cmyk-stat"><strong>2400</strong><span>DPI Resolution</span></div>
-            <div class="cmyk-stat"><strong>100%</strong><span>Color Accuracy</span></div>
+          <div class="cmyk-strengths">
+            <h3 class="cmyk-strengths-heading">Strengths</h3>
+            <ul class="cmyk-strengths-list">
+              <li>6 Color Channels</li>
+              <li>Spot UV</li>
+              <li>Foiling</li>
+              <li>Embossing / Debossing</li>
+              <li>Texturing</li>
+              <li>Graining</li>
+            </ul>
           </div>
         </div>
 
@@ -214,40 +137,6 @@
             <div class="cmyk-circle cmyk-m"></div>
             <div class="cmyk-circle cmyk-y"></div>
             <div class="cmyk-circle cmyk-k"></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Popular Products -->
-    <!-- Why Choose Us -->
-    <section class="why-section" ref="whySection">
-      <div class="container why-container">
-        <div class="why-text">
-          <span class="why-eyebrow">ABOUT COMPANY</span>
-          <h2 class="why-title">Why Choose <em>Us</em></h2>
-          <p class="why-desc">
-            With a blend of expertise, dedication, and a client-centric approach, AFME is
-            the partner of choice for businesses seeking to amplify their presence in the
-            market. Our holistic approach — rooted in the fusion of printing, branding and
-            advertising — positions us as trailblazers in the industry, ready to propel your
-            business toward success.
-          </p>
-          <p class="why-desc">
-            Elevate your brand, captivate your audience, and make a statement that lasts —
-            partner with AFME today and embark on a journey of innovation, creativity and growth.
-          </p>
-          <router-link to="/about" class="btn-why">
-            Read More
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </router-link>
-        </div>
-        <div class="why-points">
-          <div class="why-point" v-for="(point, i) in whyPoints" :key="point.title">
-            <div class="why-point-num">{{ String(i + 1).padStart(2, '0') }}</div>
-            <div class="why-point-icon" v-html="point.icon"></div>
-            <h3>{{ point.title }}</h3>
-            <p>{{ point.desc }}</p>
           </div>
         </div>
       </div>
@@ -283,79 +172,19 @@
         <span class="ink-drop ink-drop--y" style="--delay:2.0s;--left:84%"></span>
         <span class="ink-drop ink-drop--k" style="--delay:0.5s;--left:92%"></span>
 
-        <!-- Splash impact: ripple rings + flying beads, synced to each drop -->
-        <span class="ink-splash ink-splash--c" style="--delay:0s;  --left:5%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--m" style="--delay:1.4s;--left:12%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--y" style="--delay:0.6s;--left:20%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--k" style="--delay:2.2s;--left:28%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--c" style="--delay:0.8s;--left:36%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--m" style="--delay:1.8s;--left:44%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--y" style="--delay:3.1s;--left:52%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--k" style="--delay:0.3s;--left:60%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--c" style="--delay:2.6s;--left:68%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--m" style="--delay:1.0s;--left:76%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--y" style="--delay:2.0s;--left:84%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
-        <span class="ink-splash ink-splash--k" style="--delay:0.5s;--left:92%">
-          <span class="ink-ripple ink-ripple-1"></span>
-          <span class="ink-ripple ink-ripple-2"></span>
-          <span class="ink-bead ink-bead--l"></span>
-          <span class="ink-bead ink-bead--r"></span>
-        </span>
+        <!-- Soft glow on impact -->
+        <span class="ink-splash ink-splash--c" style="--delay:0s;  --left:5%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--m" style="--delay:1.4s;--left:12%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--y" style="--delay:0.6s;--left:20%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--k" style="--delay:2.2s;--left:28%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--c" style="--delay:0.8s;--left:36%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--m" style="--delay:1.8s;--left:44%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--y" style="--delay:3.1s;--left:52%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--k" style="--delay:0.3s;--left:60%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--c" style="--delay:2.6s;--left:68%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--m" style="--delay:1.0s;--left:76%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--y" style="--delay:2.0s;--left:84%"><span class="ink-glow"></span></span>
+        <span class="ink-splash ink-splash--k" style="--delay:0.5s;--left:92%"><span class="ink-glow"></span></span>
       </div>
 
       <div class="container press-container">
@@ -424,13 +253,10 @@
           <span class="roll-eyebrow">FROM ROLL TO REALITY</span>
           <h2 class="roll-title">Endless Rolls,<br><em>Limitless</em> Designs</h2>
           <p class="roll-desc">
-            From large-format banners to vinyl wraps, we feed massive paper and substrate rolls
-            through our presses to create signage and prints at any scale.
+            From concept to creation — endless ideas, timeless design.
           </p>
           <div class="roll-badges">
             <div class="roll-badge"><strong>5m</strong><span>Max Print Width</span></div>
-            <div class="roll-badge"><strong>1200m²</strong><span>Daily Output</span></div>
-            <div class="roll-badge"><strong>24/7</strong><span>Production</span></div>
           </div>
         </div>
       </div>
@@ -499,10 +325,9 @@
         <div class="cta-content">
           <h2 class="cta-title">Need a Custom Quote?</h2>
           <p class="cta-desc">
-            Tell us about your project and our team will get back to you within 24 hours with a tailored quote.
+            Tell us about your project and our team will get back to you.
           </p>
           <div class="cta-actions">
-            <button class="btn-cta" @click="openServiceForm">Get Quote</button>
             <a
               href="https://wa.me/971501234567"
               target="_blank"
@@ -765,7 +590,7 @@ const categoryStrip = [
 const whyPoints = [
   {
     title: 'Expertise',
-    desc: '5 years of know-how across printing, branding and advertising — we have seen it all.',
+    desc: 'Since 2020, hands-on know-how across printing, branding and advertising — we have seen it all.',
     icon: '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>',
   },
   {
@@ -1736,7 +1561,7 @@ onUnmounted(() => {
 
 .cmyk-title em {
   font-style: normal;
-  background: linear-gradient(90deg, #00aeef 0%, #ec008c 33%, #fff200 66%, #1a1a1a 100%);
+  background: linear-gradient(90deg, #00d4ff 0%, #bf3fff 28%, #ff2d6b 52%, #ff8c00 76%, #ffe600 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1750,9 +1575,42 @@ onUnmounted(() => {
   max-width: 480px;
 }
 
-.cmyk-stats {
+.cmyk-strengths {
+  margin-top: 8px;
+}
+
+.cmyk-strengths-heading {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  margin-bottom: 12px;
+}
+
+.cmyk-strengths-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
-  gap: 36px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cmyk-strengths-list li {
+  font-size: 15px;
+  color: var(--text-secondary);
+  padding-left: 18px;
+  position: relative;
+}
+
+.cmyk-strengths-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--accent-blue);
+  font-weight: 600;
 }
 
 .cmyk-stat {
@@ -2733,7 +2591,7 @@ onUnmounted(() => {
   100%     { opacity: 0; transform: translate(-50%, 100%) scale(3); }
 }
 
-/* ── Impact splash: ripple rings + flying beads ── */
+/* ── Soft glow on impact ── */
 .ink-splash {
   position: absolute;
   left: var(--left);
@@ -2741,7 +2599,6 @@ onUnmounted(() => {
   width: 0;
   height: 0;
   pointer-events: none;
-  color: currentColor;
 }
 
 .ink-splash--c { color: #00aeef; }
@@ -2749,79 +2606,27 @@ onUnmounted(() => {
 .ink-splash--y { color: #fff200; }
 .ink-splash--k { color: #9db3c9; }
 
-.ink-ripple {
+.ink-glow {
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 28px;
-  height: 10px;
-  margin-left: -14px;
-  border: 1.5px solid currentColor;
-  border-bottom-color: transparent;
+  left: 50%;
+  top: 0;
+  width: 20px;
+  height: 7px;
+  margin-left: -10px;
+  margin-top: -3px;
   border-radius: 50%;
+  background: radial-gradient(ellipse at center, currentColor 0%, transparent 75%);
   opacity: 0;
   transform: scale(0);
-  transform-origin: center bottom;
-  animation: inkRipple 5s var(--delay) ease-out infinite;
-  filter: drop-shadow(0 0 4px currentColor);
+  filter: blur(1.5px);
+  animation: inkGlow 5s var(--delay) ease-out infinite;
 }
 
-.ink-ripple-2 {
-  width: 46px;
-  height: 16px;
-  margin-left: -23px;
-  border-width: 1px;
-  opacity: 0;
-  animation: inkRipple2 5s var(--delay) ease-out infinite;
-}
-
-@keyframes inkRipple {
-  0%, 78% { transform: scale(0); opacity: 0; }
-  82%     { transform: scale(0.2); opacity: 0.9; }
-  90%     { transform: scale(1); opacity: 0.6; }
-  100%    { transform: scale(1.4); opacity: 0; }
-}
-
-@keyframes inkRipple2 {
-  0%, 80% { transform: scale(0); opacity: 0; }
-  84%     { transform: scale(0.25); opacity: 0.7; }
-  100%    { transform: scale(1.3); opacity: 0; }
-}
-
-.ink-bead {
-  position: absolute;
-  left: -1.5px;
-  bottom: 0;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: currentColor;
-  box-shadow: 0 0 4px currentColor;
-  opacity: 0;
-}
-
-.ink-bead--l {
-  animation: inkBeadL 5s var(--delay) cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
-}
-
-.ink-bead--r {
-  animation: inkBeadR 5s var(--delay) cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
-}
-
-@keyframes inkBeadL {
-  0%, 78%  { transform: translate(0, 0) scale(0.6); opacity: 0; }
-  82%      { transform: translate(0, 0) scale(1); opacity: 1; }
-  88%      { transform: translate(-12px, -10px) scale(0.9); opacity: 0.9; }
-  94%      { transform: translate(-18px, -2px) scale(0.6); opacity: 0; }
-  100%     { transform: translate(-18px, -2px) scale(0); opacity: 0; }
-}
-
-@keyframes inkBeadR {
-  0%, 78%  { transform: translate(0, 0) scale(0.6); opacity: 0; }
-  82%      { transform: translate(0, 0) scale(1); opacity: 1; }
-  88%      { transform: translate(12px, -10px) scale(0.9); opacity: 0.9; }
-  94%      { transform: translate(18px, -2px) scale(0.6); opacity: 0; }
-  100%     { transform: translate(18px, -2px) scale(0); opacity: 0; }
+@keyframes inkGlow {
+  0%, 78%  { transform: scaleX(0) scaleY(0.4); opacity: 0; }
+  82%      { transform: scaleX(0.9) scaleY(1); opacity: 0.8; }
+  90%      { transform: scaleX(1.2) scaleY(0.85); opacity: 0.5; }
+  100%     { transform: scaleX(1.6) scaleY(0.5); opacity: 0; }
 }
 
 .press-container {
@@ -3263,8 +3068,8 @@ onUnmounted(() => {
 .roll-badge {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
 }
 
 .roll-badge strong {

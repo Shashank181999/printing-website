@@ -8,9 +8,10 @@
           <h1 class="hero-heading">More Than a Company —<br><em>Your Partners</em> in Print</h1>
           <p class="hero-description">
             At AFME, we are more than just a printing company — we are your partners in
-            transforming ideas into tangible realities. With 5 years of expertise across
-            printing, branding, and advertising, we help businesses communicate effectively,
-            stand out in the market, and build meaningful connections with their audiences.
+            transforming ideas into tangible realities. Trusted since 2020 for precision
+            printing, sharp branding and standout advertising, we help businesses communicate
+            effectively, stand out in the market, and build meaningful connections with
+            their audiences.
           </p>
         </div>
         <div class="hero-image-wrapper">
@@ -44,27 +45,6 @@
                 <p class="milestone-desc">{{ milestone.description }}</p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Section 3: Why Choose Us -->
-    <section class="features-section">
-      <div class="section-container">
-        <span class="section-label">About Company</span>
-        <h2 class="section-heading">Why Choose Us</h2>
-        <p class="section-intro">
-          With a blend of expertise, dedication, and a client-centric approach, AFME is the
-          partner of choice for businesses seeking to amplify their presence in the market.
-          Our holistic approach — rooted in the fusion of printing, branding, and advertising —
-          positions us as trailblazers in the industry, ready to propel your business toward success.
-        </p>
-        <div class="features-grid">
-          <div v-for="(feature, index) in features" :key="index" class="feature-card">
-            <div class="feature-icon" v-html="feature.icon"></div>
-            <h3 class="feature-title">{{ feature.title }}</h3>
-            <p class="feature-desc">{{ feature.description }}</p>
           </div>
         </div>
       </div>
@@ -110,7 +90,7 @@
       <div class="section-container">
         <h2 class="cta-heading">Ready to Start Your Project?</h2>
         <p class="cta-subtext">
-          Let us bring your vision to life with 5 years of printing expertise.
+          Let us bring your vision to life with printing expertise built since 2020.
         </p>
         <div class="cta-buttons">
           <button class="btn-cta-primary" @click="openServiceForm">Get Quote</button>
@@ -166,7 +146,7 @@ const features = [
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
     title: 'Trusted Partner',
-    description: '5 years of expertise across printing, branding and advertising — one of the most reliable end-to-end print partners in the UAE.'
+    description: 'Proven since 2020 across printing, branding and advertising — one of the most reliable end-to-end print partners in the UAE.'
   },
   {
     icon: '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>',

@@ -3,7 +3,7 @@
     <!-- Hero Section with Dark Background -->
     <section class="contact-hero">
       <div class="hero-bg">
-        <img src="https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=1920&q=80" alt="Printing Studio" />
+        <img src="/images/hero/contact-bg.jpg" alt="Printing Studio" />
       </div>
       <div class="hero-overlay"></div>
       <div class="container">
