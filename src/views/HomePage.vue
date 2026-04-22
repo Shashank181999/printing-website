@@ -25,28 +25,11 @@
         <div class="showcase-header">
           <div>
             <span class="showcase-eyebrow">OUR PRODUCTS</span>
-            <h2 class="section-title">Popular <em>Products</em></h2>
           </div>
           <router-link to="/products" class="showcase-view-all">
             View All Products
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </router-link>
-        </div>
-        <div class="showcase-grid">
-          <div
-            v-for="prod in popularProducts"
-            :key="prod.slug"
-            class="showcase-item"
-            @click="openCoverflowProduct(prod)"
-          >
-            <div class="showcase-item-img">
-              <img :src="`/products/${prod.slug}.webp`" :alt="prod.name" />
-            </div>
-            <div class="showcase-item-info">
-              <span class="showcase-item-cat">{{ prod.category }}</span>
-              <h3 class="showcase-item-name">{{ prod.name }}</h3>
-            </div>
-          </div>
         </div>
       </div>
     </section>
@@ -54,36 +37,32 @@
     <!-- Poster Carousel -->
     <PosterCarousel />
 
-    <!-- 2. Category Strip -->
-    <section class="category-strip">
-      <div class="category-scroll-wrap">
-        <div class="category-scroll">
-          <router-link
-            v-for="cat in categoryStrip"
-            :key="cat.name"
-            to="/products"
-            class="category-chip"
-          >
-            <div class="category-chip-img">
-              <img :src="`/products/${cat.slug}.webp`" :alt="cat.name" />
+    <!-- Products Accordion -->
+    <section class="pa-section">
+      <div class="pa-options" @mouseleave="onAccordionLeave">
+        <div
+          v-for="(prod, i) in popularProducts.slice(0, 6)"
+          :key="prod.slug"
+          class="pa-option"
+          :class="{ active: activeAccordion === i }"
+          :style="{ '--optionBackground': `url(/products/${prod.slug}.webp)` }"
+          @mouseenter="onAccordionEnter(i)"
+          @click="router.push({ path: '/products', query: { q: prod.name } })"
+        >
+          <div class="pa-shadow"></div>
+          <div class="pa-label">
+            <div class="pa-icon">
+              <img :src="`/products/${prod.slug}.webp`" :alt="prod.name" />
             </div>
-            <span class="category-chip-name">{{ cat.name }}</span>
-          </router-link>
-          <!-- Duplicate for seamless loop -->
-          <router-link
-            v-for="cat in categoryStrip"
-            :key="cat.name + '-dup'"
-            to="/products"
-            class="category-chip"
-          >
-            <div class="category-chip-img">
-              <img :src="`/products/${cat.slug}.webp`" :alt="cat.name" />
+            <div class="pa-info">
+              <div class="pa-main">{{ prod.name }}</div>
+              <div class="pa-sub">{{ prod.category }}</div>
             </div>
-            <span class="category-chip-name">{{ cat.name }}</span>
-          </router-link>
+          </div>
         </div>
       </div>
     </section>
+
 
     <!-- Welcome / About AFME -->
     <section class="welcome-section" ref="welcomeSection">
@@ -400,6 +379,15 @@ const welcomeSection = ref(null)
 const whySection = ref(null)
 const approachSection = ref(null)
 const productsShowcase = ref(null)
+const activeAccordion = ref(null)
+let accordionLeaveTimer = null
+function onAccordionLeave() {
+  accordionLeaveTimer = setTimeout(() => { activeAccordion.value = null }, 80)
+}
+function onAccordionEnter(i) {
+  clearTimeout(accordionLeaveTimer)
+  activeAccordion.value = i
+}
 
 const popularProducts = [
   { slug: 'product-labels-and-stickers', name: 'Product Labels & Stickers', category: 'Labels & Stickers' },
@@ -2032,8 +2020,165 @@ onUnmounted(() => {
 
 /* ========== Popular Products Showcase ========== */
 .products-showcase {
-  padding: 80px 0;
+  padding: 40px 0 0;
   background: var(--bg-primary);
+}
+
+.products-showcase--grid {
+  padding: 0 0 80px;
+}
+
+/* ── Product Accordion (reference CodePen style) ── */
+.pa-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg-primary);
+  padding: 0 0 80px;
+}
+
+.pa-options {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
+  min-width: 600px;
+  max-width: 1100px;
+  width: calc(100% - 80px);
+  height: 320px;
+  gap: 10px;
+}
+
+.pa-option {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  flex: 1 1 0;
+  background-color: #f4f4f2;
+  background-image: var(--optionBackground);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: pointer;
+  border-radius: 16px;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition:
+    flex-grow 0.55s ease-in-out,
+    border-radius 0.55s ease-in-out,
+    box-shadow 0.55s ease-in-out;
+}
+
+.pa-option:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
+}
+
+.pa-option.active {
+  flex-grow: 10;
+  border-radius: 20px;
+}
+
+.pa-option.active .pa-shadow {
+  box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black;
+}
+
+.pa-option.active .pa-label {
+  bottom: 20px;
+  left: 20px;
+}
+
+.pa-option.active .pa-info > div {
+  left: 0;
+  opacity: 1;
+}
+
+.pa-option:not(.active) .pa-shadow {
+  bottom: -40px;
+  box-shadow: inset 0 -120px 0 -120px black, inset 0 -120px 0 -100px black;
+}
+
+.pa-option:not(.active) .pa-label {
+  bottom: 10px;
+  left: 10px;
+}
+
+.pa-option:not(.active) .pa-info > div {
+  left: 20px;
+  opacity: 0;
+}
+
+.pa-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 120px;
+  transition: box-shadow 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+              bottom 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.pa-label {
+  display: flex;
+  position: absolute;
+  right: 0;
+  height: 40px;
+  transition: bottom 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+              left 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.pa-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.pa-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pa-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+  color: white;
+  white-space: pre;
+}
+
+.pa-info > div {
+  position: relative;
+  transition: left 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+              opacity 0.5s ease-out;
+}
+
+.pa-main {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.pa-sub {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  transition-delay: 0.1s;
+}
+
+@media (max-width: 768px) {
+  .pa-options { min-width: 400px; height: 320px; }
+  .pa-option:nth-child(5) { display: none; }
+}
+
+@media (max-width: 560px) {
+  .pa-options { min-width: 280px; height: 260px; }
+  .pa-option:nth-child(4), .pa-option:nth-child(5) { display: none; }
 }
 
 .showcase-wide {
@@ -2045,7 +2190,7 @@ onUnmounted(() => {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   gap: 24px;
 }
 
@@ -2532,9 +2677,9 @@ onUnmounted(() => {
   position: absolute;
   top: -40px;
   left: var(--left);
-  width: 3px;
-  height: 46px;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  width: 4px;
+  height: 52px;
+  border-radius: 50% 50% 50% 50% / 5% 5% 50% 50%;
   opacity: 0;
   animation: inkDropFall 5s var(--delay) cubic-bezier(0.45, 0, 0.9, 0.35) infinite;
   transform-origin: top center;
@@ -2556,22 +2701,22 @@ onUnmounted(() => {
 }
 
 .ink-drop--c {
-  background: linear-gradient(to bottom, transparent 0%, rgba(0, 174, 239, 0.25) 40%, #00aeef 100%);
+  background: linear-gradient(to bottom, transparent 0%, #00aeef 100%);
   filter: drop-shadow(0 0 3px rgba(0, 174, 239, 0.7));
   color: #00aeef;
 }
 .ink-drop--m {
-  background: linear-gradient(to bottom, transparent 0%, rgba(236, 0, 140, 0.25) 40%, #ec008c 100%);
+  background: linear-gradient(to bottom, transparent 0%, #ec008c 100%);
   filter: drop-shadow(0 0 3px rgba(236, 0, 140, 0.7));
   color: #ec008c;
 }
 .ink-drop--y {
-  background: linear-gradient(to bottom, transparent 0%, rgba(255, 242, 0, 0.25) 40%, #fff200 100%);
+  background: linear-gradient(to bottom, transparent 0%, #fff200 100%);
   filter: drop-shadow(0 0 3px rgba(255, 242, 0, 0.7));
   color: #fff200;
 }
 .ink-drop--k {
-  background: linear-gradient(to bottom, transparent 0%, rgba(157, 179, 201, 0.2) 40%, #9db3c9 100%);
+  background: linear-gradient(to bottom, transparent 0%, #9db3c9 100%);
   filter: drop-shadow(0 0 3px rgba(157, 179, 201, 0.6));
   color: #9db3c9;
 }

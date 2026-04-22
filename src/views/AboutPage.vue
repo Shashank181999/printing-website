@@ -22,12 +22,6 @@
           />
         </div>
       </div>
-      <div class="hero-stats">
-        <div v-for="stat in stats" :key="stat.label" class="stat-item">
-          <span class="stat-number">{{ stat.number }}</span>
-          <span class="stat-label">{{ stat.label }}</span>
-        </div>
-      </div>
     </section>
 
     <!-- Section 2: Our Story - Horizontal Timeline -->

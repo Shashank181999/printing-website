@@ -289,13 +289,19 @@
 </template>
 
 <script setup>
-import { ref, computed, inject, watch } from 'vue'
+import { ref, computed, inject, watch, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import productsData from '../products-data.json'
 
 const openServiceForm = inject('openServiceForm')
+const route = useRoute()
 const selectedProduct = ref(null)
 const activeFolder = ref(null)
 const searchQuery = ref('')
+
+onMounted(() => {
+  if (route.query.q) searchQuery.value = route.query.q
+})
 const ITEMS_PER_PAGE = 12
 const visibleCount = ref(ITEMS_PER_PAGE)
 

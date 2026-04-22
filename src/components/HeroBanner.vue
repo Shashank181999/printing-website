@@ -395,9 +395,9 @@ onBeforeUnmount(() => {
   position: absolute;
   top: -60px;
   left: var(--x);
-  width: 2px;
+  width: 3px;
   height: 50px;
-  border-radius: 0 0 2px 2px;
+  border-radius: 50% 50% 50% 50% / 50% 50% 5% 5%;
   opacity: 0;
   animation: heroInkFall var(--dur) var(--delay) linear infinite;
   transform-origin: top center;

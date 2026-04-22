@@ -1,27 +1,6 @@
 <template>
   <section class="poster-section" ref="rootRef" aria-label="Printing work posters">
     <div class="container poster-container">
-      <div class="poster-header">
-        <div>
-          <span class="poster-eyebrow">OUR WORK</span>
-          <h2 class="section-title">Poster <em>Showcase</em></h2>
-          <p class="poster-sub">A quick look at the quality and craft that leaves our press.</p>
-        </div>
-
-        <div class="poster-controls">
-          <button
-            class="poster-btn"
-            :class="{ 'is-paused': paused }"
-            type="button"
-            @click="togglePause"
-            :aria-label="paused ? 'Resume auto-scroll' : 'Pause auto-scroll'"
-            :aria-pressed="paused"
-          >
-            <svg v-if="!paused" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
-            <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-        </div>
-      </div>
 
       <div
         class="poster-viewport"
@@ -69,7 +48,6 @@
                 <h3 class="poster-title">{{ poster.title }}</h3>
                 <p class="poster-desc">{{ poster.desc }}</p>
               </div>
-              <span class="poster-index">0{{ i + 1 }} / 0{{ posters.length }}</span>
             </div>
           </article>
         </div>
@@ -247,21 +225,12 @@ onUnmounted(() => {
 
 <style scoped>
 .poster-section {
-  padding: clamp(48px, 7vw, 110px) 0;
-  background: linear-gradient(180deg, #faf9f7 0%, #f1ece4 100%);
+  padding: 0 0 clamp(32px, 5vw, 60px);
+  background: var(--bg-primary);
   position: relative;
   overflow: hidden;
 }
 
-.poster-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 15% 20%, rgba(46, 139, 192, 0.08), transparent 50%),
-    radial-gradient(circle at 85% 80%, rgba(253, 216, 53, 0.08), transparent 50%);
-  pointer-events: none;
-}
 
 .poster-container {
   position: relative;
@@ -270,11 +239,8 @@ onUnmounted(() => {
 
 .poster-header {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: clamp(16px, 3vw, 32px);
-  margin-bottom: clamp(24px, 4vw, 40px);
-  flex-wrap: wrap;
+  justify-content: flex-end;
+  padding: 12px 0;
 }
 
 .poster-header > div:first-child {
@@ -424,7 +390,7 @@ onUnmounted(() => {
 .poster-card-inner {
   position: relative;
   width: 100%;
-  height: min(85vh, 780px);
+  height: min(42vh, 390px);
   overflow: hidden;
 }
 
@@ -568,7 +534,7 @@ onUnmounted(() => {
   }
 
   .poster-card-inner {
-    height: min(80vh, 680px);
+    height: min(40vh, 340px);
   }
 }
 
@@ -584,7 +550,7 @@ onUnmounted(() => {
   }
 
   .poster-card-inner {
-    height: min(78vh, 620px);
+    height: min(39vh, 310px);
   }
 
   .poster-desc {
@@ -602,7 +568,7 @@ onUnmounted(() => {
   }
 
   .poster-card-inner {
-    height: min(75vh, 540px);
+    height: min(37vh, 270px);
   }
 
   .poster-overlay {
