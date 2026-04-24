@@ -22,7 +22,7 @@
             alt="Large format printer"
             class="ss-hero-img"
           />
-          <!-- Ink drops falling from printer nozzle -->
+          <!-- Ink drops + surface splash synced per drop -->
           <div class="ss-ink-drops" aria-hidden="true">
             <!-- Centre cluster -->
             <span class="ss-ink-drop ss-ink-drop--c" style="--left:44%; --delay:0s;   --dur:3.2s;"></span>
@@ -34,6 +34,15 @@
             <span class="ss-ink-drop ss-ink-drop--c" style="--left:67%; --delay:1.8s; --dur:2.9s;"></span>
             <span class="ss-ink-drop ss-ink-drop--m" style="--left:71%; --delay:2.5s; --dur:3.6s;"></span>
             <span class="ss-ink-drop ss-ink-drop--k" style="--left:74%; --delay:1.1s; --dur:3.1s;"></span>
+            <!-- Surface splashes — one per drop, same left + delay + dur -->
+            <span class="ss-ink-splash ss-ink-splash--c" style="--left:44%; --delay:0s;   --dur:3.2s;"><span class="ss-ink-glow"></span></span>
+            <span class="ss-ink-splash ss-ink-splash--m" style="--left:47%; --delay:1.4s; --dur:2.8s;"><span class="ss-ink-glow"></span></span>
+            <span class="ss-ink-splash ss-ink-splash--y" style="--left:50%; --delay:0.6s; --dur:3.5s;"><span class="ss-ink-glow"></span></span>
+            <span class="ss-ink-splash ss-ink-splash--k" style="--left:53%; --delay:2.0s; --dur:3.0s;"><span class="ss-ink-glow"></span></span>
+            <span class="ss-ink-splash ss-ink-splash--y" style="--left:63%; --delay:0.3s; --dur:3.3s;"><span class="ss-ink-glow"></span></span>
+            <span class="ss-ink-splash ss-ink-splash--c" style="--left:67%; --delay:1.8s; --dur:2.9s;"><span class="ss-ink-glow"></span></span>
+            <span class="ss-ink-splash ss-ink-splash--m" style="--left:71%; --delay:2.5s; --dur:3.6s;"><span class="ss-ink-glow"></span></span>
+            <span class="ss-ink-splash ss-ink-splash--k" style="--left:74%; --delay:1.1s; --dur:3.1s;"><span class="ss-ink-glow"></span></span>
           </div>
           <div class="ss-hero-shadow" ref="shadowEl"></div>
         </div>
@@ -453,12 +462,49 @@ onBeforeUnmount(() => {
 .ss-ink-drop--k { background: linear-gradient(to bottom, transparent 0%, #9db3c9 100%); filter: drop-shadow(0 0 4px rgba(157,179,201,0.8)); }
 
 @keyframes ssInkFall {
-  0%   { top: 54%;  opacity: 0;   transform: scaleY(1); }
+  0%   { top: 54%;  opacity: 0; }
   6%   { opacity: 0.95; }
-  74%  { top: 155%; opacity: 0.95; transform: scaleY(1); }
-  78%  { top: 160%; opacity: 0.5;  transform: scaleY(0.25); }
-  80%  { top: 160%; opacity: 0;    transform: scaleY(0); }
-  100% { top: 160%; opacity: 0;    transform: scaleY(0); }
+  74%  { top: 115%; opacity: 0.95; }
+  75%  { top: 115%; opacity: 0; }
+  100% { top: 115%; opacity: 0; }
+}
+
+/* Surface splash — synced to drop impact at ~74% of duration */
+.ss-ink-splash {
+  position: absolute;
+  left: var(--left);
+  top: 115%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.ss-ink-splash--c { color: #00aeef; }
+.ss-ink-splash--m { color: #ec008c; }
+.ss-ink-splash--y { color: #fff200; }
+.ss-ink-splash--k { color: #9db3c9; }
+
+.ss-ink-glow {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 24px;
+  height: 8px;
+  margin-left: -12px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, currentColor 0%, transparent 75%);
+  opacity: 0;
+  transform: scale(0);
+  filter: blur(1.5px);
+  animation: ssInkGlow var(--dur, 3.2s) var(--delay, 0s) ease-out infinite;
+}
+
+@keyframes ssInkGlow {
+  0%, 73%  { transform: scaleX(0) scaleY(0.4); opacity: 0; }
+  77%      { transform: scaleX(1.0) scaleY(1);  opacity: 1; }
+  88%      { transform: scaleX(1.4) scaleY(0.7); opacity: 0.5; }
+  100%     { transform: scaleX(1.9) scaleY(0.3); opacity: 0; }
 }
 
 .ss-hero-glow {

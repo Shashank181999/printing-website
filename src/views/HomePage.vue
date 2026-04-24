@@ -50,7 +50,7 @@
         >
           <div
             class="pa-option"
-            :style="{ '--optionBackground': `url(${folder.image})` }"
+            :style="{ '--optionBackground': `url(${folder.coverImage || folder.image})` }"
           >
             <div class="pa-shadow"></div>
             <div class="pa-label">
@@ -393,12 +393,12 @@ function onAccordionEnter(i) {
 }
 
 const folderCards = [
-  { id: 'offset-digital',       name: 'Offset & Digital Printing', image: '/products/offset-digital/brochure.png',                     infographic: '/infographics/offset-digital.png' },
-  { id: 'advertising-marketing',name: 'Advertising & Marketing',    image: '/products/advertising-marketing/roll-up-banners.png',         infographic: '/infographics/advertising-marketing.png' },
-  { id: 'large-format',         name: 'Large Format Printing',      image: '/products/large-format/vehicle-branding.png',                 infographic: '/infographics/large-format.png' },
-  { id: 'corporate',            name: 'Corporate',                  image: '/products/corporate/welcome-kits.png',                        infographic: '/infographics/corporate.png' },
-  { id: 'signages',             name: 'Signages',                   image: '/products/signages/neon-signage.png',                         infographic: '/infographics/signages.png' },
-  { id: 'exhibition-work',      name: 'Exhibition Work',            image: '/products/exhibition-work/both-setup.png',                    infographic: '/infographics/exhibition-work.png' },
+  { id: 'offset-digital',       name: 'Offset & Digital Printing', image: '/products/offset-digital/brochure.png',                     coverImage: '/products/offset-digital/company-profile.png',           infographic: '/infographics/offset-digital.png' },
+  { id: 'advertising-marketing',name: 'Advertising & Marketing',    image: '/products/advertising-marketing/roll-up-banners.png',         coverImage: '/products/advertising-marketing/step-and-repeat-backdrop.png', infographic: '/infographics/advertising-marketing.png' },
+  { id: 'large-format',         name: 'Large Format Printing',      image: '/products/large-format/vehicle-branding.png',                 coverImage: '/products/large-format/showroom-branding.png',            infographic: '/infographics/large-format.png' },
+  { id: 'corporate',            name: 'Corporate',                  image: '/products/corporate/welcome-kits.png',                        coverImage: '/products/corporate/tote-bags.png',                       infographic: '/infographics/corporate.png' },
+  { id: 'signages',             name: 'Signages',                   image: '/products/signages/neon-signage.png',                         coverImage: '/products/signages/3d-acrylic-signage.png',               infographic: '/infographics/signages.png' },
+  { id: 'exhibition-work',      name: 'Exhibition Work',            image: '/products/exhibition-work/both-setup.png',                    coverImage: '/products/exhibition-work/shell-scheme.png',              infographic: '/infographics/exhibition-work.png' },
 ]
 
 // CMYK + Print Process refs
@@ -2043,11 +2043,11 @@ onUnmounted(() => {
   flex-direction: row;
   align-items: stretch;
   overflow: hidden;
-  min-width: 600px;
-  max-width: 1100px;
-  width: calc(100% - 80px);
-  height: 320px;
-  gap: 10px;
+  width: 100%;
+  height: 340px;
+  gap: 20px;
+  padding: 36px 32px;
+  box-sizing: border-box;
 }
 
 .pa-card-wrap {
@@ -2055,34 +2055,41 @@ onUnmounted(() => {
   flex: 1 1 0;
   min-width: 0;
   cursor: pointer;
+  /* No overflow:hidden — colored card peeks outside like reference */
   transition: flex-grow 0.55s ease-in-out;
 }
+
+/* Per-card colors */
+.pa-card-wrap:nth-child(1) { --pcard: #d63384; }
+.pa-card-wrap:nth-child(2) { --pcard: #f7941d; }
+.pa-card-wrap:nth-child(3) { --pcard: #00aeef; }
+.pa-card-wrap:nth-child(4) { --pcard: #1a6fc4; }
+.pa-card-wrap:nth-child(5) { --pcard: #39b54a; }
+.pa-card-wrap:nth-child(6) { --pcard: #f5d020; }
 
 .pa-card-wrap.active {
   flex-grow: 10;
 }
 
-/* Gradient border via background-clip */
+/* Full rotated colored card behind the white card */
 .pa-card-wrap::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #4a90e2, #3fb8af, #5fc85c, #d4e04a, #f2a23c, #ed4c34);
   border-radius: 22px;
+  background: var(--pcard);
+  transform: rotate(-10deg);
+  transform-origin: center;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.85;
-  transition: opacity 0.4s ease;
+  transition: transform 0.4s ease;
 }
 
-.pa-card-wrap:hover::before,
-.pa-card-wrap.active::before {
-  opacity: 1;
-}
+/* colored back card stays fixed — no extra transform on hover/active */
 
 .pa-option {
   position: absolute;
-  inset: 2px;
+  inset: 0;
   overflow: hidden;
   background-color: #f5fbff;
   background-image: var(--optionBackground);
@@ -2090,16 +2097,15 @@ onUnmounted(() => {
   background-repeat: no-repeat;
   background-position: center 36%;
   border-radius: 20px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   z-index: 1;
   transition:
-    inset 0.55s ease-in-out,
     border-radius 0.55s ease-in-out,
     box-shadow 0.55s ease-in-out;
 }
 
 .pa-card-wrap:hover .pa-option {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
 }
 
 .pa-card-wrap.active .pa-option {
@@ -2740,8 +2746,8 @@ onUnmounted(() => {
   0%   { top: -5%;  opacity: 0; }
   8%   { opacity: 1; }
   75%  { top: 88%;  opacity: 1; }
-  88%  { top: 92%;  opacity: 0; }
-  100% { top: 92%;  opacity: 0; }
+  76%  { top: 88%;  opacity: 0; }
+  100% { top: 88%;  opacity: 0; }
 }
 
 /* ── Soft glow on impact ── */
