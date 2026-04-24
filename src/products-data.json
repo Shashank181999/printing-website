@@ -1,949 +1,764 @@
 {
   "folders": [
     {
-      "id": "offset-and-digital",
+      "id": "offset-digital",
       "name": "Offset & Digital Printing",
       "count": 26
     },
     {
-      "id": "large-format-printing",
-      "name": "Large Format Printing",
-      "count": 9
-    },
-    {
-      "id": "advertising-and-marketing",
+      "id": "advertising-marketing",
       "name": "Advertising & Marketing",
-      "count": 23
+      "count": 31
     },
     {
-      "id": "event-advertising",
-      "name": "Event Advertising",
+      "id": "large-format",
+      "name": "Large Format Printing",
       "count": 11
     },
     {
-      "id": "corporate-and-exhibition",
-      "name": "Corporate & Exhibition",
-      "count": 39
-    },
-    {
-      "id": "pop-up-materials",
-      "name": "Pop-Up Materials",
-      "count": 3
+      "id": "corporate",
+      "name": "Corporate",
+      "count": 23
     },
     {
       "id": "signages",
       "name": "Signages",
-      "count": 3
+      "count": 10
     },
     {
-      "id": "business-cards",
-      "name": "Business Cards",
-      "count": 20
-    },
-    {
-      "id": "stickers-and-labels",
-      "name": "Stickers & Labels",
-      "count": 9
-    },
-    {
-      "id": "frost-film",
-      "name": "Frost Film",
-      "count": 3
-    },
-    {
-      "id": "name-plates",
-      "name": "Name Plates",
-      "count": 4
+      "id": "exhibition-work",
+      "name": "Exhibition Work",
+      "count": 7
     }
   ],
   "products": [
     {
-      "slug": "offset-and-digital-annual-report",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-books-printing",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Annual Report",
-      "image": "/products/offset-and-digital/annual-report.png",
-      "description": "High-end Annual Report to showcase your brand story and capabilities."
+      "name": "Books Printing",
+      "image": "/products/offset-digital/books-printing.jpeg",
+      "description": "Books Printing — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-book-layout-with-cover",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-box-printing",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "book layout with cover",
-      "image": "/products/offset-and-digital/book-layout-with-cover.jpg",
-      "description": "book layout with cover printed and bound in-house with precision finishing."
+      "name": "Box Printing",
+      "image": "/products/offset-digital/box-printing.jpeg",
+      "description": "Box Printing — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-brochure-templates",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-brochure",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Brochure Templates",
-      "image": "/products/offset-and-digital/brochure-templates.jpg",
-      "description": "High-end Brochure Templates to showcase your brand story and capabilities."
+      "name": "Brochure",
+      "image": "/products/offset-digital/brochure.png",
+      "description": "Brochure — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-calendar",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-business-cards",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Calendar",
-      "image": "/products/offset-and-digital/calendar.jpg",
-      "description": "Branded Calendar that keeps your company visible year-round."
+      "name": "Business Cards",
+      "image": "/products/offset-digital/business-cards.png",
+      "description": "Business Cards — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-car-mat",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-car-mat",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Car mat",
-      "image": "/products/offset-and-digital/car-mat.png",
-      "description": "Durable custom Car mat with branded designs and logos."
+      "name": "Car Mat",
+      "image": "/products/offset-digital/car-mat.png",
+      "description": "Car Mat — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-catalog-2021",
-      "folder": "offset-and-digital",
-      "folderName": "Offset & Digital Printing",
-      "name": "Catalog 2021",
-      "image": "/products/offset-and-digital/catalog-2021.jpg",
-      "description": "High-end Catalog 2021 to showcase your brand story and capabilities."
-    },
-    {
-      "slug": "offset-and-digital-certificate-folder",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-certificate-folder",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
       "name": "Certificate Folder",
-      "image": "/products/offset-and-digital/certificate-folder.png",
-      "description": "Premium Certificate Folder built with quality stock and clean finishing."
+      "image": "/products/offset-digital/certificate-folder.png",
+      "description": "Certificate Folder — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-company-profile-bookle",
-      "folder": "offset-and-digital",
-      "folderName": "Offset & Digital Printing",
-      "name": "Company Profile Bookle",
-      "image": "/products/offset-and-digital/company-profile-bookle.png",
-      "description": "Company Profile Bookle printed and bound in-house with precision finishing."
-    },
-    {
-      "slug": "offset-and-digital-company-profile",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-company-profile",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
       "name": "Company Profile",
-      "image": "/products/offset-and-digital/company-profile.png",
-      "description": "High-end Company Profile to showcase your brand story and capabilities."
+      "image": "/products/offset-digital/company-profile.png",
+      "description": "Company Profile — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-corporate-certificate-design",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-customized-envelopes",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Corporate certificate design",
-      "image": "/products/offset-and-digital/corporate-certificate-design.jpg",
-      "description": "Premium Corporate certificate design for awards, recognition and achievements."
+      "name": "Customized Envelopes",
+      "image": "/products/offset-digital/customized-envelopes.png",
+      "description": "Customized Envelopes — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-customized-envelopes",
-      "folder": "offset-and-digital",
-      "folderName": "Offset & Digital Printing",
-      "name": "Customized envelopes",
-      "image": "/products/offset-and-digital/customized-envelopes.png",
-      "description": "Professionally printed Customized envelopes for official correspondence."
-    },
-    {
-      "slug": "offset-and-digital-delivery-challan",
-      "folder": "offset-and-digital",
-      "folderName": "Offset & Digital Printing",
-      "name": "Delivery Challan",
-      "image": "/products/offset-and-digital/delivery-challan.png",
-      "description": "Delivery Challan — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "offset-and-digital-desk-calendar",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-desk-calendar",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
       "name": "Desk Calendar",
-      "image": "/products/offset-and-digital/desk-calendar.png",
-      "description": "Branded Desk Calendar that keeps your company visible year-round."
+      "image": "/products/offset-digital/desk-calendar.png",
+      "description": "Desk Calendar — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-die-cut-folders",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-die-cut-folders",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "die cut folders",
-      "image": "/products/offset-and-digital/die-cut-folders.png",
-      "description": "Premium die cut folders built with quality stock and clean finishing."
+      "name": "Die Cut Folders",
+      "image": "/products/offset-digital/die-cut-folders.png",
+      "description": "Die Cut Folders — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-envelope",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-embossed-business-cards",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Envelope",
-      "image": "/products/offset-and-digital/envelope.jpg",
-      "description": "Professionally printed Envelope for official correspondence."
+      "name": "Embossed Business Cards",
+      "image": "/products/offset-digital/embossed-business-cards.png",
+      "description": "Embossed Business Cards — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-envelopes",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-flyers",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Envelopes",
-      "image": "/products/offset-and-digital/envelopes.png",
-      "description": "Professionally printed Envelopes for official correspondence."
+      "name": "Flyers",
+      "image": "/products/offset-digital/flyers.jpeg",
+      "description": "Flyers — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-footrace-mat-for-car",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-gold-foil-business-card",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "footrace mat for car",
-      "image": "/products/offset-and-digital/footrace-mat-for-car.png",
-      "description": "Durable custom footrace mat for car with branded designs and logos."
+      "name": "Gold Foil Business Card",
+      "image": "/products/offset-digital/gold-foil-business-card.png",
+      "description": "Gold Foil Business Card — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-gold-foil-stamped-debossed-business-cards",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-invoice-ncr-books",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Gold foil stamped (debossed) business cards",
-      "image": "/products/offset-and-digital/gold-foil-stamped-debossed-business-cards.jpg",
-      "description": "Premium Gold foil stamped (debossed) business cards — finished to impress, built to last."
+      "name": "Invoice NCR Books",
+      "image": "/products/offset-digital/invoice-ncr-books.png",
+      "description": "Invoice NCR Books — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-invoicencr-books",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-kraft-business-cards",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "InvoiceNCR Books",
-      "image": "/products/offset-and-digital/invoicencr-books.png",
-      "description": "InvoiceNCR Books printed and bound in-house with precision finishing."
+      "name": "Kraft Business Cards",
+      "image": "/products/offset-digital/kraft-business-cards.png",
+      "description": "Kraft Business Cards — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-letterhead",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-letterhead",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
       "name": "Letterhead",
-      "image": "/products/offset-and-digital/letterhead.jpg",
-      "description": "Professionally printed Letterhead for official correspondence."
+      "image": "/products/offset-digital/letterhead.png",
+      "description": "Letterhead — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-letterheads",
-      "folder": "offset-and-digital",
-      "folderName": "Offset & Digital Printing",
-      "name": "Letterheads",
-      "image": "/products/offset-and-digital/letterheads.png",
-      "description": "Professionally printed Letterheads for official correspondence."
-    },
-    {
-      "slug": "offset-and-digital-magazine",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-magazine",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
       "name": "Magazine",
-      "image": "/products/offset-and-digital/magazine.png",
-      "description": "Magazine printed and bound in-house with precision finishing."
+      "image": "/products/offset-digital/magazine.png",
+      "description": "Magazine — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-printed-satin-ribbons",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-manular-business-card",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Printed Satin Ribbons",
-      "image": "/products/offset-and-digital/printed-satin-ribbons.png",
-      "description": "Printed Satin Ribbons — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Manular Business Card",
+      "image": "/products/offset-digital/manular-business-card.png",
+      "description": "Manular Business Card — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-spiral-notebooks",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-matte-softtouch-business-cards",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Spiral Notebooks",
-      "image": "/products/offset-and-digital/spiral-notebooks.png",
-      "description": "Spiral Notebooks printed and bound in-house with precision finishing."
+      "name": "Matte Soft‑touch Business Cards",
+      "image": "/products/offset-digital/matte-softtouch-business-cards.png",
+      "description": "Matte Soft‑touch Business Cards — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-stickers",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-metal-business-card",
+      "folder": "offset-digital",
+      "folderName": "Offset & Digital Printing",
+      "name": "Metal Business Card",
+      "image": "/products/offset-digital/metal-business-card.png",
+      "description": "Metal Business Card — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "offset-digital-notepads-printing",
+      "folder": "offset-digital",
+      "folderName": "Offset & Digital Printing",
+      "name": "Notepads Printing",
+      "image": "/products/offset-digital/notepads-printing.jpg",
+      "description": "Notepads Printing — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "offset-digital-paper-bags-printing",
+      "folder": "offset-digital",
+      "folderName": "Offset & Digital Printing",
+      "name": "Paper Bags Printing",
+      "image": "/products/offset-digital/paper-bags-printing.jpeg",
+      "description": "Paper Bags Printing — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "offset-digital-spot-uv-varnish-business-card",
+      "folder": "offset-digital",
+      "folderName": "Offset & Digital Printing",
+      "name": "Spot UV Varnish Business Card",
+      "image": "/products/offset-digital/spot-uv-varnish-business-card.png",
+      "description": "Spot UV Varnish Business Card — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "offset-digital-stickers",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
       "name": "Stickers",
-      "image": "/products/offset-and-digital/stickers.jpg",
-      "description": "Durable Stickers for product branding and compliance."
+      "image": "/products/offset-digital/stickers.png",
+      "description": "Stickers — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "offset-and-digital-tag-printing",
-      "folder": "offset-and-digital",
+      "slug": "offset-digital-table-mat",
+      "folder": "offset-digital",
       "folderName": "Offset & Digital Printing",
-      "name": "Tag Printing",
-      "image": "/products/offset-and-digital/tag-printing.jpg",
-      "description": "Tag Printing — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Table Mat",
+      "image": "/products/offset-digital/table-mat.png",
+      "description": "Table Mat — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "large-format-printing-exhibition-booth-setup",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "Exhibition Booth Setup",
-      "image": "/products/large-format-printing/exhibition-booth-setup.png",
-      "description": "Complete Exhibition Booth Setup design, fabrication and setup."
+      "slug": "offset-digital-table-tent-cards",
+      "folder": "offset-digital",
+      "folderName": "Offset & Digital Printing",
+      "name": "Table Tent Cards",
+      "image": "/products/offset-digital/table-tent-cards.jpeg",
+      "description": "Table Tent Cards — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "large-format-printing-fence-banners",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "Fence Banners",
-      "image": "/products/large-format-printing/fence-banners.png",
-      "description": "Eye-catching Fence Banners for storefronts, events and promotions."
-    },
-    {
-      "slug": "large-format-printing-glassfacade-branding",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "GlassFacade Branding",
-      "image": "/products/large-format-printing/glassfacade-branding.png",
-      "description": "GlassFacade Branding — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "large-format-printing-letter-branding",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "Letter branding",
-      "image": "/products/large-format-printing/letter-branding.png",
-      "description": "Letter branding — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "large-format-printing-office-branding",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "Office branding",
-      "image": "/products/large-format-printing/office-branding.png",
-      "description": "Office branding — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "large-format-printing-oudor-fence-banners",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "oudor Fence Banners",
-      "image": "/products/large-format-printing/oudor-fence-banners.png",
-      "description": "Eye-catching oudor Fence Banners for storefronts, events and promotions."
-    },
-    {
-      "slug": "large-format-printing-outdoor-billboard-and-banners",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "Outdoor Billboard And banners",
-      "image": "/products/large-format-printing/outdoor-billboard-and-banners.png",
-      "description": "Eye-catching Outdoor Billboard And banners for storefronts, events and promotions."
-    },
-    {
-      "slug": "large-format-printing-outdoor-feather-flags",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "Outdoor Feather Flags",
-      "image": "/products/large-format-printing/outdoor-feather-flags.png",
-      "description": "Eye-catching Outdoor Feather Flags for storefronts, events and promotions."
-    },
-    {
-      "slug": "large-format-printing-vehicle-branding",
-      "folder": "large-format-printing",
-      "folderName": "Large Format Printing",
-      "name": "Vehicle Branding",
-      "image": "/products/large-format-printing/vehicle-branding.png",
-      "description": "Vehicle Branding — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "advertising-and-marketing-backdrop",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-advertising-flags",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Backdrop",
-      "image": "/products/advertising-and-marketing/backdrop.png",
-      "description": "Backdrop — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Advertising Flags",
+      "image": "/products/advertising-marketing/advertising-flags.png",
+      "description": "Advertising Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-bags",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-barricade-branding",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Bags",
-      "image": "/products/advertising-and-marketing/bags.jpg",
-      "description": "Branded Bags for retail, events and corporate gifting."
+      "name": "Barricade Branding",
+      "image": "/products/advertising-marketing/barricade-branding.png",
+      "description": "Barricade Branding — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-branded-caps",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-bean-bags-printing",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Branded Caps",
-      "image": "/products/advertising-and-marketing/branded-caps.png",
-      "description": "Custom Branded Caps for teams, staff and merchandise."
+      "name": "Bean Bags Printing",
+      "image": "/products/advertising-marketing/bean-bags-printing.png",
+      "description": "Bean Bags Printing — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-canopytent",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-bunting-flags",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "CanopyTent",
-      "image": "/products/advertising-and-marketing/canopytent.png",
-      "description": "CanopyTent — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Bunting Flags",
+      "image": "/products/advertising-marketing/bunting-flags.jpeg",
+      "description": "Bunting Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-certificates-with-frame",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-canopy-tent",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Certificates with Frame",
-      "image": "/products/advertising-and-marketing/certificates-with-frame.png",
-      "description": "Premium Certificates with Frame for awards, recognition and achievements."
+      "name": "Canopy Tent",
+      "image": "/products/advertising-marketing/canopy-tent.png",
+      "description": "Canopy Tent — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-coroplast-signs",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-conference-flags",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Coroplast Signs",
-      "image": "/products/advertising-and-marketing/coroplast-signs.png",
-      "description": "Coroplast Signs — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Conference Flags",
+      "image": "/products/advertising-marketing/conference-flags.png",
+      "description": "Conference Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-cushion",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-curve-top-flags",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Cushion",
-      "image": "/products/advertising-and-marketing/cushion.png",
-      "description": "Cushion — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Curve Top Flags",
+      "image": "/products/advertising-marketing/curve-top-flags.jpg",
+      "description": "Curve Top Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-custmize-backdrops",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-curved-pop-up",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Custmize Backdrops",
-      "image": "/products/advertising-and-marketing/custmize-backdrops.png",
-      "description": "Custmize Backdrops — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Curved Pop up",
+      "image": "/products/advertising-marketing/curved-pop-up.png",
+      "description": "Curved Pop up — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-custmize-pen",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-cushion-printing",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Custmize Pen",
-      "image": "/products/advertising-and-marketing/custmize-pen.png",
-      "description": "Custmize Pen — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Cushion Printing",
+      "image": "/products/advertising-marketing/cushion-printing.jpeg",
+      "description": "Cushion Printing — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-hoodie",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-custom-table-covers",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Hoodie",
-      "image": "/products/advertising-and-marketing/hoodie.png",
-      "description": "Custom Hoodie for teams, staff and merchandise."
+      "name": "Custom Table Covers",
+      "image": "/products/advertising-marketing/custom-table-covers.png",
+      "description": "Custom Table Covers — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-id-cards",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-display-stands",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "ID Cards",
-      "image": "/products/advertising-and-marketing/id-cards.png",
-      "description": "ID Cards — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Display Stands",
+      "image": "/products/advertising-marketing/display-stands.png",
+      "description": "Display Stands — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-lanyards",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-drawstring-bag",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Lanyards",
-      "image": "/products/advertising-and-marketing/lanyards.png",
-      "description": "Custom Lanyards for ID access, events and festivals."
+      "name": "Drawstring Bag",
+      "image": "/products/advertising-marketing/drawstring-bag.png",
+      "description": "Drawstring Bag — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-media-wallstep-and-repeat",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-easel-stands",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Media WallStep-and-Repeat",
-      "image": "/products/advertising-and-marketing/media-wallstep-and-repeat.png",
-      "description": "Media WallStep-and-Repeat — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Easel Stands",
+      "image": "/products/advertising-marketing/easel-stands.png",
+      "description": "Easel Stands — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-orangery-award",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-fabric-backdrop",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Orangery Award -",
-      "image": "/products/advertising-and-marketing/orangery-award.jpg",
-      "description": "Distinctive Orangery Award - for recognition and achievements."
+      "name": "Fabric Backdrop",
+      "image": "/products/advertising-marketing/fabric-backdrop.png",
+      "description": "Fabric Backdrop — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-packaging-box-custom",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-fabric-pop-up",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Packaging box custom",
-      "image": "/products/advertising-and-marketing/packaging-box-custom.png",
-      "description": "Custom Packaging box custom designed to protect and showcase your product."
+      "name": "Fabric Pop up",
+      "image": "/products/advertising-marketing/fabric-pop-up.png",
+      "description": "Fabric Pop up — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-paper-shopping-bags",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-forex-and-foam-bord",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Paper Shopping Bags",
-      "image": "/products/advertising-and-marketing/paper-shopping-bags.png",
-      "description": "Branded Paper Shopping Bags for retail, events and corporate gifting."
+      "name": "Forex And Foam Bord",
+      "image": "/products/advertising-marketing/forex-and-foam-bord.png",
+      "description": "Forex And Foam Bord — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-polo-t-shirt",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-l-shape-flags",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Polo T-shirt",
-      "image": "/products/advertising-and-marketing/polo-t-shirt.png",
-      "description": "Custom Polo T-shirt for teams, staff and merchandise."
+      "name": "L-Shape Flags",
+      "image": "/products/advertising-marketing/l-shape-flags.jpg",
+      "description": "L-Shape Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-pop-up-display",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-metal-a-board",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Pop Up Display",
-      "image": "/products/advertising-and-marketing/pop-up-display.jpg",
-      "description": "Pop Up Display — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "name": "Metal A Board",
+      "image": "/products/advertising-marketing/metal-a-board.png",
+      "description": "Metal A Board — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-printed-bottles",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-metal-brochure-stand",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
-      "name": "Printed Bottles",
-      "image": "/products/advertising-and-marketing/printed-bottles.png",
-      "description": "Custom branded Printed Bottles for promotions and gifting."
+      "name": "Metal Brochure Stand",
+      "image": "/products/advertising-marketing/metal-brochure-stand.png",
+      "description": "Metal Brochure Stand — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-roll-up-banners",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-pop-up-counter",
+      "folder": "advertising-marketing",
+      "folderName": "Advertising & Marketing",
+      "name": "POP - Up Counter",
+      "image": "/products/advertising-marketing/pop-up-counter.png",
+      "description": "POP - Up Counter — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "advertising-marketing-promotion-table",
+      "folder": "advertising-marketing",
+      "folderName": "Advertising & Marketing",
+      "name": "Promotion Table",
+      "image": "/products/advertising-marketing/promotion-table.png",
+      "description": "Promotion Table — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "advertising-marketing-roll-up-banners-more-sizes",
+      "folder": "advertising-marketing",
+      "folderName": "Advertising & Marketing",
+      "name": "Roll up banners (more sizes)",
+      "image": "/products/advertising-marketing/roll-up-banners-more-sizes.png",
+      "description": "Roll up banners (more sizes) — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "advertising-marketing-roll-up-banners",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
       "name": "Roll up banners",
-      "image": "/products/advertising-and-marketing/roll-up-banners.png",
-      "description": "Eye-catching Roll up banners for storefronts, events and promotions."
+      "image": "/products/advertising-marketing/roll-up-banners.png",
+      "description": "Roll up banners — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-table-flags",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-spring-a-board",
+      "folder": "advertising-marketing",
+      "folderName": "Advertising & Marketing",
+      "name": "Spring a Board",
+      "image": "/products/advertising-marketing/spring-a-board.png",
+      "description": "Spring a Board — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "advertising-marketing-step-and-repeat-backdrop",
+      "folder": "advertising-marketing",
+      "folderName": "Advertising & Marketing",
+      "name": "Step and Repeat Backdrop",
+      "image": "/products/advertising-marketing/step-and-repeat-backdrop.png",
+      "description": "Step and Repeat Backdrop — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "advertising-marketing-table-flags",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
       "name": "Table Flags",
-      "image": "/products/advertising-and-marketing/table-flags.png",
-      "description": "Eye-catching Table Flags for storefronts, events and promotions."
+      "image": "/products/advertising-marketing/table-flags.png",
+      "description": "Table Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-teardrop-flags",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-teardrop-flags",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
       "name": "Teardrop Flags",
-      "image": "/products/advertising-and-marketing/teardrop-flags.png",
-      "description": "Eye-catching Teardrop Flags for storefronts, events and promotions."
+      "image": "/products/advertising-marketing/teardrop-flags.jpg",
+      "description": "Teardrop Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "advertising-and-marketing-umbrella",
-      "folder": "advertising-and-marketing",
+      "slug": "advertising-marketing-telescopic-flags",
+      "folder": "advertising-marketing",
+      "folderName": "Advertising & Marketing",
+      "name": "Telescopic Flags",
+      "image": "/products/advertising-marketing/telescopic-flags.webp",
+      "description": "Telescopic Flags — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "advertising-marketing-umbrella",
+      "folder": "advertising-marketing",
       "folderName": "Advertising & Marketing",
       "name": "Umbrella",
-      "image": "/products/advertising-and-marketing/umbrella.jpg",
-      "description": "Umbrella — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "image": "/products/advertising-marketing/umbrella.png",
+      "description": "Umbrella — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "event-advertising-book-layout",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Book layout",
-      "image": "/products/event-advertising/book-layout.jpg",
-      "description": "Book layout printed and bound in-house with precision finishing."
+      "slug": "advertising-marketing-velcro-fabric-backdrop",
+      "folder": "advertising-marketing",
+      "folderName": "Advertising & Marketing",
+      "name": "Velcro Fabric Backdrop",
+      "image": "/products/advertising-marketing/velcro-fabric-backdrop.png",
+      "description": "Velcro Fabric Backdrop — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "event-advertising-box-packaging",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Box Packaging",
-      "image": "/products/event-advertising/box-packaging.jpg",
-      "description": "Custom Box Packaging designed to protect and showcase your product."
+      "slug": "advertising-marketing-velcro-fabric-backdrop",
+      "folder": "advertising-marketing",
+      "folderName": "Advertising & Marketing",
+      "name": "Velcro Fabric Backdrop_",
+      "image": "/products/advertising-marketing/velcro-fabric-backdrop.png",
+      "description": "Velcro Fabric Backdrop_ — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "event-advertising-corporate-gifts-hamper",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Corporate Gifts Hamper",
-      "image": "/products/event-advertising/corporate-gifts-hamper.jpg",
-      "description": "Corporate Gifts Hamper — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "slug": "large-format-decal",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Decal",
+      "image": "/products/large-format/decal.jpg",
+      "description": "Decal — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "event-advertising-curved-pop-up-stands",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Curved Pop Up Stands",
-      "image": "/products/event-advertising/curved-pop-up-stands.jpg",
-      "description": "Curved Pop Up Stands — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "slug": "large-format-fence-banners",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Fence Banners",
+      "image": "/products/large-format/fence-banners.png",
+      "description": "Fence Banners — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "event-advertising-custom-table-covers",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Custom Table Covers",
-      "image": "/products/event-advertising/custom-table-covers.jpg",
-      "description": "Custom Table Covers — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "slug": "large-format-glass-facade-branding",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Glass Facade Branding",
+      "image": "/products/large-format/glass-facade-branding.png",
+      "description": "Glass Facade Branding — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "event-advertising-employee-welcome-kit",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Employee Welcome Kit",
-      "image": "/products/event-advertising/employee-welcome-kit.jpg",
-      "description": "Employee Welcome Kit — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "slug": "large-format-outdoor-feather-flags",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Outdoor Feather Flags",
+      "image": "/products/large-format/outdoor-feather-flags.png",
+      "description": "Outdoor Feather Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "event-advertising-lightbox",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Lightbox",
-      "image": "/products/event-advertising/lightbox.jpg",
-      "description": "Custom Lightbox designed to protect and showcase your product."
+      "slug": "large-format-outdoor-fence-banners",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Outdoor Fence Banners",
+      "image": "/products/large-format/outdoor-fence-banners.png",
+      "description": "Outdoor Fence Banners — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "event-advertising-orangery-award",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Orangery Award",
-      "image": "/products/event-advertising/orangery-award.jpg",
-      "description": "Distinctive Orangery Award for recognition and achievements."
-    },
-    {
-      "slug": "event-advertising-pop-up-fabric-displays",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Pop Up Fabric Displays",
-      "image": "/products/event-advertising/pop-up-fabric-displays.jpg",
-      "description": "Pop Up Fabric Displays — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "event-advertising-trade-show-booth",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Trade Show Booth",
-      "image": "/products/event-advertising/trade-show-booth.jpg",
-      "description": "Complete Trade Show Booth design, fabrication and setup."
-    },
-    {
-      "slug": "event-advertising-trade-show-displays",
-      "folder": "event-advertising",
-      "folderName": "Event Advertising",
-      "name": "Trade show displays",
-      "image": "/products/event-advertising/trade-show-displays.jpg",
-      "description": "Complete Trade show displays design, fabrication and setup."
-    },
-    {
-      "slug": "corporate-and-exhibition-backdrop",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Backdrop",
-      "image": "/products/corporate-and-exhibition/backdrop.png",
-      "description": "Backdrop — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-badges",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Badges",
-      "image": "/products/corporate-and-exhibition/badges.png",
-      "description": "Distinctive Badges for recognition and achievements."
-    },
-    {
-      "slug": "corporate-and-exhibition-books",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Books",
-      "image": "/products/corporate-and-exhibition/books.png",
-      "description": "Books printed and bound in-house with precision finishing."
-    },
-    {
-      "slug": "corporate-and-exhibition-branded-caps",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Branded Caps",
-      "image": "/products/corporate-and-exhibition/branded-caps.png",
-      "description": "Custom Branded Caps for teams, staff and merchandise."
-    },
-    {
-      "slug": "corporate-and-exhibition-canopytent",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "CanopyTent",
-      "image": "/products/corporate-and-exhibition/canopytent.png",
-      "description": "CanopyTent — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-carnet-a5-publicitaire",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Carnet A5 publicitaire",
-      "image": "/products/corporate-and-exhibition/carnet-a5-publicitaire.jpg",
-      "description": "Carnet A5 publicitaire — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-certificates-with-frame",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Certificates with Frame",
-      "image": "/products/corporate-and-exhibition/certificates-with-frame.png",
-      "description": "Premium Certificates with Frame for awards, recognition and achievements."
-    },
-    {
-      "slug": "corporate-and-exhibition-coroplast-signs",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Coroplast Signs",
-      "image": "/products/corporate-and-exhibition/coroplast-signs.png",
-      "description": "Coroplast Signs — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-food-packaging-box-custom",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Food packaging box custom",
-      "image": "/products/corporate-and-exhibition/food-packaging-box-custom.png",
-      "description": "Custom Food packaging box custom designed to protect and showcase your product."
-    },
-    {
-      "slug": "corporate-and-exhibition-hoodie",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Hoodie",
-      "image": "/products/corporate-and-exhibition/hoodie.png",
-      "description": "Custom Hoodie for teams, staff and merchandise."
-    },
-    {
-      "slug": "corporate-and-exhibition-id-cards",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "ID Cards",
-      "image": "/products/corporate-and-exhibition/id-cards.png",
-      "description": "ID Cards — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-information-support-pegboard",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Information support Pegboard",
-      "image": "/products/corporate-and-exhibition/information-support-pegboard.jpg",
-      "description": "Durable custom Information support Pegboard with branded designs and logos."
-    },
-    {
-      "slug": "corporate-and-exhibition-lanyards",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Lanyards",
-      "image": "/products/corporate-and-exhibition/lanyards.png",
-      "description": "Custom Lanyards for ID access, events and festivals."
-    },
-    {
-      "slug": "corporate-and-exhibition-media-wallstep-and-repeat",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Media WallStep-and-Repeat",
-      "image": "/products/corporate-and-exhibition/media-wallstep-and-repeat.png",
-      "description": "Media WallStep-and-Repeat — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-orangery-award",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Orangery Award",
-      "image": "/products/corporate-and-exhibition/orangery-award.jpg",
-      "description": "Distinctive Orangery Award for recognition and achievements."
-    },
-    {
-      "slug": "corporate-and-exhibition-packaging-box-custom",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "packaging box custom",
-      "image": "/products/corporate-and-exhibition/packaging-box-custom.png",
-      "description": "Custom packaging box custom designed to protect and showcase your product."
-    },
-    {
-      "slug": "corporate-and-exhibition-paper-shopping-bags",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Paper Shopping Bags",
-      "image": "/products/corporate-and-exhibition/paper-shopping-bags.png",
-      "description": "Branded Paper Shopping Bags for retail, events and corporate gifting."
-    },
-    {
-      "slug": "corporate-and-exhibition-pen",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Pen",
-      "image": "/products/corporate-and-exhibition/pen.png",
-      "description": "Pen — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-pendrive",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Pendrive",
-      "image": "/products/corporate-and-exhibition/pendrive.jpg",
-      "description": "Pendrive — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-polo-t-shirt",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Polo T-shirt",
-      "image": "/products/corporate-and-exhibition/polo-t-shirt.png",
-      "description": "Custom Polo T-shirt for teams, staff and merchandise."
-    },
-    {
-      "slug": "corporate-and-exhibition-pop-display-stands",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "POP Display Stands",
-      "image": "/products/corporate-and-exhibition/pop-display-stands.png",
-      "description": "POP Display Stands — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-pop-up-display",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Pop Up Display",
-      "image": "/products/corporate-and-exhibition/pop-up-display.jpg",
-      "description": "Pop Up Display — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-printed-bottles",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Printed Bottles",
-      "image": "/products/corporate-and-exhibition/printed-bottles.png",
-      "description": "Custom branded Printed Bottles for promotions and gifting."
-    },
-    {
-      "slug": "corporate-and-exhibition-printed-mugs",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Printed Mugs",
-      "image": "/products/corporate-and-exhibition/printed-mugs.png",
-      "description": "Custom branded Printed Mugs for promotions and gifting."
-    },
-    {
-      "slug": "corporate-and-exhibition-printed-satin-ribbons",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Printed Satin Ribbons",
-      "image": "/products/corporate-and-exhibition/printed-satin-ribbons.png",
-      "description": "Printed Satin Ribbons — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-productshipping-boxes",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "ProductShipping Boxes",
-      "image": "/products/corporate-and-exhibition/productshipping-boxes.png",
-      "description": "Custom ProductShipping Boxes designed to protect and showcase your product."
-    },
-    {
-      "slug": "corporate-and-exhibition-promotional-balloons",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Promotional Balloons",
-      "image": "/products/corporate-and-exhibition/promotional-balloons.png",
-      "description": "Promotional Balloons — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-rigid-box-packaging",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Rigid Box Packaging",
-      "image": "/products/corporate-and-exhibition/rigid-box-packaging.png",
-      "description": "Custom Rigid Box Packaging designed to protect and showcase your product."
-    },
-    {
-      "slug": "corporate-and-exhibition-roll-up-banners",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
+      "slug": "large-format-roll-up-banners",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
       "name": "Roll up banners",
-      "image": "/products/corporate-and-exhibition/roll-up-banners.png",
-      "description": "Eye-catching Roll up banners for storefronts, events and promotions."
+      "image": "/products/large-format/roll-up-banners.png",
+      "description": "Roll up banners — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "corporate-and-exhibition-rollup-banners",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Rollup banners",
-      "image": "/products/corporate-and-exhibition/rollup-banners.jpg",
-      "description": "Eye-catching Rollup banners for storefronts, events and promotions."
+      "slug": "large-format-showroom-branding",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Showroom Branding",
+      "image": "/products/large-format/showroom-branding.png",
+      "description": "Showroom Branding — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "corporate-and-exhibition-table-cover",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Table Cover",
-      "image": "/products/corporate-and-exhibition/table-cover.png",
-      "description": "Table Cover — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "slug": "large-format-vehicle-branding",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Vehicle Branding",
+      "image": "/products/large-format/vehicle-branding.png",
+      "description": "Vehicle Branding — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "corporate-and-exhibition-table-flags",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
+      "slug": "large-format-vinyl-lettering",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Vinyl Lettering",
+      "image": "/products/large-format/vinyl-lettering.jpeg",
+      "description": "Vinyl Lettering — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "large-format-wall-branding",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Wall Branding",
+      "image": "/products/large-format/wall-branding.png",
+      "description": "Wall Branding — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "large-format-wallpapers",
+      "folder": "large-format",
+      "folderName": "Large Format Printing",
+      "name": "Wallpapers",
+      "image": "/products/large-format/wallpapers.png",
+      "description": "Wallpapers — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-award",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Award",
+      "image": "/products/corporate/award.png",
+      "description": "Award — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-awards",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Awards",
+      "image": "/products/corporate/awards.png",
+      "description": "Awards — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-badges",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Badges",
+      "image": "/products/corporate/badges.png",
+      "description": "Badges — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-balloon-printing",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Balloon Printing",
+      "image": "/products/corporate/balloon-printing.png",
+      "description": "Balloon Printing — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-bottles-printing",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Bottles Printing",
+      "image": "/products/corporate/bottles-printing.jpeg",
+      "description": "Bottles Printing — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-branded-caps",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Branded Caps",
+      "image": "/products/corporate/branded-caps.png",
+      "description": "Branded Caps — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-certificates-with-frame",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Certificates with Frame",
+      "image": "/products/corporate/certificates-with-frame.png",
+      "description": "Certificates with Frame — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-coroplast-signs",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Coroplast Signs",
+      "image": "/products/corporate/coroplast-signs.png",
+      "description": "Coroplast Signs — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-crystal-awards-printing",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Crystal Awards Printing",
+      "image": "/products/corporate/crystal-awards-printing.jpeg",
+      "description": "Crystal Awards Printing — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-epoxy-badge",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Epoxy Badge",
+      "image": "/products/corporate/epoxy-badge.jpeg",
+      "description": "Epoxy Badge — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-fabric-wristbands",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Fabric Wristbands",
+      "image": "/products/corporate/fabric-wristbands.jpeg",
+      "description": "Fabric Wristbands — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-hoodie",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Hoodie",
+      "image": "/products/corporate/hoodie.png",
+      "description": "Hoodie — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-id-cards",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "ID Cards",
+      "image": "/products/corporate/id-cards.png",
+      "description": "ID Cards — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-jute-bags",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Jute Bags",
+      "image": "/products/corporate/jute-bags.png",
+      "description": "Jute Bags — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-lanyards",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Lanyards",
+      "image": "/products/corporate/lanyards.png",
+      "description": "Lanyards — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-notebooks-branding",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Notebooks Branding",
+      "image": "/products/corporate/notebooks-branding.png",
+      "description": "Notebooks Branding — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-pen-printing",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Pen Printing",
+      "image": "/products/corporate/pen-printing.jpeg",
+      "description": "Pen Printing — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-polo-tshirt",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Polo Tshirt",
+      "image": "/products/corporate/polo-tshirt.png",
+      "description": "Polo Tshirt — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-printed-mugs",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Printed Mugs",
+      "image": "/products/corporate/printed-mugs.png",
+      "description": "Printed Mugs — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-round-neck-tshirt",
+      "folder": "corporate",
+      "folderName": "Corporate",
+      "name": "Round Neck Tshirt",
+      "image": "/products/corporate/round-neck-tshirt.jpeg",
+      "description": "Round Neck Tshirt — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "corporate-table-flags",
+      "folder": "corporate",
+      "folderName": "Corporate",
       "name": "Table Flags",
-      "image": "/products/corporate-and-exhibition/table-flags.png",
-      "description": "Eye-catching Table Flags for storefronts, events and promotions."
+      "image": "/products/corporate/table-flags.png",
+      "description": "Table Flags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "corporate-and-exhibition-table-top-name-plate",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Table-top Name Plate",
-      "image": "/products/corporate-and-exhibition/table-top-name-plate.png",
-      "description": "Elegant Table-top Name Plate for offices, desks and door signage."
-    },
-    {
-      "slug": "corporate-and-exhibition-teardrop-flags",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Teardrop Flags",
-      "image": "/products/corporate-and-exhibition/teardrop-flags.png",
-      "description": "Eye-catching Teardrop Flags for storefronts, events and promotions."
-    },
-    {
-      "slug": "corporate-and-exhibition-tote-bags",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
+      "slug": "corporate-tote-bags",
+      "folder": "corporate",
+      "folderName": "Corporate",
       "name": "Tote Bags",
-      "image": "/products/corporate-and-exhibition/tote-bags.png",
-      "description": "Branded Tote Bags for retail, events and corporate gifting."
+      "image": "/products/corporate/tote-bags.png",
+      "description": "Tote Bags — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "corporate-and-exhibition-trade-show-backdropspartitions",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Trade-show BackdropsPartitions",
-      "image": "/products/corporate-and-exhibition/trade-show-backdropspartitions.png",
-      "description": "Complete Trade-show BackdropsPartitions design, fabrication and setup."
-    },
-    {
-      "slug": "corporate-and-exhibition-trophyawards",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "TrophyAwards",
-      "image": "/products/corporate-and-exhibition/trophyawards.png",
-      "description": "Distinctive TrophyAwards for recognition and achievements."
-    },
-    {
-      "slug": "corporate-and-exhibition-welcome-kits",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
+      "slug": "corporate-welcome-kits",
+      "folder": "corporate",
+      "folderName": "Corporate",
       "name": "Welcome Kits",
-      "image": "/products/corporate-and-exhibition/welcome-kits.png",
-      "description": "Welcome Kits — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "corporate-and-exhibition-wrist-bands",
-      "folder": "corporate-and-exhibition",
-      "folderName": "Corporate & Exhibition",
-      "name": "Wrist Bands",
-      "image": "/products/corporate-and-exhibition/wrist-bands.png",
-      "description": "Custom Wrist Bands for ID access, events and festivals."
-    },
-    {
-      "slug": "pop-up-materials-booth-braning",
-      "folder": "pop-up-materials",
-      "folderName": "Pop-Up Materials",
-      "name": "Booth Braning",
-      "image": "/products/pop-up-materials/booth-braning.jpg",
-      "description": "Complete Booth Braning design, fabrication and setup."
-    },
-    {
-      "slug": "pop-up-materials-booth-design",
-      "folder": "pop-up-materials",
-      "folderName": "Pop-Up Materials",
-      "name": "Booth Design",
-      "image": "/products/pop-up-materials/booth-design.png",
-      "description": "Complete Booth Design design, fabrication and setup."
-    },
-    {
-      "slug": "pop-up-materials-shell-scheme-and-rental",
-      "folder": "pop-up-materials",
-      "folderName": "Pop-Up Materials",
-      "name": "Shell Scheme and Rental",
-      "image": "/products/pop-up-materials/shell-scheme-and-rental.jpg",
-      "description": "Shell Scheme and Rental — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
+      "image": "/products/corporate/welcome-kits.png",
+      "description": "Welcome Kits — high-quality printing by Al Falah Middle East."
     },
     {
       "slug": "signages-3d-acrylic-signage",
@@ -951,15 +766,47 @@
       "folderName": "Signages",
       "name": "3D Acrylic Signage",
       "image": "/products/signages/3d-acrylic-signage.png",
-      "description": "Custom 3D Acrylic Signage built to your spec with durable materials."
+      "description": "3D Acrylic Signage — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "signages-3d-metal-lite-signage",
+      "slug": "signages-3d-metal-backlit",
       "folder": "signages",
       "folderName": "Signages",
-      "name": "3D Metal Lite Signage",
-      "image": "/products/signages/3d-metal-lite-signage.png",
-      "description": "Custom 3D Metal Lite Signage built to your spec with durable materials."
+      "name": "3D Metal Backlit",
+      "image": "/products/signages/3d-metal-backlit.png",
+      "description": "3D Metal Backlit — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "signages-acp-sign-board",
+      "folder": "signages",
+      "folderName": "Signages",
+      "name": "ACP Sign Board",
+      "image": "/products/signages/acp-sign-board.jpeg",
+      "description": "ACP Sign Board — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "signages-acrylic-name-plates",
+      "folder": "signages",
+      "folderName": "Signages",
+      "name": "Acrylic Name Plates",
+      "image": "/products/signages/acrylic-name-plates.jpg",
+      "description": "Acrylic Name Plates — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "signages-brass-name-plates",
+      "folder": "signages",
+      "folderName": "Signages",
+      "name": "Brass Name Plates",
+      "image": "/products/signages/brass-name-plates.jpg",
+      "description": "Brass Name Plates — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "signages-flex-board",
+      "folder": "signages",
+      "folderName": "Signages",
+      "name": "Flex Board",
+      "image": "/products/signages/flex-board.jpeg",
+      "description": "Flex Board — high-quality printing by Al Falah Middle East."
     },
     {
       "slug": "signages-neon-signage",
@@ -967,295 +814,87 @@
       "folderName": "Signages",
       "name": "Neon Signage",
       "image": "/products/signages/neon-signage.png",
-      "description": "Custom Neon Signage built to your spec with durable materials."
+      "description": "Neon Signage — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "business-cards-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Business card",
-      "image": "/products/business-cards/business-card.jpg",
-      "description": "Premium Business card — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-die-cut-business-cards",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Die-cut Business Cards",
-      "image": "/products/business-cards/die-cut-business-cards.png",
-      "description": "Premium Die-cut Business Cards — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-elegant-black-faux-gold-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Elegant Black Faux Gold Business Card",
-      "image": "/products/business-cards/elegant-black-faux-gold-business-card.jpg",
-      "description": "Premium Elegant Black Faux Gold Business Card — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-elegant-brown-wood-texture-modern-style-monogram-business-card-zazzle",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Elegant Brown Wood Texture Modern Style Monogram Business Card Zazzle",
-      "image": "/products/business-cards/elegant-brown-wood-texture-modern-style-monogram-business-card-zazzle.jpg",
-      "description": "Premium Elegant Brown Wood Texture Modern Style Monogram Business Card Zazzle — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-fordwich-arms-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Fordwich Arms business card",
-      "image": "/products/business-cards/fordwich-arms-business-card.jpg",
-      "description": "Premium Fordwich Arms business card — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-frostedbclear-pvc-cards",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "FrostedbClear PVC Cards",
-      "image": "/products/business-cards/frostedbclear-pvc-cards.png",
-      "description": "FrostedbClear PVC Cards — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "business-cards-gold-foil-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Gold Foil Business Card",
-      "image": "/products/business-cards/gold-foil-business-card.jpg",
-      "description": "Premium Gold Foil Business Card — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-kraft-business-cards-1",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Kraft Business Cards (1)",
-      "image": "/products/business-cards/kraft-business-cards-1.jpg",
-      "description": "Premium Kraft Business Cards (1) — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-kraft-business-cards",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Kraft Business Cards",
-      "image": "/products/business-cards/kraft-business-cards.jpg",
-      "description": "Premium Kraft Business Cards — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-metal-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Metal Business Card",
-      "image": "/products/business-cards/metal-business-card.jpg",
-      "description": "Premium Metal Business Card — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-metal-business-cards",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Metal Business Cards",
-      "image": "/products/business-cards/metal-business-cards.png",
-      "description": "Premium Metal Business Cards — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-minimalist-white-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Minimalist White Business Card",
-      "image": "/products/business-cards/minimalist-white-business-card.jpg",
-      "description": "Premium Minimalist White Business Card — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-modern-classic-frost-plastic-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Modern Classic Frost Plastic Business Card",
-      "image": "/products/business-cards/modern-classic-frost-plastic-business-card.jpg",
-      "description": "Premium Modern Classic Frost Plastic Business Card — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-nfcsmart-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "NFCSmart Business Card",
-      "image": "/products/business-cards/nfcsmart-business-card.png",
-      "description": "Premium NFCSmart Business Card — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-premium-mattesoft-touch-cards",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Premium MatteSoft-touch Cards",
-      "image": "/products/business-cards/premium-mattesoft-touch-cards.png",
-      "description": "Durable custom Premium MatteSoft-touch Cards with branded designs and logos."
-    },
-    {
-      "slug": "business-cards-pure-metal-cards-on-instagram-metal-member-card-silver-contour-stainless-steel-puremetalcards-membership-membercard-vip-luxury-luxurylife-advertising-branding-design-ski-skiing",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Pure Metal Cards on Instagram Metal member card Silver contour stainless steel #puremetalcards #membership #membercard #vip #luxury #luxurylife #advertising #branding #design #ski #skiing",
-      "image": "/products/business-cards/pure-metal-cards-on-instagram-metal-member-card-silver-contour-stainless-steel-puremetalcards-membership-membercard-vip-luxury-luxurylife-advertising-branding-design-ski-skiing.jpg",
-      "description": "Pure Metal Cards on Instagram Metal member card Silver contour stainless steel #puremetalcards #membership #membercard #vip #luxury #luxurylife #advertising #branding #design #ski #skiing — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "business-cards-special-cards",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "special cards",
-      "image": "/products/business-cards/special-cards.png",
-      "description": "special cards — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "business-cards-squar-special-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Squar Special Card",
-      "image": "/products/business-cards/squar-special-card.jpg",
-      "description": "Squar Special Card — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "business-cards-transparent-business-cards",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Transparent Business Cards",
-      "image": "/products/business-cards/transparent-business-cards.jpg",
-      "description": "Premium Transparent Business Cards — finished to impress, built to last."
-    },
-    {
-      "slug": "business-cards-uv-varnish-business-card",
-      "folder": "business-cards",
-      "folderName": "Business Cards",
-      "name": "Uv Varnish Business Card",
-      "image": "/products/business-cards/uv-varnish-business-card.jpg",
-      "description": "Premium Uv Varnish Business Card — finished to impress, built to last."
-    },
-    {
-      "slug": "stickers-and-labels-custom-packing-tape",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "Custom Packing Tape",
-      "image": "/products/stickers-and-labels/custom-packing-tape.png",
-      "description": "Custom Packing Tape — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "stickers-and-labels-die-cut-stickers",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "Die-cut Stickers",
-      "image": "/products/stickers-and-labels/die-cut-stickers.png",
-      "description": "Durable Die-cut Stickers for product branding and compliance."
-    },
-    {
-      "slug": "stickers-and-labels-label-rolls",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "Label Rolls",
-      "image": "/products/stickers-and-labels/label-rolls.png",
-      "description": "Durable Label Rolls for product branding and compliance."
-    },
-    {
-      "slug": "stickers-and-labels-pharma-labels",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "Pharma Labels",
-      "image": "/products/stickers-and-labels/pharma-labels.png",
-      "description": "Durable Pharma Labels for product branding and compliance."
-    },
-    {
-      "slug": "stickers-and-labels-plan-printing-labels",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "Plan Printing Labels",
-      "image": "/products/stickers-and-labels/plan-printing-labels.png",
-      "description": "Durable Plan Printing Labels for product branding and compliance."
-    },
-    {
-      "slug": "stickers-and-labels-product-labels-stickers",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "Product Labels & Stickers",
-      "image": "/products/stickers-and-labels/product-labels-stickers.png",
-      "description": "Durable Product Labels & Stickers for product branding and compliance."
-    },
-    {
-      "slug": "stickers-and-labels-sticker-sheets",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "Sticker Sheets",
-      "image": "/products/stickers-and-labels/sticker-sheets.png",
-      "description": "Durable Sticker Sheets for product branding and compliance."
-    },
-    {
-      "slug": "stickers-and-labels-tin-packaging-label",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "Tin Packaging Label",
-      "image": "/products/stickers-and-labels/tin-packaging-label.png",
-      "description": "Durable Tin Packaging Label for product branding and compliance."
-    },
-    {
-      "slug": "stickers-and-labels-vinylflex-media-roll",
-      "folder": "stickers-and-labels",
-      "folderName": "Stickers & Labels",
-      "name": "VinylFlex Media Roll",
-      "image": "/products/stickers-and-labels/vinylflex-media-roll.png",
-      "description": "VinylFlex Media Roll — premium quality, tailored finishes and fast UAE-wide delivery from Al Falah."
-    },
-    {
-      "slug": "frost-film-plain-frost-film",
-      "folder": "frost-film",
-      "folderName": "Frost Film",
-      "name": "Plain Frost Film.",
-      "image": "/products/frost-film/plain-frost-film.webp",
-      "description": "Privacy Plain Frost Film. with optional branded graphics."
-    },
-    {
-      "slug": "frost-film-plain-frost-film-2",
-      "folder": "frost-film",
-      "folderName": "Frost Film",
-      "name": "Plain Frost Film",
-      "image": "/products/frost-film/plain-frost-film.png",
-      "description": "Privacy Plain Frost Film with optional branded graphics."
-    },
-    {
-      "slug": "frost-film-plain-frost-film-3",
-      "folder": "frost-film",
-      "folderName": "Frost Film",
-      "name": "Plain-Frost Film",
-      "image": "/products/frost-film/plain-frost-film.jpg",
-      "description": "Privacy Plain-Frost Film with optional branded graphics."
-    },
-    {
-      "slug": "name-plates-acrylic-name-plates",
-      "folder": "name-plates",
-      "folderName": "Name Plates",
-      "name": "Acrylic Name Plates",
-      "image": "/products/name-plates/acrylic-name-plates.jpg",
-      "description": "Elegant Acrylic Name Plates for offices, desks and door signage."
-    },
-    {
-      "slug": "name-plates-brass-name-plates",
-      "folder": "name-plates",
-      "folderName": "Name Plates",
-      "name": "Brass Name Plates",
-      "image": "/products/name-plates/brass-name-plates.jpg",
-      "description": "Elegant Brass Name Plates for offices, desks and door signage."
-    },
-    {
-      "slug": "name-plates-stainless-steel-name-plates",
-      "folder": "name-plates",
-      "folderName": "Name Plates",
+      "slug": "signages-stainless-steel-name-plates",
+      "folder": "signages",
+      "folderName": "Signages",
       "name": "Stainless Steel Name Plates",
-      "image": "/products/name-plates/stainless-steel-name-plates.jpg",
-      "description": "Elegant Stainless Steel Name Plates for offices, desks and door signage."
+      "image": "/products/signages/stainless-steel-name-plates.jpg",
+      "description": "Stainless Steel Name Plates — high-quality printing by Al Falah Middle East."
     },
     {
-      "slug": "name-plates-wooden-name-plates",
-      "folder": "name-plates",
-      "folderName": "Name Plates",
+      "slug": "signages-table-top-name-plate",
+      "folder": "signages",
+      "folderName": "Signages",
+      "name": "Table Top Name Plate",
+      "image": "/products/signages/table-top-name-plate.png",
+      "description": "Table Top Name Plate — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "signages-wooden-name-plates",
+      "folder": "signages",
+      "folderName": "Signages",
       "name": "Wooden Name Plates",
-      "image": "/products/name-plates/wooden-name-plates.jpg",
-      "description": "Elegant Wooden Name Plates for offices, desks and door signage."
+      "image": "/products/signages/wooden-name-plates.jpg",
+      "description": "Wooden Name Plates — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "exhibition-work-booth-braning",
+      "folder": "exhibition-work",
+      "folderName": "Exhibition Work",
+      "name": "Booth Braning",
+      "image": "/products/exhibition-work/booth-braning.jpg",
+      "description": "Booth Braning — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "exhibition-work-both-setup",
+      "folder": "exhibition-work",
+      "folderName": "Exhibition Work",
+      "name": "Both setup",
+      "image": "/products/exhibition-work/both-setup.png",
+      "description": "Both setup — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "exhibition-work-canopy-tent",
+      "folder": "exhibition-work",
+      "folderName": "Exhibition Work",
+      "name": "Canopy Tent",
+      "image": "/products/exhibition-work/canopy-tent.png",
+      "description": "Canopy Tent — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "exhibition-work-coroplast-signs",
+      "folder": "exhibition-work",
+      "folderName": "Exhibition Work",
+      "name": "Coroplast Signs",
+      "image": "/products/exhibition-work/coroplast-signs.png",
+      "description": "Coroplast Signs — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "exhibition-work-pop-display-stands",
+      "folder": "exhibition-work",
+      "folderName": "Exhibition Work",
+      "name": "POP Display Stands",
+      "image": "/products/exhibition-work/pop-display-stands.png",
+      "description": "POP Display Stands — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "exhibition-work-pop-up-display",
+      "folder": "exhibition-work",
+      "folderName": "Exhibition Work",
+      "name": "Pop Up Display",
+      "image": "/products/exhibition-work/pop-up-display.jpg",
+      "description": "Pop Up Display — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "exhibition-work-shell-scheme",
+      "folder": "exhibition-work",
+      "folderName": "Exhibition Work",
+      "name": "Shell Scheme",
+      "image": "/products/exhibition-work/shell-scheme.png",
+      "description": "Shell Scheme — high-quality printing by Al Falah Middle East."
     }
   ]
 }

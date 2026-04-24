@@ -41,22 +41,25 @@
     <section class="pa-section">
       <div class="pa-options" @mouseleave="onAccordionLeave">
         <div
-          v-for="(prod, i) in popularProducts.slice(0, 6)"
-          :key="prod.slug"
-          class="pa-option"
+          v-for="(folder, i) in folderCards"
+          :key="folder.id"
+          class="pa-card-wrap"
           :class="{ active: activeAccordion === i }"
-          :style="{ '--optionBackground': `url(/products/${prod.slug}.webp)` }"
           @mouseenter="onAccordionEnter(i)"
-          @click="router.push({ path: '/products', query: { q: prod.name } })"
+          @click="router.push({ path: '/products', query: { folder: folder.id } })"
         >
-          <div class="pa-shadow"></div>
-          <div class="pa-label">
-            <div class="pa-icon">
-              <img :src="`/products/${prod.slug}.webp`" :alt="prod.name" />
-            </div>
-            <div class="pa-info">
-              <div class="pa-main">{{ prod.name }}</div>
-              <div class="pa-sub">{{ prod.category }}</div>
+          <div
+            class="pa-option"
+            :style="{ '--optionBackground': `url(${folder.image})` }"
+          >
+            <div class="pa-shadow"></div>
+            <div class="pa-label">
+              <div class="pa-icon">
+                <img :src="folder.image" :alt="folder.name" />
+              </div>
+              <div class="pa-info">
+                <div class="pa-main">{{ folder.name }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -389,15 +392,13 @@ function onAccordionEnter(i) {
   activeAccordion.value = i
 }
 
-const popularProducts = [
-  { slug: 'product-labels-and-stickers', name: 'Product Labels & Stickers', category: 'Labels & Stickers' },
-  { slug: 'rigid-box-packaging', name: 'Rigid Box Packaging', category: 'Packaging' },
-  { slug: 'neon-signage', name: 'Custom Neon Signage', category: 'Signage' },
-  { slug: 'polo-t-shirt', name: 'Custom T-Shirts', category: 'Apparel' },
-  { slug: 'roll-up-banners', name: 'Roll-Up Banners', category: 'Banners' },
-  { slug: 'company-profile', name: 'Company Profile', category: 'Printing' },
-  { slug: 'vehicle-branding', name: 'Vehicle Branding', category: 'Branding' },
-  { slug: 'metal-business-cards', name: 'Metal Business Cards', category: 'Business Cards' },
+const folderCards = [
+  { id: 'offset-digital',       name: 'Offset & Digital Printing', image: '/products/offset-digital/brochure.png',                     infographic: '/infographics/offset-digital.png' },
+  { id: 'advertising-marketing',name: 'Advertising & Marketing',    image: '/products/advertising-marketing/roll-up-banners.png',         infographic: '/infographics/advertising-marketing.png' },
+  { id: 'large-format',         name: 'Large Format Printing',      image: '/products/large-format/vehicle-branding.png',                 infographic: '/infographics/large-format.png' },
+  { id: 'corporate',            name: 'Corporate',                  image: '/products/corporate/welcome-kits.png',                        infographic: '/infographics/corporate.png' },
+  { id: 'signages',             name: 'Signages',                   image: '/products/signages/neon-signage.png',                         infographic: '/infographics/signages.png' },
+  { id: 'exhibition-work',      name: 'Exhibition Work',            image: '/products/exhibition-work/both-setup.png',                    infographic: '/infographics/exhibition-work.png' },
 ]
 
 // CMYK + Print Process refs
@@ -2049,60 +2050,87 @@ onUnmounted(() => {
   gap: 10px;
 }
 
-.pa-option {
+.pa-card-wrap {
   position: relative;
-  overflow: hidden;
-  min-width: 0;
   flex: 1 1 0;
-  background-color: #f4f4f2;
+  min-width: 0;
+  cursor: pointer;
+  transition: flex-grow 0.55s ease-in-out;
+}
+
+.pa-card-wrap.active {
+  flex-grow: 10;
+}
+
+/* Gradient border via background-clip */
+.pa-card-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #4a90e2, #3fb8af, #5fc85c, #d4e04a, #f2a23c, #ed4c34);
+  border-radius: 22px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.4s ease;
+}
+
+.pa-card-wrap:hover::before,
+.pa-card-wrap.active::before {
+  opacity: 1;
+}
+
+.pa-option {
+  position: absolute;
+  inset: 2px;
+  overflow: hidden;
+  background-color: #f5fbff;
   background-image: var(--optionBackground);
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
-  cursor: pointer;
-  border-radius: 16px;
-  border: 1.5px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background-position: center 36%;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  z-index: 1;
   transition:
-    flex-grow 0.55s ease-in-out,
+    inset 0.55s ease-in-out,
     border-radius 0.55s ease-in-out,
     box-shadow 0.55s ease-in-out;
 }
 
-.pa-option:hover {
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.13);
+.pa-card-wrap:hover .pa-option {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
 }
 
-.pa-option.active {
-  flex-grow: 10;
+.pa-card-wrap.active .pa-option {
   border-radius: 20px;
 }
 
-.pa-option.active .pa-shadow {
+.pa-card-wrap.active .pa-shadow {
   box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black;
 }
 
-.pa-option.active .pa-label {
+.pa-card-wrap.active .pa-label {
   bottom: 20px;
   left: 20px;
 }
 
-.pa-option.active .pa-info > div {
+.pa-card-wrap.active .pa-info > div {
   left: 0;
   opacity: 1;
 }
 
-.pa-option:not(.active) .pa-shadow {
+.pa-card-wrap:not(.active) .pa-shadow {
   bottom: -40px;
   box-shadow: inset 0 -120px 0 -120px black, inset 0 -120px 0 -100px black;
 }
 
-.pa-option:not(.active) .pa-label {
+.pa-card-wrap:not(.active) .pa-label {
   bottom: 10px;
   left: 10px;
 }
 
-.pa-option:not(.active) .pa-info > div {
+.pa-card-wrap:not(.active) .pa-info > div {
   left: 20px;
   opacity: 0;
 }
@@ -2122,6 +2150,7 @@ onUnmounted(() => {
   position: absolute;
   right: 0;
   height: 40px;
+  z-index: 2;
   transition: bottom 0.7s cubic-bezier(0.25, 1, 0.5, 1),
               left 0.7s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -2173,12 +2202,12 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .pa-options { min-width: 400px; height: 320px; }
-  .pa-option:nth-child(5) { display: none; }
+  .pa-card-wrap:nth-child(5), .pa-card-wrap:nth-child(6) { display: none; }
 }
 
 @media (max-width: 560px) {
   .pa-options { min-width: 280px; height: 260px; }
-  .pa-option:nth-child(4), .pa-option:nth-child(5) { display: none; }
+  .pa-card-wrap:nth-child(4), .pa-card-wrap:nth-child(5), .pa-card-wrap:nth-child(6) { display: none; }
 }
 
 .showcase-wide {
@@ -2683,57 +2712,36 @@ onUnmounted(() => {
   opacity: 0;
   animation: inkDropFall 5s var(--delay) cubic-bezier(0.45, 0, 0.9, 0.35) infinite;
   transform-origin: top center;
-  will-change: top, opacity, transform;
-}
-
-.ink-drop::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: currentColor;
-  transform: translate(-50%, 100%) scale(0);
-  opacity: 0;
-  animation: inkSplash 5s var(--delay) linear infinite;
+  will-change: top, opacity;
 }
 
 .ink-drop--c {
   background: linear-gradient(to bottom, transparent 0%, #00aeef 100%);
-  filter: drop-shadow(0 0 3px rgba(0, 174, 239, 0.7));
+  filter: drop-shadow(0 0 4px rgba(0, 174, 239, 0.8));
   color: #00aeef;
 }
 .ink-drop--m {
   background: linear-gradient(to bottom, transparent 0%, #ec008c 100%);
-  filter: drop-shadow(0 0 3px rgba(236, 0, 140, 0.7));
+  filter: drop-shadow(0 0 4px rgba(236, 0, 140, 0.8));
   color: #ec008c;
 }
 .ink-drop--y {
   background: linear-gradient(to bottom, transparent 0%, #fff200 100%);
-  filter: drop-shadow(0 0 3px rgba(255, 242, 0, 0.7));
+  filter: drop-shadow(0 0 4px rgba(255, 242, 0, 0.8));
   color: #fff200;
 }
 .ink-drop--k {
   background: linear-gradient(to bottom, transparent 0%, #9db3c9 100%);
-  filter: drop-shadow(0 0 3px rgba(157, 179, 201, 0.6));
+  filter: drop-shadow(0 0 4px rgba(157, 179, 201, 0.7));
   color: #9db3c9;
 }
 
 @keyframes inkDropFall {
-  0%   { top: -5%;  opacity: 0;    transform: scaleY(1); }
-  6%   { opacity: 0.9; }
-  74%  { top: 86%;  opacity: 0.9;  transform: scaleY(1); }
-  78%  { top: 89%;  opacity: 0.5;  transform: scaleY(0.25); }
-  80%  { top: 89%;  opacity: 0;    transform: scaleY(0); }
-  100% { top: 89%;  opacity: 0;    transform: scaleY(0); }
-}
-
-@keyframes inkSplash {
-  0%, 78%  { opacity: 0; transform: translate(-50%, 100%) scale(0); }
-  82%      { opacity: 0.5; transform: translate(-50%, 100%) scale(1); }
-  100%     { opacity: 0; transform: translate(-50%, 100%) scale(3); }
+  0%   { top: -5%;  opacity: 0; }
+  8%   { opacity: 1; }
+  75%  { top: 88%;  opacity: 1; }
+  88%  { top: 92%;  opacity: 0; }
+  100% { top: 92%;  opacity: 0; }
 }
 
 /* ── Soft glow on impact ── */

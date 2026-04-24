@@ -22,26 +22,18 @@
             alt="Large format printer"
             class="ss-hero-img"
           />
-          <!-- 3D Ink drops -->
-          <div class="hero-ink-drips" aria-hidden="true">
-            <div class="hero-ink hero-ink--cyan"    style="--x: 22%; --delay: 0s; --dur: 3.2s; --size: 5px;"></div>
-            <div class="hero-ink hero-ink--magenta" style="--x: 40%; --delay: 1.4s; --dur: 2.8s; --size: 4px;"></div>
-            <div class="hero-ink hero-ink--yellow"  style="--x: 55%; --delay: 0.6s; --dur: 3.5s; --size: 5px;"></div>
-            <div class="hero-ink hero-ink--key"     style="--x: 72%; --delay: 2s; --dur: 3s; --size: 4px;"></div>
-            <div class="hero-ink hero-ink--cyan"    style="--x: 48%; --delay: 2.6s; --dur: 3.4s; --size: 3px;"></div>
-            <div class="hero-ink hero-ink--magenta" style="--x: 30%; --delay: 1s; --dur: 3.8s; --size: 4px;"></div>
-            <div class="hero-ink hero-ink--yellow"  style="--x: 65%; --delay: 3.2s; --dur: 2.6s; --size: 3px;"></div>
-            <div class="hero-ink hero-ink--key"     style="--x: 35%; --delay: 2.2s; --dur: 3.6s; --size: 3px;"></div>
-
-            <!-- Soft glow on impact per drop -->
-            <span class="hero-splash hero-splash--cyan"    style="--x: 22%; --delay: 0s;   --dur: 3.2s;"><span class="hero-glow"></span></span>
-            <span class="hero-splash hero-splash--magenta" style="--x: 40%; --delay: 1.4s; --dur: 2.8s;"><span class="hero-glow"></span></span>
-            <span class="hero-splash hero-splash--yellow"  style="--x: 55%; --delay: 0.6s; --dur: 3.5s;"><span class="hero-glow"></span></span>
-            <span class="hero-splash hero-splash--key"     style="--x: 72%; --delay: 2s;   --dur: 3s;"  ><span class="hero-glow"></span></span>
-            <span class="hero-splash hero-splash--cyan"    style="--x: 48%; --delay: 2.6s; --dur: 3.4s;"><span class="hero-glow"></span></span>
-            <span class="hero-splash hero-splash--magenta" style="--x: 30%; --delay: 1s;   --dur: 3.8s;"><span class="hero-glow"></span></span>
-            <span class="hero-splash hero-splash--yellow"  style="--x: 65%; --delay: 3.2s; --dur: 2.6s;"><span class="hero-glow"></span></span>
-            <span class="hero-splash hero-splash--key"     style="--x: 35%; --delay: 2.2s; --dur: 3.6s;"><span class="hero-glow"></span></span>
+          <!-- Ink drops falling from printer nozzle -->
+          <div class="ss-ink-drops" aria-hidden="true">
+            <!-- Centre cluster -->
+            <span class="ss-ink-drop ss-ink-drop--c" style="--left:44%; --delay:0s;   --dur:3.2s;"></span>
+            <span class="ss-ink-drop ss-ink-drop--m" style="--left:47%; --delay:1.4s; --dur:2.8s;"></span>
+            <span class="ss-ink-drop ss-ink-drop--y" style="--left:50%; --delay:0.6s; --dur:3.5s;"></span>
+            <span class="ss-ink-drop ss-ink-drop--k" style="--left:53%; --delay:2.0s; --dur:3.0s;"></span>
+            <!-- Right-side cluster -->
+            <span class="ss-ink-drop ss-ink-drop--y" style="--left:63%; --delay:0.3s; --dur:3.3s;"></span>
+            <span class="ss-ink-drop ss-ink-drop--c" style="--left:67%; --delay:1.8s; --dur:2.9s;"></span>
+            <span class="ss-ink-drop ss-ink-drop--m" style="--left:71%; --delay:2.5s; --dur:3.6s;"></span>
+            <span class="ss-ink-drop ss-ink-drop--k" style="--left:74%; --delay:1.1s; --dur:3.1s;"></span>
           </div>
           <div class="ss-hero-shadow" ref="shadowEl"></div>
         </div>
@@ -431,7 +423,42 @@ onBeforeUnmount(() => {
   height: auto;
   filter: drop-shadow(0 20px 40px rgba(74, 171, 222, 0.25))
           drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
-  transform: translateZ(30px); /* pop forward in 3D space */
+  transform: translateZ(30px);
+}
+
+/* Ink drops — same style as Press In Action section */
+.ss-ink-drops {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 2;
+}
+
+.ss-ink-drop {
+  position: absolute;
+  top: 54%;
+  left: var(--left);
+  width: 2.5px;
+  height: 32px;
+  border-radius: 50% 50% 50% 50% / 5% 5% 50% 50%;
+  opacity: 0;
+  animation: ssInkFall var(--dur, 3.2s) var(--delay, 0s) cubic-bezier(0.45, 0, 0.9, 0.35) infinite;
+  transform-origin: top center;
+}
+
+.ss-ink-drop--c { background: linear-gradient(to bottom, transparent 0%, #00aeef 100%); filter: drop-shadow(0 0 4px rgba(0,174,239,0.9)); }
+.ss-ink-drop--m { background: linear-gradient(to bottom, transparent 0%, #ec008c 100%); filter: drop-shadow(0 0 4px rgba(236,0,140,0.9)); }
+.ss-ink-drop--y { background: linear-gradient(to bottom, transparent 0%, #fff200 100%); filter: drop-shadow(0 0 4px rgba(255,242,0,0.9)); }
+.ss-ink-drop--k { background: linear-gradient(to bottom, transparent 0%, #9db3c9 100%); filter: drop-shadow(0 0 4px rgba(157,179,201,0.8)); }
+
+@keyframes ssInkFall {
+  0%   { top: 54%;  opacity: 0;   transform: scaleY(1); }
+  6%   { opacity: 0.95; }
+  74%  { top: 155%; opacity: 0.95; transform: scaleY(1); }
+  78%  { top: 160%; opacity: 0.5;  transform: scaleY(0.25); }
+  80%  { top: 160%; opacity: 0;    transform: scaleY(0); }
+  100% { top: 160%; opacity: 0;    transform: scaleY(0); }
 }
 
 .ss-hero-glow {

@@ -121,7 +121,7 @@
                   :class="{ active: activeFolder === f.id }"
                   @click="activeFolder = f.id"
                 >
-                  <span class="category-icon">📁</span>
+                  <img src="/icons/folder-icon.png" class="category-icon-img" alt="" />
                   <span class="category-name">{{ f.name }}</span>
                   <span class="category-count">{{ f.count }}</span>
                 </li>
@@ -301,6 +301,7 @@ const searchQuery = ref('')
 
 onMounted(() => {
   if (route.query.q) searchQuery.value = route.query.q
+  if (route.query.folder) activeFolder.value = route.query.folder
 })
 const ITEMS_PER_PAGE = 12
 const visibleCount = ref(ITEMS_PER_PAGE)
@@ -585,6 +586,13 @@ const closeProduct = () => {
   font-size: 16px;
   width: 22px;
   text-align: center;
+  flex-shrink: 0;
+}
+
+.category-icon-img {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 

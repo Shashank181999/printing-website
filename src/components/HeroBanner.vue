@@ -9,36 +9,6 @@
         <div class="hero-bg-glow hero-bg-glow--b" :data-stage="stageIdx"></div>
       </div>
 
-      <!-- CMYK ink rain with surface splash -->
-      <div class="hero-particles" aria-hidden="true">
-        <span
-          v-for="(p, i) in particles"
-          :key="'d-' + i"
-          class="hero-particle"
-          :class="`hero-particle--${p.c}`"
-          :style="{
-            '--x': p.x + '%',
-            '--delay': p.delay + 's',
-            '--dur': p.dur + 's',
-          }"
-        ></span>
-        <span
-          v-for="(p, i) in particles"
-          :key="'s-' + i"
-          class="hero-splash"
-          :class="`hero-splash--${p.c}`"
-          :style="{
-            '--x': p.x + '%',
-            '--delay': p.delay + 's',
-            '--dur': p.dur + 's',
-          }"
-        >
-          <span class="hero-ripple hero-ripple-1"></span>
-          <span class="hero-ripple hero-ripple-2"></span>
-          <span class="hero-bead hero-bead--l"></span>
-          <span class="hero-bead hero-bead--r"></span>
-        </span>
-      </div>
 
       <!-- Vertical edge label -->
       <div class="hero-edge-label">
@@ -84,6 +54,7 @@
             <div class="hero-platform-glow"></div>
             <div class="hero-platform-ring"></div>
           </div>
+
 
           <!-- The printer is the constant centerpiece across all stages -->
           <div class="hero-printer" ref="printerEl">
@@ -201,6 +172,13 @@ const particles = Array.from({ length: 14 }).map((_, i) => ({
   c: ['c', 'm', 'y', 'k'][i % 4],
   x: 4 + i * 7 + Math.random() * 2,
   delay: +(Math.random() * 4).toFixed(2),
+  dur: +(4 + Math.random() * 2).toFixed(2),
+}))
+
+const nozzleDrops = Array.from({ length: 12 }).map((_, i) => ({
+  c: ['c', 'm', 'y', 'k'][i % 4],
+  x: +(6 + i * 8 + (Math.random() - 0.5) * 4).toFixed(1),
+  delay: +(Math.random() * 5).toFixed(2),
   dur: +(4 + Math.random() * 2).toFixed(2),
 }))
 
@@ -403,18 +381,18 @@ onBeforeUnmount(() => {
   transform-origin: top center;
 }
 
-.hero-particle--c { background: linear-gradient(to bottom, transparent, #00aeef); color: #00aeef; box-shadow: 0 0 6px #00aeef; }
-.hero-particle--m { background: linear-gradient(to bottom, transparent, #ec008c); color: #ec008c; box-shadow: 0 0 6px #ec008c; }
-.hero-particle--y { background: linear-gradient(to bottom, transparent, #fff200); color: #fff200; box-shadow: 0 0 6px #fff200; }
-.hero-particle--k { background: linear-gradient(to bottom, transparent, #4AABDE); color: #4AABDE; box-shadow: 0 0 6px #4AABDE; }
+.hero-particle--c { background: linear-gradient(to bottom, transparent, #00aeef); box-shadow: 0 0 6px #00aeef; }
+.hero-particle--m { background: linear-gradient(to bottom, transparent, #ec008c); box-shadow: 0 0 6px #ec008c; }
+.hero-particle--y { background: linear-gradient(to bottom, transparent, #fff200); box-shadow: 0 0 6px #fff200; }
+.hero-particle--k { background: linear-gradient(to bottom, transparent, #4AABDE); box-shadow: 0 0 6px #4AABDE; }
 
 @keyframes heroInkFall {
-  0%   { top: -8%;  opacity: 0;    transform: scaleY(1); }
-  8%   { opacity: 0.85; }
-  74%  { top: calc(100% - 130px); opacity: 0.85; transform: scaleY(1); }
-  78%  { top: calc(100% - 120px); opacity: 0.4;  transform: scaleY(0.25); }
-  80%  { top: calc(100% - 120px); opacity: 0;    transform: scaleY(0); }
-  100% { top: calc(100% - 120px); opacity: 0;    transform: scaleY(0); }
+  0%   { top: -8%;  opacity: 0; }
+  8%   { opacity: 0.15; }
+  25%  { opacity: 1; }
+  75%  { top: calc(100% - 60px); opacity: 1; }
+  88%  { top: calc(100% - 40px); opacity: 0; }
+  100% { top: calc(100% - 40px); opacity: 0; }
 }
 
 /* ── Surface impact: ripple rings + flying beads ── */
@@ -776,6 +754,41 @@ onBeforeUnmount(() => {
   height: auto;
   filter: drop-shadow(0 30px 60px rgba(74, 171, 222, 0.35))
           drop-shadow(0 12px 24px rgba(0, 0, 0, 0.5));
+}
+
+/* ============ PRINTER INK NOZZLE DROPS ============ */
+.hero-nozzle-drops {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.hero-nozzle-drop {
+  position: absolute;
+  top: -60px;
+  left: var(--x);
+  width: 4px;
+  height: 52px;
+  border-radius: 50% 50% 50% 50% / 5% 5% 50% 50%;
+  opacity: 0;
+  animation: nozzleDropFall var(--dur) var(--delay) cubic-bezier(0.45, 0, 0.9, 0.35) infinite;
+  transform-origin: top center;
+}
+
+.hero-nozzle-drop--c { background: linear-gradient(to bottom, transparent 0%, #00aeef 100%); box-shadow: 0 0 6px 1px #00aeef; }
+.hero-nozzle-drop--m { background: linear-gradient(to bottom, transparent 0%, #ec008c 100%); box-shadow: 0 0 6px 1px #ec008c; }
+.hero-nozzle-drop--y { background: linear-gradient(to bottom, transparent 0%, #fff200 100%); box-shadow: 0 0 6px 1px #fff200; }
+.hero-nozzle-drop--k { background: linear-gradient(to bottom, transparent 0%, #4AABDE 100%); box-shadow: 0 0 6px 1px #4AABDE; }
+
+@keyframes nozzleDropFall {
+  0%   { top: -8%;  opacity: 0;   transform: scaleY(1); }
+  6%   { opacity: 0.9; }
+  74%  { top: calc(100% - 130px); opacity: 0.9; transform: scaleY(1); }
+  78%  { top: calc(100% - 120px); opacity: 0.5; transform: scaleY(0.25); }
+  80%  { top: calc(100% - 120px); opacity: 0;   transform: scaleY(0); }
+  100% { top: calc(100% - 120px); opacity: 0;   transform: scaleY(0); }
 }
 
 /* ============ FLYING PAPERS (stage 2) ============ */
