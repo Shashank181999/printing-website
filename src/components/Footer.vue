@@ -348,13 +348,16 @@ onMounted(() => {
    Brand
    ════════════════════════════════════════ */
 .footer-logo {
-  display: inline-block;
-  margin-bottom: 18px;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 24px;
+  margin-left: -12px;  /* optical alignment — logo PNG has internal padding */
 }
 
 .footer-logo-image {
-  height: 120px;
+  height: 168px;
   width: auto;
+  display: block;
   transition:
     transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
     filter 0.4s ease;
@@ -362,7 +365,7 @@ onMounted(() => {
 }
 
 .footer-logo:hover .footer-logo-image {
-  transform: scale(1.06) rotate(-2deg);
+  transform: scale(1.05) rotate(-2deg);
   filter: drop-shadow(0 8px 22px rgba(255, 255, 255, 0.25));
 }
 
@@ -602,8 +605,13 @@ onMounted(() => {
     grid-column: auto;
   }
 
+  .footer-logo {
+    margin-left: 0;
+    justify-content: center;
+  }
+
   .footer-logo-image {
-    height: 96px;
+    height: 128px;
   }
 
   .brand-name {

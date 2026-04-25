@@ -180,20 +180,17 @@ onMounted(() => {
       { y: 0, opacity: 1, duration: 0.4, stagger: 0.1 },
       '-=0.5'
     )
-    .add(() => startLogoIdle(), '+=0.1')
+    .add(() => { playLogoShine(); startLogoIdle() }, '+=0.1')
   } else {
     startLogoIdle()
   }
 })
 
-// Continuous subtle idle animation on the logo after the intro completes.
-// Gentle "breathing" float + a periodic shine sweep.
+// Subtle continuous "breathing" float on the logo. No shine loop.
 function startLogoIdle() {
   const img = document.querySelector('.logo-image')
-  const shine = document.querySelector('.logo-shine')
-  if (!img || !shine) return
+  if (!img) return
 
-  // Breathing float: small Y bob + tiny scale pulse. Loops forever.
   gsap.to(img, {
     y: -3,
     scale: 1.03,
@@ -202,10 +199,14 @@ function startLogoIdle() {
     yoyo: true,
     repeat: -1,
   })
+}
 
-  // Shine sweep: runs every ~5s.
-  const shineTl = gsap.timeline({ repeat: -1, repeatDelay: 4 })
-  shineTl
+// One-shot shine sweep — only plays during the first-visit intro.
+function playLogoShine() {
+  const shine = document.querySelector('.logo-shine')
+  if (!shine) return
+
+  gsap.timeline()
     .set(shine, { xPercent: -120, opacity: 0 })
     .to(shine, { opacity: 1, duration: 0.15 })
     .to(shine, { xPercent: 120, duration: 1.1, ease: 'power2.inOut' }, '<')
@@ -290,6 +291,7 @@ onUnmounted(() => {
   text-decoration: none;
   position: relative;
   z-index: 1001;
+  margin-left: clamp(40px, 6vw, 100px);
 }
 
 .logo-img-wrapper {
@@ -302,7 +304,7 @@ onUnmounted(() => {
 }
 
 .logo-image {
-  height: 120px;
+  height: 140px;
   width: auto;
   display: block;
   vertical-align: middle;
@@ -504,6 +506,10 @@ onUnmounted(() => {
     padding: 0 24px;
   }
 
+  .logo {
+    margin-left: 0;
+  }
+
   .logo-text {
     display: none;
   }
@@ -595,7 +601,7 @@ onUnmounted(() => {
   }
 
   .logo-image {
-    height: 96px;
+    height: 110px;
   }
 }
 
@@ -605,7 +611,7 @@ onUnmounted(() => {
   }
 
   .logo-image {
-    height: 80px;
+    height: 92px;
   }
 }
 
