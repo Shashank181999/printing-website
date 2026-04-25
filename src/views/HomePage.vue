@@ -39,7 +39,13 @@
 
     <!-- Products Accordion -->
     <section class="pa-section">
-      <div class="pa-options" @mouseleave="onAccordionLeave">
+      <button type="button" class="pa-nav pa-nav--prev" @click="scrollAccordion(-1)" aria-label="Previous">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <button type="button" class="pa-nav pa-nav--next" @click="scrollAccordion(1)" aria-label="Next">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+      </button>
+      <div class="pa-options" ref="paOptions" @mouseleave="onAccordionLeave">
         <div
           v-for="(folder, i) in folderCards"
           :key="folder.id"
@@ -383,6 +389,7 @@ const whySection = ref(null)
 const approachSection = ref(null)
 const productsShowcase = ref(null)
 const activeAccordion = ref(null)
+const paOptions = ref(null)
 let accordionLeaveTimer = null
 function onAccordionLeave() {
   accordionLeaveTimer = setTimeout(() => { activeAccordion.value = null }, 80)
@@ -390,6 +397,13 @@ function onAccordionLeave() {
 function onAccordionEnter(i) {
   clearTimeout(accordionLeaveTimer)
   activeAccordion.value = i
+}
+function scrollAccordion(direction) {
+  const el = paOptions.value
+  if (!el) return
+  const card = el.querySelector('.pa-card-wrap')
+  const step = card ? card.getBoundingClientRect().width + 14 : el.clientWidth * 0.7
+  el.scrollBy({ left: direction * step * 2, behavior: 'smooth' })
 }
 
 const folderCards = [
@@ -2031,12 +2045,39 @@ onUnmounted(() => {
 
 /* ── Product Accordion (reference CodePen style) ── */
 .pa-section {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   background: var(--bg-primary);
   padding: 0 0 80px;
 }
+
+/* Carousel nav buttons (mobile only) */
+.pa-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #0b1220;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.12);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.pa-nav:hover { box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18); }
+.pa-nav:active { transform: translateY(-50%) scale(0.96); }
+.pa-nav--prev { left: 6px; }
+.pa-nav--next { right: 6px; }
 
 .pa-options {
   display: flex;
@@ -2192,13 +2233,57 @@ onUnmounted(() => {
 }
 
 @media (max-width: 768px) {
-  .pa-options { min-width: 400px; height: 320px; }
-  .pa-card-wrap:nth-child(5), .pa-card-wrap:nth-child(6) { display: none; }
+  .pa-section { padding: 0 0 60px; }
+
+  .pa-nav { display: inline-flex; }
+
+  .pa-options {
+    height: auto;
+    min-width: 0;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 16px;
+    padding: 28px 16px;
+    gap: 14px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .pa-options::-webkit-scrollbar { display: none; }
+
+  .pa-card-wrap {
+    flex: 0 0 calc(50% - 7px);
+    height: 220px;
+    scroll-snap-align: start;
+  }
+  .pa-card-wrap.active { flex-grow: 0; }
+
+  /* No hover on mobile — always show the description + button */
+  .pa-card-wrap .pa-reveal {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: none;
+  }
+  .pa-reveal-inner {
+    width: 100%;
+    padding-top: 8px;
+    gap: 10px;
+  }
+  .pa-title { font-size: 0.95rem; }
+  .pa-desc { font-size: 0.74rem; }
+  .pa-cta { padding: 6px 12px; font-size: 0.7rem; }
 }
 
-@media (max-width: 560px) {
-  .pa-options { min-width: 280px; height: 260px; }
-  .pa-card-wrap:nth-child(4), .pa-card-wrap:nth-child(5), .pa-card-wrap:nth-child(6) { display: none; }
+@media (max-width: 480px) {
+  .pa-card-wrap { height: 200px; }
+  .pa-content { padding: 16px 14px; }
+  .pa-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 
 .showcase-wide {
