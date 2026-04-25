@@ -48,17 +48,17 @@
           @mouseenter="onAccordionEnter(i)"
           @click="router.push({ path: '/products', query: { folder: folder.id } })"
         >
-          <div
-            class="pa-option"
-            :style="{ '--optionBackground': `url(${folder.coverImage || folder.image})` }"
-          >
-            <div class="pa-shadow"></div>
-            <div class="pa-label">
-              <div class="pa-icon">
-                <img :src="folder.image" :alt="folder.name" />
-              </div>
-              <div class="pa-info">
-                <div class="pa-main">{{ folder.name }}</div>
+          <div class="pa-option">
+            <div class="pa-content">
+              <h3 class="pa-title">{{ folder.name }}</h3>
+              <div class="pa-reveal">
+                <div class="pa-reveal-inner">
+                  <p class="pa-desc">{{ folder.desc }}</p>
+                  <button class="pa-cta" type="button">
+                    Explore
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -393,12 +393,12 @@ function onAccordionEnter(i) {
 }
 
 const folderCards = [
-  { id: 'offset-digital',       name: 'Offset & Digital Printing', image: '/products/offset-digital/brochure.png',                     coverImage: '/products/offset-digital/company-profile.png',           infographic: '/infographics/offset-digital.png' },
-  { id: 'advertising-marketing',name: 'Advertising & Marketing',    image: '/products/advertising-marketing/roll-up-banners.png',         coverImage: '/products/advertising-marketing/step-and-repeat-backdrop.png', infographic: '/infographics/advertising-marketing.png' },
-  { id: 'large-format',         name: 'Large Format Printing',      image: '/products/large-format/vehicle-branding.png',                 coverImage: '/products/large-format/showroom-branding.png',            infographic: '/infographics/large-format.png' },
-  { id: 'corporate',            name: 'Corporate',                  image: '/products/corporate/welcome-kits.png',                        coverImage: '/products/corporate/tote-bags.png',                       infographic: '/infographics/corporate.png' },
-  { id: 'signages',             name: 'Signages',                   image: '/products/signages/neon-signage.png',                         coverImage: '/products/signages/3d-acrylic-signage.png',               infographic: '/infographics/signages.png' },
-  { id: 'exhibition-work',      name: 'Exhibition Work',            image: '/products/exhibition-work/both-setup.png',                    coverImage: '/products/exhibition-work/shell-scheme.png',              infographic: '/infographics/exhibition-work.png' },
+  { id: 'offset-digital',       name: 'Offset & Digital Printing', desc: 'Brochures, company profiles, flyers and stationery printed in razor-sharp detail.',     image: '/products/offset-digital/brochure.png',                     coverImage: '/products/offset-digital/company-profile.png',           infographic: '/infographics/offset-digital.png' },
+  { id: 'advertising-marketing',name: 'Advertising & Marketing',    desc: 'Roll-up banners, backdrops and campaign collateral that put your brand front and centre.', image: '/products/advertising-marketing/roll-up-banners.png',         coverImage: '/products/advertising-marketing/step-and-repeat-backdrop.png', infographic: '/infographics/advertising-marketing.png' },
+  { id: 'large-format',         name: 'Large Format Printing',      desc: 'Vehicle wraps, showroom graphics and oversized prints that demand attention.',           image: '/products/large-format/vehicle-branding.png',                 coverImage: '/products/large-format/showroom-branding.png',            infographic: '/infographics/large-format.png' },
+  { id: 'corporate',            name: 'Corporate',                  desc: 'Welcome kits, tote bags and giveaways that turn employees and clients into fans.',       image: '/products/corporate/welcome-kits.png',                        coverImage: '/products/corporate/tote-bags.png',                       infographic: '/infographics/corporate.png' },
+  { id: 'signages',             name: 'Signages',                   desc: '3D acrylic, neon and illuminated signage crafted to make your space unforgettable.',     image: '/products/signages/neon-signage.png',                         coverImage: '/products/signages/3d-acrylic-signage.png',               infographic: '/infographics/signages.png' },
+  { id: 'exhibition-work',      name: 'Exhibition Work',            desc: 'Booth design, shell schemes and event branding built end-to-end for show day.',          image: '/products/exhibition-work/both-setup.png',                    coverImage: '/products/exhibition-work/shell-scheme.png',              infographic: '/infographics/exhibition-work.png' },
 ]
 
 // CMYK + Print Process refs
@@ -2055,155 +2055,140 @@ onUnmounted(() => {
   flex: 1 1 0;
   min-width: 0;
   cursor: pointer;
-  /* No overflow:hidden — colored card peeks outside like reference */
   transition: flex-grow 0.55s ease-in-out;
 }
 
-/* Per-card colors */
-.pa-card-wrap:nth-child(1) { --pcard: #d63384; }
-.pa-card-wrap:nth-child(2) { --pcard: #f7941d; }
-.pa-card-wrap:nth-child(3) { --pcard: #00aeef; }
-.pa-card-wrap:nth-child(4) { --pcard: #1a6fc4; }
-.pa-card-wrap:nth-child(5) { --pcard: #39b54a; }
-.pa-card-wrap:nth-child(6) { --pcard: #f5d020; }
+/* Per-card accent tint used by the glass card */
+.pa-card-wrap:nth-child(1) { --pcard: 214, 51, 132; }   /* pink   */
+.pa-card-wrap:nth-child(2) { --pcard: 247, 148, 29; }   /* orange */
+.pa-card-wrap:nth-child(3) { --pcard: 0, 174, 239; }    /* cyan   */
+.pa-card-wrap:nth-child(4) { --pcard: 26, 111, 196; }   /* blue   */
+.pa-card-wrap:nth-child(5) { --pcard: 57, 181, 74; }    /* green  */
+.pa-card-wrap:nth-child(6) { --pcard: 245, 208, 32; }   /* yellow */
 
 .pa-card-wrap.active {
-  flex-grow: 10;
+  flex-grow: 4;
 }
-
-/* Full rotated colored card behind the white card */
-.pa-card-wrap::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 22px;
-  background: var(--pcard);
-  transform: rotate(-10deg);
-  transform-origin: center;
-  z-index: 0;
-  pointer-events: none;
-  transition: transform 0.4s ease;
-}
-
-/* colored back card stays fixed — no extra transform on hover/active */
 
 .pa-option {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background-color: #f5fbff;
-  background-image: var(--optionBackground);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center 36%;
+  background:
+    linear-gradient(135deg, rgba(var(--pcard), 0.10), rgba(255, 255, 255, 0.04) 60%, rgba(var(--pcard), 0.04)),
+    rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  z-index: 1;
+  box-shadow:
+    0 8px 28px rgba(31, 38, 135, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transition:
-    border-radius 0.55s ease-in-out,
-    box-shadow 0.55s ease-in-out;
+    box-shadow 0.55s ease-in-out,
+    border-color 0.55s ease-in-out,
+    background 0.55s ease-in-out;
 }
 
 .pa-card-wrap:hover .pa-option {
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  box-shadow:
+    0 14px 38px rgba(31, 38, 135, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.55);
 }
 
-.pa-card-wrap.active .pa-option {
-  border-radius: 20px;
-}
-
-.pa-card-wrap.active .pa-shadow {
-  box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black;
-}
-
-.pa-card-wrap.active .pa-label {
-  bottom: 20px;
-  left: 20px;
-}
-
-.pa-card-wrap.active .pa-info > div {
-  left: 0;
-  opacity: 1;
-}
-
-.pa-card-wrap:not(.active) .pa-shadow {
-  bottom: -40px;
-  box-shadow: inset 0 -120px 0 -120px black, inset 0 -120px 0 -100px black;
-}
-
-.pa-card-wrap:not(.active) .pa-label {
-  bottom: 10px;
-  left: 10px;
-}
-
-.pa-card-wrap:not(.active) .pa-info > div {
-  left: 20px;
-  opacity: 0;
-}
-
-.pa-shadow {
+.pa-content {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 120px;
-  transition: box-shadow 0.7s cubic-bezier(0.25, 1, 0.5, 1),
-              bottom 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.pa-label {
-  display: flex;
-  position: absolute;
-  right: 0;
-  height: 40px;
-  z-index: 2;
-  transition: bottom 0.7s cubic-bezier(0.25, 1, 0.5, 1),
-              left 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.pa-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 40px;
-  max-width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: white;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.pa-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.pa-info {
+  inset: 0;
+  padding: 22px 20px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  margin-left: 10px;
-  color: white;
-  white-space: pre;
+  justify-content: flex-end;
+  color: #0f172a;
 }
 
-.pa-info > div {
-  position: relative;
-  transition: left 0.7s cubic-bezier(0.25, 1, 0.5, 1),
-              opacity 0.5s ease-out;
+.pa-title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  color: #0b1220;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
-.pa-main {
-  font-weight: 700;
-  font-size: 1.1rem;
+.pa-reveal {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    grid-template-rows 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.35s ease 0.05s,
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.05s;
 }
 
-.pa-sub {
-  font-size: 0.8rem;
-  opacity: 0.85;
-  transition-delay: 0.1s;
+.pa-reveal-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding-top: 10px;
+  /* Fixed width so the paragraph doesn't reflow as the card expands */
+  width: 320px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.pa-card-wrap.active .pa-reveal {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pa-desc {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: rgba(15, 23, 42, 0.72);
+}
+
+.pa-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgb(var(--pcard));
+  background: transparent;
+  border: 1px solid rgba(var(--pcard), 0.55);
+  border-radius: 999px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+}
+
+.pa-cta:hover {
+  transform: translateY(-1px);
+  border-color: rgb(var(--pcard));
+  background: rgba(var(--pcard), 0.08);
+}
+
+.pa-cta svg {
+  transition: transform 0.25s ease;
+}
+
+.pa-cta:hover svg {
+  transform: translateX(2px);
 }
 
 @media (max-width: 768px) {

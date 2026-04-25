@@ -302,7 +302,7 @@ onUnmounted(() => {
 }
 
 .logo-image {
-  height: 64px;
+  height: 88px;
   width: auto;
   display: block;
   will-change: transform;
@@ -585,7 +585,7 @@ onUnmounted(() => {
   }
 
   .logo-image {
-    height: 48px;
+    height: 64px;
   }
 }
 
@@ -595,7 +595,7 @@ onUnmounted(() => {
   }
 
   .logo-image {
-    height: 44px;
+    height: 56px;
   }
 }
 
