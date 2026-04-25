@@ -5,7 +5,7 @@
         <!-- Logo with Image -->
         <router-link to="/" class="logo" @click="closeMobileMenu">
           <div class="logo-img-wrapper">
-            <img src="/logo-08.png" alt="Al Falah Middle East" class="logo-image" />
+            <img src="/al-falah-02.png" alt="Al Falah Middle East" class="logo-image" />
             <span class="logo-shine" aria-hidden="true"></span>
           </div>
         </router-link>
@@ -163,10 +163,10 @@ onMounted(() => {
     window.__headerAnimated = true
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-    // Logo: slides down from above + fades in with a slight scale bounce
+    // Logo: drops in with a soft bounce and a sweeping shine
     tl.fromTo('.logo-image',
-      { y: -30, opacity: 0, scale: 0.8 },
-      { y: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'back.out(1.6)' }
+      { y: -40, opacity: 0, scale: 0.65, rotate: -8, filter: 'blur(6px)' },
+      { y: 0, opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px)', duration: 1.1, ease: 'back.out(1.7)' }
     )
     // Nav links: cascade in from top
     .fromTo('.nav-links li',
@@ -302,10 +302,20 @@ onUnmounted(() => {
 }
 
 .logo-image {
-  height: 88px;
+  height: 120px;
   width: auto;
   display: block;
-  will-change: transform;
+  vertical-align: middle;
+  will-change: transform, filter;
+  transform-origin: center center;
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    filter 0.4s ease;
+}
+
+.logo:hover .logo-image {
+  transform: scale(1.08) rotate(-2deg);
+  filter: drop-shadow(0 6px 18px rgba(46, 139, 192, 0.35));
 }
 
 .logo-shine {
@@ -585,7 +595,7 @@ onUnmounted(() => {
   }
 
   .logo-image {
-    height: 64px;
+    height: 96px;
   }
 }
 
@@ -595,7 +605,7 @@ onUnmounted(() => {
   }
 
   .logo-image {
-    height: 56px;
+    height: 80px;
   }
 }
 

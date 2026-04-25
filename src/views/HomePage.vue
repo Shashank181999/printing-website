@@ -55,6 +55,9 @@
           @click="router.push({ path: '/products', query: { folder: folder.id } })"
         >
           <div class="pa-option">
+            <div class="pa-icon-wrap">
+              <img class="pa-icon" :src="folder.image" :alt="folder.name" />
+            </div>
             <div class="pa-content">
               <h3 class="pa-title">{{ folder.name }}</h3>
               <div class="pa-reveal">
@@ -2116,26 +2119,119 @@ onUnmounted(() => {
   inset: 0;
   overflow: hidden;
   background:
-    linear-gradient(135deg, rgba(var(--pcard), 0.10), rgba(255, 255, 255, 0.04) 60%, rgba(var(--pcard), 0.04)),
-    rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-radius: 20px;
+    /* top-left specular highlight */
+    radial-gradient(circle at 12% 6%, rgba(255, 255, 255, 0.65), transparent 45%),
+    /* bottom-right colored bloom */
+    radial-gradient(circle at 88% 96%, rgba(var(--pcard), 0.42), transparent 55%),
+    /* refractive color tint diagonal */
+    linear-gradient(135deg,
+      rgba(var(--pcard), 0.18) 0%,
+      rgba(255, 255, 255, 0.06) 50%,
+      rgba(var(--pcard), 0.28) 100%),
+    /* frosted glass base */
+    rgba(255, 255, 255, 0.32);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 24px;
   box-shadow:
-    0 8px 28px rgba(31, 38, 135, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    0 22px 50px -18px rgba(15, 23, 42, 0.22),
+    0 10px 26px -10px rgba(var(--pcard), 0.38),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -70px 90px -70px rgba(var(--pcard), 0.45);
   transition:
-    box-shadow 0.55s ease-in-out,
-    border-color 0.55s ease-in-out,
-    background 0.55s ease-in-out;
+    box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.55s ease,
+    transform 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Top-edge lit "glass rim" */
+.pa-option::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(255, 255, 255, 0.85),
+    transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Diagonal sheen — animated on hover */
+.pa-option::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(115deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.10) 45%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.10) 55%,
+    transparent 70%);
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  transform: translateX(0);
+  transition: transform 0.9s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .pa-card-wrap:hover .pa-option {
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: translateY(-3px);
   box-shadow:
-    0 14px 38px rgba(31, 38, 135, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.55);
-  border-color: rgba(255, 255, 255, 0.55);
+    0 30px 60px -16px rgba(15, 23, 42, 0.28),
+    0 14px 34px -10px rgba(var(--pcard), 0.50),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -70px 90px -70px rgba(var(--pcard), 0.55);
+}
+
+.pa-card-wrap:hover .pa-option::after {
+  transform: translateX(220%);
+}
+
+.pa-icon-wrap {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  width: 54px;
+  height: 54px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 6px 16px -6px rgba(15, 23, 42, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.45s ease;
+}
+
+.pa-icon {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.10));
+}
+
+.pa-card-wrap:hover .pa-icon-wrap {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow:
+    0 10px 22px -6px rgba(15, 23, 42, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
 }
 
 .pa-content {
@@ -2273,6 +2369,7 @@ onUnmounted(() => {
   .pa-title { font-size: 0.95rem; }
   .pa-desc { font-size: 0.74rem; }
   .pa-cta { padding: 6px 12px; font-size: 0.7rem; }
+  .pa-icon-wrap { top: 14px; left: 14px; width: 44px; height: 44px; border-radius: 12px; }
 }
 
 @media (max-width: 480px) {
