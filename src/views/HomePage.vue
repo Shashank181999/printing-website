@@ -1717,10 +1717,18 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
   .cmyk-container {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
   }
   .cmyk-text { padding-right: 0; text-align: center; }
+  .cmyk-desc { margin-left: auto; margin-right: auto; }
   .cmyk-stats { justify-content: center; }
+  .cmyk-strengths { display: inline-block; text-align: left; }
+  .cmyk-strengths-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px 22px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1738,10 +1746,6 @@ onUnmounted(() => {
   .cmyk-stage {
     min-height: 300px;
   }
-  .cmyk-desc {
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 
 @media (max-width: 480px) {
@@ -1758,6 +1762,12 @@ onUnmounted(() => {
   }
   .cmyk-stage {
     min-height: 240px;
+  }
+  .cmyk-strengths-list {
+    gap: 4px 16px;
+  }
+  .cmyk-strengths-list li {
+    font-size: 13px;
   }
   .cmyk-stats {
     gap: 20px;
@@ -3255,7 +3265,7 @@ onUnmounted(() => {
 
 .roll-stage {
   position: relative;
-  height: 480px;
+  min-height: 480px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3420,11 +3430,14 @@ onUnmounted(() => {
 @media (max-width: 1024px) {
   .roll-container {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 32px;
   }
   .roll-text { padding-left: 0; text-align: center; }
   .roll-badges { justify-content: center; }
-  .roll-stage { height: 380px; }
+  .roll-stage { min-height: 360px; order: 1; }
+  .roll-text { order: 2; }
+  .roll-photo-wrap { max-width: 480px; }
+  .roll-photo { max-height: 360px; }
 }
 
 @media (max-width: 768px) {
@@ -3435,10 +3448,13 @@ onUnmounted(() => {
     margin-left: auto;
     margin-right: auto;
   }
+  .roll-stage { min-height: 300px; }
+  .roll-photo { max-height: 300px; }
 }
 
 @media (max-width: 640px) {
-  .roll-stage { height: 300px; }
+  .roll-stage { min-height: 260px; }
+  .roll-photo { max-height: 260px; }
   .roll-tag { font-size: 9px; padding: 6px 11px; }
 }
 
@@ -3447,8 +3463,9 @@ onUnmounted(() => {
     padding: 56px 0;
   }
   .roll-stage {
-    height: 240px;
+    min-height: 220px;
   }
+  .roll-photo { max-height: 220px; }
   .roll-badges {
     gap: 18px;
     flex-wrap: wrap;

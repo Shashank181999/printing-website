@@ -24,7 +24,16 @@
           <!-- Brand Column -->
           <div class="footer-brand">
             <router-link to="/" class="footer-logo" aria-label="Al Falah Middle East — Home">
-              <img src="/logo.png" alt="Al Falah Middle East" class="footer-logo-image" />
+              <video
+                src="/footer-logo.mp4"
+                class="footer-logo-image"
+                autoplay
+                loop
+                muted
+                playsinline
+                preload="auto"
+                aria-label="Al Falah Middle East"
+              ></video>
             </router-link>
             <div class="brand-info">
               <p class="brand-desc">
@@ -169,8 +178,8 @@ gsap.registerPlugin(ScrollTrigger)
 const footerRef = ref(null)
 const currentYear = computed(() => new Date().getFullYear())
 
-// Single blue raindrop color
-const dropColors = ['74, 171, 222']
+// CMYK-ish raindrop palette: cyan, magenta, yellow, blue
+const dropColors = ['0, 174, 239', '236, 0, 140', '253, 216, 53', '74, 144, 226']
 
 const scrollToTop = () => {
   if (window.__lenis) {
@@ -293,18 +302,12 @@ onMounted(() => {
 }
 
 .footer-logo-image {
-  height: 88px;
+  height: 124px;
   width: auto;
   display: block;
-  transition:
-    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-    filter 0.4s ease;
-  will-change: transform, filter;
-}
-
-.footer-logo:hover .footer-logo-image {
-  transform: scale(1.05) rotate(-2deg);
-  filter: drop-shadow(0 8px 22px rgba(255, 255, 255, 0.25));
+  border: none;
+  outline: none;
+  background: transparent;
 }
 
 .brand-name {
@@ -549,7 +552,7 @@ onMounted(() => {
   }
 
   .footer-logo-image {
-    height: 72px;
+    height: 96px;
   }
 
   .brand-name {
