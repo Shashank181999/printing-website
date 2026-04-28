@@ -48,7 +48,7 @@ function updateScrollThumb() {
   const scrollTop = window.scrollY
   const docHeight = document.documentElement.scrollHeight - window.innerHeight
   if (docHeight > 0) {
-    scrollThumbTop.value = (scrollTop / docHeight) * 82
+    scrollThumbTop.value = (scrollTop / docHeight) * 86
   }
 }
 
@@ -436,8 +436,8 @@ html {
 .scroll-track {
   position: fixed;
   right: 4px;
-  top: 5%;
-  height: 90%;
+  top: 80px; /* starts after header */
+  bottom: 0;
   width: 8px;
   z-index: 9999;
   pointer-events: none;
@@ -446,7 +446,7 @@ html {
 .scroll-thumb {
   position: absolute;
   width: 8px;
-  height: 18%;
+  height: 14%;
   border-radius: 100px;
   background: linear-gradient(
     180deg,
