@@ -27,7 +27,7 @@
           <!-- Brand Column -->
           <div class="footer-brand">
             <router-link to="/" class="footer-logo" aria-label="Al Falah Middle East — Home">
-              <img src="/al-falah-02.png" alt="Al Falah Middle East" class="footer-logo-image" />
+              <img src="/logo.png" alt="Al Falah Middle East" class="footer-logo-image" />
             </router-link>
             <div class="brand-info">
               <p class="brand-desc">
@@ -355,7 +355,7 @@ onMounted(() => {
 }
 
 .footer-logo-image {
-  height: 168px;
+  height: 88px;
   width: auto;
   display: block;
   transition:
@@ -611,7 +611,7 @@ onMounted(() => {
   }
 
   .footer-logo-image {
-    height: 128px;
+    height: 72px;
   }
 
   .brand-name {

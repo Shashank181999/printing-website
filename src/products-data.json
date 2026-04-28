@@ -29,6 +29,11 @@
       "id": "exhibition-work",
       "name": "Exhibition Work",
       "count": 7
+    },
+    {
+      "id": "labels-solutions",
+      "name": "Labels Solutions",
+      "count": 25
     }
   ],
   "products": [
@@ -895,6 +900,206 @@
       "name": "Shell Scheme",
       "image": "/products/exhibition-work/shell-scheme.png",
       "description": "Shell Scheme — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-citizen-printers",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Citizen Printers",
+      "image": "/products/labels-solutions/01-citizen-printers.png",
+      "description": "Citizen Printers — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-tsc-printers",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "TSC Printers",
+      "image": "/products/labels-solutions/02-tsc-printers.png",
+      "description": "TSC Printers — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-zebra-barcode-printers",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Zebra Barcode Printers",
+      "image": "/products/labels-solutions/03-zebra-barcode-printers.png",
+      "description": "Zebra Barcode Printers — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-3m-silver-asset-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "3M Silver Asset Labels",
+      "image": "/products/labels-solutions/3m-silver-asset-labels.png",
+      "description": "3M Silver Asset Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-am-eas-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "AM EAS Labels",
+      "image": "/products/labels-solutions/am-eas-labels.jpg",
+      "description": "AM EAS Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-barcode-label-rolls",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Barcode Label Rolls",
+      "image": "/products/labels-solutions/barcode-label-rolls.png",
+      "description": "Barcode Label Rolls — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-chemical-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Chemical Labels",
+      "image": "/products/labels-solutions/chemical-labels.png",
+      "description": "Chemical Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-cosmetic-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Cosmetic Labels",
+      "image": "/products/labels-solutions/cosmetic-labels.png",
+      "description": "Cosmetic Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-foil-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Foil Labels",
+      "image": "/products/labels-solutions/foil-labels.png",
+      "description": "Foil Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-laboratory-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Laboratory Labels",
+      "image": "/products/labels-solutions/laboratory-labels.jpg",
+      "description": "Laboratory Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-logistic-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Logistic Labels",
+      "image": "/products/labels-solutions/logistic-labels.png",
+      "description": "Logistic Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-lubricant-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Lubricant Labels",
+      "image": "/products/labels-solutions/lubricant-labels.jpg",
+      "description": "Lubricant Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-pharma-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Pharma Labels",
+      "image": "/products/labels-solutions/pharma-labels.png",
+      "description": "Pharma Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-pharmacy-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Pharmacy Labels",
+      "image": "/products/labels-solutions/pharmacy-labels.png",
+      "description": "Pharmacy Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-product-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Product Labels",
+      "image": "/products/labels-solutions/product-labels.jpg",
+      "description": "Product Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-product-labels-and-stickers",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Product Labels & Stickers",
+      "image": "/products/labels-solutions/product-labels-and-stickers.png",
+      "description": "Product Labels & Stickers — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-rack-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Rack Labels",
+      "image": "/products/labels-solutions/rack-labels.png",
+      "description": "Rack Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-rack-labels-with-installation",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Rack Labels with Installation",
+      "image": "/products/labels-solutions/rack-labels-with-installation.png",
+      "description": "Rack Labels with Installation — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-removable-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Removable Labels",
+      "image": "/products/labels-solutions/removable-labels.png",
+      "description": "Removable Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-serialized-labels-printing",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Serialized Labels Printing",
+      "image": "/products/labels-solutions/serialized-labels-printing.jpg",
+      "description": "Serialized Labels Printing — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-silver-pet-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Silver PET Labels",
+      "image": "/products/labels-solutions/silver-pet-labels.jpg",
+      "description": "Silver PET Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-void-labels",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Void Labels",
+      "image": "/products/labels-solutions/void-labels.png",
+      "description": "Void Labels — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-wash-care-ribbons",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Wash Care Ribbons",
+      "image": "/products/labels-solutions/wash-care-ribbons.jpg",
+      "description": "Wash Care Ribbons — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-wax-resin-ribbons",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Wax Resin Ribbons",
+      "image": "/products/labels-solutions/wax-resin-ribbons.jpg",
+      "description": "Wax Resin Ribbons — high-quality printing by Al Falah Middle East."
+    },
+    {
+      "slug": "labels-solutions-wax-ribbons",
+      "folder": "labels-solutions",
+      "folderName": "Labels Solutions",
+      "name": "Wax Ribbons",
+      "image": "/products/labels-solutions/wax-ribbons.jpg",
+      "description": "Wax Ribbons — high-quality printing by Al Falah Middle East."
     }
   ]
 }

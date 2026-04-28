@@ -5,7 +5,15 @@
         <!-- Logo with Image -->
         <router-link to="/" class="logo" @click="closeMobileMenu">
           <div class="logo-img-wrapper">
-            <img src="/al-falah-02.png" alt="Al Falah Middle East" class="logo-image" />
+            <video
+              src="/intro.mp4"
+              class="logo-image"
+              autoplay
+              muted
+              playsinline
+              preload="auto"
+              aria-label="Al Falah Middle East"
+            ></video>
             <span class="logo-shine" aria-hidden="true"></span>
           </div>
         </router-link>
@@ -234,29 +242,26 @@ onUnmounted(() => {
 
 .header-inner {
   padding: 12px 0;
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(20px);
+  background: #ffffff;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 1px 10px rgba(0,0,0,0.05);
 }
 
 .header.scrolled .header-inner {
-  background: rgba(255, 255, 255, 0.99);
-  backdrop-filter: blur(20px);
+  background: #ffffff;
   padding: 8px 0;
   box-shadow: 0 2px 20px rgba(0,0,0,0.08);
 }
 
-/* On dark cinematic pages, let the canvas show through */
+/* Keep header solid white even on dark cinematic pages so the logo blends in */
 .header.dark-page .header-inner {
-  background: transparent;
-  box-shadow: none;
+  background: #ffffff;
+  box-shadow: 0 1px 10px rgba(0,0,0,0.05);
   backdrop-filter: none;
 }
 .header.dark-page.scrolled .header-inner {
-  background: rgba(4, 8, 15, 0.55);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 1px 0 rgba(201, 162, 39, 0.15);
+  background: #ffffff;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.08);
 }
 
 .header-container {
@@ -304,7 +309,7 @@ onUnmounted(() => {
 }
 
 .logo-image {
-  height: 140px;
+  height: 104px;
   width: auto;
   display: block;
   vertical-align: middle;
@@ -601,7 +606,7 @@ onUnmounted(() => {
   }
 
   .logo-image {
-    height: 110px;
+    height: 88px;
   }
 }
 
@@ -611,49 +616,13 @@ onUnmounted(() => {
   }
 
   .logo-image {
-    height: 92px;
+    height: 72px;
   }
 }
 
-/* Dark Page Header (About, Contact) */
-.header.dark-page .logo-name,
-.header.dark-page .logo-tagline {
-  color: white;
-}
-
+/* Header is solid white everywhere, so text stays dark even on cinematic pages */
 .header.dark-page .logo-image {
   filter: none;
-}
-
-.header.dark-page .nav-links a {
-  color: rgba(255, 255, 255, 0.85);
-}
-
-.header.dark-page .nav-links a:hover,
-.header.dark-page .nav-links a.active {
-  color: white;
-}
-
-.header.dark-page .nav-links a::after {
-  background: linear-gradient(90deg, #4a90e2, #3fb8af, #5fc85c, #d4e04a, #f2a23c, #ed4c34);
-}
-
-.header.dark-page .header-phone {
-  color: rgba(255, 255, 255, 0.8);
-  border-color: rgba(255, 255, 255, 0.3);
-}
-
-.header.dark-page .header-phone:hover {
-  color: white;
-  border-color: white;
-}
-
-.header.dark-page .menu-line {
-  background: white;
-}
-
-.header.dark-page .progress-bar {
-  background: white;
 }
 
 /* When mobile menu is open on dark page, reset to normal colors */

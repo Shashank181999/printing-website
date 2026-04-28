@@ -416,6 +416,7 @@ const folderCards = [
   { id: 'corporate',            name: 'Corporate',                  desc: 'Welcome kits, tote bags and giveaways that turn employees and clients into fans.',       image: '/products/corporate/welcome-kits.png',                        coverImage: '/products/corporate/tote-bags.png',                       infographic: '/infographics/corporate.png' },
   { id: 'signages',             name: 'Signages',                   desc: '3D acrylic, neon and illuminated signage crafted to make your space unforgettable.',     image: '/products/signages/neon-signage.png',                         coverImage: '/products/signages/3d-acrylic-signage.png',               infographic: '/infographics/signages.png' },
   { id: 'exhibition-work',      name: 'Exhibition Work',            desc: 'Booth design, shell schemes and event branding built end-to-end for show day.',          image: '/products/exhibition-work/both-setup.png',                    coverImage: '/products/exhibition-work/shell-scheme.png',              infographic: '/infographics/exhibition-work.png' },
+  { id: 'labels-solutions',     name: 'Labels Solutions',           desc: 'Barcode rolls, pharma, chemical, asset and ribbon labels for every industry.',           image: '/products/labels-solutions/barcode-label-rolls.png',          coverImage: '/products/labels-solutions/product-labels-and-stickers.png', infographic: '/infographics/exhibition-work.png' },
 ]
 
 // CMYK + Print Process refs
@@ -2109,6 +2110,7 @@ onUnmounted(() => {
 .pa-card-wrap:nth-child(4) { --pcard: 26, 111, 196; }   /* blue   */
 .pa-card-wrap:nth-child(5) { --pcard: 57, 181, 74; }    /* green  */
 .pa-card-wrap:nth-child(6) { --pcard: 245, 208, 32; }   /* yellow */
+.pa-card-wrap:nth-child(7) { --pcard: 139, 92, 246; }   /* purple */
 
 .pa-card-wrap.active {
   flex-grow: 4;
