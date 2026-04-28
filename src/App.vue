@@ -211,7 +211,6 @@ body {
   line-height: 1.6;
   background: var(--bg-primary);
   color: var(--text-primary);
-  overflow-x: hidden;
 }
 
 #app {
