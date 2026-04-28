@@ -19,7 +19,7 @@ import gsap from 'gsap'
 
 const buttonRef = ref(null)
 
-const whatsappNumber = '+971501234567'
+const whatsappNumber = '+971567268735'
 const defaultMessage = 'Hello! I am interested in your printing services.'
 const whatsappLink = `https://wa.me/${whatsappNumber.replace(/\+/g, '')}?text=${encodeURIComponent(defaultMessage)}`
 

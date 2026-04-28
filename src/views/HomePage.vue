@@ -320,7 +320,7 @@
           </p>
           <div class="cta-actions">
             <a
-              href="https://wa.me/971501234567"
+              href="https://wa.me/971567268735"
               target="_blank"
               rel="noopener noreferrer"
               class="btn-cta-whatsapp"

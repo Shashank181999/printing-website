@@ -125,11 +125,6 @@
             or intricate packaging, we harness the power of modern printing technologies to
             deliver quality that speaks for itself.
           </p>
-          <div class="what-stats">
-            <div class="what-stat"><strong>5</strong><span>Years of Experience</span></div>
-            <div class="what-stat"><strong>4</strong><span>Service Verticals</span></div>
-            <div class="what-stat"><strong>1000+</strong><span>Happy Clients</span></div>
-          </div>
         </div>
         <div class="what-image">
           <img src="/hero/printing-excellence.jpeg" alt="Professional offset printing press line" />
