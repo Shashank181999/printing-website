@@ -410,37 +410,13 @@ input, textarea, select {
   font-family: var(--font-sans);
 }
 
-/* Scrollbar — rainbow gradient */
+/* Hide scrollbar — Lenis handles smooth scrolling */
 ::-webkit-scrollbar {
-  width: 8px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    #3fb8af,
-    #5fc85c,
-    #d4e04a,
-    #f2a23c,
-    #4a90e2
-  ) !important;
-  border-radius: 100px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(
-    180deg,
-    #4fc8be,
-    #6ed86a,
-    #e0ec5a,
-    #ffb34c,
-    #5aa0f2
-  ) !important;
+html {
+  scrollbar-width: none; /* Firefox */
 }
 
 /* Selection */
