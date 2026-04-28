@@ -72,7 +72,7 @@
 
         <!-- Desktop Sidebar -->
         <aside class="sidebar">
-          <div class="sidebar-inner">
+          <div class="sidebar-inner" :style="sidebarStyle">
             <!-- Search -->
             <div class="sidebar-search">
               <div class="search-box">
@@ -290,36 +290,38 @@ const route = useRoute()
 const selectedProduct = ref(null)
 const activeFolder = ref(null)
 const searchQuery = ref('')
-const sidebarRef = ref(null)
+const sidebarFixed = ref(false)
+const sidebarStyle = ref({})
 
-let sidebarRaf = null
-function stickSidebar() {
-  const el = document.querySelector('.sidebar-inner')
+function onScroll() {
   const sidebar = document.querySelector('.sidebar')
-  if (!el || !sidebar) return
-  const sidebarRect = sidebar.getBoundingClientRect()
-  const headerH = 80
-  const scrollY = window.scrollY
-  const sidebarTop = scrollY + sidebarRect.top
-  const maxScroll = sidebarTop + sidebarRect.height - el.offsetHeight - 20
+  if (!sidebar) return
+  const rect = sidebar.getBoundingClientRect()
+  const headerH = 90
 
-  if (scrollY > sidebarTop - headerH) {
-    const offset = Math.min(scrollY - sidebarTop + headerH, maxScroll - sidebarTop)
-    el.style.transform = `translateY(${Math.max(0, offset)}px)`
+  if (rect.top <= headerH) {
+    sidebarFixed.value = true
+    sidebarStyle.value = {
+      position: 'fixed',
+      top: headerH + 'px',
+      width: sidebar.offsetWidth + 'px',
+      maxHeight: `calc(100vh - ${headerH + 20}px)`,
+    }
   } else {
-    el.style.transform = 'translateY(0)'
+    sidebarFixed.value = false
+    sidebarStyle.value = {}
   }
-  sidebarRaf = requestAnimationFrame(stickSidebar)
 }
 
 onMounted(() => {
   if (route.query.q) searchQuery.value = route.query.q
   if (route.query.folder) activeFolder.value = route.query.folder
-  sidebarRaf = requestAnimationFrame(stickSidebar)
+  window.addEventListener('scroll', onScroll, { passive: true })
+  onScroll()
 })
 
 onBeforeUnmount(() => {
-  if (sidebarRaf) cancelAnimationFrame(sidebarRaf)
+  window.removeEventListener('scroll', onScroll)
 })
 watch([activeFolder, searchQuery], () => {
   if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -460,7 +462,7 @@ const closeProduct = () => {
   padding: 20px;
   max-height: calc(100vh - 110px);
   overflow-y: auto;
-  will-change: transform;
+  z-index: 10;
 }
 
 .sidebar-inner::-webkit-scrollbar {
