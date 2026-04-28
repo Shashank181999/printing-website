@@ -7,17 +7,14 @@
         '--delay': (n * 0.37 % 4.2).toFixed(1) + 's',
         '--h': (40 + (n % 4) * 12) + 'px',
         '--speed': (4 + (n % 3) * 1.5).toFixed(1) + 's',
+        '--c': dropColors[n % dropColors.length],
       }"></span>
-      <span v-for="n in 18" :key="'s'+n" class="footer-splash" :style="{
+      <span v-for="n in 18" :key="'g'+n" class="footer-glow" :style="{
         '--left': (n * 5.5 - 2) + '%',
         '--delay': (n * 0.37 % 4.2).toFixed(1) + 's',
         '--speed': (4 + (n % 3) * 1.5).toFixed(1) + 's',
-      }">
-        <span class="ripple ripple-1"></span>
-        <span class="ripple ripple-2"></span>
-        <span class="splash-bead bead-l"></span>
-        <span class="splash-bead bead-r"></span>
-      </span>
+        '--c': dropColors[n % dropColors.length],
+      }"></span>
     </div>
 
     <!-- Main Footer -->
@@ -172,6 +169,9 @@ gsap.registerPlugin(ScrollTrigger)
 const footerRef = ref(null)
 const currentYear = computed(() => new Date().getFullYear())
 
+// Single blue raindrop color
+const dropColors = ['74, 171, 222']
+
 const scrollToTop = () => {
   if (window.__lenis) {
     window.__lenis.scrollTo(0, { duration: 1.2 })
@@ -214,115 +214,53 @@ onMounted(() => {
 
 .footer-drop {
   position: absolute;
-  top: -10%;
+  top: -40px;
   left: var(--left);
-  width: 2px;
-  height: var(--h, 50px);
+  width: 4px;
+  height: var(--h, 52px);
   background: linear-gradient(to bottom,
     transparent 0%,
-    rgba(120, 200, 240, 0.25) 40%,
-    rgba(160, 220, 250, 0.9) 100%);
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  filter: drop-shadow(0 0 2px rgba(120, 200, 240, 0.6));
+    rgba(var(--c, 120, 200, 240), 1) 100%);
+  border-radius: 50% 50% 50% 50% / 5% 5% 50% 50%;
+  filter: drop-shadow(0 0 4px rgba(var(--c, 120, 200, 240), 0.8));
   opacity: 0;
-  will-change: top, opacity, transform;
-  transform: translateX(-50%);
+  transform-origin: top center;
+  will-change: top, opacity;
   animation: footerFall var(--speed, 5s) var(--delay, 0s) cubic-bezier(0.45, 0, 0.9, 0.35) infinite;
 }
 
 @keyframes footerFall {
-  0%   { top: -12%; opacity: 0; transform: translateX(-50%) scaleY(1); }
-  6%   { opacity: 0.9; }
-  80%  { top: calc(100% - 6px); opacity: 0.95; transform: translateX(-50%) scaleY(1); }
-  84%  { top: calc(100% - 2px); opacity: 0.7; transform: translateX(-50%) scaleY(0.25); }
-  86%  { top: calc(100% - 2px); opacity: 0; transform: translateX(-50%) scaleY(0); }
-  100% { top: calc(100% - 2px); opacity: 0; transform: translateX(-50%) scaleY(0); }
+  0%   { top: -5%;  opacity: 0; }
+  8%   { opacity: 1; }
+  75%  { top: calc(100% - 12px); opacity: 1; }
+  76%  { top: calc(100% - 12px); opacity: 0; }
+  100% { top: calc(100% - 12px); opacity: 0; }
 }
 
-/* ────────── Splash on impact (ripple rings + flying beads) ────────── */
-.footer-splash {
+/* Soft elliptical glow at the moment each drop hits the surface */
+.footer-glow {
   position: absolute;
   left: var(--left);
-  bottom: 4px;
-  width: 0;
-  height: 0;
-  pointer-events: none;
-}
-
-.ripple {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 28px;
-  height: 10px;
-  margin-left: -14px;
-  border: 1.5px solid rgba(140, 210, 245, 0.95);
-  border-bottom-color: transparent;
+  bottom: 6px;
+  width: 24px;
+  height: 8px;
+  margin-left: -12px;
   border-radius: 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(var(--c, 140, 210, 245), 1) 0%,
+    transparent 75%);
+  filter: blur(1.5px);
   opacity: 0;
   transform: scale(0);
-  transform-origin: center bottom;
-  animation: footerRipple var(--speed, 5s) var(--delay, 0s) ease-out infinite;
+  pointer-events: none;
+  animation: footerGlow var(--speed, 5s) var(--delay, 0s) ease-out infinite;
 }
 
-.ripple-2 {
-  width: 44px;
-  height: 16px;
-  margin-left: -22px;
-  border-width: 1px;
-  border-color: rgba(110, 190, 235, 0.7);
-  border-bottom-color: transparent;
-  animation: footerRipple2 var(--speed, 5s) var(--delay, 0s) ease-out infinite;
-}
-
-@keyframes footerRipple {
-  0%, 82% { transform: scale(0); opacity: 0; }
-  84%     { transform: scale(0.15); opacity: 1; }
-  92%     { transform: scale(1); opacity: 0.7; }
-  100%    { transform: scale(1.3); opacity: 0; }
-}
-
-@keyframes footerRipple2 {
-  0%, 84% { transform: scale(0); opacity: 0; }
-  87%     { transform: scale(0.2); opacity: 0.9; }
-  100%    { transform: scale(1.2); opacity: 0; }
-}
-
-/* Splash beads fly out sideways/upward on impact */
-.splash-bead {
-  position: absolute;
-  left: -1.5px;
-  bottom: 0;
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: rgba(180, 225, 250, 1);
-  box-shadow: 0 0 3px rgba(140, 210, 245, 0.8);
-  opacity: 0;
-}
-
-.bead-l {
-  animation: footerBeadL var(--speed, 5s) var(--delay, 0s) cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
-}
-
-.bead-r {
-  animation: footerBeadR var(--speed, 5s) var(--delay, 0s) cubic-bezier(0.3, 0.7, 0.4, 1) infinite;
-}
-
-@keyframes footerBeadL {
-  0%, 82%  { transform: translate(0, 0) scale(0.6); opacity: 0; }
-  84%      { transform: translate(0, 0) scale(1); opacity: 1; }
-  90%      { transform: translate(-12px, -10px) scale(0.9); opacity: 0.9; }
-  95%      { transform: translate(-18px, -2px) scale(0.7); opacity: 0; }
-  100%     { transform: translate(-18px, -2px) scale(0); opacity: 0; }
-}
-
-@keyframes footerBeadR {
-  0%, 82%  { transform: translate(0, 0) scale(0.6); opacity: 0; }
-  84%      { transform: translate(0, 0) scale(1); opacity: 1; }
-  90%      { transform: translate(12px, -10px) scale(0.9); opacity: 0.9; }
-  95%      { transform: translate(18px, -2px) scale(0.7); opacity: 0; }
-  100%     { transform: translate(18px, -2px) scale(0); opacity: 0; }
+@keyframes footerGlow {
+  0%, 73%  { transform: scaleX(0) scaleY(0.4); opacity: 0; }
+  78%      { transform: scaleX(0.9) scaleY(1); opacity: 0.85; }
+  86%      { transform: scaleX(1.2) scaleY(0.85); opacity: 0.5; }
+  100%     { transform: scaleX(1.6) scaleY(0.5); opacity: 0; }
 }
 
 /* ════════════════════════════════════════

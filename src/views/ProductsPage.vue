@@ -189,14 +189,6 @@
             </div>
           </div>
 
-          <!-- Load More -->
-          <div v-if="hasMore" class="load-more-wrap">
-            <button class="btn-load-more" @click="loadMore">
-              Load More Products
-              <span class="load-more-remaining">{{ filteredProducts.length - visibleCount }} remaining</span>
-            </button>
-          </div>
-
           <!-- Empty State -->
           <div v-if="filteredProducts.length === 0" class="empty-state">
             <div class="empty-icon">
@@ -303,11 +295,7 @@ onMounted(() => {
   if (route.query.q) searchQuery.value = route.query.q
   if (route.query.folder) activeFolder.value = route.query.folder
 })
-const ITEMS_PER_PAGE = 12
-const visibleCount = ref(ITEMS_PER_PAGE)
-
 watch([activeFolder, searchQuery], () => {
-  visibleCount.value = ITEMS_PER_PAGE
   if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
 })
 
@@ -339,12 +327,7 @@ const filteredProducts = computed(() => {
   return result
 })
 
-const visibleProducts = computed(() => filteredProducts.value.slice(0, visibleCount.value))
-const hasMore = computed(() => visibleCount.value < filteredProducts.value.length)
-
-const loadMore = () => {
-  visibleCount.value += ITEMS_PER_PAGE
-}
+const visibleProducts = computed(() => filteredProducts.value)
 
 const openProduct = (product) => {
   selectedProduct.value = product
@@ -859,45 +842,6 @@ const closeProduct = () => {
 
 .btn-get-quote:active {
   transform: translateY(0);
-}
-
-/* ===== Load More ===== */
-.load-more-wrap {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
-
-.btn-load-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 36px;
-  background: white;
-  color: var(--text-primary);
-  border: 2px solid #ddd;
-  border-radius: 50px;
-  font-family: var(--font-sans);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-
-.btn-load-more:hover {
-  border-color: var(--accent-teal);
-  color: var(--accent-teal);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(46, 139, 192, 0.12);
-}
-
-.load-more-remaining {
-  font-size: 12px;
-  font-weight: 500;
-  color: #999;
-  padding: 3px 12px;
-  background: var(--bg-secondary);
-  border-radius: 20px;
 }
 
 /* ===== Empty State ===== */
