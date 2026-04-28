@@ -28,8 +28,8 @@
 </template>
 
 <script setup>
-import { ref, provide, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, provide, onMounted, onBeforeUnmount, nextTick, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Lenis from '@studio-freight/lenis'
@@ -61,8 +61,10 @@ provide('openServiceForm', openServiceForm)
 // ---------- Global Lenis smooth scroll ----------
 let lenis = null
 let rafTicker = null
+const route = useRoute()
 
-onMounted(() => {
+function startLenis() {
+  if (lenis) return
   lenis = new Lenis({
     duration: 1.05,
     smoothWheel: true,
@@ -74,17 +76,36 @@ onMounted(() => {
   rafTicker = (time) => lenis && lenis.raf(time * 1000)
   gsap.ticker.add(rafTicker)
   gsap.ticker.lagSmoothing(0)
-  // Expose globally so routing / nav clicks can scrollTo
   window.__lenis = lenis
+}
+
+function stopLenis() {
+  if (!lenis) return
+  if (rafTicker) gsap.ticker.remove(rafTicker)
+  lenis.destroy()
+  lenis = null
+  window.__lenis = null
+}
+
+// Disable Lenis on Products page so sticky sidebar works
+watch(() => route.path, (path) => {
+  if (path === '/products') {
+    stopLenis()
+  } else {
+    startLenis()
+  }
+})
+
+onMounted(() => {
+  if (route.path !== '/products') {
+    startLenis()
+  }
+  window.addEventListener('scroll', updateScrollThumb, { passive: true })
 })
 
 onBeforeUnmount(() => {
-  if (rafTicker) gsap.ticker.remove(rafTicker)
-  if (lenis) {
-    lenis.destroy()
-    lenis = null
-  }
-  window.__lenis = null
+  stopLenis()
+  window.removeEventListener('scroll', updateScrollThumb)
 })
 
 // ---------- Fast page transitions ----------
@@ -211,8 +232,8 @@ body {
   line-height: 1.6;
   background: var(--bg-primary);
   color: var(--text-primary);
-  overflow-x: clip;
 }
+
 
 #app {
   min-height: 100vh;

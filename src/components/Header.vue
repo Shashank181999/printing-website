@@ -14,6 +14,7 @@
               playsinline
               preload="auto"
               aria-label="Al Falah Middle East"
+              @loadeddata="$event.target.classList.add('loaded')"
             ></video>
             <span class="logo-shine" aria-hidden="true"></span>
           </div>
@@ -307,18 +308,30 @@ onUnmounted(() => {
   justify-content: center;
   flex-shrink: 0;
   overflow: visible;
+  width: 104px;
+  height: 104px;
 }
 
 .logo-image {
   height: 104px;
-  width: auto;
+  width: 104px;
   display: block;
   vertical-align: middle;
   will-change: transform, filter;
   transform-origin: center center;
+  object-fit: contain;
+  background: transparent;
+  border: none;
+  outline: none;
+  opacity: 0;
   transition:
+    opacity 0.3s ease,
     transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
     filter 0.4s ease;
+}
+
+.logo-image.loaded {
+  opacity: 1;
 }
 
 .logo:hover .logo-image {
