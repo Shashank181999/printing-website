@@ -9,6 +9,7 @@
               src="/intro.mp4"
               class="logo-image"
               autoplay
+              loop
               muted
               playsinline
               preload="auto"
