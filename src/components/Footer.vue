@@ -37,7 +37,7 @@
             </router-link>
             <div class="brand-info">
               <p class="brand-desc">
-                Your trusted partner for premium printing, creative branding, and innovative advertising solutions — serving the UAE since 2020.
+                Your trusted partner for premium printing, creative branding, and innovative advertising solutions — serving since 2020.
               </p>
             </div>
             <div class="social-links">
