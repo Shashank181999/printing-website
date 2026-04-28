@@ -72,7 +72,7 @@
 
         <!-- Desktop Sidebar -->
         <aside class="sidebar">
-          <div class="sidebar-inner" :style="sidebarStyle">
+          <div class="sidebar-inner">
             <!-- Search -->
             <div class="sidebar-search">
               <div class="search-box">
@@ -281,7 +281,7 @@
 </template>
 
 <script setup>
-import { ref, computed, inject, watch, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, inject, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import productsData from '../products-data.json'
 
@@ -290,39 +290,12 @@ const route = useRoute()
 const selectedProduct = ref(null)
 const activeFolder = ref(null)
 const searchQuery = ref('')
-const sidebarFixed = ref(false)
-const sidebarStyle = ref({})
-
-function onScroll() {
-  const sidebar = document.querySelector('.sidebar')
-  if (!sidebar) return
-  const rect = sidebar.getBoundingClientRect()
-  const headerH = 90
-
-  if (rect.top <= headerH) {
-    sidebarFixed.value = true
-    sidebarStyle.value = {
-      position: 'fixed',
-      top: headerH + 'px',
-      width: sidebar.offsetWidth + 'px',
-      maxHeight: `calc(100vh - ${headerH + 20}px)`,
-    }
-  } else {
-    sidebarFixed.value = false
-    sidebarStyle.value = {}
-  }
-}
 
 onMounted(() => {
   if (route.query.q) searchQuery.value = route.query.q
   if (route.query.folder) activeFolder.value = route.query.folder
-  window.addEventListener('scroll', onScroll, { passive: true })
-  onScroll()
 })
 
-onBeforeUnmount(() => {
-  window.removeEventListener('scroll', onScroll)
-})
 watch([activeFolder, searchQuery], () => {
   if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
 })
@@ -456,13 +429,14 @@ const closeProduct = () => {
 }
 
 .sidebar-inner {
+  position: sticky;
+  top: 90px;
   background: white;
   border: 1px solid #eee;
   border-radius: 12px;
   padding: 20px;
   max-height: calc(100vh - 110px);
   overflow-y: auto;
-  z-index: 10;
 }
 
 .sidebar-inner::-webkit-scrollbar {
