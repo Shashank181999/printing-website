@@ -16,6 +16,10 @@
     <Footer />
     <SocialSidebar />
     <ChatBot />
+    <!-- Custom fixed-size scroll indicator -->
+    <div class="scroll-track">
+      <div class="scroll-thumb" :style="{ top: scrollThumbTop + '%' }"></div>
+    </div>
     <ServiceRequestForm
       v-if="showServiceForm"
       @close="showServiceForm = false"
@@ -38,6 +42,15 @@ import ServiceRequestForm from './components/ServiceRequestForm.vue'
 gsap.registerPlugin(ScrollTrigger)
 
 const showServiceForm = ref(false)
+const scrollThumbTop = ref(0)
+
+function updateScrollThumb() {
+  const scrollTop = window.scrollY
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight
+  if (docHeight > 0) {
+    scrollThumbTop.value = (scrollTop / docHeight) * 82
+  }
+}
 
 const openServiceForm = () => {
   showServiceForm.value = true
@@ -57,7 +70,7 @@ onMounted(() => {
     wheelMultiplier: 1.1,
     easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
   })
-  lenis.on('scroll', ScrollTrigger.update)
+  lenis.on('scroll', () => { ScrollTrigger.update(); updateScrollThumb() })
   rafTicker = (time) => lenis && lenis.raf(time * 1000)
   gsap.ticker.add(rafTicker)
   gsap.ticker.lagSmoothing(0)
@@ -417,6 +430,48 @@ input, textarea, select {
 
 html {
   scrollbar-width: none; /* Firefox */
+}
+
+/* Custom scroll indicator — fixed size on all pages */
+.scroll-track {
+  position: fixed;
+  right: 4px;
+  top: 5%;
+  height: 90%;
+  width: 8px;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.scroll-thumb {
+  position: absolute;
+  width: 8px;
+  height: 18%;
+  border-radius: 100px;
+  background: linear-gradient(
+    180deg,
+    #3fb8af,
+    #5fc85c,
+    #d4e04a,
+    #f2a23c,
+    #4a90e2
+  );
+  transition: top 0.05s linear;
+  opacity: 0.85;
+}
+
+.scroll-thumb:hover {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .scroll-track {
+    width: 6px;
+    right: 2px;
+  }
+  .scroll-thumb {
+    width: 6px;
+  }
 }
 
 /* Selection */
