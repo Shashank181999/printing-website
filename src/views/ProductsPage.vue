@@ -281,7 +281,7 @@
 </template>
 
 <script setup>
-import { ref, computed, inject, watch, onMounted } from 'vue'
+import { ref, computed, inject, watch, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 import productsData from '../products-data.json'
 
@@ -290,10 +290,36 @@ const route = useRoute()
 const selectedProduct = ref(null)
 const activeFolder = ref(null)
 const searchQuery = ref('')
+const sidebarRef = ref(null)
+
+let sidebarRaf = null
+function stickSidebar() {
+  const el = document.querySelector('.sidebar-inner')
+  const sidebar = document.querySelector('.sidebar')
+  if (!el || !sidebar) return
+  const sidebarRect = sidebar.getBoundingClientRect()
+  const headerH = 80
+  const scrollY = window.scrollY
+  const sidebarTop = scrollY + sidebarRect.top
+  const maxScroll = sidebarTop + sidebarRect.height - el.offsetHeight - 20
+
+  if (scrollY > sidebarTop - headerH) {
+    const offset = Math.min(scrollY - sidebarTop + headerH, maxScroll - sidebarTop)
+    el.style.transform = `translateY(${Math.max(0, offset)}px)`
+  } else {
+    el.style.transform = 'translateY(0)'
+  }
+  sidebarRaf = requestAnimationFrame(stickSidebar)
+}
 
 onMounted(() => {
   if (route.query.q) searchQuery.value = route.query.q
   if (route.query.folder) activeFolder.value = route.query.folder
+  sidebarRaf = requestAnimationFrame(stickSidebar)
+})
+
+onBeforeUnmount(() => {
+  if (sidebarRaf) cancelAnimationFrame(sidebarRaf)
 })
 watch([activeFolder, searchQuery], () => {
   if (typeof window !== 'undefined') window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -428,14 +454,13 @@ const closeProduct = () => {
 }
 
 .sidebar-inner {
-  position: sticky;
-  top: 90px;
   background: white;
   border: 1px solid #eee;
   border-radius: 12px;
   padding: 20px;
   max-height: calc(100vh - 110px);
   overflow-y: auto;
+  will-change: transform;
 }
 
 .sidebar-inner::-webkit-scrollbar {
