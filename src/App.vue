@@ -15,7 +15,6 @@
     </main>
     <Footer />
     <SocialSidebar />
-    <ChatBot />
     <!-- Custom fixed-size scroll indicator -->
     <div class="scroll-track">
       <div class="scroll-thumb" :style="{ top: scrollThumbTop + '%' }"></div>
@@ -36,7 +35,6 @@ import Lenis from '@studio-freight/lenis'
 import Header from './components/Header.vue'
 import Footer from './components/Footer.vue'
 import SocialSidebar from './components/SocialSidebar.vue'
-import ChatBot from './components/ChatBot.vue'
 import ServiceRequestForm from './components/ServiceRequestForm.vue'
 
 gsap.registerPlugin(ScrollTrigger)
